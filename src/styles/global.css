@@ -1,0 +1,28 @@
+
+@font-face {
+  font-family: "VarelaRound";
+  src: url('../../public/fonts/VarelaRound.woff') format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "WaffleStory";
+  src: url('../../public/fonts/WaffleStory.woff') format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "HelveticaRounded";
+  src: url('../../public/fonts/HelveticaRounded.woff') format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "HelveticaRounded";
+  src: url('../../public/fonts/HelveticaRoundedBold.woff') format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
