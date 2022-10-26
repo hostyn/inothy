@@ -29,11 +29,12 @@ const SelectionDiv = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
   border-bottom: 2px solid #dcdcdc;
+  text-align: center;
 `;
 
 const Underline = styled(motion.div)`
   position: relative;
-  bottom: -2px;
+  bottom: -1px;
   left: 0;
   right: 0;
   min-height: 2px;
@@ -43,8 +44,10 @@ const Underline = styled(motion.div)`
 
 const Option = styled.div`
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
   background-color: ${(props) => (props.selected ? "#eee" : "transparent")};
-  border-radius: 0.7rem 0.7rem 0 0;
+  border-radius: 10px 10px 0 0;
 `;
 
 export default function AuthModal({ selected = "login" }) {
@@ -60,34 +63,42 @@ export default function AuthModal({ selected = "login" }) {
       />
       <AuthForm>
         <SelectionDiv>
-          <Option
-            onClick={() => setSelectedState("login")}
-            selected={selectedState === "login"}
-          >
-            <Text
-              color="secondary"
-              textAlign="center"
-              fontSize="1.5rem"
-              margin="0.5rem 0 0.5rem 0"
+          <div>
+            <Option
+              onClick={() => setSelectedState("login")}
+              selected={selectedState === "login"}
             >
-              Login
-            </Text>
+              <Text
+                color="secondary"
+                textAlign="center"
+                fontSize="1.5rem"
+                margin="0.5rem 0 0.5rem 0"
+                userSelect="none"
+                cursor="pointer"
+              >
+                Login
+              </Text>
+            </Option>
             {selectedState === "login" && <Underline layoutId="underline" />}
-          </Option>
-          <Option
-            onClick={() => setSelectedState("register")}
-            selected={selectedState === "register"}
-          >
-            <Text
-              color="secondary"
-              textAlign="center"
-              fontSize="1.5rem"
-              margin="0.5rem 0 0.5rem 0"
+          </div>
+          <div>
+            <Option
+              onClick={() => setSelectedState("register")}
+              selected={selectedState === "register"}
             >
-              Register
-            </Text>
+              <Text
+                color="secondary"
+                textAlign="center"
+                fontSize="1.5rem"
+                margin="0.5rem 0 0.5rem 0"
+                userSelect="none"
+                cursor="pointer"
+              >
+                Register
+              </Text>
+            </Option>
             {selectedState === "register" && <Underline layoutId="underline" />}
-          </Option>
+          </div>
         </SelectionDiv>
         <AnimatePresence exitBeforeEnter>
           <motion.div

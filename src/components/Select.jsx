@@ -4,11 +4,13 @@ import { colors } from "../config/theme";
 const Select = styled.select`
   padding: 10px;
   border-radius: 10px;
-  border: 2px solid ${colors.primary};
+  border: ${(props) => props.border || `2px solid ${colors.primary}`};
   font-family: inherit;
   color: ${colors.primary};
   background-color: transparent;
   font-size: 1rem;
+  margin: ${(props) => props.margin || "0"};
+  outline: none;
 
   -moz-appearance: none; /* Firefox */
   -webkit-appearance: none; /* Safari and Chrome */

@@ -8,12 +8,12 @@ import {
 } from "firebase/auth";
 import { getUserData } from "../util/api";
 import { useRouter } from "next/router";
-import Loading from "../components/Loading";
+import LoadingPage from "../components/LoadingPage";
 
 const authContext = createContext();
 export const useAuth = () => useContext(authContext);
 
-export function AuthProvider({ children }) {
+export function AuthProvider({ children, headers: initialHeaders }) {
   const {
     push,
     pathname,
@@ -23,6 +23,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isUser, setIsUser] = useState(false);
+  const [headers, setHeaders] = useState(initialHeaders);
 
   // AUTH FUNCTIONS
   const login = async (email, password) =>
@@ -74,7 +75,7 @@ export function AuthProvider({ children }) {
   }, [ref]);
 
   if (isLoading) {
-    return <Loading />;
+    return <LoadingPage />;
   }
 
   if (
@@ -86,12 +87,12 @@ export function AuthProvider({ children }) {
     pathname !== "/useractions"
   ) {
     push("/completeprofile");
-    return <Loading />;
+    return <LoadingPage />;
   }
 
   return (
     <authContext.Provider
-      value={{ login, register, logout, user, updateData, isUser }}
+      value={{ login, register, logout, user, updateData, isUser, headers }}
     >
       {children}
     </authContext.Provider>

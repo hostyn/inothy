@@ -1,4 +1,6 @@
+import App from "next/app";
 import { createGlobalStyle } from "styled-components";
+import Cookies from "../components/Cookies";
 import Providers from "../context/Providers";
 import "../styles/global.css";
 
@@ -21,13 +23,23 @@ const GlobalStyle = createGlobalStyle`
 
 `;
 
-function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
   return (
-    <Providers>
+    <Providers headers={pageProps.headers}>
       <GlobalStyle />
+      <Cookies />
       <Component {...pageProps} />
     </Providers>
   );
 }
 
-export default MyApp;
+MyApp.getInitialProps = async (appContext) => {
+  // calls page's `getInitialProps` and fills `appProps.pageProps`
+  const appProps = await App.getInitialProps(appContext);
+  return {
+    pageProps: {
+      ...appProps.pageProps,
+      headers: appContext.ctx.req.headers,
+    },
+  };
+};

@@ -61,22 +61,10 @@ export default class MyDocument extends Document {
             content="Compra y vende tus apuntes con comisiones bajas."
           />
 
-          <meta
+          {/* <meta
             name="facebook-domain-verification"
             content="lwd1jg3pvse7ux8e4asxl0aw4c40qy"
-          />
-          {/* <meta property="twitter:image" content="/icon.png" /> */}
-
-          <link rel="preconnect" href="https://fonts.googleapis.com"></link>
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="true"
-          ></link>
-          <link
-            href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto&display=swap"
-            rel="stylesheet"
-          ></link>
+          /> */}
 
           {this.props.styleTags}
         </Head>

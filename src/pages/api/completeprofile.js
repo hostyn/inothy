@@ -1,9 +1,11 @@
 import admin from "../../config/firebaseadmin";
+import mangopay from "../../config/mangopay";
 import { isUsernameAvailable } from "../../util/api";
 
 export default async function completeprofile(req, res) {
   if (req.method !== "POST") {
     res.status(405).json({ error: "Method not allowed" });
+    return;
   }
 
   if (!req.headers.authorization) {
@@ -37,6 +39,10 @@ export default async function completeprofile(req, res) {
     body.name.length === 0 ||
     body.surname.length === 0 ||
     body.username.length === 0 ||
+    body.address1.length === 0 ||
+    body.city.length === 0 ||
+    body.region.length === 0 ||
+    body.postalCode.length === 0 ||
     body.university.length === 0 ||
     body.school.length === 0 ||
     body.degree.length === 0
@@ -57,6 +63,14 @@ export default async function completeprofile(req, res) {
     return;
   }
 
+  if (
+    !body.username.match(
+      /^(?=.{4,30}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/
+    )
+  ) {
+    res.status(400).json({ error: "Invalid username" });
+    return;
+  }
   if (!(await isUsernameAvailable(body.username))) {
     res.status(400).json({ error: "Usernmae unavailable" });
     return;
@@ -88,6 +102,34 @@ export default async function completeprofile(req, res) {
     return;
   }
 
+  // Create mangopay user
+  const createUserResponse = await mangopay.Users.create({
+    FirstName: body.name,
+    LastName: body.surname,
+    Email: user.email,
+    Address: {
+      AddressLine1: body.address1,
+      AddressLine2: body.address2,
+      City: body.city,
+      Region: body.region,
+      PostalCode: body.postalCode,
+      Country: "ES",
+    },
+    PersonType: "NATURAL",
+    UserCategory: "PAYER",
+    TermsAndConditionsAccepted: true,
+  });
+
+  const mangopayClientId = createUserResponse.Id;
+
+  const createWalletResponse = await mangopay.Wallets.create({
+    Owners: [mangopayClientId],
+    Currency: "EUR",
+    Description: "Inothy Wallet",
+  });
+
+  const mangopayWalletId = createWalletResponse.Id;
+
   try {
     await admin
       .firestore()
@@ -98,12 +140,23 @@ export default async function completeprofile(req, res) {
         name: body.name,
         surname: body.surname,
         username: body.username,
+        address: {
+          address1: body.address1,
+          address2: body.address2,
+          city: body.city,
+          region: body.region,
+          postalCode: body.postalCode,
+          country: "ES",
+        },
+        mangopayClientId: mangopayClientId,
+        mangopayWalletId: mangopayWalletId,
+        mangopayType: "PAYER",
         university: body.university,
         school: body.school,
         degree: body.degree,
         ref: body.ref || null,
       });
-    res.status(200).json({ status: "done" });
+    res.status(200).json({ status: "Success" });
   } catch {
     res.status(500).json({ error: "Internal server error" });
   }

@@ -5,6 +5,9 @@ module.exports = {
   compiler: {
     styledComponents: true,
   },
+  images: {
+    domains: ["storage.googleapis.com"],
+  },
   swcMinify: true,
   async headers() {
     return [

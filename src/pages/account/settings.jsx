@@ -4,7 +4,7 @@ import SettingsView from "../../views/account/Settings";
 export default function Settings() {
   return (
     <ProtectedContent>
-      <SettingsView />;
+      <SettingsView />
     </ProtectedContent>
   );
 }

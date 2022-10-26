@@ -4,7 +4,7 @@ import ProfileView from "../../views/account/Profile";
 export default function Profile() {
   return (
     <ProtectedContent>
-      <ProfileView />;
+      <ProfileView />
     </ProtectedContent>
   );
 }

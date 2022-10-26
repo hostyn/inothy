@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useAuth } from "../context/authContext";
-import Loading from "./Loading";
+import LoadingPage from "./LoadingPage";
 
 export default function ProtectedContent({ children }) {
   const { isUser } = useAuth();
@@ -8,7 +8,7 @@ export default function ProtectedContent({ children }) {
 
   if (!isUser) {
     push("/");
-    return <Loading />;
+    return <LoadingPage />;
   }
 
   return <>{children}</>;

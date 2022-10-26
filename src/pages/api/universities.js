@@ -19,7 +19,9 @@ export default async function universities(req, res) {
       };
     });
     res.status(200).json(universities);
+    return;
   } catch {
     res.status(500).json({ error: "Internal server error" });
+    return;
   }
 }

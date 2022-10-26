@@ -46,6 +46,7 @@ const Item = styled.div`
   cursor: pointer;
   border-radius: 20px;
   padding: 0.2rem 1rem;
+  transition: 0.2s;
   background-color: ${(props) =>
     props.active ? colors.primary : "transparent"};
 
@@ -85,6 +86,7 @@ export default function Menu({
                   aspectRatio="83/50"
                 />
                 <Text
+                  cursor="inherit"
                   fontSize="1.5rem"
                   fontWeight="bold"
                   color={downloads ? "white" : "secondary"}
@@ -104,6 +106,7 @@ export default function Menu({
                   aspectRatio="1"
                 />
                 <Text
+                  cursor="inherit"
                   fontSize="1.5rem"
                   fontWeight="bold"
                   color={profile ? "white" : "secondary"}
@@ -123,6 +126,7 @@ export default function Menu({
                   aspectRatio="33/25"
                 />
                 <Text
+                  cursor="inherit"
                   fontSize="1.5rem"
                   fontWeight="bold"
                   color={balance ? "white" : "secondary"}
@@ -142,6 +146,7 @@ export default function Menu({
                   aspectRatio="83/50"
                 />
                 <Text
+                  cursor="inherit"
                   fontSize="1.5rem"
                   fontWeight="bold"
                   color={uploads ? "white" : "secondary"}
@@ -161,6 +166,7 @@ export default function Menu({
                   aspectRatio="83/50"
                 />
                 <Text
+                  cursor="inherit"
                   fontSize="1.5rem"
                   fontWeight="bold"
                   color={settings ? "white" : "secondary"}

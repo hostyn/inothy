@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { createContext, useContext, useState } from "react";
 import styled from "styled-components";
+import { colors } from "../config/theme";
 
 const Backdrop = styled(motion.div)`
   position: fixed;
@@ -13,7 +14,7 @@ const Backdrop = styled(motion.div)`
   justify-content: center;
   align-items: center;
   z-index: 999;
-  background-color: #c8c8c8af;
+  background-color: ${colors.backdrop};
   backdrop-filter: blur(5px);
 `;
 

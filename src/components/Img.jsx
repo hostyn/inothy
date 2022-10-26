@@ -32,7 +32,7 @@ export default function Img({
       onClick={onClick}
       cursor={cursor}
     >
-      <Image src={src} layout="fill" alt={alt} />
+      <Image src={src} layout="fill" alt={alt} draggable="false" />
     </ImageDiv>
   );
 }

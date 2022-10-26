@@ -7,15 +7,22 @@ import { useAuth } from "../../context/authContext";
 import { useModal } from "../../context/modalContext";
 import Welcome from "./Welcome";
 import { sendVerificationEmail } from "../../util/api";
+import { colors } from "../../config/theme";
 
 const Form = styled.form`
   text-align: center;
   width: 100%;
 `;
 
+const Inline = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin: ${(params) => params.margin || "initial"};
+`;
+
 const Error = styled.p`
-  color: red;
-  position: absolute;
+  color: ${colors.secondary};
+  /* position: absolute; */
   bottom: 2rem;
   left: 0;
   right: 0;
@@ -30,7 +37,11 @@ export default function RegisterForm() {
     password: "",
     repeatPassword: "",
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState({
+    email: null,
+    password: null,
+    repeatPassword: null,
+  });
 
   const handleChange = ({ target }) => {
     setForm({ ...form, [target.name]: target.value });
@@ -38,7 +49,7 @@ export default function RegisterForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setError({ email: null, password: null, repeatPassword: null });
     if (validateForm(form)) return;
 
     try {
@@ -49,52 +60,102 @@ export default function RegisterForm() {
       // logout();
     } catch (e) {
       if (e.code === "auth/email-already-in-use") {
-        setError("El email ya está en uso");
+        setError((error) => ({ ...error, email: "El email ya está en uso" }));
       }
     }
   };
 
   const validateForm = (form) => {
+    let anyErrors = false;
     if (!form.email.length) {
-      setError("El email no pude estar vacío");
-      return 1;
-    }
-    if (!form.password.length) {
-      setError("La contraseña no puede estar vacía");
-      return 1;
-    }
-    if (!form.repeatPassword.length) {
-      setError("Porfavor repita la contraseña");
-      return 1;
-    }
-    if (
+      setError((error) => ({ ...error, email: "El email es obligatorio" }));
+      anyErrors = true;
+    } else if (
       !form.email
         .toLowerCase()
         .match(
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )
     ) {
-      setError("El email no es válido");
-      return 1;
+      setError((error) => ({ ...error, email: "El email no es válido" }));
+      anyErrors = true;
     }
-    if (form.password.length < 8) {
-      setError("La contraseña debe tener al menos 8 caracteres");
-      return 1;
+
+    if (!form.password.length) {
+      setError((error) => ({
+        ...error,
+        password: "La contraseña es obligatoria",
+      }));
+      anyErrors = true;
+    } else if (form.password.length < 8) {
+      setError((error) => ({
+        ...error,
+        password: "La contraseña debe tener al menos 8 caracteres",
+      }));
+      anyErrors = true;
     }
-    if (form.password !== form.repeatPassword) {
-      setError("Las contraseñas no coinciden");
-      return 1;
+
+    if (!form.repeatPassword.length) {
+      setError((error) => ({
+        ...error,
+        repeatPassword: "Por favor repita la contraseña",
+      }));
+      anyErrors = true;
+    } else if (form.password !== form.repeatPassword) {
+      setError((error) => ({
+        ...error,
+        repeatPassword: "Las contraseñas no coinciden",
+      }));
+      anyErrors = true;
     }
+    return anyErrors;
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Text margin="0 0 0.5rem 0">Correo electrónico</Text>
-      <Input name="email" type="text" onChange={handleChange} />
-      <Text margin="2rem 0 0.5rem 0">Contraseña</Text>
-      <Input name="password" type="password" onChange={handleChange} />
-      <Text margin="2rem 0 0.5rem 0">Repetir contraseña</Text>
-      <Input name="repeatPassword" type="password" onChange={handleChange} />
+      <Inline margin="0 0 0.5rem 0">
+        <Text>Correo electrónico</Text>
+        {error.email && <Error>{error.email}</Error>}
+      </Inline>
+      <Input
+        name="email"
+        type="text"
+        onChange={handleChange}
+        border={
+          error.email
+            ? `2px solid ${colors.secondary}`
+            : `2px solid ${colors.primary}`
+        }
+      />
+      <Inline margin="2rem 0 0.5rem 0">
+        <Text>Contraseña</Text>
+        {error.password && <Error>{error.password}</Error>}
+      </Inline>
+      <Input
+        name="password"
+        type="password"
+        onChange={handleChange}
+        border={
+          error.password
+            ? `2px solid ${colors.secondary}`
+            : `2px solid ${colors.primary}`
+        }
+      />
+      <Inline margin="2rem 0 0.5rem 0">
+        <Text>Repetir contraseña</Text>
+        {error.repeatPassword && <Error>{error.repeatPassword}</Error>}
+      </Inline>
+      <Input
+        name="repeatPassword"
+        type="password"
+        onChange={handleChange}
+        border={
+          error.repeatPassword
+            ? `2px solid ${colors.secondary}`
+            : `2px solid ${colors.primary}`
+        }
+      />
+
       <Button
         height="2.5rem"
         padding="0 2rem"
@@ -103,7 +164,6 @@ export default function RegisterForm() {
       >
         Registrarse
       </Button>
-      {error && <Error>{error}</Error>}
     </Form>
   );
 }

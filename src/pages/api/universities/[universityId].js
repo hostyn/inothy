@@ -1,4 +1,4 @@
-import admin from "../../../config/firebaseadmin";
+import { firestoreAdmin } from "../../../config/firebaseadmin";
 
 export default async function schools(req, res) {
   if (req.method !== "GET") {
@@ -6,28 +6,34 @@ export default async function schools(req, res) {
     return;
   }
   try {
-    const { university } = req.query;
-    const data = await admin
-      .firestore()
+    const { universityId } = req.query;
+    const universitySnapshot = firestoreAdmin
       .collection("universities")
-      .doc(university)
+      .doc(universityId);
+
+    const universityData = (await universitySnapshot.get()).data();
+
+    const schoolsData = await universitySnapshot
       .collection("schools")
       .orderBy("name")
       .get();
 
-    if (data.empty) {
+    if (schoolsData.empty) {
       res.status(404).json({ error: "Not found" });
       return;
     }
 
-    const schools = data.docs.map((doc) => {
+    const schools = schoolsData.docs.map((doc) => {
       return {
         ...doc.data(),
         ["id"]: doc.id,
       };
     });
-    res.status(200).json(schools);
+    res
+      .status(200)
+      .json({ ...universityData, id: universitySnapshot.id, schools: schools });
   } catch {
     res.status(500).json({ error: "Internal server error" });
+    return;
   }
 }

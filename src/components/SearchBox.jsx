@@ -3,7 +3,7 @@ import { colors } from "../config/theme";
 import Img from "./Img";
 
 const InputDiv = styled.div`
-  border: 1px solid ${(props) => colors[props.border] || colors.primary};
+  border: 2px solid ${(props) => colors[props.border] || colors.primary};
   border-radius: ${(props) => props.borderRadius || "999999px"};
   width: ${(props) => props.width || "auto"};
   max-width: ${(props) => props.maxWidth || "auto"};

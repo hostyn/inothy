@@ -9,7 +9,7 @@ import Textarea from "../../components/Textarea";
 import { useAuth } from "../../context/authContext";
 import { useEffect, useState } from "react";
 import Select from "../../components/Select";
-import { getDegrees, getSchools, getUniversities } from "../../util/api";
+import { getSchool, getUniversities, getUniversity } from "../../util/api";
 
 const ProfileGrid = styled.div`
   height: ${sizes.accountHeight};
@@ -65,12 +65,12 @@ export default function ProfileView() {
       setData((data) => ({ ...data, universities: res }))
     );
 
-    getSchools(user.data.university).then((res) =>
-      setData((data) => ({ ...data, schools: res }))
+    getUniversity(user.data.university).then((res) =>
+      setData((data) => ({ ...data, schools: res.schools }))
     );
 
-    getDegrees(user.data.university, user.data.school).then((res) =>
-      setData((data) => ({ ...data, degrees: res }))
+    getSchool(user.data.university, user.data.school).then((res) =>
+      setData((data) => ({ ...data, degrees: res.degrees }))
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -96,9 +96,6 @@ export default function ProfileView() {
                 Nombre
               </Text>
               <Input
-                border={`2px solid ${colors.primary}`}
-                borderRadius="10px"
-                padding="10px"
                 name="name"
                 value={userData.name}
                 onChange={handleChange}
@@ -110,9 +107,6 @@ export default function ProfileView() {
                 Apellidos
               </Text>
               <Input
-                border={`2px solid ${colors.primary}`}
-                borderRadius="10px"
-                padding="10px"
                 name="surname"
                 value={userData.surname}
                 onChange={handleChange}
@@ -123,26 +117,13 @@ export default function ProfileView() {
               <Text fontSize="1.5rem" margin="0 0 0.5rem 0">
                 Correo electrónico
               </Text>
-              <Input
-                border={`2px solid ${colors.primary}`}
-                borderRadius="10px"
-                padding="10px"
-                name="name"
-                disabled
-              />
+              <Input name="name" disabled />
             </InputDiv>
             <InputDiv>
               <Text fontSize="1.5rem" margin="0 0 0.5rem 0">
                 Biografía
               </Text>
-              <Textarea
-                border={`2px solid ${colors.primary}`}
-                borderRadius="10px"
-                padding="10px"
-                name="name"
-                rows="4"
-                disabled
-              />
+              <Textarea name="name" rows="4" disabled />
             </InputDiv>
           </ProfileBox>
           <ProfileBox girdColumn="2" gridRow="1">

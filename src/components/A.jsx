@@ -10,6 +10,10 @@ const A = styled.a`
   margin: ${(props) => props.margin || "initial"};
   cursor: pointer;
   user-select: none;
+
+  :hover {
+    text-decoration: underline;
+  }
 `;
 
 export default A;

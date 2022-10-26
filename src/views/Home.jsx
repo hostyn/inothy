@@ -447,7 +447,7 @@ export default function HomeView() {
               width="70%"
               margin="0 0 2rem 0"
             />
-            <Text color="secondary" fontSize="2rem" textAlign="center">
+            <Text fontSize="2rem" textAlign="center">
               Unete a nuestra comunidad y no olvides verificar tu correo para
               continuar con el proceso.
             </Text>
@@ -459,11 +459,11 @@ export default function HomeView() {
               width="70%"
               margin="0 0 2rem 0"
             />
-            <Text color="secondary" fontSize="2rem" textAlign="center">
+            <Text fontSize="2rem" textAlign="center">
               Sube material académico de manera fácil y sencilla con lan solo un
               click. Puedes subir cualquier tipo de archivo.
             </Text>
-            <Text fontSize="2rem" textAlign="center">
+            <Text color="secondary" fontSize="2rem" textAlign="center">
               (pdf, doc, excel, ppt, jpg, txt...)
             </Text>
           </ComoCard>
@@ -474,7 +474,7 @@ export default function HomeView() {
               width="70%"
               margin="0 0 2rem 0"
             />
-            <Text color="secondary" fontSize="2rem" textAlign="center">
+            <Text fontSize="2rem" textAlign="center">
               Designa un precio coherente de tu material académico. Te guiaremos
               con el mejor precio de venta.
             </Text>
@@ -486,7 +486,7 @@ export default function HomeView() {
               width="70%"
               margin="0 0 2rem 0"
             />
-            <Text color="secondary" fontSize="2rem" textAlign="center">
+            <Text fontSize="2rem" textAlign="center">
               Compra apuntes de otros usuarios, según tus preferencias. Podrás
               ver las valoraciones y aptitudes de cada usuario.
             </Text>

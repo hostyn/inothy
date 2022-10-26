@@ -12,7 +12,11 @@ export default async function isUsernameAvailable(req, res) {
   }
 
   try {
-    const doc = await admin.firestore().collection("users").where("username", "==", username).get();
+    const doc = await admin
+      .firestore()
+      .collection("users")
+      .where("username", "==", username)
+      .get();
     if (doc.empty) {
       res.status(200).json({ available: true });
       return;
@@ -21,5 +25,6 @@ export default async function isUsernameAvailable(req, res) {
     return;
   } catch (e) {
     res.status(500).json({ error: "Internal Server Error" });
+    return;
   }
 }

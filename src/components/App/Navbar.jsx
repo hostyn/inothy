@@ -62,7 +62,7 @@ const Navbar = styled.div`
 
   display: grid;
   grid-template-columns: ${(props) =>
-    props.logged ? "15% 30% 12.5% 12.5% 5% 25%" : "15% 30% 10% 10% 1fr 1fr"};
+    props.logged ? "15% 25% 12.5% 12.5% 5% 22% 8%" : "15% 30% 10% 10% 1fr 1fr"};
 
   padding: 2rem 5rem;
   margin: 0 ${sizes.inlineMargin};
@@ -82,6 +82,7 @@ const User = styled.div`
   margin: 0 auto;
   border-radius: 15px;
   padding: 0 1rem;
+  transition: 0.2s;
 
   &:hover {
     background-color: ${colors.hover};
@@ -94,12 +95,12 @@ const Menu = styled.div`
   display: ${(props) => (props.show ? "flex" : "none")};
   flex-direction: column;
 
-  min-width: calc((100% - 20rem) * 0.25);
-  max-width: calc((100% - 20rem) * 0.25);
+  min-width: calc((100% - 20rem) * 0.22);
+  max-width: calc((100% - 20rem) * 0.22);
   z-index: 1000;
   position: absolute;
   top: ${sizes.navbar};
-  right: calc(10rem);
+  right: calc(10rem + (100% - 20rem) * 0.08);
 
   background-color: #ffffffaa;
   backdrop-filter: blur(5px);
@@ -121,6 +122,7 @@ const Item = styled.div`
   user-select: none;
   cursor: pointer;
   border-radius: 10px;
+  transition: 0.2s;
 
   &:hover {
     background-color: ${colors.hover};
@@ -189,8 +191,10 @@ export default function Nav({ transparent }) {
           <Img src="/imagotipo.svg" alt="Logo" height="150%" cursor="pointer" />
         </Link>
         <SearchBox />
-        <A>Universidades</A>
-        <A>Información</A>
+        <Link href="/universities">
+          <A textAlign="center">Universidades</A>
+        </Link>
+        <A textAlign="center">Información</A>
         {isUser ? (
           <>
             <Img src="/icons/chart.svg" alt="Carrito" height="70%" />
@@ -224,6 +228,9 @@ export default function Nav({ transparent }) {
                 cursor="pointer"
               />
             </User>
+            <Link href="/upload">
+              <Button margin="0">Subir</Button>
+            </Link>
             <Menu show={showMenu} ref={menuRef}>
               <Link href="/account/downloads">
                 <Item>
@@ -232,7 +239,12 @@ export default function Nav({ transparent }) {
                     aspectRatio="83/50"
                     width="2rem"
                   />
-                  <Text fontSize="1.5rem" fontWeight="bold" color="secondary">
+                  <Text
+                    fontSize="1.5rem"
+                    fontWeight="bold"
+                    color="secondary"
+                    cursor="inherit"
+                  >
                     Descargas
                   </Text>
                 </Item>
@@ -240,7 +252,12 @@ export default function Nav({ transparent }) {
               <Link href="/account/profile">
                 <Item>
                   <Img src="/icons/profile.svg" aspectRatio="1" width="2rem" />
-                  <Text fontSize="1.5rem" fontWeight="bold" color="secondary">
+                  <Text
+                    fontSize="1.5rem"
+                    fontWeight="bold"
+                    color="secondary"
+                    cursor="inherit"
+                  >
                     Cuenta
                   </Text>
                 </Item>
@@ -252,7 +269,12 @@ export default function Nav({ transparent }) {
                     aspectRatio="33/25"
                     width="2rem"
                   />
-                  <Text fontSize="1.5rem" fontWeight="bold" color="secondary">
+                  <Text
+                    fontSize="1.5rem"
+                    fontWeight="bold"
+                    color="secondary"
+                    cursor="inherit"
+                  >
                     Saldo
                   </Text>
                 </Item>
@@ -264,7 +286,12 @@ export default function Nav({ transparent }) {
                     aspectRatio="83/50"
                     width="2rem"
                   />
-                  <Text fontSize="1.5rem" fontWeight="bold" color="secondary">
+                  <Text
+                    fontSize="1.5rem"
+                    fontWeight="bold"
+                    color="secondary"
+                    cursor="inherit"
+                  >
                     Subido
                   </Text>
                 </Item>

@@ -4,7 +4,7 @@ import DownloadsView from "../../views/account/Downloads";
 export default function Downloads() {
   return (
     <ProtectedContent>
-      <DownloadsView />;
+      <DownloadsView />
     </ProtectedContent>
   );
 }

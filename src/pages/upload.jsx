@@ -1,5 +1,5 @@
 import ProtectedContent from "../components/ProtectedContent";
-import UploadView from "../views/Upload";
+import UploadView from "../views/Upload/UploadPage";
 
 export default function Upload() {
   return (

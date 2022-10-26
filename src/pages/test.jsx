@@ -1,21 +1,13 @@
-import App from "../components/App";
-import Loading from "../components/Loading";
 import { useAuth } from "../context/authContext";
-import { useModal } from "../context/modalContext";
-import { getDegrees } from "../util/api";
+import registerCard from "../util/cardregistration";
 
-export default function Test() {
-  const { logout, user } = useAuth();
-  const { openModal, closeModal } = useModal();
-
-  const handleClick = async () => {
-    const data = await getDegrees(
-      "3ZdipeyW7T8TTilUVBb5",
-      "2FhIUOE5jzJui9zr9Ksb"
-    );
-
-    console.log(data);
+export default function Test({}) {
+  const { headers } = useAuth();
+  console.log(headers);
+  const { user } = useAuth();
+  const handleTest = async () => {
+    const response = await registerCard(user, 4970105181854329, 1124, 111);
+    console.log(response);
   };
-
-  return <Loading />;
+  return <button onClick={handleTest}>Test</button>;
 }

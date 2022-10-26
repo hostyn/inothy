@@ -1,7 +1,7 @@
-import Loading from "../../components/Loading";
+import LoadingPage from "../../components/LoadingPage";
 
 export default function Account() {
-  return <Loading />;
+  return <LoadingPage />;
 }
 
 export function getServerSideProps() {
