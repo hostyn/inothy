@@ -39,7 +39,7 @@ MyApp.getInitialProps = async (appContext) => {
   return {
     pageProps: {
       ...appProps.pageProps,
-      headers: appContext.ctx.req.headers,
+      headers: appContext.ctx.req ? appContext.ctx.req.headers : null,
     },
   };
 };
