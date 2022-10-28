@@ -62,4 +62,76 @@ exports.mangopayKycCallback = functions.https.onRequest(async (req, res) => {
   });
 
   res.status(200).json({ status: "done" });
+  return;
+});
+
+exports.mangopayPayinCallback = functions.https.onRequest(async (req, res) => {
+  const { originalUrl } = req;
+  const urlParams = new URLSearchParams(originalUrl.substring(1));
+  const id = urlParams.get("RessourceId");
+
+  const response = await mangopay.PayIns.get(id);
+
+  const transactionSnapshot = admin
+    .firestore()
+    .collection("transactions")
+    .doc(id);
+
+  if (response.Status !== "SUCCEEDED") {
+    transactionSnapshot.update({
+      status: response.Status,
+    });
+    res.status(200).json({ status: "ok" });
+    return;
+  }
+
+  const transaction = (await transactionSnapshot.get()).data();
+
+  const recipts = await Promise.all(
+    transaction.recipts.map(async (doc) => {
+      const ownerData = (
+        await admin.firestore().collection("users").doc(doc.createdBy).get()
+      ).data();
+
+      const recipt = await mangopay.Transfers.create({
+        AuthorId: transaction.authorId,
+        DebitedWalletId: transaction.authorWalletId,
+        CreditedWalletId: ownerData.mangopayWalletId,
+        DebitedFunds: {
+          Currency: "EUR",
+          Amount: doc.price * 100,
+        },
+        Fees: {
+          Currency: "EUR",
+          Amount: 20,
+        },
+      });
+
+      return {
+        path: doc.path,
+        price: doc.price,
+        createdBy: doc.createdBy,
+        transactionId: recipt.Id,
+        creationDate: recipt.CreationDate,
+        fees: recipt.Fees.Amount / 100,
+      };
+    })
+  );
+
+  await admin
+    .firestore()
+    .collection("users")
+    .doc(transaction.author)
+    .update({
+      bought: admin.firestore.FieldValue.arrayUnion(
+        ...recipts.map((doc) => doc.path)
+      ),
+    });
+
+  await transactionSnapshot.update({
+    status: response.Status,
+    recipts: recipts,
+  });
+
+  res.status(200).json({ status: "ok" });
 });

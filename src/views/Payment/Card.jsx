@@ -58,13 +58,28 @@ export default function Card({ setState, paymentDetails, setPaymentDetails }) {
   const [cards, setCards] = useState([]);
 
   const handlePay = async () => {
-    const res = await buy(
-      user,
-      paymentDetails.cardId,
-      paymentDetails.documents,
-      headers
-    );
-    console.log(res);
+    setState("loading");
+    try {
+      const res = await buy(
+        user,
+        paymentDetails.cardId,
+        paymentDetails.documents,
+        headers
+      );
+
+      if (res.status === "success") {
+        // TODO: Success
+        console.log(res);
+      }
+
+      if (res.status === "created") {
+        console.log(res);
+        location.href = res.redirectUrl;
+      }
+    } catch (e) {
+      // TODO: Mensaje de error
+      console.log(e);
+    }
   };
 
   useEffect(() => {

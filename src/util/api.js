@@ -306,4 +306,8 @@ export async function buy(user, cardId, documents, headers) {
       acceptHeaders: headers.accept,
     }),
   });
+
+  if (res.status === 200) return await res.json();
+  if (res.status === 400) throw new Error("Bad Request");
+  throw new Error("Internal server error");
 }
