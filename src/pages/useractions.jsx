@@ -4,14 +4,22 @@ import { auth } from "../config/firebase";
 import VerifyEmail from "../views/VerifyEmail";
 
 export default function VerifyEmailPage({ mode, verified, oobCode, email }) {
-  if (!verified) return <VerifyEmail verified={verified} />;
+  if (!verified)
+    return (
+      <>
+        <Head>
+          <title>Inothy - No se ha podido verificar</title>
+        </Head>
+        <VerifyEmail verified={verified} />
+      </>
+    );
 
   switch (mode) {
     case "verifyEmail":
       return (
         <>
           <Head>
-            <title>Inothy - Verificar email</title>
+            <title>Inothy - Email verificado</title>
           </Head>
           <VerifyEmail verified={verified} />
         </>

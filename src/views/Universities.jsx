@@ -1,12 +1,11 @@
 import App from "../components/App";
 import styled from "styled-components";
-import { colors, sizes } from "../config/theme";
+import { sizes } from "../config/theme";
 import Img from "../components/Img";
 import Text from "../components/Text";
 import Input from "../components/Input";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Loading from "../components/Loading";
-import { getUniversities } from "../util/api";
 import Link from "next/link";
 import normalize from "../util/normailize";
 import Card from "../components/Card";
@@ -46,6 +45,7 @@ export default function UniversitiesView({ universities }) {
             aspectRatio="1"
             height="15rem"
             width="auto"
+            priority
           />
           <Text
             fontSize="5rem"

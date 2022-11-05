@@ -11,6 +11,8 @@ import KYCCompleted from "./KYCCompleted";
 import KYCError from "./KYCError";
 import { completeKYC } from "../../util/api";
 import Upload from "./Upload";
+import Success from "./Success";
+import Error from "./Error";
 
 const UploadDiv = styled.div`
   display: flex;
@@ -74,10 +76,12 @@ export default function UploadView() {
             <CompleteProfileInfo setData={setData} setState={setState} />
           )}
           {state === "kyc" && <Kyc handleSubmit={hanldeKYCSubmit} />}
-          {state === "upload" && <Upload />}
+          {state === "upload" && <Upload setState={setState} />}
           {state === "loading" && <Loading />}
           {state === "kyccompleted" && <KYCCompleted />}
           {state === "kycerror" && <KYCError />}
+          {state === "success" && <Success />}
+          {state === "error" && <Error />}
         </MotionDiv>
       </UploadDiv>
     </App>

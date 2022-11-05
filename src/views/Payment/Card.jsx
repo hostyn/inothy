@@ -52,8 +52,13 @@ const VerticalText = styled.div`
   flex-direction: column;
 `;
 
-export default function Card({ setState, paymentDetails, setPaymentDetails }) {
-  const { user, headers } = useAuth();
+export default function Card({
+  setState,
+  paymentDetails,
+  setPaymentDetails,
+  onSuccess,
+}) {
+  const { user, headers, updateData } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [cards, setCards] = useState([]);
 
@@ -68,17 +73,21 @@ export default function Card({ setState, paymentDetails, setPaymentDetails }) {
       );
 
       if (res.status === "success") {
-        // TODO: Success
-        console.log(res);
+        await updateData();
+        setState("success");
+        await new Promise((res) => setTimeout(res, 2000));
+        if (onSuccess) {
+          onSuccess();
+          return;
+        }
+        // TODO: END
       }
 
       if (res.status === "created") {
-        console.log(res);
         location.href = res.redirectUrl;
       }
-    } catch (e) {
-      // TODO: Mensaje de error
-      console.log(e);
+    } catch {
+      setState("error");
     }
   };
 
@@ -110,8 +119,10 @@ export default function Card({ setState, paymentDetails, setPaymentDetails }) {
           >
             <Img src="/icons/card.svg" aspectRatio="39/25" />
             <VerticalText>
-              <Text fontSize="1.5rem">{card.Alias}</Text>
-              <Text>
+              <Text fontSize="1.5rem" userSelect="none">
+                {card.Alias}
+              </Text>
+              <Text userSelect="none">
                 {card.ExpirationDate.substr(0, 2)}/
                 {card.ExpirationDate.substr(2, 2)} | {card.CardProvider}
               </Text>

@@ -1,10 +1,16 @@
+import Head from "next/head";
 import ProtectedContent from "../components/ProtectedContent";
 import UploadView from "../views/Upload/UploadPage";
 
 export default function Upload() {
   return (
-    <ProtectedContent>
-      <UploadView />
-    </ProtectedContent>
+    <>
+      <Head>
+        <title>Inothy - Subir archivos</title>
+      </Head>
+      <ProtectedContent>
+        <UploadView />
+      </ProtectedContent>
+    </>
   );
 }

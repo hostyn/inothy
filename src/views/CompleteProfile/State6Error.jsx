@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Button from "../../components/Button";
+import Img from "../../components/Img";
 import Text from "../../components/Text";
 
 const ErrorDiv = styled.div`
@@ -16,6 +17,7 @@ const ErrorDiv = styled.div`
 export default function State6Error({ setState }) {
   return (
     <ErrorDiv>
+      <Img src="/error.svg" aspectRatio="1" width="10rem" height="auto" />
       <Text
         color="secondary"
         fontWeight="bold"

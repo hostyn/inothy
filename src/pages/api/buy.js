@@ -91,8 +91,6 @@ export default async function createcardregistration(req, res) {
     },
   });
 
-  console.log(response);
-
   if (response.Status === "CREATED") {
     await firestoreAdmin
       .collection("transactions")

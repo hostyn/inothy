@@ -219,35 +219,39 @@ export default function CompleteProfileInfo({ setData, setState }) {
         <TitleAndInput>
           <Text>Fecha de nacimiento</Text>
           <BirthDiv>
-            <Select name="year" onChange={handleDate}>
+            <Select
+              name="year"
+              onChange={handleDate}
+              value={userData.birthday.year}
+            >
               {range(101, new Date().getFullYear() - 100)
                 .reverse()
                 .map((x) => (
-                  <option
-                    key={x}
-                    value={x}
-                    selected={userData.birthday.year === x}
-                  >
+                  <option key={x} value={x}>
                     {x}
                   </option>
                 ))}
             </Select>
-            <Select name="month" onChange={handleDate}>
+            <Select
+              name="month"
+              onChange={handleDate}
+              value={userData.birthday.month}
+            >
               {months.map((value, index) => (
-                <option
-                  key={index + 1}
-                  value={index + 1}
-                  selected={userData.birthday.month == index + 1}
-                >
+                <option key={index + 1} value={index + 1}>
                   {value}
                 </option>
               ))}
             </Select>
-            <Select name="day" onChange={handleDate}>
+            <Select
+              name="day"
+              onChange={handleDate}
+              value={userData.birthday.day}
+            >
               {range(
                 daysInMonth(userData.birthday.year, userData.birthday.month)
               ).map((x) => (
-                <option key={x} value={x} selected={userData.birthday.day == x}>
+                <option key={x} value={x}>
                   {x}
                 </option>
               ))}
@@ -317,13 +321,13 @@ export default function CompleteProfileInfo({ setData, setState }) {
         </TitleAndInput>
         <TitleAndInput>
           <Text>Nacionalidad</Text>
-          <Select name="nationality" onChange={handleChange}>
+          <Select
+            name="nationality"
+            onChange={handleChange}
+            value={userData.nationality}
+          >
             {countries.map((country) => (
-              <option
-                key={country.iso}
-                value={country.iso}
-                selected={userData.nationality === country.iso}
-              >
+              <option key={country.iso} value={country.iso}>
                 {country.name}
               </option>
             ))}

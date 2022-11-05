@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 import { colors, sizes } from "../../config/theme";
 import A from "../A";
@@ -12,13 +13,18 @@ const FooterDiv = styled.footer`
 
   box-sizing: border-box;
   background-color: ${colors.primary};
-  padding: 1rem 15%;
+  padding: 1rem ${sizes.inlineMargin};
 
   display: grid;
-  grid-template-columns: 18% 18% 28% 12% 12% 12%;
+  grid-template-columns: repeat(2, 1fr) 13rem repeat(2, 1fr);
   gap: 1rem;
   align-items: center;
   text-align: center;
+
+  @media (max-width: 1000px) {
+    grid-template-columns: 13rem;
+    padding: 1rem calc((100% - 13rem) / 2);
+  }
 `;
 
 const Contacto = styled.div`
@@ -32,39 +38,72 @@ const Contacto = styled.div`
   display: grid;
   grid-template-columns: 40% 60%;
 
-  padding: 0 15rem;
+  padding: 0 10vw;
 
   align-items: center;
   justify-items: center;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const TextDiv = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 600px) {
+    & p {
+      font-size: 6vw;
+    }
+  }
 `;
 
 const RRSS = styled.div`
   display: flex;
   justify-content: center;
-  margin: 4rem 0 0 0;
+  margin: 1vw 0 0 0;
 `;
 
 const RRSSButton = styled.a`
   aspect-ratio: 1;
   background-color: ${(props) => colors[props.background] || colors.primary};
-  padding: 1.3rem;
+  padding: 1.7vw;
   border-radius: 99999px;
-  margin: 0 1rem;
-  width: 6rem;
+  margin: 0 2vw;
+  width: 7vw;
+
+  @media (max-width: 600px) {
+    padding: 2.2vw;
+    width: 10vw;
+    margin: 0 4vw;
+  }
+`;
+
+const HiddenLink = styled(A)`
+  @media (max-width: 1000px) {
+    display: none;
+  }
+`;
+
+const HiddenImg = styled(Img)`
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export default function Footer() {
   return (
     <>
       <Contacto>
-        <Img src="/resources/footer/resource.svg" aspectRatio="83/75" />
+        <HiddenImg
+          src="/resources/footer/resource.svg"
+          aspectRatio="83/75"
+          width="100%"
+          height="auto"
+        />
         <TextDiv>
-          <Text fontFamily="HelveticaRounded" fontSize="4rem">
+          <Text fontFamily="HelveticaRounded" fontSize="4vw" textAlign="center">
             Contactemos
           </Text>
           <RRSS>
@@ -85,22 +124,43 @@ export default function Footer() {
         </TextDiv>
       </Contacto>
       <FooterDiv>
-        <A color="white" fontWeight="regular" fontSize="1.2rem">
+        <HiddenLink
+          color="white"
+          fontWeight="regular"
+          fontSize="1.2rem"
+          textAlign="center"
+        >
           ¿Por qué inothy?
-        </A>
-        <A color="white" fontWeight="regular" fontSize="1.2rem">
+        </HiddenLink>
+        <HiddenLink
+          color="white"
+          fontWeight="regular"
+          fontSize="1.2rem"
+          textAlign="center"
+        >
           ¿Cómo funciona?
-        </A>
-        <Img src="/isologo.svg" />
-        <A color="white" fontWeight="regular" fontSize="1.2rem">
+        </HiddenLink>
+        <Link href="/" passHref>
+          <a style={{ height: "100%" }}>
+            <Img src="/isologo.svg" />
+          </a>
+        </Link>
+        <HiddenLink
+          color="white"
+          fontWeight="regular"
+          fontSize="1.2rem"
+          textAlign="center"
+        >
           Legal
-        </A>
-        <A color="white" fontWeight="regular" fontSize="1.2rem">
+        </HiddenLink>
+        <HiddenLink
+          color="white"
+          fontWeight="regular"
+          fontSize="1.2rem"
+          textAlign="center"
+        >
           Cookies
-        </A>
-        <A color="white" fontWeight="regular" fontSize="1.2rem">
-          Contacto
-        </A>
+        </HiddenLink>
       </FooterDiv>
     </>
   );

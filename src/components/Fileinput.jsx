@@ -32,7 +32,7 @@ export default function Fileinput({
   return (
     <>
       <Label htmlFor={id} margin={margin} border={border}>
-        {children || "Adjuntar archivos"}
+        {children || "Adjuntar archivo"}
       </Label>
       <Input
         id={id}

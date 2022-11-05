@@ -8,10 +8,14 @@ const InputDiv = styled.div`
   width: ${(props) => props.width || "auto"};
   max-width: ${(props) => props.maxWidth || "auto"};
   height: ${(props) => props.height || "100%"};
-  margin: ${(props) => props.margin || "0 1em"};
+  margin: ${(props) => props.margin || "0 1rem"};
   display: flex;
   align-items: center;
   padding: 0 15px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const StyledInput = styled.input`

@@ -1,8 +1,18 @@
+import Head from "next/head";
 import { getDegree, getSchool, getUniversity } from "../../../../util/api";
 import DegreePage from "../../../../views/Degree";
 
 export default function Degree({ degree }) {
-  return <DegreePage degree={degree} />;
+  return (
+    <>
+      <Head>
+        <title>
+          Inothy - {degree.name} - {degree.university.name}
+        </title>
+      </Head>
+      <DegreePage degree={degree} />
+    </>
+  );
 }
 
 export async function getServerSideProps({

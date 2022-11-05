@@ -58,6 +58,8 @@ const Summary = styled.div`
 `;
 
 const SummaryCard = styled.div`
+  display: flex;
+  flex-direction: column;
   border-radius: 20px;
   border: 2px solid ${colors.primary};
   padding: 1rem;

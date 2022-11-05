@@ -45,8 +45,8 @@ export default async function upload(req, res) {
     return;
   }
 
-  if (!body.files.length) {
-    res.status(400).json({ error: "Must be at least one file" });
+  if (!body.filePath) {
+    res.status(400).json({ error: "File is required" });
     return;
   }
 
@@ -72,39 +72,30 @@ export default async function upload(req, res) {
     return;
   }
 
-  const promises = body.files.map(async (filePath) => {
-    const file = storageAdmin.file(filePath);
-    const fileMetadata = await file.getMetadata();
-    return (
-      fileMetadata[0].metadata.user === user.uid &&
-      fileMetadata[0].metadata.uploadCompleted === "false"
-    );
-  });
+  const file = storageAdmin.file(body.filePath);
+  const fileMetadata = await file.getMetadata();
 
-  const valid = await Promise.all(promises).then((res) => res.every((r) => r));
-
-  if (!valid) {
-    res.status(400).json("Wrong files");
+  if (
+    fileMetadata[0].metadata.user === user.uid &&
+    fileMetadata[0].metadata.uploadCompleted === false
+  ) {
+    res.status(400).json("Wrong file");
     return;
   }
 
-  const updateMetadataPromises = body.files.map(async (filePath) => {
-    const file = storageAdmin.file(filePath);
-    await file.setMetadata({
-      metadata: {
-        uploadCompleted: true,
-      },
-    });
+  await file.setMetadata({
+    metadata: {
+      uploadCompleted: true,
+    },
   });
-
-  await Promise.all(updateMetadataPromises);
 
   const docs = subjectDoc.collection("docs");
 
-  docs.add({
+  const response = await docs.add({
     name: body.name,
     description: body.description,
-    files: body.files,
+    file: body.filePath,
+    fileName: body.filePath.split("/").at(-1),
     createdAt: new Date(),
     createdBy: user.uid,
     price: body.price,
@@ -112,6 +103,7 @@ export default async function upload(req, res) {
     rating: null,
     totalRatings: 0,
   });
-  res.status(200).json({ status: "success" });
+
+  res.status(200).json({ status: "success", path: response.path });
   return;
 }

@@ -10,7 +10,7 @@ import {
   getSchool,
   getUniversities,
   getUniversity,
-  uploadFiles,
+  uploadFile,
 } from "../../util/api";
 import Select from "../../components/Select";
 import Text from "../../components/Text";
@@ -19,6 +19,7 @@ import Textarea from "../../components/Textarea";
 import Fileinput from "../../components/Fileinput";
 import Checkbox from "../../components/Checkbox";
 import { colors } from "../../config/theme";
+import { useRouter } from "next/router";
 
 const UploadDiv = styled.div`
   display: flex;
@@ -35,13 +36,14 @@ const Title = styled.div`
 const UploadForm = styled.div`
   margin: 1rem 0 0 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 3rem;
 `;
 
 const Column = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 100%;
 `;
 
 const UploadBox = styled.div`
@@ -57,15 +59,18 @@ const FileBox = styled.div`
   margin: 0 0 5px 0;
 `;
 
-export default function Upload() {
+export default function Upload({ setState }) {
   const { user } = useAuth();
-  const [files, setFiles] = useState([]);
+  const { push } = useRouter();
+
+  const [file, setFile] = useState(null);
   const [error, setError] = useState({
     name: null,
     description: null,
     subject: null,
-    files: null,
+    file: null,
   });
+
   const [docData, setDocData] = useState({
     name: "",
     description: "",
@@ -85,12 +90,9 @@ export default function Upload() {
   });
 
   const handleFileChange = ({ target }) => {
+    console.log(target.files[0]);
     setError((error) => ({ ...error, files: null }));
-    setFiles((files) => [...files, ...target.files]);
-  };
-
-  const removeFile = ({ target }) => {
-    setFiles((files) => files.filter((_, index) => index != target.id));
+    setFile(target.files[0]);
   };
 
   const handleDataChange = ({ target }) => {
@@ -214,10 +216,10 @@ export default function Upload() {
       anyError = true;
     }
 
-    if (!files.length) {
+    if (!file) {
       setError((error) => ({
         ...error,
-        files: "Debes subir al menos un archivo",
+        file: "Debes subir un archivo",
       }));
       anyError = true;
     }
@@ -237,25 +239,33 @@ export default function Upload() {
 
     const folderName = uuidv4();
     const storageRef = ref(storage, "files/" + folderName);
-    const promises = files.map((file) => {
-      const fileRef = ref(storageRef, "inothy-" + file.name);
-      return uploadBytes(fileRef, file, {
-        customMetadata: { user: user.uid, uploadCompleted: false },
+
+    const fileRef = ref(storageRef, "inothy-" + file.name);
+
+    const fileSnapshot = await uploadBytes(fileRef, file, {
+      customMetadata: { user: user.uid, uploadCompleted: false },
+    });
+
+    const filePath = fileSnapshot.metadata.fullPath;
+
+    try {
+      const res = await uploadFile(user, {
+        name: docData.name,
+        description: docData.description,
+        subject: docData.subject,
+        filePath: filePath,
+        requestVerification: docData.validate,
+        price: docData.price,
       });
-    });
 
-    const uploadedFiles = await Promise.all(promises);
-    const filesPaths = uploadedFiles.map((file) => file.metadata.fullPath);
+      const docId = res.path.split("/").at(-1);
 
-    // TODO: Handle errors and success
-    await uploadFiles(user, {
-      name: docData.name,
-      description: docData.description,
-      subject: docData.subject,
-      files: filesPaths,
-      requestVerification: docData.validate,
-      price: docData.price,
-    });
+      setState("success");
+      await new Promise((res) => setTimeout(res, 2000));
+      push(`/subject/${docData.subject}/${docId}`);
+    } catch (e) {
+      setState("error");
+    }
   };
 
   useEffect(() => {
@@ -327,38 +337,17 @@ export default function Upload() {
 
           <UploadBox>
             <Fileinput
-              key={files}
-              multiple
               onChange={handleFileChange}
               border={
-                error.files
+                error.file
                   ? `2px solid ${colors.secondary}`
                   : `2px solid ${colors.primary}`
               }
             />
-            <Text color={error.files ? "secondary" : "primary"}>
-              {error.files
-                ? error.files
-                : `${files.length} archivos seleccionados.`}
+            <Text color={error.file ? "secondary" : "primary"}>
+              {error.file ? error.file : file ? `${file.name}` : ""}
             </Text>
           </UploadBox>
-          {files &&
-            files.map((item, index) => (
-              <FileBox key={index}>
-                <Text userSelect="none" color="disabledColor" id={index}>
-                  {item.name}
-                </Text>
-                <Text
-                  cursor="pointer"
-                  color="disabledColor"
-                  onClick={removeFile}
-                  fontWeight="bold"
-                  userSelect="none"
-                >
-                  X
-                </Text>
-              </FileBox>
-            ))}
         </Column>
 
         <Column>

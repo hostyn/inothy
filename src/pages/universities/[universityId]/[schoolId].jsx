@@ -1,8 +1,18 @@
+import Head from "next/head";
 import { getSchool, getUniversity } from "../../../util/api";
 import SchoolPage from "../../../views/School";
 
 export default function School({ school }) {
-  return <SchoolPage school={school} />;
+  return (
+    <>
+      <Head>
+        <title>
+          Inothy - {school.name} - {school.university.name}
+        </title>
+      </Head>
+      <SchoolPage school={school} />
+    </>
+  );
 }
 
 export async function getServerSideProps({

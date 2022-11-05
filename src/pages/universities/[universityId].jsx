@@ -1,8 +1,16 @@
+import Head from "next/head";
 import { getUniversity } from "../../util/api";
 import UniversityPage from "../../views/University";
 
 export default function University({ university }) {
-  return <UniversityPage university={university} />;
+  return (
+    <>
+      <Head>
+        <title>Inothy - {university.name}</title>
+      </Head>
+      <UniversityPage university={university} />
+    </>
+  );
 }
 
 export async function getServerSideProps({ params: { universityId } }) {

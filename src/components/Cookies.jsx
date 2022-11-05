@@ -17,10 +17,11 @@ const Backdrop = styled.div`
 
 const Modal = styled.div`
   background-color: ${colors.white};
-  height: 40vh;
+  min-width: min(30rem, 100vw);
+  min-height: 15rem;
   width: 40vw;
   border-radius: 20px;
-  padding: 3rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -30,7 +31,13 @@ const Modal = styled.div`
 
 const InlineText = styled.div`
   margin: 1rem 0 0 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export default function Cookies() {
@@ -54,7 +61,7 @@ export default function Cookies() {
         <Backdrop>
           <Modal>
             <Text fontSize="2rem">Cookies</Text>
-            <Text textAlign="center" width="70%">
+            <Text textAlign="center">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam
               quasi optio cumque quam? Harum sed autem fugiat aperiam. Sed
               magnam adipisci minima perferendis vel sit voluptatibus magni quis
@@ -62,13 +69,20 @@ export default function Cookies() {
             </Text>
             <InlineText>
               <Button
+                margin="0"
                 padding="0.5rem 1rem"
                 background="secondary"
+                height="auto"
                 onClick={() => history.back()}
               >
                 Rechazar cookies
               </Button>
-              <Button padding="0.5rem 1rem" onClick={handleAccept}>
+              <Button
+                padding="0.5rem 1rem"
+                onClick={handleAccept}
+                margin="0"
+                height="auto"
+              >
                 Aceptar cookies
               </Button>
             </InlineText>

@@ -192,7 +192,7 @@ export async function completeProfile(user, userData) {
   throw new Error("Internal server error");
 }
 
-export async function uploadFiles(user, docData) {
+export async function uploadFile(user, docData) {
   const accessToken = await user.auth.currentUser.getIdToken();
 
   // TODO: handle errors
@@ -211,7 +211,7 @@ export async function uploadFiles(user, docData) {
     throw new Error("Internal server error");
   }
 
-  return res;
+  return await res.json();
 }
 
 export async function completeKYC(user, data) {
@@ -310,4 +310,35 @@ export async function buy(user, cardId, documents, headers) {
   if (res.status === 200) return await res.json();
   if (res.status === 400) throw new Error("Bad Request");
   throw new Error("Internal server error");
+}
+
+export async function getTransaction(user, transactionId) {
+  const accessToken = await user.auth.currentUser.getIdToken();
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/transaction/${transactionId}`,
+    {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  if (res.status === 200) return await res.json();
+
+  if (res.status === 404) throw new Error("Not found");
+  throw new Error("Internal server error");
+}
+
+export async function getDownloadUrl(user, subjectId, docId) {
+  const accessToken = await user.auth.currentUser.getIdToken();
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/getdownloadurl/${subjectId}/${docId}`,
+    { method: "GET", headers: { authorization: `Bearer ${accessToken}` } }
+  );
+
+  if (res.status === 200) return await res.json();
+  throw new Error("internal server errror");
 }

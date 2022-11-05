@@ -6,6 +6,7 @@ export const colors = {
   disabledBackground: "rgba(239, 239, 239, 0.3)",
   backdrop: "#c8c8c8af",
   hover: "#dddddd",
+  emphasis: "#eaeaea",
   shadow: "rgba(0, 0, 0, 0.1)",
   disabledButton: "#415369",
 };

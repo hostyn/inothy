@@ -24,6 +24,8 @@ const NavbarDiv = styled.nav`
       ? `calc(${sizes.navbar} + ${sizes.banner})`
       : sizes.navbar};
 
+  padding: 0 5rem;
+
   position: absolute;
   top: 0;
 
@@ -31,6 +33,14 @@ const NavbarDiv = styled.nav`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 1000px) {
+    padding: 0 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0;
+  }
 `;
 
 const VerifyEmailBanner = styled.div`
@@ -52,6 +62,7 @@ const VerifyEmailBanner = styled.div`
 
 const Navbar = styled.div`
   min-width: calc(100% - 10rem);
+  width: 100%;
   min-height: ${sizes.navbar};
   max-height: ${sizes.navbar};
 
@@ -61,22 +72,44 @@ const Navbar = styled.div`
       border-radius: 0 0 30px 30px;`}
 
   display: grid;
+  gap: 10px;
+
   grid-template-columns: ${(props) =>
-    props.logged ? "15% 25% 12.5% 12.5% 5% 22% 8%" : "15% 30% 10% 10% 1fr 1fr"};
+    props.logged
+      ? "12rem 1fr 10rem 10rem 4rem 22rem 6rem"
+      : "12rem 1fr repeat(2, 10rem) repeat(2, 12rem)"};
 
-  padding: 2rem 5rem;
-  margin: 0 ${sizes.inlineMargin};
+  padding: 2rem 2rem;
 
+  justify-content: center;
   align-items: center;
   text-align: center;
+
+  @media (max-width: 1500px) {
+    grid-template-columns: ${(props) =>
+      props.logged ? "12rem 1fr 22rem" : "12rem 1fr 12rem 12rem"};
+  }
+
+  @media (max-width: 1000px) {
+    grid-template-columns: ${(props) =>
+      props.logged ? "5rem 1fr 22rem" : "5rem 1fr 12rem"};
+    margin: 0 1rem;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 2rem calc((100% - 10rem) / 2);
+    margin: 0 1rem;
+  }
 `;
 
 const User = styled.div`
   display: flex;
   min-height: 100%;
   max-height: 100%;
+  min-width: 100%;
   max-width: 100%;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   cursor: pointer;
   margin: 0 auto;
@@ -88,19 +121,24 @@ const User = styled.div`
     background-color: ${colors.hover};
   }
 
-  background-color: ${(props) => (props.hover ? colors.hover : "transparent")};
+  background-color: ${(props) =>
+    props.hover ? colors.hover : colors.emphasis};
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const Menu = styled.div`
   display: ${(props) => (props.show ? "flex" : "none")};
   flex-direction: column;
 
-  min-width: calc((100% - 20rem) * 0.22);
-  max-width: calc((100% - 20rem) * 0.22);
-  z-index: 1000;
+  min-width: 22rem;
+  max-width: 22rem;
+  z-index: 100;
   position: absolute;
   top: ${sizes.navbar};
-  right: calc(10rem + (100% - 20rem) * 0.08);
+  right: calc(13rem + 10px);
 
   background-color: #ffffffaa;
   backdrop-filter: blur(5px);
@@ -108,6 +146,23 @@ const Menu = styled.div`
   padding: 2rem;
   border-radius: 20px;
   border: 3px solid ${colors.primary};
+
+  @media (max-width: 1500px) {
+    right: calc(5rem + 2rem);
+  }
+
+  @media (max-width: 1000px) {
+    right: calc(2rem + 2rem);
+  }
+
+  @media (max-width: 768px) {
+    min-width: initial;
+    max-width: initial;
+    width: initial;
+    min-height: calc(100vh - ${sizes.navbar});
+    right: 0;
+    left: 0;
+  }
 `;
 
 const Item = styled.div`
@@ -136,12 +191,73 @@ const Separator = styled.div`
   background-color: ${colors.secondary};
 `;
 
+const HiddenElement = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 1500px) {
+    display: none;
+  }
+`;
+
+const MenuHiddenButtons = styled.div`
+  display: none;
+  width: 100%;
+
+  @media (max-width: 1500px) {
+    display: grid;
+  }
+`;
+
+const HiddenLogo = styled.div`
+  display: ${(props) => (props.inverted ? "none" : "grid")};
+  width: 100%;
+  height: 100%;
+
+  @media (max-width: 1000px) {
+    display: ${(props) => (props.inverted ? "grid" : "none")};
+  }
+
+  @media (max-width: 768px) {
+    display: ${(props) => (props.inverted ? "none" : "grid")};
+  }
+`;
+
+const HiddenButton = styled.div`
+  display: none;
+  position: absolute;
+  right: 5vw;
+  min-height: 2rem;
+  min-width: 2rem;
+  top: calc((${sizes.navbar} - 2rem) / 2);
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+`;
+
+const HiddenLogin = styled(Button)`
+  @media (max-width: 1000px) {
+    display: none;
+  }
+`;
+
+const HiddenRegister = styled(Button)`
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
 export default function Nav({ transparent }) {
   const { openModal } = useModal();
   const { user, isUser, logout } = useAuth();
   const [showMenu, setShowMenu] = useState(false);
-  const menuRef = useRef(null);
-  const userRef = useRef(null);
+  const menuRef = useRef();
+  const userRef = useRef();
+  const buttonRef = useRef();
 
   const handleClick = async () => {
     try {
@@ -157,11 +273,10 @@ export default function Nav({ transparent }) {
   useEffect(() => {
     function handleClickOutside(event) {
       if (
-        menuRef.current &&
-        userRef.current &&
         !(
-          userRef.current.contains(event.target) ||
-          menuRef.current.contains(event.target)
+          userRef.current?.contains(event.target) ||
+          menuRef.current?.contains(event.target) ||
+          buttonRef.current?.contains(event.target)
         )
       ) {
         setShowMenu(false);
@@ -187,17 +302,85 @@ export default function Nav({ transparent }) {
       )}
       <Navbar logged={isUser} transparent={transparent}>
         {/* TODO: Arreglar el link */}
-        <Link href="/">
-          <Img src="/imagotipo.svg" alt="Logo" height="150%" cursor="pointer" />
-        </Link>
+        <HiddenLogo>
+          <Link href="/" passHref>
+            <a
+              style={{
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Img
+                src="/imagotipo.svg"
+                alt="Logo"
+                height="150%"
+                cursor="pointer"
+              />
+            </a>
+          </Link>
+        </HiddenLogo>
+
+        <HiddenLogo inverted>
+          <Link href="/" passHref>
+            <a
+              style={{
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Img
+                src="/logo.svg"
+                alt="Logo"
+                height="150%"
+                cursor="pointer"
+                priority
+              />
+            </a>
+          </Link>
+        </HiddenLogo>
+
         <SearchBox />
-        <Link href="/universities">
-          <A textAlign="center">Universidades</A>
-        </Link>
-        <A textAlign="center">Información</A>
+        <HiddenElement>
+          <Link href="/universities">
+            <A textAlign="center">Universidades</A>
+          </Link>
+        </HiddenElement>
+        <HiddenElement>
+          <Link href="/info">
+            <A textAlign="center">Información</A>
+          </Link>
+        </HiddenElement>
+
+        <HiddenButton
+          ref={buttonRef}
+          onClick={() => setShowMenu((state) => !state)}
+        >
+          <Img
+            src="/resources/navbar/menu.svg"
+            alt="Menú"
+            aspectRatio="1"
+            height="2rem"
+            width="2rem"
+          />
+        </HiddenButton>
         {isUser ? (
           <>
-            <Img src="/icons/chart.svg" alt="Carrito" height="70%" />
+            <HiddenElement>
+              <Link href="/cart">
+                <a
+                  style={{
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Img src="/icons/cart.svg" alt="Carrito" height="70%" />
+                </a>
+              </Link>
+            </HiddenElement>
+
             <User
               ref={userRef}
               hover={showMenu}
@@ -217,7 +400,9 @@ export default function Nav({ transparent }) {
                 margin="0 1rem 0 1rem"
                 userSelect="none"
               >
-                {user.data.username}
+                {user.data.username.length > 15
+                  ? user.data.username.substr(0, 12) + "..."
+                  : user.data.username}
               </Text>
               <Img
                 src="/icons/profile.svg"
@@ -228,10 +413,70 @@ export default function Nav({ transparent }) {
                 cursor="pointer"
               />
             </User>
-            <Link href="/upload">
-              <Button margin="0">Subir</Button>
-            </Link>
-            <Menu show={showMenu} ref={menuRef}>
+            <HiddenElement>
+              <Link href="/upload">
+                <Button margin="0" width="100%">
+                  Subir
+                </Button>
+              </Link>
+            </HiddenElement>
+          </>
+        ) : (
+          <>
+            <HiddenLogin margin="0" onClick={() => openModal(<AuthModal />)}>
+              Acceder
+            </HiddenLogin>
+            <HiddenRegister
+              background="secondary"
+              margin="0"
+              onClick={() => openModal(<AuthModal selected="register" />)}
+            >
+              Registrarse
+            </HiddenRegister>
+          </>
+        )}
+        <Menu show={showMenu} ref={menuRef}>
+          {isUser ? (
+            <>
+              <MenuHiddenButtons>
+                <Link href="/upload">
+                  <Item>
+                    <Img
+                      src="/icons/uploads.svg"
+                      aspectRatio="83/50"
+                      width="2rem"
+                    />
+                    <Text
+                      fontSize="1.5rem"
+                      fontWeight="bold"
+                      color="secondary"
+                      cursor="inherit"
+                    >
+                      Subir apuntes
+                    </Text>
+                  </Item>
+                </Link>
+
+                <Link href="/cart">
+                  <Item>
+                    <Img
+                      src="/icons/cart.svg"
+                      aspectRatio="83/50"
+                      width="2rem"
+                    />
+                    <Text
+                      fontSize="1.5rem"
+                      fontWeight="bold"
+                      color="secondary"
+                      cursor="inherit"
+                    >
+                      Carrito
+                    </Text>
+                  </Item>
+                </Link>
+
+                <Separator />
+              </MenuHiddenButtons>
               <Link href="/account/downloads">
                 <Item>
                   <Img
@@ -352,22 +597,41 @@ export default function Nav({ transparent }) {
                 Política de Cookies
               </A>
               <Separator />
-              <Button background="secondary" padding="5px 0" onClick={logout}>
+              <Button
+                background="secondary"
+                padding="5px 0"
+                onClick={() => {
+                  logout();
+                  setShowMenu(false);
+                }}
+              >
                 Cerrar sesión
               </Button>
-            </Menu>
-          </>
-        ) : (
-          <>
-            <Button onClick={() => openModal(<AuthModal />)}>Acceder</Button>
-            <Button
-              background="secondary"
-              onClick={() => openModal(<AuthModal selected="register" />)}
-            >
-              Registrarse
-            </Button>
-          </>
-        )}
+            </>
+          ) : (
+            <>
+              <Button
+                margin="0"
+                onClick={() => {
+                  setShowMenu(false);
+                  openModal(<AuthModal />);
+                }}
+              >
+                Acceder
+              </Button>
+              <Button
+                background="secondary"
+                margin="0"
+                onClick={() => {
+                  setShowMenu(false);
+                  openModal(<AuthModal selected="register" />);
+                }}
+              >
+                Registrarse
+              </Button>
+            </>
+          )}
+        </Menu>
       </Navbar>
     </NavbarDiv>
   );

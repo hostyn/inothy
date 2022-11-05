@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import App from "../components/App";
+import AuthModal from "../components/Auth/AuthModal";
 import Button from "../components/Button";
 import Img from "../components/Img";
 import Text from "../components/Text";
 import { colors, sizes } from "../config/theme";
+import { useAuth } from "../context/authContext";
 import { useModal } from "../context/modalContext";
+import { getDownloadUrl } from "../util/api";
 import { currencyFormatter } from "../util/normailize";
 import Payment from "./Payment/Payment";
 
@@ -49,14 +52,35 @@ const PaymentModal = styled.div`
 `;
 
 export default function DocumentPage({ documentData }) {
-  const { openModal } = useModal();
+  const { openModal, closeModal } = useModal();
+  const { user } = useAuth();
 
   const handleBuy = async () => {
-    openModal(
-      <PaymentModal>
-        <Payment documents={[documentData]} />
-      </PaymentModal>
+    user
+      ? openModal(
+          <PaymentModal>
+            <Payment documents={[documentData]} onSuccess={closeModal} />
+          </PaymentModal>
+        )
+      : openModal(<AuthModal />);
+  };
+
+  const handleDownload = async () => {
+    const { url } = await getDownloadUrl(
+      user,
+      documentData.subjectId,
+      documentData.docId
     );
+
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const href = URL.createObjectURL(blob);
+    const element = document.createElement("a");
+    element.href = href;
+    element.download = documentData.fileName;
+    element.click();
+    element.remove();
+    URL.revokeObjectURL(href);
   };
 
   return (
@@ -107,15 +131,29 @@ export default function DocumentPage({ documentData }) {
             <Text fontSize="4rem" margin="0.5rem 0 2rem 0">
               {currencyFormatter.format(documentData.price)}
             </Text>
-            <Button
-              margin="0"
-              height="auto"
-              width="fit-content"
-              padding="0.5rem 1rem"
-              onClick={handleBuy}
-            >
-              Comprar
-            </Button>
+            {user?.data.bought?.includes(
+              documentData.subjectId + "/" + documentData.docId
+            ) ? (
+              <Button
+                margin="0"
+                height="auto"
+                width="fit-content"
+                padding="0.5rem 1rem"
+                onClick={handleDownload}
+              >
+                Descargar
+              </Button>
+            ) : (
+              <Button
+                margin="0"
+                height="auto"
+                width="fit-content"
+                padding="0.5rem 1rem"
+                onClick={handleBuy}
+              >
+                Comprar
+              </Button>
+            )}
           </VerticalAlign>
         </DocumentBody>
       </DocumentDiv>

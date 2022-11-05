@@ -21,6 +21,7 @@ export default function Img({
   onClick,
   cursor,
   className,
+  priority,
 }) {
   return (
     <ImageDiv
@@ -32,7 +33,13 @@ export default function Img({
       onClick={onClick}
       cursor={cursor}
     >
-      <Image src={src} layout="fill" alt={alt} draggable="false" />
+      <Image
+        src={src}
+        layout="fill"
+        alt={alt}
+        draggable="false"
+        priority={priority}
+      />
     </ImageDiv>
   );
 }
