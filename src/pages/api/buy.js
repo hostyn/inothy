@@ -1,5 +1,7 @@
 import mangopay from "../../config/mangopay";
 import { authAdmin, firestoreAdmin } from "../../config/firebaseadmin";
+import { ref } from "firebase/storage";
+import { getSellerAmount } from "../../util/priceCalculator";
 
 export default async function createcardregistration(req, res) {
   if (req.method !== "POST") {
@@ -54,8 +56,10 @@ export default async function createcardregistration(req, res) {
     return;
   }
 
+  const isAmbassador = userData.badge?.includes('ambassador')
+
   const totalPrice = documents.reduce(
-    (prev, current) => prev + parseFloat(current.price),
+    (prev, current) => isAmbassador ? prev + parseFloat(current.price) * 0.8 : prev + parseFloat(current.price),
     0
   );
 
@@ -106,7 +110,8 @@ export default async function createcardregistration(req, res) {
         cardId: response.CardId,
         recipts: documents.map((doc) => ({
           path: doc.path,
-          price: doc.price,
+          price: isAmbassador ? doc.price * 0.8 : doc.price,
+          fee: (isAmbassador ? doc.price * 0.8 : doc.price) - getSellerAmount(doc.price),
           createdBy: doc.createdBy,
         })),
       });
@@ -123,18 +128,51 @@ export default async function createcardregistration(req, res) {
           await firestoreAdmin.collection("users").doc(document.createdBy).get()
         ).data();
 
+
         const recipt = await mangopay.Transfers.create({
           AuthorId: userData.mangopayClientId,
           DebitedWalletId: userData.mangopayWalletId,
           CreditedWalletId: ownerData.mangopayWalletId,
           DebitedFunds: {
             Currency: "EUR",
-            AMount: document.price * 100,
+            Amount: (isAmbassador ? document.price * 0.8 : document.price) * 100,
           },
           Fees: {
             Currency: "EUR",
-            Amount: 20,
+            Amount: ((isAmbassador ? document.price * 0.8 : document.price) - getSellerAmount(document.price)) * 100,
           },
+        });
+
+        const documentRef = firestoreAdmin
+          .collection("subjects")
+          .doc(document.subjectId)
+          .collection("docs")
+          .doc(document.docId);
+
+        firestoreAdmin.runTransaction(async (transaction) => {
+          const document = await transaction.get(documentRef);
+          transaction.update(documentRef, {
+            sales: document.data().sales ? document.data().sales + 1 : 1,
+          });
+        });
+
+        const ownerRef = firestoreAdmin
+          .collection("users")
+          .doc(document.createdBy);
+
+        firestoreAdmin.runTransaction(async (transaction) => {
+          const user = await transaction.get(ownerRef);
+          transaction.update(ownerRef, {
+            sales: user.data().sales ? user.data().sales + 1 : 1,
+            badge:
+              user.data().sales + 1 == 500
+                ? [...user.data().badge, "gold"]
+                : user.data().sales + 1 == 200
+                ? [...user.data().badge, "silver"]
+                : user.data().sales + 1 == 50
+                ? [...user.data().badge, "bronze"]
+                : user.data().badge,
+          });
         });
 
         return {

@@ -1,4 +1,4 @@
-import admin from "../../config/firebaseadmin";
+import admin, { authAdmin, firestoreAdmin } from "../../config/firebaseadmin";
 
 export default async function getUserData(req, res) {
   if (req.method !== "GET") {
@@ -13,12 +13,12 @@ export default async function getUserData(req, res) {
   const token = req.headers.authorization.split(" ")[1];
   let user;
   try {
-    user = await admin.auth().verifyIdToken(token);
+    user = await authAdmin.verifyIdToken(token);
   } catch (e) {
     res.status(401).json({ error: "Unauthorized" });
     return;
   }
-  const doc = await admin.firestore().collection("users").doc(user.uid).get();
+  const doc = await firestoreAdmin.collection("users").doc(user.uid).get();
 
   if (doc.exists) {
     res.status(200).json(doc.data());

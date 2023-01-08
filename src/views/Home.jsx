@@ -15,20 +15,84 @@ const Home = styled.div`
   background-repeat: no-repeat;
   background-size: auto;
   background-position: top center;
-  margin: 0 9rem;
+  margin: 0 5rem;
   padding: ${(props) =>
       props.verified ? sizes.navbar : `calc(${sizes.navbar} + ${sizes.banner})`}
-    0 0 0;
+    5rem 0 5rem;
+
+  @media (max-width: 1000px) {
+    margin: 0 3rem;
+    padding: ${(props) =>
+        props.verified
+          ? sizes.navbar
+          : `calc(${sizes.navbar} + ${sizes.banner})`}
+      0 0 0;
+  }
+
+  @media (max-width: 768px) {
+    margin: 0;
+    padding: ${(props) =>
+        props.verified
+          ? sizes.navbar
+          : `calc(${sizes.navbar} + ${sizes.banner})`}
+      2rem 0 2rem;
+  }
+`;
+
+const FirstImageDiv = styled.div`
+  background-image: url("/resources/home/resource1.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  aspect-ratio: 92/75;
+  width: 100%;
+  height: calc((100vw - 20rem) * 75 / 92);
+
+  @media (max-width: 1000px) {
+    height: calc((100vw - 6rem) * 75 / 92);
+  }
+
+  @media (max-width: 768px) {
+    background-image: url("/resources/home/resource1mobile.svg");
+    height: calc((100vw - 4rem) * 1037 / 1142);
+  }
 `;
 
 const FloatingDiv = styled.div`
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 35%;
+  position: relative;
+  top: -20%;
+`;
+
+const WelcomeText = styled(Text)`
+  @media (max-width: 768px) {
+    margin: 4vw 0 0 0;
+    font-size: 7vw;
+  }
+`;
+
+const WelcomeSubtext = styled(Text)`
+  @media (max-width: 768px) {
+    font-size: 3.5vw;
+  }
+`;
+
+const WelcomeEphasis = styled(Text)`
+  @media (max-width: 768px) {
+    font-size: 5vw;
+  }
+`;
+
+const WelcomeButton = styled(Button)`
+  @media (max-width: 768px) {
+    font-size: 3vw;
+  }
 `;
 
 const IdeaFrameDiv = styled.div`
@@ -36,30 +100,52 @@ const IdeaFrameDiv = styled.div`
   grid-template-columns: 50% 50%;
   align-items: center;
   justify-items: center;
-  margin: 10rem 0 0 0;
+  justify-content: center;
+  margin: ${(props) => props.margin || "10rem 0 0 0"};
+
+  @media (max-width: 750px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 5rem 0 0 0;
+  }
 `;
 
 const IdeaFrameText = styled.div`
-  display: flex;
+  display: grid;
   flex-direction: column;
+`;
+
+const PorqueImg = styled(Img)`
+  @media (max-width: 750px) {
+    width: 100%;
+    height: calc((100vw - 4rem) * 25 / 37);
+  }
 `;
 
 const PorqueGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
   margin: 10rem 0 0 0;
+
+  @media (max-width: 1400px) {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    margin: 5rem 0 0 0;
+  }
 `;
 
 const Card = styled.div`
   display: grid;
-  grid-template-columns: 30% 70%;
-  padding: 2rem;
-  gap: 2rem;
+  grid-template-columns: 5rem 1fr;
+  padding: 0;
+  gap: 1rem;
 `;
 
 const UniversidadesDiv = styled.div`
   margin: 10rem 0 0 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
 `;
 
 const UniversidadesGrid = styled.div`
@@ -72,26 +158,109 @@ const MejoresText = styled.div`
   background-repeat: no-repeat;
   background-size: auto;
   background-position: top center;
+  padding: 20% 10% 10% 10%;
 
   width: 100%;
-  height: 100%;
+  height: calc((100vw - 20rem) / 2);
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 750px) {
+    height: calc(100vw - 4rem);
+    padding: 3rem 0 0 0;
+  }
+`;
+
+const MejoresImg = styled(Img)`
+  width: calc((100vw - 20rem) / 2);
+  height: calc((100vw - 20rem) / 2 * 0.8 * 30 / 31);
+
+  @media (max-width: 1000px) {
+    width: calc((100vw - 6rem) / 2);
+    height: calc((100vw - 6rem) / 2 * 0.8 * 30 / 31);
+  }
+
+  @media (max-width: 768px) {
+    width: calc((100vw - 4rem) / 2);
+    height: calc((100vw - 4rem) / 2 * 0.8 * 30 / 31);
+  }
+
+  @media (max-width: 750px) {
+    width: calc((100vw - 4rem));
+    height: calc((100vw - 4rem) * 0.8 * 30 / 31);
+  }
 `;
 
 const ComoGrid = styled.div`
+  margin: 4rem 0 5rem 0;
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 30rem;
+  gap: 5rem;
+
+  @media (max-width: 1300px) {
+    grid-template-columns: 1fr;
+    margin: 2rem 0;
+  }
 `;
 
 const ComoCard = styled.div`
-  display: flex;
-  flex-direction: column;
+  max-width: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto auto;
   align-items: center;
-  padding: 5rem;
+`;
+
+const StyledTitle = styled(Text)`
+  @media (max-width: 750px) {
+    font-size: 3rem;
+  }
+`;
+
+const StyledSubTitle = styled(Text)`
+  @media (max-width: 750px) {
+    font-size: 2rem;
+  }
+`;
+
+const StyledText = styled(Text)`
+  @media (max-width: 750px) {
+    font-size: 1.2rem;
+  }
+`;
+
+const StyledText2 = styled(Text)`
+  @media (max-width: 750px) {
+    font-size: 1.5rem;
+  }
+`;
+
+const HelpImg = styled(Img)`
+  @media (max-width: 750px) {
+    height: calc((100vw - 4rem) * 150 / 173);
+  }
+`;
+
+const TwoImg = styled(Img)`
+  height: calc((100vw - 20rem) / 2 * 0.8 * 150 / 141);
+
+  @media (max-width: 1000px) {
+    height: calc((100vw - 6rem) * 0.8 * 150 / 141);
+  }
+
+  @media (max-width: 768px) {
+    height: calc((100vw - 4rem) * 0.8 * 150 / 141);
+  }
+`;
+
+const StyledButton = styled(Button)`
+  @media (max-width: 750px) {
+    font-size: 1rem;
+    padding: 0.3rem 1rem;
+  }
 `;
 
 export default function HomeView() {
@@ -100,77 +269,87 @@ export default function HomeView() {
 
   return (
     <App transparent>
-      <Home verified={user && user.emailVerified}>
-        <Img
+      <Home verified={user ? user.emailVerified : true}>
+        <FirstImageDiv>
+          <FloatingDiv>
+            <WelcomeText
+              fontFamily="WaffleStory"
+              fontSize="5vw"
+              textAlign="center"
+            >
+              Bienvenid@
+            </WelcomeText>
+            <WelcomeSubtext
+              fontFamily="WaffleStory"
+              fontSize="2vw"
+              textAlign="center"
+              color="secondary"
+            >
+              acabas de dar el
+            </WelcomeSubtext>
+            <WelcomeSubtext
+              fontFamily="WaffleStory"
+              fontSize="2vw"
+              textAlign="center"
+            >
+              primer paso
+            </WelcomeSubtext>
+            <WelcomeEphasis
+              fontFamily="WaffleStory"
+              fontSize="3vw"
+              textAlign="center"
+              color="secondary"
+            >
+              para aprobar
+            </WelcomeEphasis>
+            {/* <Text
+              fontFamily="VarelaRound"
+              fontSize="1.2rem"
+              textAlign="center"
+              margin="1rem auto"
+            >
+              Al igual que tú, sabemos lo importante que es tener unos buenos
+              apuntes. Que todo sea fácil de entender y que te ayuden a
+              optimizar el tiempo. De cualquier carrera, y cualquier asignatura,
+              tenemos lo que necesitas. No paramos de crecer.{" "}
+              <Span color="secondary">¿empezamos?</Span>
+            </Text> */}
+            <WelcomeButton
+              margin="1vw auto auto auto"
+              padding="0.7vw 2vw"
+              fontSize="1.5vw"
+              onClick={() => openModal(<AuthModal selected="register" />)}
+            >
+              Apuntes
+            </WelcomeButton>
+          </FloatingDiv>
+        </FirstImageDiv>
+        {/* <Img
           src="/resources/home/resource1.svg"
           aspectRatio="1064/866"
           alt="resource1"
-        />
-
-        <FloatingDiv>
-          <Text fontFamily="WaffleStory" fontSize="5rem" textAlign="center">
-            Bienvenid@
-          </Text>
-          <Text
-            fontFamily="WaffleStory"
-            fontSize="2rem"
-            textAlign="center"
-            color="secondary"
-          >
-            acabas de dar el
-          </Text>
-          <Text fontFamily="WaffleStory" fontSize="2rem" textAlign="center">
-            primer paso
-          </Text>
-          <Text
-            fontFamily="WaffleStory"
-            fontSize="3rem"
-            textAlign="center"
-            color="secondary"
-          >
-            para aprobar
-          </Text>
-          <Text
-            fontFamily="VarelaRound"
-            fontSize="1.2rem"
-            textAlign="center"
-            margin="1rem auto"
-          >
-            Al igual que tú, sabemos lo importante que es tener unos buenos
-            apuntes. Que todo sea fácil de entender y que te ayuden a optimizar
-            el tiempo. De cualquier carrera, y cualquier asignatura, tenemos lo
-            que necesitas. No paramos de crecer.{" "}
-            <Span color="secondary">¿empezamos?</Span>
-          </Text>
-          <Button
-            margin="1rem auto"
-            padding="0.5rem 2rem"
-            onClick={() => openModal(<AuthModal selected="register" />)}
-          >
-            Apuntes
-          </Button>
-        </FloatingDiv>
+        /> */}
 
         {/* Porque inothy */}
         <IdeaFrameDiv>
-          <Img src="/resources/home/resource2.svg" aspectRatio="550/371" />
+          <PorqueImg src="/resources/home/resource2.svg" aspectRatio="37/25" />
           <IdeaFrameText>
-            <Text
+            <StyledTitle
               fontFamily="HelveticaRounded"
-              fontSize="7rem"
+              fontSize="5vw"
               fontWeight="bold"
             >
               ¿Por qué
-            </Text>
-            <Text
+            </StyledTitle>
+            <StyledTitle
               fontFamily="HelveticaRounded"
-              fontSize="7rem"
+              fontSize="6vw"
               fontWeight="bold"
               color="secondary"
-              textAlign="right"
+              StyledTitleAlign="right"
             >
               INOTHY?
-            </Text>
+            </StyledTitle>
             <Img
               src="/resources/home/resource3.svg"
               width="80%"
@@ -183,54 +362,55 @@ export default function HomeView() {
         <PorqueGrid>
           <Card>
             <Img src="/resources/home/porque1.svg" />
-            <div>
-              <Text
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <StyledSubTitle
                 fontFamily="HelveticaRounded"
-                fontSize="3.5rem"
+                fontSize="2.5rem"
                 fontWeight="bold"
                 color="secondary"
               >
                 Material de calidad
-              </Text>
-              <Text fontSize="1.7rem">
+              </StyledSubTitle>
+              <StyledText fontSize="1.5rem" lineHeight="1.5">
                 En Inothy buscamos la calidad antes que cantidad, por ello se
                 realizan verificaciones del material, para evitar plagios y
                 estafas
-              </Text>
+              </StyledText>
             </div>
           </Card>
           <Card>
             <Img src="/resources/home/porque2.svg" />
-            <div>
-              <Text
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <StyledSubTitle
                 fontFamily="HelveticaRounded"
-                fontSize="3.5rem"
+                fontSize="2.5rem"
                 fontWeight="bold"
                 color="secondary"
               >
                 Precios justos
-              </Text>
-              <Text fontSize="1.7rem">
-                Compra y vende de madnera libre. Gana dinero mensualmente por tu
+              </StyledSubTitle>
+              <StyledText fontSize="1.5rem" lineHeight="1.5">
+                Compra y vende de manera libre. Gana dinero mensualmente por tu
                 trabajo y esfuerzo
-              </Text>
+              </StyledText>
             </div>
           </Card>
           <Card>
             <Img src="/resources/home/porque3.svg" />
-            <div>
-              <Text
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <StyledSubTitle
                 fontFamily="HelveticaRounded"
-                fontSize="3.5rem"
+                fontSize="2.5rem"
                 fontWeight="bold"
                 color="secondary"
               >
                 Sin publicidad
-              </Text>
-              <Text fontSize="1.7rem">
-                Navegar por Inothy nunca había sido tan fácil. Puedes centrarte
-                al 100% en tu trabajo sin que te molesten los anuncios.
-              </Text>
+              </StyledSubTitle>
+              <StyledText fontSize="1.5rem" lineHeight="1.5">
+                Encontrar lo que buscas nunca había sido tan fácil. Puedes
+                centrarte al 100% en tu trabajo sin que te molesten los
+                anuncios.
+              </StyledText>
             </div>
           </Card>
         </PorqueGrid>
@@ -238,126 +418,125 @@ export default function HomeView() {
         {/* Necesitas ayuda con alguna asignatura */}
         <IdeaFrameDiv>
           <IdeaFrameText>
-            <Text
+            <StyledTitle
               fontFamily="HelveticaRounded"
-              fontSize="4rem"
+              fontSize="6vw"
               textAlign="center"
             >
               <Span color="secondary">¿</Span>Necesitas ayuda
-            </Text>
-            <Text
+            </StyledTitle>
+            <StyledTitle
               fontFamily="HelveticaRounded"
-              fontSize="4rem"
+              fontSize="6vw"
               textAlign="center"
             >
               con alguna asignatura<Span color="secondary">?</Span>
-            </Text>
-            <Text
+            </StyledTitle>
+            <StyledText2
               fontFamily="VarelaRound"
-              fontSize="2rem"
+              fontSize="3vw"
               margin="3rem 0 0 0"
               color="secondary"
             >
               Tenemos los apuntes que tanta falta te hacen.
-            </Text>
-            <Text
+            </StyledText2>
+            <StyledText2
               fontFamily="VarelaRound"
-              fontSize="2rem"
-              textAlign="right"
+              fontSize="3vw"
               color="secondary"
             >
               De cualquier carrera y cualquier asignatura.
-            </Text>
+            </StyledText2>
           </IdeaFrameText>
-          <Img
-            src="/resources/home/necesitas.svg"
-            aspectRatio="173/150"
-            width="95%"
-          />
+          <HelpImg src="/resources/home/necesitas.svg" aspectRatio="173/150" />
         </IdeaFrameDiv>
 
         {/* Universidades */}
         <UniversidadesDiv>
           <Img src="/resources/home/pen1.svg" height="auto" />
-          <Text
+          <StyledText2
             color="secondary"
             fontFamily="HelveticaRounded"
-            fontSize="6rem"
-            margin="0 3rem"
+            fontSize="5vw"
+            margin="0 3vw"
           >
             Universidades
-          </Text>
+          </StyledText2>
           <Img src="/resources/home/pen2.svg" height="auto" />
         </UniversidadesDiv>
         <UniversidadesGrid>
           <div
             style={{
-              aspectRatio: "1",
-              border: "5px solid red",
+              border: "3px solid red",
               borderRadius: "99999px",
-              margin: "4rem",
+              height: "16vw",
+              width: "16vw",
+              margin: "1rem auto",
             }}
           ></div>
           <div
             style={{
-              aspectRatio: "1",
-              border: "5px solid red",
+              border: "3px solid red",
               borderRadius: "99999px",
-              margin: "4rem",
+              height: "16vw",
+              width: "16vw",
+              margin: "1rem auto",
             }}
           ></div>
           <div
             style={{
-              aspectRatio: "1",
-              border: "5px solid red",
+              border: "3px solid red",
               borderRadius: "99999px",
-              margin: "4rem",
+              height: "16vw",
+              width: "16vw",
+              margin: "1rem auto",
             }}
           ></div>
           <div
             style={{
-              aspectRatio: "1",
-              border: "5px solid red",
+              border: "3px solid red",
               borderRadius: "99999px",
-              margin: "4rem",
+              height: "16vw",
+              width: "16vw",
+              margin: "1rem auto",
             }}
           ></div>
         </UniversidadesGrid>
-        <Img src="/resources/home/pen3.svg" aspectRatio="150/1" />
+        <Img src="/resources/home/pen3.svg" aspectRatio="150/1" height="10px" />
 
         {/* Consigue tus apuntes en dos clicks */}
         <IdeaFrameDiv>
-          <Img
+          <TwoImg
             src="/resources/home/dosclicks.svg"
             aspectRatio="141/150"
             width="80%"
           />
           <IdeaFrameText>
-            <Text
+            <StyledSubTitle
               fontFamily="HelveticaRounded"
               textAlign="center"
-              fontSize="4rem"
+              fontSize="4vw"
             >
               Consigue tus
-            </Text>
-            <Text
+            </StyledSubTitle>
+            <StyledSubTitle
               fontFamily="HelveticaRounded"
               textAlign="center"
-              fontSize="4rem"
+              fontSize="4vw"
             >
               apuntes en <Span color="secondary">dos clics</Span>
-            </Text>
-            <Text
+            </StyledSubTitle>
+            <StyledText
               color="secondary"
               fontSize="2rem"
               textAlign="center"
               margin="2rem 0 0 0"
             >
               ¿Te has quedado sin tiempo
-            </Text>
-            <Text color="secondary" fontSize="2rem" textAlign="center">
+            </StyledText>
+            <StyledText color="secondary" fontSize="2rem" textAlign="center">
               Te lo dejamos todo fácil y organizado
-            </Text>
+            </StyledText>
           </IdeaFrameText>
         </IdeaFrameDiv>
 
@@ -365,31 +544,37 @@ export default function HomeView() {
 
         <IdeaFrameDiv>
           <IdeaFrameText>
-            <Text
+            <StyledSubTitle
               fontFamily="HelveticaRounded"
-              fontSize="4rem"
+              fontSize="4vw"
               textAlign="center"
             >
               Asegúrate tu
-            </Text>
-            <Text
+            </StyledSubTitle>
+            <StyledSubTitle
               fontFamily="HelveticaRounded"
-              fontSize="4rem"
+              fontSize="4vw"
               textAlign="center"
             >
               aprobado
-            </Text>
-            <Text
+            </StyledSubTitle>
+            <StyledText
               fontSize="2rem"
               color="secondary"
               textAlign="center"
               margin="2rem 0 0 0"
+              width="100%"
             >
               Comprobamos la calidad de nuestro apuntes
-            </Text>
-            <Text fontSize="2rem" color="secondary" textAlign="center">
+            </StyledText>
+            <StyledText
+              fontSize="2rem"
+              color="secondary"
+              textAlign="center"
+              width="100%"
+            >
               Dónde los mejores estudiantes suben su material
-            </Text>
+            </StyledText>
           </IdeaFrameText>
           <Img
             src="/resources/home/asegurate.svg"
@@ -399,97 +584,91 @@ export default function HomeView() {
         </IdeaFrameDiv>
 
         {/* Crees que tienes los mejores apuntes */}
-        <IdeaFrameDiv>
+        <IdeaFrameDiv margin="5rem 0">
           <MejoresText>
-            <Text fontFamily="HelveticaRounded" fontSize="3rem">
-              ¿crees que tienes los
-            </Text>
-            <Text
+            <StyledText2
               fontFamily="HelveticaRounded"
-              fontSize="3rem"
-              color="secondary"
+              fontSize="2.5vw"
+              textAlign="center"
             >
-              mejores apuntes?
-            </Text>
-            <Text fontSize="2rem" color="secondary" margin="1rem 0 0 0 ">
-              ¿quiéres ganar dinero
-            </Text>
-            <Text fontSize="2rem" color="secondary">
-              ayudando a otros estudiantes?
-            </Text>
-            <Text fontSize="1.5rem" margin="1rem 0 0 0">
-              Inothy es tu sitio
-            </Text>
-            <Button
+              ¿Crees que tienes los{" "}
+              <Span color="secondary">mejores apuntes?</Span>
+            </StyledText2>
+
+            <StyledText fontSize="2vw" color="secondary" textAlign="center">
+              ¿Quiéres ganar dinero ayudando a otros estudiantes?
+            </StyledText>
+
+            <StyledText fontSize="2vw">Inothy es tu sitio</StyledText>
+            <StyledButton
               height="auto"
               padding="0.5rem 2rem"
-              margin="1rem 0 0 0 "
+              margin="1vw 0 0 0 "
               onClick={() => openModal(<AuthModal selected="register" />)}
             >
               Registrate
-            </Button>
+            </StyledButton>
           </MejoresText>
-          <Img src="/resources/home/resource4.svg" aspectRatio="31/30" />
+          <MejoresImg
+            src="/resources/home/resource4.svg"
+            aspectRatio="31/30"
+            margin="0 0 2rem 0"
+          />
         </IdeaFrameDiv>
-        <Text
+        <StyledTitle
           fontFamily="HelveticaRounded"
-          fontSize="5rem"
-          margin="5rem 0"
+          fontSize="5vw"
           textAlign="center"
         >
           ¿Cómo funciona?
-        </Text>
+        </StyledTitle>
         <ComoGrid>
           <ComoCard>
             <Img
               src="/resources/home/resource5.svg"
-              aspectRatio="1"
-              width="70%"
+              height="100%"
               margin="0 0 2rem 0"
             />
-            <Text fontSize="2rem" textAlign="center">
+            <StyledText fontSize="2rem" textAlign="center">
               Unete a nuestra comunidad y no olvides verificar tu correo para
               continuar con el proceso.
-            </Text>
+            </StyledText>
           </ComoCard>
           <ComoCard>
             <Img
               src="/resources/home/resource6.svg"
-              aspectRatio="1"
-              width="70%"
+              height="100%"
               margin="0 0 2rem 0"
             />
-            <Text fontSize="2rem" textAlign="center">
+            <StyledText fontSize="2rem" textAlign="center">
               Sube material académico de manera fácil y sencilla con lan solo un
               click. Puedes subir cualquier tipo de archivo.
-            </Text>
-            <Text color="secondary" fontSize="2rem" textAlign="center">
-              (pdf, doc, excel, ppt, jpg, txt...)
-            </Text>
+            </StyledText>
+            <StyledText color="secondary" fontSize="2rem" textAlign="center">
+              (pdf, doc, excel, ppt, zip, rar...)
+            </StyledText>
           </ComoCard>
           <ComoCard>
             <Img
               src="/resources/home/resource7.svg"
-              aspectRatio="1"
-              width="70%"
+              height="100%"
               margin="0 0 2rem 0"
             />
-            <Text fontSize="2rem" textAlign="center">
+            <StyledText fontSize="2rem" textAlign="center">
               Designa un precio coherente de tu material académico. Te guiaremos
               con el mejor precio de venta.
-            </Text>
+            </StyledText>
           </ComoCard>
           <ComoCard>
             <Img
               src="/resources/home/resource8.svg"
-              aspectRatio="1"
-              width="70%"
+              height="100%"
               margin="0 0 2rem 0"
             />
-            <Text fontSize="2rem" textAlign="center">
+            <StyledText fontSize="2rem" textAlign="center">
               Compra apuntes de otros usuarios, según tus preferencias. Podrás
               ver las valoraciones y aptitudes de cada usuario.
-            </Text>
+            </StyledText>
           </ComoCard>
         </ComoGrid>
       </Home>

@@ -11,22 +11,65 @@ import Card from "../components/Card";
 import { useRouter } from "next/router";
 
 const SchoolDiv = styled.div`
-  display: flex;
-  flex-direction: column;
   margin: 2rem calc(${sizes.inlineMargin} * 2);
+
+  @media (max-width: 1500px) {
+    margin: 2rem ${sizes.inlineMargin};
+  }
+
+  @media (max-width: 1000px) {
+    margin: 2rem;
+  }
 `;
 
 const Title = styled.div`
   display: grid;
-  grid-template-columns: 15rem auto;
+  grid-template-columns: 10vw auto;
   align-items: center;
   gap: 2rem;
   margin: 0 0 2rem 0;
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 5rem auto;
+    justify-items: center;
+  }
+`;
+
+const Logo = styled(Img)`
+  aspect-ratio: 1;
+  width: 10vw;
+  height: 10vw;
+
+  @media (max-width: 500px) {
+    width: 5rem;
+    height: 5rem;
+  }
 `;
 
 const FlexColumn = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const TitleText = styled(Text)`
+  @media (max-width: 1000px) {
+    font-size: 1.8rem;
+  }
+
+  @media (max-width: 500px) {
+    text-align: center;
+  }
+`;
+
+const SubtitleText = styled(Text)`
+  @media (max-width: 1000px) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 500px) {
+    text-align: center;
+  }
 `;
 
 export default function SchoolPage({ school }) {
@@ -41,47 +84,31 @@ export default function SchoolPage({ school }) {
     <App>
       <SchoolDiv>
         <Title>
-          <Img
-            src={school.university.logoUrl}
-            aspectRatio="1"
-            width="auto"
-            height="15rem"
-          />
+          <Logo src={school.university.logoUrl} />
           <FlexColumn>
-            <Text
-              fontSize="4rem"
+            <TitleText
+              fontSize="3vw"
               fontWeight="bold"
               fontFamily="HelveticaRounded"
             >
               {school.name}
-            </Text>
-            <Text
-              fontSize="2rem"
-              fontWeight="bold"
-              fontFamily="HelveticaRounded"
-            >
+            </TitleText>
+            <SubtitleText fontSize="2.5vw" fontFamily="HelveticaRounded">
               {school.university.name}
-            </Text>
+            </SubtitleText>
           </FlexColumn>
         </Title>
-        <Input onChange={handleQuerySearch} />
+        <Input onChange={handleQuerySearch} placeholder="Buscar carrera" />
         {school.degrees &&
           school.degrees.map((degree) => {
             if (normalize(degree.name).includes(searchQuery))
               return (
-                <Link key={degree.id} href={`${asPath}/${degree.id}`}>
-                  <Card>
-                    <Img
-                      src="/icons/university.svg"
-                      aspectRatio="1"
-                      height="5rem"
-                      width="auto"
-                    />
-                    <Text fontSize="2.5rem" userSelect="none">
-                      {degree.name}
-                    </Text>
-                  </Card>
-                </Link>
+                <Card
+                  key={degree.id}
+                  href={`${asPath}/${degree.id}`}
+                  img="/icons/university.svg"
+                  text={degree.name}
+                />
               );
           })}
       </SchoolDiv>

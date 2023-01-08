@@ -11,14 +11,34 @@ const SuccessDiv = styled.div`
   flex-direction: column;
 `;
 
+const Title = styled(Text)`
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+`;
+
+const Subtitle = styled(Text)`
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
 export default function Success() {
   return (
     <SuccessDiv>
-      <Img src="/check.svg" aspectRatio="1" width="10rem" height="auto" />
-      <Text color="secondary" fontSize="4rem" fontWeight="bold">
+      <Img src="/check.svg" width="6rem" height="6rem" />
+      <Title
+        color="secondary"
+        fontSize="4rem"
+        fontWeight="bold"
+        textAlign="center"
+        margin="1rem 0 0 0"
+      >
         Comprado
-      </Text>
-      <Text fontSize="1.5rem">Gracias por comprar con nosotros</Text>
+      </Title>
+      <Subtitle fontSize="1.5rem" textAlign="center">
+        Gracias por comprar con nosotros
+      </Subtitle>
     </SuccessDiv>
   );
 }

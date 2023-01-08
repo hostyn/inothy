@@ -1,7 +1,11 @@
 import styled from "styled-components";
+import Text from "../../../components/Text";
 import { colors } from "../../../config/theme";
 
 const Cards = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   max-height: 100%;
   min-width: 100%;
   overflow-y: auto;

@@ -1,15 +1,9 @@
 import App from "../../components/App";
 import styled from "styled-components";
 import { colors, sizes } from "../../config/theme";
-import { useAuth } from "../../context/authContext";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import CompleteProfileInfo from "./CompleteProfileInfo";
-import Kyc from "./Kyc";
 import Loading from "../../components/Loading";
-import KYCCompleted from "./KYCCompleted";
-import KYCError from "./KYCError";
-import { completeKYC } from "../../util/api";
 import Upload from "./Upload";
 import Success from "./Success";
 import Error from "./Error";
@@ -21,9 +15,19 @@ const UploadDiv = styled.div`
 
   border: 3px solid ${colors.primary};
   border-radius: 20px;
-  min-height: 42rem;
-  height: calc(100vh - ${sizes.navbar} - 6rem);
+  min-height: calc(100vh - ${sizes.navbar} - 6rem);
   justify-content: center;
+  transition: 0.3s;
+
+  @media (max-width: 1000px) {
+    margin: 2rem;
+    min-height: calc(100vh - ${sizes.navbar} - 4rem);
+  }
+
+  @media (max-width: 768px) {
+    margin: 1rem;
+    min-height: calc(100vh - ${sizes.navbar} - 2rem);
+  }
 `;
 
 const MotionDiv = styled(motion.div)`
@@ -32,35 +36,19 @@ const MotionDiv = styled(motion.div)`
   justify-content: center;
   padding: 3rem 5rem;
   min-height: inherit;
-  height: calc(100vh - ${sizes.navbar} - 6rem);
   min-width: 100%;
+
+  @media (max-width: 1200px) {
+    padding: 2rem 3rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
 `;
 
 export default function UploadView() {
-  const { user, updateData } = useAuth();
-  const [state, setState] = useState(
-    user.data.mangopayType !== "OWNER" ? "completeProfileInfo" : "upload"
-  );
-
-  const [data, setData] = useState({});
-
-  const hanldeKYCSubmit = async (files) => {
-    // TODO: handle errors
-    try {
-      setState("loading");
-      await completeKYC(user, {
-        ...data,
-        files: [files.front.base64, files.back.base64],
-      });
-
-      setState("kyccompleted");
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-      await updateData();
-      setState("upload");
-    } catch {
-      setState("kycerror");
-    }
-  };
+  const [state, setState] = useState("upload");
 
   return (
     <App>
@@ -72,14 +60,8 @@ export default function UploadView() {
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.15 }}
         >
-          {state === "completeProfileInfo" && (
-            <CompleteProfileInfo setData={setData} setState={setState} />
-          )}
-          {state === "kyc" && <Kyc handleSubmit={hanldeKYCSubmit} />}
           {state === "upload" && <Upload setState={setState} />}
           {state === "loading" && <Loading />}
-          {state === "kyccompleted" && <KYCCompleted />}
-          {state === "kycerror" && <KYCError />}
           {state === "success" && <Success />}
           {state === "error" && <Error />}
         </MotionDiv>

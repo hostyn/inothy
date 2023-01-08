@@ -125,12 +125,19 @@ export async function getDegree(universityId, schoolId, degreeId) {
   throw new Error("Internal Server Error");
 }
 
-export async function getSubject(subjectId) {
+export async function getSubject(subjectId, limit = 5, startAfter = "") {
   if (!subjectId) throw new Error("Subject Id is required");
 
   const data = await fetch(
-    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/subject/${subjectId}`,
-    { method: "GET" }
+    `${
+      process.env.NEXT_PUBLIC_FRONTEND_URL
+    }/api/subject/${subjectId}?${new URLSearchParams({
+      limit: limit,
+      startAfter: startAfter,
+    })}`,
+    {
+      method: "GET",
+    }
   );
 
   if (data.status == 200) {
@@ -226,7 +233,8 @@ export async function completeKYC(user, data) {
     body: JSON.stringify(data),
   });
 
-  return res;
+  if (res.status === 200) return res.json();
+  throw new Error("Internal server error");
 }
 
 export async function createCardRegistration(user) {
@@ -285,8 +293,6 @@ export async function getCards(user) {
 export async function buy(user, cardId, documents, headers) {
   const accessToken = await user.auth.currentUser.getIdToken();
   const products = documents.map((doc) => doc.subjectId + "/" + doc.docId);
-  const screenHeight = screen.height;
-  const screenWidth = screen.width;
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/buy`, {
     method: "POST",
@@ -339,6 +345,131 @@ export async function getDownloadUrl(user, subjectId, docId) {
     { method: "GET", headers: { authorization: `Bearer ${accessToken}` } }
   );
 
-  if (res.status === 200) return await res.json();
-  throw new Error("internal server errror");
+  if (res.status === 200) return res.json();
+  throw new Error("Internal server error");
+}
+
+export async function getUser(userId) {
+  if (!userId) throw new Error("UserId is required");
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/user/${userId}`,
+    { method: "GET" }
+  );
+
+  if (res.status === 200) return res.json();
+  throw new Error("Internal server error");
+}
+
+export async function getBalance(user) {
+  if (!user) throw new Error("User is required");
+  const accessToken = await user.auth.currentUser.getIdToken();
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/getbalance`,
+    { method: "GET", headers: { authorization: `Bearer ${accessToken}` } }
+  );
+
+  if (res.status === 200) return (await res.json()).balance;
+  throw new Error("Internal server errror");
+}
+
+export async function updateBankAccount(user, iban) {
+  if (!user) throw new Error("User is required");
+  if (!iban) throw new Error("Iban is required");
+
+  const accessToken = await user.auth.currentUser.getIdToken();
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/updatebankaccount`,
+    {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ iban: iban }),
+    }
+  );
+
+  if (res.status === 200) return res.json();
+  if (res.status === 400) throw new Error("Bad Request");
+  throw new Error("Internal server errror");
+}
+
+export async function getBankAccount(user) {
+  if (!user) throw new Error("User is required");
+
+  const accessToken = await user.auth.currentUser.getIdToken();
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/getbankaccount`,
+    {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  if (res.status !== 200) throw new Error("Internal server errror");
+
+  const response = await res.json();
+  if (response.length) {
+    return response[0];
+  }
+
+  return null;
+}
+
+export async function payout(user) {
+  const accessToken = await user.auth.currentUser.getIdToken();
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/payout`,
+    {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  if (res.status === 200) return res.json();
+  else throw new Error("Internal server error");
+}
+
+export async function deleteCard(user, cardId) {
+  if (!user) throw new Error("User is required");
+  if (!cardId) throw new Error("CardId is required");
+
+  const accessToken = await user.auth.currentUser.getIdToken();
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/deletecard`,
+    {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ cardId: cardId }),
+    }
+  );
+
+  if (res.status === 200) return res.json();
+  throw new Error("Internal server errror");
+}
+
+export async function sendResetPasswordEmail(email) {
+  if (!email) throw new Error("Email is required");
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/resetpassword`,
+    {
+      method: "POST",
+      body: JSON.stringify({ email: email }),
+    }
+  );
+
+  if (res.status === 200) return res.json();
+  throw new Error("Internal server errror");
 }

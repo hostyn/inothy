@@ -7,27 +7,53 @@ import Input from "../components/Input";
 import { useState } from "react";
 import normalize from "../util/normailize";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import Card from "../components/Card";
 
 const UniversityDiv = styled.div`
-  display: flex;
-  flex-direction: column;
   margin: 2rem calc(${sizes.inlineMargin} * 2);
-`;
 
-const Logo = styled(Img)`
-  border: 3px solid ${colors.primary};
-  border-radius: 99999px;
-  overflow: hidden;
+  @media (max-width: 1500px) {
+    margin: 2rem ${sizes.inlineMargin};
+  }
+
+  @media (max-width: 1000px) {
+    margin: 2rem;
+  }
 `;
 
 const Title = styled.div`
   display: grid;
-  grid-template-columns: 15rem auto;
+  grid-template-columns: 10vw auto;
   align-items: center;
   gap: 2rem;
   margin: 0 0 2rem 0;
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 5rem auto;
+    justify-items: center;
+  }
+`;
+
+const TitleText = styled(Text)`
+  @media (max-width: 1000px) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 500px) {
+    text-align: center;
+  }
+`;
+
+const Logo = styled(Img)`
+  aspect-ratio: 1;
+  width: 10vw;
+  height: 10vw;
+
+  @media (max-width: 500px) {
+    width: 5rem;
+    height: 5rem;
+  }
 `;
 
 export default function UniversityPage({ university }) {
@@ -42,34 +68,30 @@ export default function UniversityPage({ university }) {
     <App>
       <UniversityDiv>
         <Title>
-          <Img
-            src={university.logoUrl}
-            aspectRatio="1"
-            width="auto"
-            height="15rem"
-          />
-          <Text fontSize="4rem" fontWeight="bold" fontFamily="HelveticaRounded">
+          <Logo src={university.logoUrl} />
+          <TitleText
+            fontSize="4vw"
+            fontWeight="bold"
+            fontFamily="HelveticaRounded"
+          >
             {university.name}
-          </Text>
+          </TitleText>
         </Title>
-        <Input margin=" 0 0 2rem 0" onChange={handleQuerySearch} />
+        <Input
+          margin=" 0 0 2rem 0"
+          onChange={handleQuerySearch}
+          placeholder="Buscar facultad"
+        />
         {university.schools &&
           university.schools.map((school) => {
             if (normalize(school.name).includes(searchQuery))
               return (
-                <Link key={school.id} href={`${asPath}/${school.id}`}>
-                  <Card>
-                    <Img
-                      src="/icons/university.svg"
-                      aspectRatio="1"
-                      height="5rem"
-                      width="auto"
-                    />
-                    <Text fontSize="2.5rem" userSelect="none">
-                      {school.name}
-                    </Text>
-                  </Card>
-                </Link>
+                <Card
+                  key={school.id}
+                  href={`${asPath}/${school.id}`}
+                  img="/icons/university.svg"
+                  text={school.name}
+                />
               );
           })}
       </UniversityDiv>

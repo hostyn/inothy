@@ -7,6 +7,9 @@ import Text from "../Text";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { useModal } from "../../context/modalContext";
+import ForgetPassword from "./ForgetPassword";
+import EmailError from "./EmailError";
+import EmailSent from "./EmailSent";
 
 const AuthDiv = styled.div`
   display: flex;
@@ -19,10 +22,21 @@ const AuthForm = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
-  width: 40rem;
+  width: min(40rem, 100vw);
   height: 30rem;
   border-radius: 1rem;
   padding: 0.3rem;
+
+  @media (max-width: 400px) {
+    width: 100vw;
+  }
+`;
+
+const Logo = styled(Img)`
+  @media (max-height: 750px) {
+    height: 15vh;
+    margin: 0 0 3vh 0;
+  }
 `;
 
 const SelectionDiv = styled.div`
@@ -30,6 +44,13 @@ const SelectionDiv = styled.div`
   grid-template-columns: 50% 50%;
   border-bottom: 2px solid #dcdcdc;
   text-align: center;
+`;
+
+const MotionDiv = styled(motion.div)`
+  display: grid;
+  align-content: center;
+  width: 100%;
+  height: 100%;
 `;
 
 const Underline = styled(motion.div)`
@@ -52,14 +73,16 @@ const Option = styled.div`
 
 export default function AuthModal({ selected = "login" }) {
   const [selectedState, setSelectedState] = useState(selected);
+  const { closeModal } = useModal();
 
   return (
     <AuthDiv>
-      <Img
+      <Logo
         src="/imagotipo2.svg"
-        width="40%"
-        aspectRatio="63/50"
+        width="100%"
+        height="10rem"
         margin="0 0 3rem 0"
+        onClick={closeModal}
       />
       <AuthForm>
         <SelectionDiv>
@@ -100,25 +123,23 @@ export default function AuthModal({ selected = "login" }) {
             {selectedState === "register" && <Underline layoutId="underline" />}
           </div>
         </SelectionDiv>
-        <AnimatePresence exitBeforeEnter>
-          <motion.div
-            key={selectedState}
-            animate={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: 20 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.15 }}
-            style={{
-              display: "grid",
-              alignContent: "center",
-              width: "100%",
-              height: "100%",
-              padding: "0 5rem",
-            }}
-          >
-            {selectedState === "login" && <LoginForm />}
-            {selectedState === "register" && <RegisterForm />}
-          </motion.div>
-        </AnimatePresence>
+        <MotionDiv
+          key={selectedState}
+          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, x: 20 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.15 }}
+        >
+          {selectedState === "login" && (
+            <LoginForm setState={setSelectedState} />
+          )}
+          {selectedState === "register" && <RegisterForm />}
+          {selectedState === "forgetPassword" && (
+            <ForgetPassword setState={setSelectedState} />
+          )}
+          {selectedState === "emailerror" && <EmailError />}
+          {selectedState === "emailsent" && <EmailSent />}
+        </MotionDiv>
       </AuthForm>
     </AuthDiv>
   );

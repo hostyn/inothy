@@ -1,19 +1,10 @@
 import { applyActionCode, verifyPasswordResetCode } from "firebase/auth";
 import Head from "next/head";
 import { auth } from "../config/firebase";
+import ResetPassword from "../views/ResetPassword";
 import VerifyEmail from "../views/VerifyEmail";
 
 export default function VerifyEmailPage({ mode, verified, oobCode, email }) {
-  if (!verified)
-    return (
-      <>
-        <Head>
-          <title>Inothy - No se ha podido verificar</title>
-        </Head>
-        <VerifyEmail verified={verified} />
-      </>
-    );
-
   switch (mode) {
     case "verifyEmail":
       return (
@@ -25,15 +16,15 @@ export default function VerifyEmailPage({ mode, verified, oobCode, email }) {
         </>
       );
 
-    // case "resetPassword":
-    //   return (
-    //     <>
-    //       <Head>
-    //         <title>Inothy - Cambiar contraseña</title>
-    //       </Head>
-    //       <ResetPassword valid={verified} oobCode={oobCode} email={email} />
-    //     </>
-    //   );
+    case "resetPassword":
+      return (
+        <>
+          <Head>
+            <title>Inothy - Cambiar contraseña</title>
+          </Head>
+          <ResetPassword valid={verified} oobCode={oobCode} email={email} />
+        </>
+      );
   }
 }
 
@@ -50,13 +41,13 @@ export async function getServerSideProps(context) {
         return { props: { mode, verified: false } };
       }
 
-    // case "resetPassword":
-    //   try {
-    //     const email = await verifyPasswordResetCode(auth, oobCode);
-    //     return { props: { mode, verified: true, oobCode, email } };
-    //   } catch (e) {
-    //     return { props: { mode, verified: false, oobCode } };
-    //   }
+    case "resetPassword":
+      try {
+        const email = await verifyPasswordResetCode(auth, oobCode);
+        return { props: { mode, verified: true, oobCode, email } };
+      } catch (e) {
+        return { props: { mode, verified: false, oobCode } };
+      }
     default:
       return { redirect: { permanent: false, destination: "/" } };
   }

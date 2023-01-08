@@ -10,21 +10,34 @@ const CardSuccessDiv = styled.div`
   align-items: center;
 `;
 
+const Title = styled(Text)`
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+`;
+
+const Subtitle = styled(Text)`
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
 export default function CardSuccess() {
   return (
     <CardSuccessDiv>
-      <Img src="/check.svg" height="10rem" />
-      <Text
+      <Img src="/check.svg" height="6rem" width="6rem" />
+      <Title
         fontSize="3rem"
         fontWeight="bold"
         margin="1rem 0 0 0"
         color="secondary"
+        textAlign="center"
       >
         Tarjeta añadida
-      </Text>
-      <Text fontSize="1.5rem">
+      </Title>
+      <Subtitle fontSize="1.5rem" textAlign="center">
         Ya puedes utilizar la tarjeta para comprar en Inothy.
-      </Text>
+      </Subtitle>
     </CardSuccessDiv>
   );
 }

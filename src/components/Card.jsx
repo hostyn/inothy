@@ -1,9 +1,12 @@
+import Link from "next/link";
 import styled from "styled-components";
 import { colors } from "../config/theme";
+import Img from "./Img";
+import Text from "./Text";
 
-const Card = styled.div`
+const CardDiv = styled.div`
   display: grid;
-  grid-template-columns: 5rem auto;
+  grid-template-columns: 5rem 1fr;
   gap: 2rem;
 
   align-items: center;
@@ -17,6 +20,47 @@ const Card = styled.div`
   :hover {
     background-color: ${colors.hover};
   }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 3rem 1fr;
+    gap: 1rem;
+    padding: 10px;
+  }
 `;
 
-export default Card;
+const CardImg = styled(Img)`
+  height: 5rem;
+  width: 5rem;
+
+  @media (max-width: 500px) {
+    height: 3rem;
+    width: 3rem;
+  }
+`;
+
+const CardText = styled(Text)`
+  @media (max-width: 1500px) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 1000px) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 1.2rem;
+  }
+`;
+
+export default function Card({ img, text, href }) {
+  return (
+    <Link href={href}>
+      <CardDiv>
+        <CardImg src={img} />
+        <CardText fontSize="2vw" userSelect="none">
+          {text}
+        </CardText>
+      </CardDiv>
+    </Link>
+  );
+}

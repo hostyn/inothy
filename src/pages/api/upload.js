@@ -3,6 +3,7 @@ import {
   firestoreAdmin,
   storageAdmin,
 } from "../../config/firebaseadmin";
+import makePreview from "../../util/makePreview";
 
 export default async function upload(req, res) {
   if (req.method !== "POST") {
@@ -21,12 +22,8 @@ export default async function upload(req, res) {
     return;
   });
 
-  const userData = await firestoreAdmin.collection("users").doc(user.uid).get();
-
-  if (userData.data().mangopayType !== "OWNER") {
-    res.status(401).json({ error: "Unauthorized" });
-    return;
-  }
+  const userDataSnapshot = firestoreAdmin.collection("users").doc(user.uid);
+  const userData = (await userDataSnapshot.get()).data();
 
   const body = JSON.parse(req.body);
 
@@ -91,7 +88,7 @@ export default async function upload(req, res) {
 
   const docs = subjectDoc.collection("docs");
 
-  const response = await docs.add({
+  const fileSnapshot = await docs.add({
     name: body.name,
     description: body.description,
     file: body.filePath,
@@ -102,8 +99,38 @@ export default async function upload(req, res) {
     verificationStatus: body.requestVerification ? "pending" : "not_asked",
     rating: null,
     totalRatings: 0,
+    contentType: fileMetadata[0].contentType,
+    preview: false,
   });
 
-  res.status(200).json({ status: "success", path: response.path });
+  userDataSnapshot.update({
+    uploaded: userData.uploaded
+      ? [...userData.uploaded, body.subject + "/" + fileSnapshot.id]
+      : [body.subject + "/" + fileSnapshot.id],
+  });
+
+  res.status(200).json({ status: "success", path: fileSnapshot.path });
+
+  if (fileMetadata[0].contentType == "application/pdf") {
+    const url = await file.getSignedUrl({
+      action: "read",
+      expires: new Date().getTime() + 5 * 60 * 1000,
+    });
+
+    const previewBuffer = await makePreview(url);
+
+    const previewRef = storageAdmin.file(
+      `previews/${body.subject}/${fileSnapshot.id}.pdf`
+    );
+
+    const previewStream = previewRef.createWriteStream({ resumable: false });
+
+    previewStream.end(previewBuffer);
+
+    fileSnapshot.update({
+      preview: true,
+    });
+  }
+
   return;
 }

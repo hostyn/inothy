@@ -1,10 +1,16 @@
+import Head from "next/head";
 import ProtectedContent from "../../components/ProtectedContent";
-import UploadsView from "../../views/account/Uploads";
+import UploadsView from "../../views/Account/Uploads";
 
 export default function Uploads() {
   return (
-    <ProtectedContent>
-      <UploadsView />
-    </ProtectedContent>
+    <>
+      <Head>
+        <title>Inothy - Subido</title>
+      </Head>
+      <ProtectedContent>
+        <UploadsView />
+      </ProtectedContent>
+    </>
   );
 }

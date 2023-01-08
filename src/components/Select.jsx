@@ -11,6 +11,7 @@ const Select = styled.select`
   font-size: 1rem;
   margin: ${(props) => props.margin || "0"};
   outline: none;
+  max-width: ${(props) => props.maxWidth || "initial"};
 
   -moz-appearance: none; /* Firefox */
   -webkit-appearance: none; /* Safari and Chrome */
@@ -20,6 +21,8 @@ const Select = styled.select`
   background-repeat: no-repeat;
   background-position: calc(100% - 1rem) center;
   background-size: 1rem;
+
+  overflow: hidden;
 
   &:disabled {
     opacity: 1;

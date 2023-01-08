@@ -12,6 +12,11 @@ import { colors } from "../../config/theme";
 const Form = styled.form`
   text-align: center;
   width: 100%;
+  padding: 0 5rem;
+
+  @media (max-width: 600px) {
+    padding: 0 10vw;
+  }
 `;
 
 const Inline = styled.div`
@@ -29,7 +34,7 @@ const Error = styled.p`
 `;
 
 export default function RegisterForm() {
-  const { register, logout } = useAuth();
+  const { register } = useAuth();
   const { closeModal, openModal } = useModal();
 
   const [form, setForm] = useState({

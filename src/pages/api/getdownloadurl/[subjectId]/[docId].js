@@ -28,11 +28,6 @@ export default async function downloadFile(req, res) {
 
   const { subjectId, docId } = req.query;
 
-  if (!userData.bought.includes(subjectId + "/" + docId)) {
-    res.status(404).json({ error: "not found" });
-    return;
-  }
-
   const docSnapshot = await firestoreAdmin
     .collection("subjects")
     .doc(subjectId)
@@ -46,6 +41,16 @@ export default async function downloadFile(req, res) {
   }
 
   const docData = docSnapshot.data();
+
+  console.log(docData.createdBy === user.uid);
+
+  if (
+    !userData.bought.includes(subjectId + "/" + docId) &&
+    !(docData.createdBy === user.uid)
+  ) {
+    res.status(404).json({ error: "Not found" });
+    return;
+  }
 
   const [url] = await storageAdmin.file(docData.file).getSignedUrl({
     action: "read",

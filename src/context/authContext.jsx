@@ -33,9 +33,9 @@ export function AuthProvider({ children, headers: initialHeaders }) {
     await createUserWithEmailAndPassword(auth, email, password);
 
   const logout = async () => {
+    setIsUser(false);
     await signOut(auth);
     setUser(null);
-    setIsUser(false);
   };
 
   const updateData = async () => {
@@ -57,7 +57,7 @@ export function AuthProvider({ children, headers: initialHeaders }) {
       if (currentUser !== null) {
         if (currentUser.emailVerified) {
           getUserData(currentUser).then((data) => {
-            setUser({ ...currentUser, ["data"]: data });
+            setUser({ ...currentUser, data: data });
             if (data.profileCompleted) setIsUser(true);
             else setIsUser(false);
             setIsLoading(false);
@@ -74,9 +74,9 @@ export function AuthProvider({ children, headers: initialHeaders }) {
     return () => unsubscirbe();
   }, [ref]);
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
+  // if (isLoading) {
+  //   return <LoadingPage />;
+  // }
 
   if (
     !isLoading &&
@@ -92,7 +92,16 @@ export function AuthProvider({ children, headers: initialHeaders }) {
 
   return (
     <authContext.Provider
-      value={{ login, register, logout, user, updateData, isUser, headers }}
+      value={{
+        login,
+        register,
+        logout,
+        user,
+        updateData,
+        isUser,
+        headers,
+        isLoading,
+      }}
     >
       {children}
     </authContext.Provider>

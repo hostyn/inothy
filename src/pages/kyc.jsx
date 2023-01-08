@@ -1,0 +1,16 @@
+import Head from "next/head";
+import ProtectedContent from "../components/ProtectedContent";
+import KYCView from "../views/KYC/KYCView";
+
+export default function KYC() {
+  return (
+    <>
+      <Head>
+        <title>Inothy - KYC</title>
+      </Head>
+      <ProtectedContent>
+        <KYCView />
+      </ProtectedContent>
+    </>
+  );
+}

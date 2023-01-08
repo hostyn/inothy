@@ -12,6 +12,12 @@ const ResumeDiv = styled.div`
   width: 100%;
 `;
 
+const Title = styled(Text)`
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+`;
+
 const Separator = styled.div`
   height: 2px;
   background-color: ${colors.hover};
@@ -19,7 +25,7 @@ const Separator = styled.div`
 
 const DocumentCard = styled.div`
   display: grid;
-  grid-template-columns: 3rem auto 10rem;
+  grid-template-columns: 3rem auto min-content;
   gap: 1rem;
   padding: 10px;
   align-items: center;
@@ -37,52 +43,83 @@ const InlineContinue = styled.div`
   align-items: center;
 `;
 
+const DoucumentName = styled(Text)`
+  word-break: break-word;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
+const DocumentPrice = styled(Text)`
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+`;
+
+const TotalText = styled(Text)`
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+`;
+
+const PoweredByMangopay = styled(Img)`
+  height: 1.2rem;
+  width: calc(1.2rem * 1345 / 152);
+
+  @media (max-width: 768px) {
+    height: 1rem;
+    width: calc(1rem * 1345 / 152);
+  }
+`;
+
+const StyledButton = styled(Button)`
+  height: auto;
+  padding: 0.5rem 1rem;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
 export default function Resume({ paymentDetails, setState }) {
   return (
     <ResumeDiv>
-      <Text fontSize="2rem" fontWeight="bold" margin="0 0 1rem 0">
+      <Title fontSize="2rem" fontWeight="bold" margin="0 0 1rem 0">
         Resumen de compra
-      </Text>
+      </Title>
       {paymentDetails.documents.map((document) => (
-        <>
+        <div key={document.docId}>
           <Separator />
           <DocumentCard>
-            <Img
-              src="/icons/document.svg"
-              aspectRatio="61/75"
-              width="100%"
-              height="auto"
-            />
+            <Img src="/icons/document.svg" />
             <VerticalText>
-              <Text fontWeight="bold" fontSize="1.2rem">
+              <DoucumentName fontWeight="bold" fontSize="1.2rem">
                 {document.name}
-              </Text>
-              <Text fontSize="0.8rem">{document.name}</Text>
+              </DoucumentName>
+              <Text fontSize="0.8rem">{document.createdBy}</Text>
             </VerticalText>
-            <Text fontSize="2rem" textAlign="end">
+            <DocumentPrice fontSize="2rem" textAlign="end">
               {currencyFormatter.format(document.price)}
-            </Text>
+            </DocumentPrice>
           </DocumentCard>
-        </>
+        </div>
       ))}
       <Separator />
-      <Text textAlign="end" fontSize="2.5rem" margin="1rem 0 0 0">
+      <TotalText textAlign="end" fontSize="2.5rem" margin="1rem 0 0 0">
         Total: {currencyFormatter.format(paymentDetails.totalAmount)}
-      </Text>
+      </TotalText>
       <InlineContinue>
-        <Img
-          src="/mangopay.png"
-          aspectRatio="1345/152"
-          height="1.2rem"
-          width="fit-content"
-        />
-        <Button
+        <PoweredByMangopay src="/mangopay.png" />
+        <StyledButton
           height="auto"
           padding="0.5rem 1rem"
+          margin="0"
           onClick={() => setState("card")}
         >
           Continuar
-        </Button>
+        </StyledButton>
       </InlineContinue>
     </ResumeDiv>
   );

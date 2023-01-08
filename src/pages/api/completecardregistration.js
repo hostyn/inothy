@@ -14,6 +14,11 @@ export default async function createcardregistration(req, res) {
       RegistrationData: body.registrationData,
     });
 
+    if (cardRegistrationResponse.Status === "ERROR") {
+      res.status(400).json({ error: "Error" });
+      return;
+    }
+
     res.status(200).json({ status: "success" });
     return;
   } catch (e) {

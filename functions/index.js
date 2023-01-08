@@ -89,9 +89,12 @@ exports.mangopayPayinCallback = functions.https.onRequest(async (req, res) => {
 
   const recipts = await Promise.all(
     transaction.recipts.map(async (doc) => {
+      const [subjectId, docId] = doc.path.split("/");
+
       const ownerData = (
         await admin.firestore().collection("users").doc(doc.createdBy).get()
       ).data();
+
 
       const recipt = await mangopay.Transfers.create({
         AuthorId: transaction.authorId,
@@ -103,9 +106,44 @@ exports.mangopayPayinCallback = functions.https.onRequest(async (req, res) => {
         },
         Fees: {
           Currency: "EUR",
-          Amount: 20,
+          Amount: doc.fee * 100,
         },
       });
+
+      // /////////////////////////
+
+      const documentRef = admin
+        .firestore()
+        .collection("subjects")
+        .doc(subjectId)
+        .collection("docs")
+        .doc(docId);
+
+      admin.firestore().runTransaction(async (transaction) => {
+        const document = await transaction.get(documentRef);
+        transaction.update(documentRef, {
+          sales: document.data().sales ? document.data().sales + 1 : 1,
+        });
+      });
+
+      const ownerRef = admin.firestore().collection("users").doc(doc.createdBy);
+
+      admin.firestore().runTransaction(async (transaction) => {
+        const user = await transaction.get(ownerRef);
+        transaction.update(ownerRef, {
+          sales: user.data().sales ? user.data().sales + 1 : 1,
+          badge:
+            user.data().sales + 1 == 500 ?
+              [...user.data().badge, "gold"] :
+              user.data().sales + 1 == 200 ?
+              [...user.data().badge, "silver"] :
+              user.data().sales + 1 == 50 ?
+              [...user.data().badge, "bronze"] :
+              user.data().badge,
+        });
+      });
+
+      // ///////////////////////////
 
       return {
         path: doc.path,

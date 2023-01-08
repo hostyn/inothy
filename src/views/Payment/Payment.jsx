@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useAuth } from "../../context/authContext";
 import { motion } from "framer-motion";
 import Resume from "./Resume";
 import Card from "./Card";
@@ -11,8 +10,7 @@ import Success from "./Success";
 import Error from "./Error";
 
 export default function Payment({ documents, onSuccess = null }) {
-  const { user } = useAuth();
-  const [state, setState] = useState("resume");
+  const [state, setState] = useState("success");
   const [paymentDetails, setPaymentDetails] = useState({
     cardId: null,
     totalAmount: documents.reduce(

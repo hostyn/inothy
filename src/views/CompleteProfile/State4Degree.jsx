@@ -5,10 +5,10 @@ import Img from "../../components/Img";
 
 import normalize from "../../util/normailize";
 import { useState } from "react";
-import Card from "./components/Card";
+import Card, { CardImg, CardText } from "./components/Card";
 import Body from "./components/Body";
 import Cards from "./components/Cards";
-import ButtonGrid from "./components/ButtonGrid";
+import ButtonGrid, { StyledButton } from "./components/ButtonGrid";
 
 export default function State4Degrees({
   degrees,
@@ -49,18 +49,23 @@ export default function State4Degrees({
                     }));
                   }}
                 >
-                  <Img src="/icons/university.svg" />
-                  <Text fontSize="1.5rem" cursor="inherit" userSelect="none">
-                    {degree.name}
-                  </Text>
+                  <CardImg src="/icons/university.svg" />
+                  <CardText>{degree.name}</CardText>
                 </Card>
               );
           })}
       </Cards>
       <ButtonGrid>
-        <Button disabled={!userData.degree} onClick={submit} gridColumn="2">
+        <StyledButton onClick={() => setState("personalData")} back>
+          Atrás
+        </StyledButton>
+        <StyledButton
+          disabled={!userData.degree}
+          onClick={submit}
+          gridColumn="2"
+        >
           Finalizar
-        </Button>
+        </StyledButton>
       </ButtonGrid>
     </Body>
   );

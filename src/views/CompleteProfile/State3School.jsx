@@ -5,10 +5,10 @@ import Img from "../../components/Img";
 
 import normalize from "../../util/normailize";
 import { useState } from "react";
-import Card from "./components/Card";
+import Card, { CardImg, CardText } from "./components/Card";
 import Body from "./components/Body";
 import Cards from "./components/Cards";
-import ButtonGrid from "./components/ButtonGrid";
+import ButtonGrid, { StyledButton } from "./components/ButtonGrid";
 import { getSchool } from "../../util/api";
 
 export default function State3School({
@@ -67,22 +67,23 @@ export default function State3School({
                     );
                   }}
                 >
-                  <Img src="/icons/university.svg" />
-                  <Text fontSize="1.5rem" cursor="inherit" userSelect="none">
-                    {school.name}
-                  </Text>
+                  <CardImg src="/icons/university.svg" />
+                  <CardText>{school.name}</CardText>
                 </Card>
               );
           })}
       </Cards>
       <ButtonGrid>
-        <Button
+        <StyledButton onClick={() => setState("university")} back>
+          Atrás
+        </StyledButton>
+        <StyledButton
           disabled={!userData.school}
           onClick={handleSubmit}
           gridColumn="2"
         >
           Siguiente
-        </Button>
+        </StyledButton>
       </ButtonGrid>
     </Body>
   );

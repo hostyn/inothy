@@ -57,10 +57,10 @@ export default class MyDocument extends Document {
             content="Compra y vende tus apuntes con comisiones bajas."
           />
 
-          <meta
+          {/* <meta
             name="viewport"
             content="initial-scale=1.0, width=device-width"
-          />
+          /> */}
 
           {/* --------- FAVICONS --------- */}
 

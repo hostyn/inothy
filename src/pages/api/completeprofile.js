@@ -34,6 +34,7 @@ export default async function completeprofile(req, res) {
   }
 
   const body = JSON.parse(req.body);
+  const ipAddress = req.connection.remoteAddress;
 
   if (
     body.name.length === 0 ||
@@ -45,7 +46,8 @@ export default async function completeprofile(req, res) {
     body.postalCode.length === 0 ||
     body.university.length === 0 ||
     body.school.length === 0 ||
-    body.degree.length === 0
+    body.degree.length === 0 ||
+    body.biography.length === 0
   ) {
     res.status(400).json({ error: "Missing params" });
     return;
@@ -63,15 +65,20 @@ export default async function completeprofile(req, res) {
     return;
   }
 
-  if (
-    !body.username.match(
-      /^(?=.{4,30}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/
-    )
-  ) {
+  if (!body.username.match(/^[a-zA-Z][a-zA-Z\d_\-\.]{3,29}$/)) {
     res.status(400).json({ error: "Invalid username" });
     return;
   }
-  if (!(await isUsernameAvailable(body.username))) {
+
+  if (body.biography.length < 20) {
+    res.status(400).json({ error: "Biography too short" });
+    return;
+  }
+
+  if (
+    userData.data().username !== body.username &&
+    !(await isUsernameAvailable(body.username))
+  ) {
     res.status(400).json({ error: "Usernmae unavailable" });
     return;
   }
@@ -115,8 +122,11 @@ export default async function completeprofile(req, res) {
       PostalCode: body.postalCode,
       Country: "ES",
     },
+    Birthday: 946684800,
+    Nationality: "ES",
+    CountryOfResidence: "ES",
     PersonType: "NATURAL",
-    UserCategory: "PAYER",
+    UserCategory: "OWNER",
     TermsAndConditionsAccepted: true,
   });
 
@@ -130,6 +140,9 @@ export default async function completeprofile(req, res) {
 
   const mangopayWalletId = createWalletResponse.Id;
 
+  const ambassador =
+    new Date(userData.data().createdAt) < new Date("2022-09-01GMT+2");
+
   try {
     await admin
       .firestore()
@@ -140,6 +153,7 @@ export default async function completeprofile(req, res) {
         name: body.name,
         surname: body.surname,
         username: body.username,
+        biography: body.biography,
         address: {
           address1: body.address1,
           address2: body.address2,
@@ -150,14 +164,18 @@ export default async function completeprofile(req, res) {
         },
         mangopayClientId: mangopayClientId,
         mangopayWalletId: mangopayWalletId,
-        mangopayType: "PAYER",
+        mangopayKYCStatus: null,
         university: body.university,
         school: body.school,
         degree: body.degree,
         ref: body.ref || null,
+        ipAddress: ipAddress,
+        badge: ambassador ? ["ambassador"] : [],
       });
     res.status(200).json({ status: "Success" });
+    return;
   } catch {
     res.status(500).json({ error: "Internal server error" });
+    return;
   }
 }

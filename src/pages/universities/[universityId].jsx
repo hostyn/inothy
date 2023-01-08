@@ -6,7 +6,7 @@ export default function University({ university }) {
   return (
     <>
       <Head>
-        <title>Inothy - {university.name}</title>
+        <title>{`Inothy - ${university.name}`}</title>
       </Head>
       <UniversityPage university={university} />
     </>

@@ -8,12 +8,23 @@ import Link from "next/link";
 const AccountDiv = styled.div`
   margin: 0 ${sizes.inlineMargin};
   padding: 3rem 0;
+
+  @media (max-width: 1000px) {
+    margin: 0 2rem;
+    min-height: calc(100vh - ${sizes.navbar} - 6rem);
+    margin: 0 2rem;
+  }
 `;
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 20% 1fr;
+  grid-template-columns: 20rem 1fr;
   gap: 2rem;
+
+  @media (max-width: 1000px) {
+    grid-template-columns: 1fr;
+    min-height: inherit;
+  }
 `;
 
 const MenuBackground = styled.div`
@@ -22,6 +33,10 @@ const MenuBackground = styled.div`
   background-size: auto;
   background-position: top center;
   margin: 0 0 auto 0;
+
+  @media (max-width: 1000px) {
+    display: none;
+  }
 `;
 
 const MenuDiv = styled.div`
@@ -155,7 +170,7 @@ export default function Menu({
                 </Text>
               </Item>
             </Link>
-            <Link href="/account/settings">
+            {/* <Link href="/account/settings">
               <Item active={settings}>
                 <Img
                   src={
@@ -171,10 +186,10 @@ export default function Menu({
                   fontWeight="bold"
                   color={settings ? "white" : "secondary"}
                 >
-                  Configuración
+                  Seguridad
                 </Text>
               </Item>
-            </Link>
+            </Link> */}
             <Separator />
             <A
               textAlign="left"
@@ -232,7 +247,7 @@ export default function Menu({
             </A>
           </MenuDiv>
         </MenuBackground>
-        <Text>{children}</Text>
+        {children}
       </Grid>
     </AccountDiv>
   );

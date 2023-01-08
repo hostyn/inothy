@@ -9,8 +9,9 @@ const A = styled.a`
   color: ${(props) => colors[props.color] || colors.secondary};
   margin: ${(props) => props.margin || "initial"};
   cursor: pointer;
-  user-select: none;
+  user-select: ${(props) => props.userSelect || "none"};
   text-decoration: none;
+  width: ${(props) => props.width || "auto"};
 
   :hover {
     text-decoration: underline;

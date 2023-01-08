@@ -13,6 +13,8 @@ import State4Degrees from "./State4Degree";
 import State5Success from "./State5Success";
 import Loading from "../../components/Loading";
 import State6Error from "./State6Error";
+import State0CompleteProfile from "./State0CompleteProfile";
+import LoadingPage from "../../components/LoadingPage";
 
 const CompleteProfileDiv = styled.div`
   background-image: url("/resources/completeprofile/background.svg");
@@ -22,10 +24,23 @@ const CompleteProfileDiv = styled.div`
 
   max-height: 100vh;
   max-width: 100vw;
-  min-height: 100vh;
+  min-height: max(100vh, 50rem);
   min-width: 100vw;
   padding: 5rem 10rem;
   display: flex;
+
+  @media (max-width: 1300px) {
+    padding: 5rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 3rem;
+    min-height: max(100vh, 58rem);
+  }
+
+  @media (max-width: 500px) {
+    padding: 2rem;
+  }
 `;
 
 const Form = styled.div`
@@ -40,11 +55,20 @@ const Form = styled.div`
   box-shadow: 0 0 10px 10px ${colors.shadow};
   border-radius: 10px;
   padding: 3rem;
+
+  @media (max-width: 1000px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 500px) {
+    padding: 2rem;
+  }
 `;
 
 const MotionDiv = styled(motion.div)`
   display: flex;
   max-height: calc(100vh - 16rem);
+  min-height: inherit;
 `;
 
 const Summary = styled.div`
@@ -55,6 +79,10 @@ const Summary = styled.div`
   border-radius: 10px;
   box-shadow: 0 0 15px 5px ${colors.shadow};
   padding: 2rem;
+
+  @media (max-width: 1000px) {
+    display: none;
+  }
 `;
 
 const SummaryCard = styled.div`
@@ -68,9 +96,9 @@ const SummaryCard = styled.div`
 `;
 
 export default function CompleteProfileView() {
-  const { user, updateData } = useAuth();
+  const { user, updateData, isLoading, isUser } = useAuth();
   const { push } = useRouter();
-  const [state, setState] = useState("personalData");
+  const [state, setState] = useState("completeProfile");
   const [apiData, setApiData] = useState({
     universities: null,
     schools: null,
@@ -80,13 +108,15 @@ export default function CompleteProfileView() {
   const [userData, setUserData] = useState({
     name: "",
     surname: "",
-    username: "",
+    username: user?.data?.username || "",
+    biography: "",
     address1: "",
     address2: "",
     city: "",
     region: "",
     postalCode: "",
     personalDataCompleted: false,
+    completeProfileCompleted: false,
     university: null,
     universityName: "",
     school: null,
@@ -112,9 +142,18 @@ export default function CompleteProfileView() {
     });
   }, []);
 
-  if (!user || user.data.profileCompleted) {
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
+  if (!user) {
     push("/");
-    return <></>;
+    return <LoadingPage />;
+  }
+
+  if (isUser) {
+    push("/");
+    return <LoadingPage />;
   }
 
   return (
@@ -127,6 +166,13 @@ export default function CompleteProfileView() {
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.15 }}
         >
+          {state === "completeProfile" && (
+            <State0CompleteProfile
+              userData={userData}
+              setUserData={setUserData}
+              setState={setState}
+            />
+          )}
           {state === "personalData" && (
             <State1PersonalData
               userData={userData}
@@ -166,6 +212,19 @@ export default function CompleteProfileView() {
           {state === "error" && <State6Error setState={setState} />}
         </MotionDiv>
         <Summary>
+          {userData.completeProfileCompleted && (
+            <SummaryCard onClick={() => setState("completeProfile")}>
+              <Text cursor="inherit" color="secondary">
+                Perfil
+              </Text>
+              <Text cursor="inherit">@{userData.username}</Text>
+              <Text cursor="inherit">
+                {userData.biography.length > 20
+                  ? userData.biography.substr(0, 20) + "..."
+                  : userData.biography}
+              </Text>
+            </SummaryCard>
+          )}
           {userData.personalDataCompleted && (
             <SummaryCard onClick={() => setState("personalData")}>
               <Text cursor="inherit" color="secondary">

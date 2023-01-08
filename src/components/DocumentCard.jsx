@@ -1,7 +1,9 @@
+import Link from "next/link";
 import styled from "styled-components";
 import { colors } from "../config/theme";
 import { useAuth } from "../context/authContext";
 import { getDownloadUrl } from "../util/api";
+import mimeTypes from "../util/mimeTypes";
 import A from "./A";
 import Button from "./Button";
 import Img from "./Img";
@@ -16,8 +18,15 @@ const Card = styled.div`
   align-items: center;
 
   width: 100%;
-  max-width: 80rem;
   padding: 1rem;
+
+  margin: 0 0 1rem 0;
+`;
+
+const StyledA = styled(A)`
+  @media (max-width: 500px) {
+    font-size: 1rem;
+  }
 `;
 
 export default function DocumentCard({ docuemntData }) {
@@ -44,20 +53,20 @@ export default function DocumentCard({ docuemntData }) {
   return (
     <Card>
       <Img
-        src="/icons/document.svg"
+        src={`/icons/files/${
+          mimeTypes[docuemntData.contentType] || "file.svg"
+        }`}
         aspectRatio="61/75"
         height="3rem"
         width="auto"
       />
-      <A
-        color="primary"
-        fontSize="1.5rem"
-        href={`/subject/${docuemntData.subjectId}/${docuemntData.docId}`}
-      >
-        {docuemntData.name}
-      </A>
-      <Button padding="0.5rem 1rem" onClick={handleDownload}>
-        Descargar
+      <Link href={`/subject/${docuemntData.subjectId}/${docuemntData.docId}`}>
+        <StyledA color="primary" fontSize="1.5rem">
+          {docuemntData.name}
+        </StyledA>
+      </Link>
+      <Button padding="1rem" height="auto" margin="0" onClick={handleDownload}>
+        <Img src="/icons/download.svg" height="1.5rem" width="1.5rem" />
       </Button>
     </Card>
   );

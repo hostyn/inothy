@@ -1,10 +1,16 @@
+import Head from "next/head";
 import ProtectedContent from "../../components/ProtectedContent";
-import ProfileView from "../../views/account/Profile";
+import ProfileView from "../../views/Account/Profile";
 
 export default function Profile() {
   return (
-    <ProtectedContent>
-      <ProfileView />
-    </ProtectedContent>
+    <>
+      <Head>
+        <title>Inothy - Cuenta</title>
+      </Head>
+      <ProtectedContent>
+        <ProfileView />
+      </ProtectedContent>
+    </>
   );
 }

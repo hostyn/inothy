@@ -12,6 +12,15 @@ const Label = styled.label`
   margin: ${(props) => props.margin || "0"};
   width: fit-content;
   cursor: pointer;
+  transition: 0.2s;
+
+  :hover {
+    scale: 1.05;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const Input = styled.input`

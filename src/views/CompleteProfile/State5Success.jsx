@@ -11,19 +11,18 @@ const Success = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    & p {
+      font-size: 2rem;
+    }
+  }
 `;
 
 export default function State5Success() {
   return (
     <Success>
-      {/* <Img
-        src="/imagotipo2.svg"
-        aspectRatio="63/50"
-        width="30%"
-        height="auto"
-        margin="0 0 2rem 0"
-      /> */}
-      <Img src="/check.svg" aspectRatio="1" width="20%" height="auto" />
+      <Img src="/check.svg" width="20vw" height="20vw" />
       <Text color="secondary" fontSize="4rem" fontWeight="bold">
         Bienvenid@
       </Text>

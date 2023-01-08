@@ -6,9 +6,7 @@ export default function School({ school }) {
   return (
     <>
       <Head>
-        <title>
-          Inothy - {school.name} - {school.university.name}
-        </title>
+        <title>{`Inothy - ${school.name} - ${school.university.name}`}</title>
       </Head>
       <SchoolPage school={school} />
     </>

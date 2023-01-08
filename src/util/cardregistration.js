@@ -26,14 +26,10 @@ export default async function registerCard(
 
     const registrationData = await response.text();
 
-    const completeCardRegistrationReponse = await completeCardRegistration(
-      cardRegistration.Id,
-      registrationData
-    );
+    await completeCardRegistration(cardRegistration.Id, registrationData);
 
     return;
-  } catch (e) {
-    console.log(e);
+  } catch {
     throw new Error("Internal server error");
   }
 }

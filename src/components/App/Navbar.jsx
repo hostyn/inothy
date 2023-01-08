@@ -51,13 +51,27 @@ const VerifyEmailBanner = styled.div`
 
   background-color: ${colors.primary};
 
-  display: grid;
-  grid-template-columns: 75% 1fr;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  padding: 0 10rem;
+  padding: 0 ${sizes.inlineMargin};
 
-  justify-content: center;
-  align-content: center;
+  @media (max-width: 1000px) {
+    padding: 0 3rem;
+  }
+
+  @media (max-width: 650px) {
+    padding: 0 1rem;
+
+    & p {
+      font-size: 1rem;
+    }
+
+    & button {
+      min-width: max-content;
+    }
+  }
 `;
 
 const Navbar = styled.div`
@@ -76,7 +90,7 @@ const Navbar = styled.div`
 
   grid-template-columns: ${(props) =>
     props.logged
-      ? "12rem 1fr 10rem 10rem 4rem 22rem 6rem"
+      ? "12rem 1fr 10rem 10rem 22rem 6rem"
       : "12rem 1fr repeat(2, 10rem) repeat(2, 12rem)"};
 
   padding: 2rem 2rem;
@@ -87,12 +101,12 @@ const Navbar = styled.div`
 
   @media (max-width: 1500px) {
     grid-template-columns: ${(props) =>
-      props.logged ? "12rem 1fr 22rem" : "12rem 1fr 12rem 12rem"};
+      props.logged ? "12rem 1fr 22rem" : "12rem 1fr 12rem 4rem"};
   }
 
   @media (max-width: 1000px) {
     grid-template-columns: ${(props) =>
-      props.logged ? "5rem 1fr 22rem" : "5rem 1fr 12rem"};
+      props.logged ? "5rem 1fr 22rem" : "5rem 1fr 4rem"};
     margin: 0 1rem;
   }
 
@@ -122,7 +136,7 @@ const User = styled.div`
   }
 
   background-color: ${(props) =>
-    props.hover ? colors.hover : colors.emphasis};
+    props.hover ? colors.hover : colors.userEmphasis};
 
   @media (max-width: 768px) {
     display: none;
@@ -228,25 +242,36 @@ const HiddenLogo = styled.div`
 
 const HiddenButton = styled.div`
   display: none;
-  position: absolute;
-  right: 5vw;
-  min-height: 2rem;
-  min-width: 2rem;
-  top: calc((${sizes.navbar} - 2rem) / 2);
+  justify-content: center;
+
+  ${(props) =>
+    !props.logged &&
+    `@media (max-width: 1500px) {
+    display: flex;
+  }`}
 
   @media (max-width: 768px) {
+    position: absolute;
+    right: 5vw;
+    min-height: 2rem;
+    min-width: 2rem;
+    ${(props) =>
+      props.emailVerified
+        ? `top: calc((${sizes.navbar} - 2rem) / 2);`
+        : `top: calc(((${sizes.navbar} - 2rem) / 2) + ${sizes.banner});`};
+
     display: flex;
   }
 `;
 
 const HiddenLogin = styled(Button)`
-  @media (max-width: 1000px) {
+  @media (max-width: 1500px) {
     display: none;
   }
 `;
 
 const HiddenRegister = styled(Button)`
-  @media (max-width: 768px) {
+  @media (max-width: 1000px) {
     display: none;
   }
 `;
@@ -263,10 +288,10 @@ export default function Nav({ transparent }) {
     try {
       await sendVerificationEmail(user);
       // TODO: HACER BONITO ESTO
-      openModal(<h1>Reenviado email de verificación</h1>);
+      openModal(<Text>Reenviado email de verificación</Text>);
     } catch {
       // TODO: HACER BONITO ESTO
-      openModal(<h1>No hemos podido reenviar el email</h1>);
+      openModal(<Text>No hemos podido reenviar el email</Text>);
     }
   };
 
@@ -292,10 +317,16 @@ export default function Nav({ transparent }) {
     <NavbarDiv notVerified={user && !user.emailVerified}>
       {user && !user.emailVerified && (
         <VerifyEmailBanner>
-          <Text fontSize="1.5rem" color="white">
+          <Text fontSize="1.2rem" color="white">
             Verifica tu email para completar el registro
           </Text>
-          <Button background="secondary" onClick={handleClick}>
+          <Button
+            background="secondary"
+            margin="0"
+            padding="5px 10px"
+            fontSize="1rem"
+            onClick={handleClick}
+          >
             Reenviar email
           </Button>
         </VerifyEmailBanner>
@@ -353,8 +384,9 @@ export default function Nav({ transparent }) {
           </Link>
         </HiddenElement>
 
-        <HiddenButton
+        {/* <HiddenButton
           ref={buttonRef}
+          logged={isUser}
           onClick={() => setShowMenu((state) => !state)}
         >
           <Img
@@ -364,23 +396,9 @@ export default function Nav({ transparent }) {
             height="2rem"
             width="2rem"
           />
-        </HiddenButton>
+        </HiddenButton> */}
         {isUser ? (
           <>
-            <HiddenElement>
-              <Link href="/cart">
-                <a
-                  style={{
-                    height: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <Img src="/icons/cart.svg" alt="Carrito" height="70%" />
-                </a>
-              </Link>
-            </HiddenElement>
-
             <User
               ref={userRef}
               hover={showMenu}
@@ -435,6 +453,20 @@ export default function Nav({ transparent }) {
             </HiddenRegister>
           </>
         )}
+        <HiddenButton
+          ref={buttonRef}
+          logged={isUser}
+          emailVerified={user ? user.emailVerified : true}
+          onClick={() => setShowMenu((state) => !state)}
+        >
+          <Img
+            src="/resources/navbar/menu.svg"
+            alt="Menú"
+            aspectRatio="1"
+            height="2rem"
+            width="2rem"
+          />
+        </HiddenButton>
         <Menu show={showMenu} ref={menuRef}>
           {isUser ? (
             <>
@@ -457,10 +489,10 @@ export default function Nav({ transparent }) {
                   </Item>
                 </Link>
 
-                <Link href="/cart">
+                <Link href="/universities">
                   <Item>
                     <Img
-                      src="/icons/cart.svg"
+                      src="/icons/universities.svg"
                       aspectRatio="83/50"
                       width="2rem"
                     />
@@ -470,7 +502,25 @@ export default function Nav({ transparent }) {
                       color="secondary"
                       cursor="inherit"
                     >
-                      Carrito
+                      Universidades
+                    </Text>
+                  </Item>
+                </Link>
+
+                <Link href="/info">
+                  <Item>
+                    <Img
+                      src="/icons/info.svg"
+                      aspectRatio="83/50"
+                      width="2rem"
+                    />
+                    <Text
+                      fontSize="1.5rem"
+                      fontWeight="bold"
+                      color="secondary"
+                      cursor="inherit"
+                    >
+                      Información
                     </Text>
                   </Item>
                 </Link>
@@ -542,33 +592,120 @@ export default function Nav({ transparent }) {
                 </Item>
               </Link>
               <Separator />
-              <A
-                textAlign="left"
-                color="primary"
-                fontWeight="normal"
-                fontSize="1rem"
-                margin="0 0 0.5rem 1rem"
+              <Link href="/universities">
+                <A
+                  textAlign="left"
+                  color="primary"
+                  fontWeight="normal"
+                  fontSize="1rem"
+                  margin="0 0 0.5rem 1rem"
+                >
+                  Universidades
+                </A>
+              </Link>
+              <Link href="/info">
+                <A
+                  textAlign="left"
+                  color="primary"
+                  fontWeight="normal"
+                  fontSize="1rem"
+                  margin="0 0 0.5rem 1rem"
+                >
+                  Información
+                </A>
+              </Link>
+              <Link href="/legal">
+                <A
+                  textAlign="left"
+                  color="primary"
+                  fontWeight="normal"
+                  fontSize="1rem"
+                  margin="0 0 0.5rem 1rem"
+                >
+                  Términos y condiciones
+                </A>
+              </Link>
+              <Link href="/privacy">
+                <A
+                  textAlign="left"
+                  color="primary"
+                  fontWeight="normal"
+                  fontSize="1rem"
+                  margin="0 0 0.5rem 1rem"
+                >
+                  Política de privacidad
+                </A>
+              </Link>
+              <Link href="/cookies">
+                <A
+                  textAlign="left"
+                  color="primary"
+                  fontWeight="normal"
+                  fontSize="1rem"
+                  margin="0 0 0 1rem"
+                >
+                  Política de Cookies
+                </A>
+              </Link>
+              <Separator />
+              <Button
+                background="secondary"
+                padding="5px 0"
+                margin="0"
+                onClick={() => {
+                  logout();
+                  setShowMenu(false);
+                }}
               >
-                ¿Por qué inothy?
-              </A>
-              <A
-                textAlign="left"
-                color="primary"
-                fontWeight="normal"
-                fontSize="1rem"
-                margin="0 0 0.5rem 1rem"
+                Cerrar sesión
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                padding="0.5rem 1rem"
+                margin="0 0 1rem 0"
+                onClick={() => {
+                  setShowMenu(false);
+                  openModal(<AuthModal />);
+                }}
               >
-                ¿Cómo funciona?
-              </A>
-              <A
-                textAlign="left"
-                color="primary"
-                fontWeight="normal"
-                fontSize="1rem"
-                margin="0 0 0.5rem 1rem"
+                Acceder
+              </Button>
+              <Button
+                padding="0.5rem 1rem"
+                background="secondary"
+                margin="0 0"
+                onClick={() => {
+                  setShowMenu(false);
+                  openModal(<AuthModal selected="register" />);
+                }}
               >
-                ¿Quiénes somos?
-              </A>
+                Registrarse
+              </Button>
+              <Separator />
+              <Link href="/universities">
+                <A
+                  textAlign="left"
+                  color="primary"
+                  fontWeight="normal"
+                  fontSize="1rem"
+                  margin="0 0 0.5rem 1rem"
+                >
+                  Universidades
+                </A>
+              </Link>
+              <Link href="/info">
+                <A
+                  textAlign="left"
+                  color="primary"
+                  fontWeight="normal"
+                  fontSize="1rem"
+                  margin="0 0 0.5rem 1rem"
+                >
+                  Información
+                </A>
+              </Link>
               <A
                 textAlign="left"
                 color="primary"
@@ -596,39 +733,6 @@ export default function Nav({ transparent }) {
               >
                 Política de Cookies
               </A>
-              <Separator />
-              <Button
-                background="secondary"
-                padding="5px 0"
-                onClick={() => {
-                  logout();
-                  setShowMenu(false);
-                }}
-              >
-                Cerrar sesión
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button
-                margin="0"
-                onClick={() => {
-                  setShowMenu(false);
-                  openModal(<AuthModal />);
-                }}
-              >
-                Acceder
-              </Button>
-              <Button
-                background="secondary"
-                margin="0"
-                onClick={() => {
-                  setShowMenu(false);
-                  openModal(<AuthModal selected="register" />);
-                }}
-              >
-                Registrarse
-              </Button>
             </>
           )}
         </Menu>

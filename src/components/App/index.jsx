@@ -14,7 +14,7 @@ const AppDiv = styled.div`
 const AppBody = styled.main`
   min-width: 100vw;
   max-width: 100vw;
-  min-height: calc(100vh - ${sizes.navbar});
+  min-height: 100vh;
   ${(props) =>
     props.transparent
       ? "padding: 0"

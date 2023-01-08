@@ -1,14 +1,23 @@
 import styled from "styled-components";
 import Input from "../Input";
 import Text from "../Text";
+import A from "../A";
 import Button from "../Button";
 import { useState } from "react";
 import { useModal } from "../../context/modalContext";
 import { useAuth } from "../../context/authContext";
 
 const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+
   text-align: center;
   width: 100%;
+  padding: 0 5rem;
+
+  @media (max-width: 600px) {
+    padding: 0 10vw;
+  }
 `;
 
 const Error = styled.p`
@@ -24,7 +33,7 @@ const InlineText = styled.div`
   margin: ${(props) => props.margin || "initial"};
 `;
 
-export default function LoginForm() {
+export default function LoginForm({ setState }) {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState({
     email: null,
@@ -51,6 +60,10 @@ export default function LoginForm() {
       .catch((error) => {
         setError((error) => ({ email: "Email o contraseña inválidos" }));
       });
+  };
+
+  const handleForgetPassword = () => {
+    setState("forgetPassword");
   };
 
   const validateForm = (form) => {
@@ -94,11 +107,20 @@ export default function LoginForm() {
         {error.password && <Error>{error.password}</Error>}
       </InlineText>
       <Input name="password" type="password" onChange={handleChange} />
+      <A
+        color="primary"
+        fontSize="1rem"
+        textAlign="center"
+        margin="1rem 0 0 0"
+        onClick={handleForgetPassword}
+      >
+        ¿Has olvidado tu contraseña?
+      </A>
       <Button
-        height="2.5rem"
-        padding="0 2rem"
+        height="auto"
+        padding="0.5rem 2rem"
         background="secondary"
-        margin="2rem 0 0 0"
+        margin="1rem auto 0 auto"
       >
         Iniciar sesión
       </Button>

@@ -1,5 +1,6 @@
-import admin from "../../config/firebaseadmin";
+import admin, { firestoreAdmin } from "../../config/firebaseadmin";
 import mangopay from "../../config/mangopay";
+import getAge from "../../util/getAge";
 
 export default async function kyc(req, res) {
   if (req.method !== "POST") {
@@ -22,10 +23,10 @@ export default async function kyc(req, res) {
     });
 
   const userData = (
-    await admin.firestore().collection("users").doc(user.uid).get()
+    await firestoreAdmin.collection("users").doc(user.uid).get()
   ).data();
 
-  if (userData.mangopayType === "OWNER") {
+  if (userData.mangopayKYCStatus === "VALIDATED") {
     res.status(400).json({ error: "User already verifyed" });
     return;
   }
@@ -61,7 +62,11 @@ export default async function kyc(req, res) {
     return;
   }
 
-  // TODO: Verificar que es mayor de edad
+  if (getAge(new Date(body.birthday)) < 18) {
+    res.status(400).json({ error: "Must be adult" });
+    return;
+  }
+
   const updateUserResponse = await mangopay.Users.update({
     Id: userData.mangopayClientId,
     PersonType: "NATURAL",
@@ -100,13 +105,10 @@ export default async function kyc(req, res) {
 
   await Promise.all(fileUploads);
 
-  const submitResponse = await mangopay.Users.updateKycDocument(
-    userData.mangopayClientId,
-    {
-      Id: createKycResponse.Id,
-      Status: "VALIDATION_ASKED",
-    }
-  );
+  await mangopay.Users.updateKycDocument(userData.mangopayClientId, {
+    Id: createKycResponse.Id,
+    Status: "VALIDATION_ASKED",
+  });
 
   try {
     await admin
@@ -131,6 +133,8 @@ export default async function kyc(req, res) {
         mangopayKYCLevel: "LIGHT",
         mangopayKYCId: createKycResponse.Id,
         mangopayKYCStatus: "VALIDATION_ASKED",
+        mangopayKYCRefusedReasonType: null,
+        mangopayKYCRefusedReasonMessage: null,
       });
   } catch {
     res.status(500).json({ error: "Internal server error" });
@@ -140,3 +144,9 @@ export default async function kyc(req, res) {
   res.status(200).json({ status: "Success" });
   return;
 }
+
+export const config = {
+  api: {
+    bodyParser: { sizeLimit: "21mb" },
+  },
+};

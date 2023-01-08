@@ -19,13 +19,20 @@ const CompletePayDiv = styled.div`
   justify-content: center;
 `;
 
+// TODO: Transaction not found
+
 export default function CompletePayPage({ transactionId }) {
-  const { user } = useAuth();
+  const { user, isUser, isLoading: authLoading } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [transactionData, setTransactionData] = useState(null);
   const [bought, setBought] = useState(null);
 
   useEffect(() => {
+    if (authLoading) return;
+    if (!isUser) return;
+
+    let interval = null;
+
     const getDocumentsBought = (data) => {
       return Promise.all(
         data.recipts.map(async (recipt) => {
@@ -38,10 +45,10 @@ export default function CompletePayPage({ transactionId }) {
     if (!transactionData) {
       getTransaction(user, transactionId).then((data) => {
         if (data.status === "CREATED") {
-          setInterval(async () => {
+          interval = setInterval(async () => {
             const data = await getTransaction(user, transactionId);
             if (data.status !== "CREATED") {
-              clearInterval();
+              clearInterval(interval);
               setTransactionData(data);
               getDocumentsBought(data).then((res) => {
                 setBought(res);
@@ -62,8 +69,8 @@ export default function CompletePayPage({ transactionId }) {
     // if (transactionData?.status === "SUCCEEDED") {
     //   getDocumentsBought().then((data) => setBought(data));
     // }
-    return clearInterval;
-  }, [user, transactionId, transactionData]);
+    // return () => clearInterval(interval);
+  }, [user, transactionId, transactionData, isUser, authLoading]);
 
   return (
     <App>

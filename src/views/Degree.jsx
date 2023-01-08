@@ -9,19 +9,82 @@ import { currencyFormatter } from "../util/normailize";
 import Loading from "../components/Loading";
 import { getSubject } from "../util/api";
 import Button from "../components/Button";
+import { useAuth } from "../context/authContext";
+import mimeTypes from "../util/mimeTypes";
+import A from "../components/A";
+import DocumentGridCard from "../components/DocumentGridCard";
 
 const DegreeDiv = styled.div`
   display: flex;
   flex-direction: column;
   margin: 2rem calc(${sizes.inlineMargin} * 2);
+
+  @media (max-width: 1500px) {
+    margin: 2rem ${sizes.inlineMargin};
+  }
+
+  @media (max-width: 1000px) {
+    margin: 2rem;
+  }
 `;
 
 const Title = styled.div`
   display: grid;
-  grid-template-columns: 15rem auto;
+  grid-template-columns: 13vw auto;
   align-items: center;
   gap: 2rem;
-  margin: 0 0 2rem 0;
+  margin: 0 0 0 0;
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 5rem auto;
+    justify-items: center;
+  }
+`;
+
+const Logo = styled(Img)`
+  aspect-ratio: 1;
+  width: 13vw;
+  height: 13vw;
+
+  @media (max-width: 500px) {
+    width: 5rem;
+    height: 5rem;
+  }
+`;
+
+const TitleText = styled(Text)`
+  @media (max-width: 1000px) {
+    font-size: 1.7rem;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 1.8rem;
+
+    text-align: center;
+  }
+`;
+
+const SubtitleText = styled(Text)`
+  @media (max-width: 1000px) {
+    font-size: 1.3rem;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+`;
+
+const SubsubtitleText = styled(Text)`
+  @media (max-width: 1000px) {
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 1.2rem;
+    text-align: center;
+  }
 `;
 
 const FlexColumn = styled.div`
@@ -49,6 +112,7 @@ const YearButton = styled.p`
   justify-content: center;
   aspect-ratio: 1;
   width: 2.5rem;
+  height: 2.5rem;
   font-size: 1.5rem;
   color: ${(props) => (props.selected ? colors.white : "inherit")};
   background-color: ${(props) =>
@@ -74,40 +138,21 @@ const LoadingDiv = styled.div`
 
 const CardGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  grid-template-rows: auto;
   gap: 2rem;
+  justify-items: center;
   margin: 0 0 1rem 0;
 `;
 
-const Card = styled.div`
-  aspect-ratio: 1;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 70% 30%;
-  justify-items: center;
-  align-items: center;
-  border: 3px solid ${colors.primary};
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.2s;
-
-  :hover {
-    scale: 1.05;
+const SubjectTitle = styled(A)`
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
   }
 `;
 
-const CardTitle = styled.div`
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-width: 100%;
-  border: 3px solid ${colors.primary};
-  border-width: 3px 0 0 0;
-`;
-
 export default function DegreePage({ degree }) {
+  const { user } = useAuth();
   const [yearSelected, setYearSelected] = useState(1);
   const [yearPage, setYearPage] = useState({
     1: loadDocs(degree.subjects.filter((subject) => subject.year === 1)),
@@ -115,23 +160,34 @@ export default function DegreePage({ degree }) {
 
   function loadDocs(subjects) {
     return subjects
+      .map((subject) => ({
+        ...subject,
+        docs: subject.docs.filter((doc) => doc.createdBy !== user?.uid),
+      }))
       .filter((subject) => subject.docs.length)
       .map((subject) => (
-        <div key={subject.id}>
-          <Text fontSize="2rem" fontWeight="bold" margin="0 0 1rem 0">
-            {subject.name} ({subject.code})
-          </Text>
+        <div
+          key={subject.id}
+          style={{ display: "flex", flexDirection: "column" }}
+        >
+          <Link href={`/subject/${subject.id}`}>
+            <SubjectTitle
+              fontSize="2rem"
+              fontWeight="bold"
+              margin="0 0 1rem 0"
+              color="primary"
+              width="fit-content"
+            >
+              {subject.name} {subject.code && `(${subject.code})`}
+            </SubjectTitle>
+          </Link>
           <CardGrid>
             {subject.docs.map((doc) => (
-              <Link key={doc.id} href={`/subject/${subject.id}/${doc.id}`}>
-                <Card>
-                  <Img src="/icons/upload.svg" width="100%" />
-                  <CardTitle>
-                    <Text fontWeight="bold">{doc.name}</Text>
-                    <Text>{currencyFormatter.format(doc.price)}</Text>
-                  </CardTitle>
-                </Card>
-              </Link>
+              <DocumentGridCard
+                key={doc.id}
+                href={`/subject/${subject.id}/${doc.id}`}
+                documentData={doc}
+              />
             ))}
           </CardGrid>
         </div>
@@ -163,26 +219,21 @@ export default function DegreePage({ degree }) {
     <App>
       <DegreeDiv>
         <Title>
-          <Img
-            src={degree.university.logoUrl}
-            aspectRatio="1"
-            width="auto"
-            height="15rem"
-          />
+          <Logo src={degree.university.logoUrl} />
           <FlexColumn>
-            <Text
-              fontSize="4rem"
+            <TitleText
+              fontSize="3vw"
               fontWeight="bold"
               fontFamily="HelveticaRounded"
             >
               {degree.name}
-            </Text>
-            <Text fontSize="2rem" fontFamily="HelveticaRounded">
+            </TitleText>
+            <SubtitleText fontSize="2vw" fontFamily="HelveticaRounded">
               {degree.school.name}
-            </Text>
-            <Text fontSize="2rem" fontFamily="HelveticaRounded">
+            </SubtitleText>
+            <SubsubtitleText fontSize="1.5vw" fontFamily="HelveticaRounded">
               {degree.university.name}
-            </Text>
+            </SubsubtitleText>
           </FlexColumn>
         </Title>
         <YearSelector years={degree.years}>

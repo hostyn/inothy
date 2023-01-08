@@ -6,12 +6,12 @@ export default async function subject(req, res) {
     return;
   }
   try {
-    const { subjectId, limit: initialLimit } = req.query;
+    const { subjectId, limit: initialLimit, startAfter } = req.query;
     const subjectSnapshot = firestoreAdmin
       .collection("subjects")
       .doc(subjectId);
 
-    const limit = initialLimit || 5;
+    const limit = parseInt(initialLimit) || 5;
 
     let subjectData = await subjectSnapshot.get();
 
@@ -26,10 +26,23 @@ export default async function subject(req, res) {
         .get()
     ).data();
 
-    const docs = await subjectSnapshot.collection("docs").limit(limit).get();
+    const docs = startAfter
+      ? await subjectSnapshot
+          .collection("docs")
+          .startAfter(
+            await subjectSnapshot.collection("docs").doc(startAfter).get()
+          )
+          .limit(limit)
+          .get()
+      : await subjectSnapshot.collection("docs").limit(limit).get();
 
     if (docs.empty) {
-      res.status(200).json({ ...subjectData, docs: [] });
+      res.status(200).json({
+        ...subjectData,
+        id: subjectId,
+        university: university,
+        docs: [],
+      });
       return;
     }
 
@@ -40,6 +53,7 @@ export default async function subject(req, res) {
       id: subjectId,
       university: university,
       docs: docsData,
+      last: docs.docs.length === limit ? docs.docs.at(-1).id : false,
     });
     return;
   } catch (e) {

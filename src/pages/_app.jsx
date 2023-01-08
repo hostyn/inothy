@@ -2,6 +2,9 @@ import App from "next/app";
 import Cookies from "../components/Cookies";
 import Providers from "../context/Providers";
 import "../styles/global.css";
+import { pdfjs } from "react-pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker.js`;
 
 export default function MyApp({ Component, pageProps }) {
   return (

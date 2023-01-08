@@ -6,7 +6,7 @@ import Loading from "../../components/Loading";
 import Text from "../../components/Text";
 import { colors } from "../../config/theme";
 import { useAuth } from "../../context/authContext";
-import { buy, getCards } from "../../util/api";
+import { buy, deleteCard, getCards } from "../../util/api";
 import Button from "../../components/Button";
 
 const CardDiv = styled.div`
@@ -16,40 +16,71 @@ const CardDiv = styled.div`
   width: 100%;
 `;
 
+const Title = styled(Text)`
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+`;
+
 const CardGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+
+  @media (max-width: 1300px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const CardCard = styled.div`
   display: grid;
-  grid-template-columns: 5rem 1fr;
+  min-width: 100%;
+  grid-template-columns: 3rem 1fr 1.5rem;
   gap: 1rem;
   border-radius: 10px;
   border: ${(props) =>
     props.selected
-      ? `3px solid ${colors.secondary}`
-      : `3px solid ${colors.primary}`};
+      ? `2px solid ${colors.secondary}`
+      : `2px solid ${colors.primary}`};
   padding: 1rem;
   align-items: center;
   cursor: pointer;
   transition: 0.2s;
 
+  @media (max-width: 500px) {
+    grid-template-columns: 2rem 1fr 1rem;
+    gap: 0.5rem;
+    padding: 1rem 0.7rem;
+  }
+
   ${(props) =>
     props.selected &&
     `
-    scale: 1.03;
+    scale: 1.02;
   `}
 
   :hover {
-    scale: 1.03;
+    scale: 1.02;
+  }
+`;
+
+const CardAlias = styled(Text)`
+  @media (max-width: 500px) {
+    font-size: 1rem;
   }
 `;
 
 const VerticalText = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const AddCardText = styled(Text)`
+  grid-column: 2/4;
+
+  @media (max-width: 500px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export default function Card({
@@ -73,9 +104,9 @@ export default function Card({
       );
 
       if (res.status === "success") {
-        await updateData();
         setState("success");
         await new Promise((res) => setTimeout(res, 2000));
+        await updateData();
         if (onSuccess) {
           onSuccess();
           return;
@@ -89,6 +120,12 @@ export default function Card({
     } catch {
       setState("error");
     }
+  };
+
+  const handleDeleteCard = async (cardId) => {
+    await deleteCard(user, cardId);
+    const cards = await getCards(user);
+    setCards(cards);
   };
 
   useEffect(() => {
@@ -105,9 +142,9 @@ export default function Card({
 
   return (
     <CardDiv>
-      <Text fontSize="2rem" fontWeight="bold" margin="0 0 1rem 0">
+      <Title fontSize="2rem" fontWeight="bold" margin="0 0 1rem 0">
         Seleccione una tarjeta
-      </Text>
+      </Title>
       <CardGrid>
         {cards.map((card) => (
           <CardCard
@@ -117,16 +154,23 @@ export default function Card({
               setPaymentDetails((data) => ({ ...data, cardId: card.Id }))
             }
           >
-            <Img src="/icons/card.svg" aspectRatio="39/25" />
+            <Img src="/icons/card.svg" />
             <VerticalText>
-              <Text fontSize="1.5rem" userSelect="none">
+              <CardAlias fontSize="1.3rem" userSelect="none">
                 {card.Alias}
-              </Text>
+              </CardAlias>
               <Text userSelect="none">
                 {card.ExpirationDate.substr(0, 2)}/
-                {card.ExpirationDate.substr(2, 2)} | {card.CardProvider}
+                {card.ExpirationDate.substr(2, 2)} |{" "}
+                {card.CardProvider === "unknown"
+                  ? "Desconocido"
+                  : card.CardProvider}
               </Text>
             </VerticalText>
+            <Img
+              src="/icons/trash.svg"
+              onClick={() => handleDeleteCard(card.Id)}
+            />
           </CardCard>
         ))}
         <CardCard
@@ -135,11 +179,11 @@ export default function Card({
           padding="0.5rem 1rem"
           onClick={() => setState("addCard")}
         >
-          <Img src="/icons/card.svg" aspectRatio="39/25" />
-          <Text display="flex" alignItems="center" fontSize="2rem">
-            <Span fontSize="3rem">+ </Span>
+          <Img src="/icons/card.svg" />
+          <AddCardText display="flex" alignItems="center" fontSize="1.8rem">
+            <Span fontSize="2.5rem">+ </Span>
             Añadir una tarjeta
-          </Text>
+          </AddCardText>
         </CardCard>
       </CardGrid>
       <Button

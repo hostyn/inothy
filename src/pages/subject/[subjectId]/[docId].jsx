@@ -1,8 +1,16 @@
+import Head from "next/head";
 import { getDocument } from "../../../util/api";
 import DocumentPage from "../../../views/Document";
 
 export default function Document({ documentData }) {
-  return <DocumentPage documentData={documentData} />;
+  return (
+    <>
+      <Head>
+        <title>{`Inothy - ${documentData.name}`}</title>
+      </Head>
+      <DocumentPage documentData={documentData} />
+    </>
+  );
 }
 
 export async function getServerSideProps({ params: { subjectId, docId } }) {

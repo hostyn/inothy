@@ -11,16 +11,41 @@ const ErrorDiv = styled.div`
   flex-direction: column;
 `;
 
+const StyledImg = styled(Img)`
+  @media (max-width: 1000px) {
+    height: 6rem;
+    width: 6rem;
+  }
+`;
+
+const StyledTitle = styled(Text)`
+  @media (max-width: 1000px) {
+    font-size: 2rem;
+  }
+`;
+
+const StyledText = styled(Text)`
+  @media (max-width: 1000px) {
+    font-size: 1.2rem;
+  }
+`;
+
 export default function Error() {
   return (
     <ErrorDiv>
-      <Img src="/error.svg" aspectRatio="1" width="10rem" height="auto" />
-      <Text color="secondary" fontSize="4rem" fontWeight="bold">
+      <StyledImg src="/error.svg" aspectRatio="1" width="10rem" height="auto" />
+      <StyledTitle
+        color="secondary"
+        fontSize="4rem"
+        fontWeight="bold"
+        textAlign="center"
+        margin="1rem 0 0 0"
+      >
         Ha ocurrido un error
-      </Text>
-      <Text fontSize="1.5rem">
+      </StyledTitle>
+      <StyledText fontSize="1.5rem" textAlign="center" margin="1rem 0 0 0">
         Vuelve a intentarlo o contacta con el soporte
-      </Text>
+      </StyledText>
     </ErrorDiv>
   );
 }

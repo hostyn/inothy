@@ -1,15 +1,13 @@
-import Text from "../../components/Text";
 import Input from "../../components/Input";
-import Button from "../../components/Button";
 import Img from "../../components/Img";
-
 import normalize from "../../util/normailize";
 import { useState } from "react";
-import Card from "./components/Card";
+import Card, { CardImg, CardText } from "./components/Card";
 import Body from "./components/Body";
 import Cards from "./components/Cards";
-import ButtonGrid from "./components/ButtonGrid";
+import ButtonGrid, { StyledButton } from "./components/ButtonGrid";
 import { getUniversity } from "../../util/api";
+import HeaderTitle from "./components/Title";
 
 export default function State2University({
   universities,
@@ -30,14 +28,7 @@ export default function State2University({
 
   return (
     <Body>
-      <Text
-        fontSize="3rem"
-        fontWeight="bold"
-        fontFamily="HelveticaRounded"
-        textAlign="center"
-      >
-        Universidad
-      </Text>
+      <HeaderTitle>Universidad</HeaderTitle>
       <Input onChange={handleChange} placeholder="Busca tu universidad" />
       <Cards>
         {universities &&
@@ -74,22 +65,23 @@ export default function State2University({
                     );
                   }}
                 >
-                  <Img src={uni.logoUrl} aspectRatio="1" height="auto" />
-                  <Text fontSize="1.5rem" cursor="inherit" userSelect="none">
-                    {uni.name}
-                  </Text>
+                  <CardImg src={uni.logoUrl} />
+                  <CardText>{uni.name}</CardText>
                 </Card>
               );
           })}
       </Cards>
       <ButtonGrid>
-        <Button
+        <StyledButton onClick={() => setState("personalData")} back>
+          Atrás
+        </StyledButton>
+        <StyledButton
           disabled={!userData.university}
           onClick={handleSubmit}
           gridColumn="2"
         >
           Siguiente
-        </Button>
+        </StyledButton>
       </ButtonGrid>
     </Body>
   );

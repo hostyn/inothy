@@ -30,7 +30,7 @@ const FooterDiv = styled.footer`
 const Contacto = styled.div`
   background-image: url("/resources/footer/background.svg");
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
   background-position: top center;
 
   aspect-ratio: 1910/641;
@@ -39,6 +39,9 @@ const Contacto = styled.div`
   grid-template-columns: 40% 60%;
 
   padding: 0 10vw;
+  margin: 0 4vw;
+
+  height: calc(92vw * 641 / 1920);
 
   align-items: center;
   justify-items: center;
@@ -72,15 +75,17 @@ const RRSSButton = styled.a`
   border-radius: 99999px;
   margin: 0 2vw;
   width: 7vw;
+  height: 7vw;
 
   @media (max-width: 600px) {
     padding: 2.2vw;
     width: 10vw;
+    height: 10vw;
     margin: 0 4vw;
   }
 `;
 
-const HiddenLink = styled(A)`
+const HiddenLink = styled.div`
   @media (max-width: 1000px) {
     display: none;
   }
@@ -104,7 +109,7 @@ export default function Footer() {
         />
         <TextDiv>
           <Text fontFamily="HelveticaRounded" fontSize="4vw" textAlign="center">
-            Contactemos
+            Contáctanos
           </Text>
           <RRSS>
             <RRSSButton
@@ -124,42 +129,59 @@ export default function Footer() {
         </TextDiv>
       </Contacto>
       <FooterDiv>
-        <HiddenLink
-          color="white"
-          fontWeight="regular"
-          fontSize="1.2rem"
-          textAlign="center"
-        >
-          ¿Por qué inothy?
+        <HiddenLink>
+          <Link href="/info">
+            <A
+              color="white"
+              fontWeight="regular"
+              fontSize="1.2rem"
+              textAlign="center"
+            >
+              ¿Cómo funciona?
+            </A>
+          </Link>
         </HiddenLink>
-        <HiddenLink
-          color="white"
-          fontWeight="regular"
-          fontSize="1.2rem"
-          textAlign="center"
-        >
-          ¿Cómo funciona?
+
+        <HiddenLink>
+          <Link href="/legal">
+            <A
+              color="white"
+              fontWeight="regular"
+              fontSize="1.2rem"
+              textAlign="center"
+            >
+              Términos y condiciones
+            </A>
+          </Link>
         </HiddenLink>
         <Link href="/" passHref>
           <a style={{ height: "100%" }}>
-            <Img src="/isologo.svg" />
+            <Img src="/isologo.svg" priority />
           </a>
         </Link>
-        <HiddenLink
-          color="white"
-          fontWeight="regular"
-          fontSize="1.2rem"
-          textAlign="center"
-        >
-          Legal
+        <HiddenLink>
+          <Link href="/privacy">
+            <A
+              color="white"
+              fontWeight="regular"
+              fontSize="1.2rem"
+              textAlign="center"
+            >
+              Politica de privacidad
+            </A>
+          </Link>
         </HiddenLink>
-        <HiddenLink
-          color="white"
-          fontWeight="regular"
-          fontSize="1.2rem"
-          textAlign="center"
-        >
-          Cookies
+        <HiddenLink>
+          <Link href="/cookies">
+            <A
+              color="white"
+              fontWeight="regular"
+              fontSize="1.2rem"
+              textAlign="center"
+            >
+              Cookies
+            </A>
+          </Link>
         </HiddenLink>
       </FooterDiv>
     </>

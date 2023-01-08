@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { colors } from "../config/theme";
 import Button from "./Button";
 import Text from "./Text";
+import A from "./A";
+import { useRouter } from "next/router";
 
 const Backdrop = styled.div`
   background-color: ${colors.backdrop};
@@ -42,6 +44,7 @@ const InlineText = styled.div`
 
 export default function Cookies() {
   const [cookiesAccepted, setCookiesAccepted] = useState(true);
+  const { pathname } = useRouter();
 
   const handleAccept = () => {
     localStorage.setItem("cookiesAccepted", "true");
@@ -57,15 +60,16 @@ export default function Cookies() {
 
   return (
     <>
-      {!cookiesAccepted && (
+      {!cookiesAccepted && pathname !== "/cookies" && (
         <Backdrop>
           <Modal>
             <Text fontSize="2rem">Cookies</Text>
             <Text textAlign="center">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam
-              quasi optio cumque quam? Harum sed autem fugiat aperiam. Sed
-              magnam adipisci minima perferendis vel sit voluptatibus magni quis
-              dolorem tempore.
+              Utilizamos{" "}
+              <A fontSize="1rem" href="/cookies">
+                cookies
+              </A>{" "}
+              de terceros con fines comerciales.
             </Text>
             <InlineText>
               <Button

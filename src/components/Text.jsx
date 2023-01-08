@@ -12,6 +12,9 @@ const Text = styled.p`
   margin: ${(props) => props.margin || "0"};
   user-select: ${(props) => props.userSelect || "initial"};
   width: ${(props) => props.width || "initial"};
+  min-width: ${(props) => props.minWidth || "initial"};
+  line-height: ${(props) => props.lineHeight || "initial"};
+  max-width: ${(props) => props.maxWidth || "initial"};
   cursor: ${(props) => props.cursor || "inherit"};
 `;
 

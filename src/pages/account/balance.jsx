@@ -1,10 +1,16 @@
+import Head from "next/head";
 import ProtectedContent from "../../components/ProtectedContent";
-import BalanceView from "../../views/account/Balance";
+import BalanceView from "../../views/Account/Balance";
 
 export default function Balance() {
   return (
-    <ProtectedContent>
-      <BalanceView />
-    </ProtectedContent>
+    <>
+      <Head>
+        <title>Inothy - Balance</title>
+      </Head>
+      <ProtectedContent>
+        <BalanceView />
+      </ProtectedContent>
+    </>
   );
 }

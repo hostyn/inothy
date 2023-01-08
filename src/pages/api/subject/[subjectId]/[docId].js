@@ -8,12 +8,13 @@ export default async function Document(req, res) {
   try {
     const { subjectId, docId } = req.query;
 
-    const docSnapshot = firestoreAdmin
+    const subjectSnapshot = firestoreAdmin
       .collection("subjects")
-      .doc(subjectId)
-      .collection("docs")
-      .doc(docId);
+      .doc(subjectId);
 
+    const docSnapshot = subjectSnapshot.collection("docs").doc(docId);
+
+    let subjectData = subjectSnapshot.get();
     let docData = await docSnapshot.get();
 
     if (!docData.exists) {
@@ -21,17 +22,28 @@ export default async function Document(req, res) {
       return;
     }
 
+    subjectData = (await subjectData).data();
     docData = docData.data();
+
+    let universityData = firestoreAdmin
+      .collection("universities")
+      .doc(subjectData.university)
+      .get();
 
     const creatorData = (
       await firestoreAdmin.collection("users").doc(docData.createdBy).get()
     ).data();
 
+    universityData = (await universityData).data();
+
     res.status(200).json({
       subjectId: subjectId,
+      subject: subjectData,
+      university: universityData,
       docId: docId,
       createdAt: docData.createdAt,
       createdBy: creatorData.username,
+      createdById: docData.createdBy,
       description: docData.description,
       file: docData.file,
       fileName: docData.fileName,
@@ -39,6 +51,8 @@ export default async function Document(req, res) {
       price: docData.price,
       rating: docData.rating,
       totalRatings: docData.totalRatings,
+      contentType: docData.contentType,
+      preview: docData.preview,
     });
     return;
   } catch (e) {

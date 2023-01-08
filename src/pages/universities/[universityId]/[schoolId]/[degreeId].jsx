@@ -6,9 +6,7 @@ export default function Degree({ degree }) {
   return (
     <>
       <Head>
-        <title>
-          Inothy - {degree.name} - {degree.university.name}
-        </title>
+        <title>{`Inothy - ${degree.name} - ${degree.university.name}`}</title>
       </Head>
       <DegreePage degree={degree} />
     </>

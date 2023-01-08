@@ -8,6 +8,7 @@ const Textarea = styled.textarea`
   font-size: ${(props) => props.fontSize || "1rem"};
   padding: ${(props) => props.padding || "10px"};
   width: ${(props) => props.width || "100%"};
+  margin: ${(props) => props.margin || "initial"};
   outline: none;
   resize: none;
 `;

@@ -8,6 +8,7 @@ import { storage } from "../../config/firebase";
 import { useAuth } from "../../context/authContext";
 import {
   getSchool,
+  getSubject,
   getUniversities,
   getUniversity,
   uploadFile,
@@ -17,7 +18,7 @@ import Text from "../../components/Text";
 import Img from "../../components/Img";
 import Textarea from "../../components/Textarea";
 import Fileinput from "../../components/Fileinput";
-import Checkbox from "../../components/Checkbox";
+// import Checkbox from "../../components/Checkbox";
 import { colors } from "../../config/theme";
 import { useRouter } from "next/router";
 
@@ -33,11 +34,43 @@ const Title = styled.div`
   margin: ${(props) => props.margin || "0"};
 `;
 
+const TitleImg = styled(Img)`
+  @media (max-width: 1200px) {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  @media (max-width: 768px) {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+`;
+
+const TitleText = styled(Text)`
+  @media (max-width: 1200px) {
+    font-size: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.7rem;
+  }
+`;
+
+const InputHeader = styled(Text)`
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+`;
+
 const UploadForm = styled.div`
   margin: 1rem 0 0 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 3rem;
+  gap: 0 3rem;
+
+  @media (max-width: 1000px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Column = styled.div`
@@ -48,18 +81,47 @@ const Column = styled.div`
 
 const UploadBox = styled.div`
   margin: 1rem 0 1rem 0;
-  display: grid;
-  grid-template-columns: 16rem 1fr;
+  display: flex;
   align-items: center;
+  gap: 1rem;
+
+  @media (max-width: 1300px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 1000px) {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  & p {
+    max-width: 100%;
+    line-break: anywhere;
+    flex: 1;
+  }
 `;
 
-const FileBox = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 20px;
-  margin: 0 0 5px 0;
+const PriceDiv = styled.div`
+  display: flex;
+  margin: 0 auto;
 `;
 
-export default function Upload({ setState }) {
+// const FileBox = styled.div`
+//   display: grid;
+//   grid-template-columns: 1fr 20px;
+//   margin: 0 0 5px 0;
+// `;
+
+export default function UploadView({ setState }) {
   const { user } = useAuth();
   const { push } = useRouter();
 
@@ -69,12 +131,13 @@ export default function Upload({ setState }) {
     description: null,
     subject: null,
     file: null,
+    price: null,
   });
 
   const [docData, setDocData] = useState({
     name: "",
     description: "",
-    price: process.env.NEXT_PUBLIC_MIN_PRICE,
+    price: parseFloat(process.env.NEXT_PUBLIC_MIN_PRICE).toFixed(2),
     university: user.data.university,
     school: user.data.school,
     degree: user.data.degree,
@@ -90,7 +153,6 @@ export default function Upload({ setState }) {
   });
 
   const handleFileChange = ({ target }) => {
-    console.log(target.files[0]);
     setError((error) => ({ ...error, files: null }));
     setFile(target.files[0]);
   };
@@ -99,7 +161,7 @@ export default function Upload({ setState }) {
     setDocData((data) => ({ ...data, [target.name]: target.value }));
   };
 
-  const handleSubjectChange = ({ target }) => {
+  const handleSubjectChange = async ({ target }) => {
     if (target.name == "universities") {
       setDocData({
         ...docData,
@@ -172,19 +234,57 @@ export default function Upload({ setState }) {
     }
 
     if (target.name == "subjects") {
-      setDocData({ ...docData, subject: target.value });
+      setDocData({
+        ...docData,
+        subject: target.value,
+        maxPrice: null,
+      });
+
+      const subjectData = await getSubject(target.value);
+      setDocData({
+        ...docData,
+        subject: target.value,
+        maxPrice: subjectData.maxPrice,
+      });
     }
   };
 
-  const handleCheckboxChange = ({ target }) => {
-    setDocData((data) => ({ ...data, validate: target.checked }));
-  };
+  // const handleCheckboxChange = ({ target }) => {
+  //   setDocData((data) => ({ ...data, validate: target.checked }));
+  // };
 
   const handlePriceChange = ({ target }) => {
-    if (/^\d*[,\.]?\d{0,2}$/.test(target.value)) {
-      const value = target.value.replace(",", ".");
+    const newValue = target.value.replace("€", "");
+    if (/^\d*[,\.]?\d{0,2}$/.test(newValue)) {
+      const value = newValue.replace(",", ".");
       setDocData((docData) => ({ ...docData, price: value }));
     }
+  };
+
+  const handleUpPrice = () => {
+    setError((error) => ({ ...error, price: null }));
+    setDocData((data) => {
+      if (parseFloat(data.price) + 1 < docData.maxPrice) {
+        return { ...data, price: (parseFloat(data.price) + 1).toFixed(2) };
+      }
+      return { ...data, price: docData.maxPrice.toFixed(2) };
+    });
+  };
+
+  const handleDownPrice = () => {
+    setError((error) => ({ ...error, price: null }));
+    setDocData((data) => {
+      if (
+        parseFloat(data.price) - 1 >
+        parseFloat(process.env.NEXT_PUBLIC_MIN_PRICE)
+      ) {
+        return { ...data, price: (parseFloat(data.price) - 1).toFixed(2) };
+      }
+      return {
+        ...data,
+        price: parseFloat(process.env.NEXT_PUBLIC_MIN_PRICE).toFixed(2),
+      };
+    });
   };
 
   const validateData = () => {
@@ -224,6 +324,14 @@ export default function Upload({ setState }) {
       anyError = true;
     }
 
+    if (parseFloat(docData.price) > docData.maxPrice) {
+      setError((error) => ({
+        ...error,
+        price: `El precio máximo de esta asignatura es ${docData.maxPrice}€`,
+      }));
+      anyError = true;
+    }
+
     return anyError;
   };
 
@@ -233,9 +341,11 @@ export default function Upload({ setState }) {
       description: null,
       subject: null,
       files: null,
+      price: null,
     });
     const error = validateData();
     if (error) return;
+    setState("loading");
 
     const folderName = uuidv4();
     const storageRef = ref(storage, "files/" + folderName);
@@ -258,12 +368,13 @@ export default function Upload({ setState }) {
         price: docData.price,
       });
 
-      const docId = res.path.split("/").at(-1);
+      const docId = res.path.split("/")[3];
 
       setState("success");
       await new Promise((res) => setTimeout(res, 2000));
       push(`/subject/${docData.subject}/${docId}`);
     } catch (e) {
+      alert(e);
       setState("error");
     }
   };
@@ -281,12 +392,20 @@ export default function Upload({ setState }) {
       const degree = res.degrees.filter(
         (item) => item.id === user.data.degree
       )[0];
+
       setData((data) => ({
         ...data,
         degrees: res.degrees,
         subjects: degree.subjects,
       }));
       setDocData((docData) => ({ ...docData, subject: degree.subjects[0].id }));
+      getSubject(degree.subjects[0].id).then((data) =>
+        setDocData((docData) => ({
+          ...docData,
+          subject: degree.subjects[0].id,
+          maxPrice: data.maxPrice,
+        }))
+      );
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -295,15 +414,15 @@ export default function Upload({ setState }) {
   return (
     <UploadDiv>
       <Title>
-        <Img src="/icons/upload.svg" width="5rem" aspectRatio="1" />
-        <Text fontSize="5rem" color="secondary" margin="0 0 0 1rem">
+        <TitleImg src="/icons/upload.svg" width="5rem" aspectRatio="1" />
+        <TitleText fontSize="5rem" color="secondary" margin="0 0 0 1rem">
           Subir archivo
-        </Text>
+        </TitleText>
       </Title>
       <UploadForm>
         <Column>
           <Title>
-            <Text fontSize="1.5rem">Nombre</Text>
+            <InputHeader fontSize="1.5rem">Nombre</InputHeader>
             {error.name && <Text color="secondary">{error.name}</Text>}
           </Title>
           <Input
@@ -317,7 +436,7 @@ export default function Upload({ setState }) {
             }
           />
           <Title margin="1rem 0 0 0">
-            <Text fontSize="1.5rem">Descripción</Text>
+            <InputHeader fontSize="1.5rem">Descripción</InputHeader>
             {error.description && (
               <Text color="secondary">{error.description}</Text>
             )}
@@ -352,7 +471,7 @@ export default function Upload({ setState }) {
 
         <Column>
           <Title>
-            <Text fontSize="1.5rem">Asignatura</Text>
+            <InputHeader fontSize="1.5rem">Asignatura</InputHeader>
             {error.subject && <Text color="secondary">{error.subject}</Text>}
           </Title>
           <Select
@@ -412,17 +531,71 @@ export default function Upload({ setState }) {
             {data.subjects &&
               data.subjects.map((subject) => (
                 <option key={subject.id} value={subject.id}>
-                  {subject.name} ({subject.code})
+                  {subject.name} {subject.code && `(${subject.code})`}
                 </option>
               ))}
           </Select>
           {/* <Checkbox onChange={handleCheckboxChange}>
             Solicitar verificación
           </Checkbox> */}
-          <Text fontSize="1.5rem" margin="1rem 0 0 0">
-            Precio
-          </Text>
-          <Input onChange={handlePriceChange} value={docData.price} />
+          <Title>
+            <InputHeader fontSize="1.5rem">Precio</InputHeader>
+            {error.price && <Text color="secondary">{error.price}</Text>}
+          </Title>
+          <PriceDiv>
+            <Button
+              onClick={handleDownPrice}
+              background="white"
+              height="3rem"
+              width="3rem"
+              margin="0"
+              padding="0"
+              fontSize="2rem"
+              fontWeigth="bold"
+              color={error.price ? "secondary" : "primary"}
+              border={
+                error.price
+                  ? `2px solid ${colors.secondary}`
+                  : `2px solid ${colors.primary}`
+              }
+            >
+              -
+            </Button>
+            <Input
+              onChange={handlePriceChange}
+              value={`${docData.price}€`}
+              width="10rem"
+              fontSize="2rem"
+              padding="0"
+              border="none"
+              textAlign="center"
+              color={
+                (parseFloat(docData.price) > docData.maxPrice) |
+                (parseFloat(docData.price) <
+                  parseFloat(process.env.NEXT_PUBLIC_MIN_PRICE))
+                  ? colors.secondary
+                  : colors.primary
+              }
+            />
+            <Button
+              onClick={handleUpPrice}
+              background="white"
+              height="3rem"
+              width="3rem"
+              margin="0"
+              padding="0"
+              fontSize="2rem"
+              fontWeigth="bold"
+              color={error.price ? "secondary" : "primary"}
+              border={
+                error.price
+                  ? `2px solid ${colors.secondary}`
+                  : `2px solid ${colors.primary}`
+              }
+            >
+              +
+            </Button>
+          </PriceDiv>
           <Button margin="1rem 0 0 0" padding="10px 0" onClick={handleSubmit}>
             Subir
           </Button>

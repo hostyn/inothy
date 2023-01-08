@@ -8,6 +8,7 @@ const ImageDiv = styled.div`
   aspect-ratio: ${(props) => props.aspectRatio || "auto"};
   margin: ${(props) => props.margin || "initial"};
   cursor: ${(props) => props.cursor || "inherit"};
+  align-self: ${(props) => props.alignSelf || "initial"};
   user-select: none;
 `;
 
@@ -22,6 +23,8 @@ export default function Img({
   cursor,
   className,
   priority,
+  alignSelf,
+  title,
 }) {
   return (
     <ImageDiv
@@ -32,6 +35,8 @@ export default function Img({
       margin={margin}
       onClick={onClick}
       cursor={cursor}
+      alignSelf={alignSelf}
+      title={title}
     >
       <Image
         src={src}

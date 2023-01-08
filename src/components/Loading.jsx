@@ -21,8 +21,8 @@ const LoadingDiv = styled.div`
   align-items: center;
 
   & svg {
-    aspect-ratio: 1;
-    max-width: max(10%, 4rem);
+    width: max(10%, 4rem);
+    height: max(10%, 4rem);
     animation-name: ${rotateAnimation};
     animation-duration: 2s;
     animation-iteration-count: infinite;
@@ -32,9 +32,9 @@ const LoadingDiv = styled.div`
 
 const Logo = styled(Img)``;
 
-export default function Loading() {
+export default function Loading({ className }) {
   return (
-    <LoadingDiv>
+    <LoadingDiv className={className}>
       {/* <Logo src="/logo.svg" /> */}
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60.37 60.37">
         <g id="Capa_2" data-name="Capa 2">

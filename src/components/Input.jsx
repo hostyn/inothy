@@ -9,6 +9,9 @@ const Input = styled.input`
   padding: ${(props) => props.padding || "10px"};
   width: ${(props) => props.width || "100%"};
   margin: ${(props) => props.margin || "0"};
+  text-align: ${(props) => props.textAlign || "left"};
+  color: ${(props) => props.color || "initial"};
+  max-width: 100%;
   outline: none;
 
   &:disabled {
