@@ -343,7 +343,7 @@ export default function Nav({ transparent }) {
               }}
             >
               <Img
-                src="/imagotipo.svg"
+                src="/imagotipo-beta.svg"
                 alt="Logo"
                 height="150%"
                 cursor="pointer"
