@@ -1,4 +1,4 @@
-import admin from "../../config/firebaseadmin";
+import { firestoreAdmin } from "../../config/firebaseadmin";
 
 export default async function universities(req, res) {
   if (req.method !== "GET") {
@@ -7,8 +7,7 @@ export default async function universities(req, res) {
   }
 
   try {
-    const data = await admin
-      .firestore()
+    const data = await firestoreAdmin
       .collection("universities")
       .orderBy("name")
       .get();
