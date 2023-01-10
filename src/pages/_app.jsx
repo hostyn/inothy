@@ -3,15 +3,21 @@ import Cookies from "../components/Cookies";
 import Providers from "../context/Providers";
 import "../styles/global.css";
 import { pdfjs } from "react-pdf";
+import Head from "next/head";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker.js`;
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <Providers headers={pageProps.headers}>
-      <Cookies />
-      <Component {...pageProps} />
-    </Providers>
+    <>
+      <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Providers headers={pageProps.headers}>
+        <Cookies />
+        <Component {...pageProps} />
+      </Providers>
+    </>
   );
 }
 

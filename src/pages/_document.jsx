@@ -41,6 +41,8 @@ export default class MyDocument extends Document {
             name="keywords"
             content="apuntes, compra, venta, comisiones"
           ></meta>
+          <meta name="author" content="Inothy" />
+
           <meta name="robots" content="index, follow"></meta>
 
           <meta property="og:title" content="Inothy" />
@@ -56,11 +58,6 @@ export default class MyDocument extends Document {
             property="twitter:description"
             content="Compra y vende tus apuntes con comisiones bajas."
           />
-
-          {/* <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device-width"
-          /> */}
 
           {/* --------- FAVICONS --------- */}
 
