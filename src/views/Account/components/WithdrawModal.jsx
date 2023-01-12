@@ -103,8 +103,8 @@ export default function WithdrawModal({ balance, bank }) {
               Retiro Solicitado
             </Title>
             <Body fontSize="1.2rem" margin="1rem 0">
-              En recibiras el dinero en tu cuenta bancaria. <br /> Esto puede
-              tardar entre 1 y 3 dias laborales.
+              En breve recibirás el dinero en tu cuenta bancaria. <br /> Esto
+              puede tardar entre 1 y 3 dias laborales.
             </Body>
             <Button
               height="auto"

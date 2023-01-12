@@ -178,7 +178,7 @@ export default function BalanceView() {
       );
 
       await new Promise((res) => setTimeout(res, 2000));
-      // closeModal();
+      closeModal();
 
       return;
     }
