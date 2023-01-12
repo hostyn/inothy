@@ -4,12 +4,24 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const MangoPay = require("mangopay2-nodejs-sdk");
+const { default: algoliasearch } = require("algoliasearch");
+
+const MANGOPAY_CLIENT_ID = functions.config().mangopay.id;
+const MANGOPAY_API_KEY = functions.config().mangopay.key;
+const MANGOPAY_ENDPOINT = functions.config().mangopay.endpoint;
+
+const ALGOLIA_APP_ID = functions.config().algolia.app;
+const ALGOLIA_ADMIN_KEY = functions.config().algolia.key;
+const ALGOLIA_INDEX = functions.config().algolia.index;
 
 const mangopay = new MangoPay({
-  clientId: process.env.MANGOPAY_CLIENT_ID,
-  clientApiKey: process.env.MANGOPAY_API_KEY,
-  baseUrl: process.env.MANGOPAY_ENDPOINT,
+  clientId: MANGOPAY_CLIENT_ID,
+  clientApiKey: MANGOPAY_API_KEY,
+  baseUrl: MANGOPAY_ENDPOINT,
 });
+
+const algolia = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_ADMIN_KEY);
+const algoliaIndex = algolia.initIndex(ALGOLIA_INDEX);
 
 admin.initializeApp();
 
@@ -95,7 +107,6 @@ exports.mangopayPayinCallback = functions.https.onRequest(async (req, res) => {
         await admin.firestore().collection("users").doc(doc.createdBy).get()
       ).data();
 
-
       const recipt = await mangopay.Transfers.create({
         AuthorId: transaction.authorId,
         DebitedWalletId: transaction.authorWalletId,
@@ -173,3 +184,255 @@ exports.mangopayPayinCallback = functions.https.onRequest(async (req, res) => {
 
   res.status(200).json({ status: "ok" });
 });
+
+
+// UNIVERSITY //
+
+exports.addUniversityToIndex = functions
+  .firestore
+  .document("universities/{universityId}")
+  .onCreate((snapshot, context) => {
+    const data = snapshot.data();
+    const {universityId} = context.params;
+    return algoliaIndex.saveObject({
+      ...data,
+      objectID: universityId,
+      type: "university",
+    });
+  });
+
+exports.updateUniversityToIndex = functions
+  .firestore
+  .document("universities/{universityId}")
+  .onUpdate((change, context) => {
+    const data = change.after.data();
+    const {universityId} = context.params;
+    return algoliaIndex.saveObject({
+      ...data,
+      objectID: universityId,
+      type: "university",
+    });
+  });
+
+
+exports.deleteUniversityFromIndex = functions
+  .firestore
+  .document("universities/{universityId}")
+  .onDelete((snapshot, context) => {
+    const {universityId} = context.params;
+    return algoliaIndex.deleteObject(universityId);
+  });
+
+
+// SCHOOL //
+
+exports.addSchoolToIndex = functions
+  .firestore
+  .document("universities/{universityId}/schools/{schoolId}")
+  .onCreate(async (snapshot, context) => {
+    const {universityId, schoolId} = context.params;
+    const objectID = universityId + "/" + schoolId;
+
+    const data = snapshot.data();
+
+    const universityData = (
+      await admin
+      .firestore()
+      .collection("universities")
+      .doc(universityId)
+      .get()
+      ).data();
+
+    return algoliaIndex.saveObject({
+      ...data,
+      objectID,
+      type: "school",
+      universityName: universityData.name,
+      logoUrl: universityData.logoUrl,
+    });
+  });
+
+exports.updateSchoolToIndex = functions
+  .firestore
+  .document("universities/{universityId}/schools/{schoolId}")
+  .onUpdate(async (change, context) => {
+    const {universityId, schoolId} = context.params;
+    const objectID = universityId + "/" + schoolId;
+
+    const data = change.after.data();
+
+    const universityData = (
+      await admin
+      .firestore()
+      .collection("universities")
+      .doc(universityId)
+      .get()
+      ).data();
+
+    return algoliaIndex.saveObject({
+      ...data,
+      objectID,
+      type: "school",
+      universityName: universityData.name,
+      logoUrl: universityData.logoUrl,
+    });
+  });
+
+exports.deleteSchoolFromIndex = functions
+  .firestore
+  .document("universities/{universityId}/schools/{schoolId}")
+  .onDelete((snapshot, context) => {
+    const {universityId, schoolId} = context.params;
+    const objectID = universityId + "/" + schoolId;
+    return algoliaIndex.deleteObject(objectID);
+  });
+
+
+// DEGREE //
+
+exports.addDegreeToIndex = functions
+  .firestore
+  .document("universities/{universityId}/schools/{schoolId}/degrees/{degreeId}")
+  .onCreate(async (snapshot, context) => {
+    const {universityId, schoolId, degreeId} = context.params;
+    const objectID = universityId + "/" + schoolId + "/" + degreeId;
+
+    const data = snapshot.data();
+
+    const universityData = (
+      await admin
+      .firestore()
+      .collection("universities")
+      .doc(universityId)
+      .get()
+      ).data();
+
+    const degreeData = (
+      await admin
+      .firestore()
+      .collection("universities")
+      .doc(universityId)
+      .collection("schools")
+      .doc(schoolId)
+      .get()
+      ).data();
+
+    return algoliaIndex.saveObject({
+      objectID,
+      name: data.name,
+      type: "degree",
+      universityName: universityData.name,
+      logoUrl: universityData.logoUrl,
+      schoolName: degreeData.name,
+    });
+});
+
+exports.updateDegreeToIndex = functions
+  .firestore
+  .document("universities/{universityId}/schools/{schoolId}/degrees/{degreeId}")
+  .onUpdate(async (change, context) => {
+    const {universityId, schoolId, degreeId} = context.params;
+    const objectID = universityId + "/" + schoolId + "/" + degreeId;
+
+    const data = change.after.data();
+
+    const universityData = (
+      await admin
+      .firestore()
+      .collection("universities")
+      .doc(universityId)
+      .get()
+      ).data();
+
+    const degreeData = (
+      await admin
+      .firestore()
+      .collection("universities")
+      .doc(universityId)
+      .collection("schools")
+      .doc(schoolId)
+      .get()
+      ).data();
+
+    return algoliaIndex.saveObject({
+      objectID,
+      name: data.name,
+      type: "degree",
+      universityName: universityData.name,
+      logoUrl: universityData.logoUrl,
+      schoolName: degreeData.name,
+    });
+});
+
+exports.deleteDegreeFromIndex = functions
+  .firestore
+  .document("universities/{universityId}/schools/{schoolId}/degrees/{degreeId}")
+  .onDelete((snapshot, context) => {
+    const {universityId, schoolId, degreeId} = context.params;
+    const objectID = universityId + "/" + schoolId + "/" + degreeId;
+    return algoliaIndex.deleteObject(objectID);
+});
+
+
+// SUBJECT //
+
+exports.addSubjectToIndex = functions
+  .firestore
+  .document("subjects/{subjectId}")
+  .onCreate(async (snapshot, context) => {
+    const {subjectId} = context.params;
+
+    const data = snapshot.data();
+
+    const universityData = (
+      await admin
+      .firestore()
+      .collection("universities")
+      .doc(data.university)
+      .get()
+      ).data();
+
+    return algoliaIndex.saveObject({
+      objectID: subjectId,
+      code: data.code,
+      name: data.name,
+      type: "subject",
+      universityName: universityData.name,
+      logoUrl: universityData.logoUrl,
+    });
+  });
+
+exports.updateSubejctToIndex = functions
+  .firestore
+  .document("subjects/{subjectId}")
+  .onUpdate(async (change, context) => {
+    const {subjectId} = context.params;
+
+    const data = change.after.data();
+
+    const universityData = (
+      await admin
+      .firestore()
+      .collection("universities")
+      .doc(data.university)
+      .get()
+      ).data();
+
+    return algoliaIndex.saveObject({
+      objectID: subjectId,
+      code: data.code,
+      name: data.name,
+      type: "subject",
+      universityName: universityData.name,
+      logoUrl: universityData.logoUrl,
+    });
+  });
+
+exports.deleteSubjectFromIndex = functions
+  .firestore
+  .document("subjects/{subjectId}")
+  .onDelete((snapshot, context) => {
+    const {subjectId} = context.params;
+    return algoliaIndex.deleteObject(subjectId);
+  });
+
