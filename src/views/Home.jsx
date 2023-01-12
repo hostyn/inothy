@@ -374,7 +374,7 @@ export default function HomeView() {
               <StyledText fontSize="1.5rem" lineHeight="1.5">
                 En Inothy buscamos la calidad antes que cantidad, por ello se
                 realizan verificaciones del material, para evitar plagios y
-                estafas
+                estafas.
               </StyledText>
             </div>
           </Card>
@@ -391,7 +391,7 @@ export default function HomeView() {
               </StyledSubTitle>
               <StyledText fontSize="1.5rem" lineHeight="1.5">
                 Compra y vende de manera libre. Gana dinero mensualmente por tu
-                trabajo y esfuerzo
+                trabajo y esfuerzo.
               </StyledText>
             </div>
           </Card>
@@ -452,7 +452,7 @@ export default function HomeView() {
         </IdeaFrameDiv>
 
         {/* Universidades */}
-        <UniversidadesDiv>
+        {/* <UniversidadesDiv>
           <Img src="/resources/home/pen1.svg" height="auto" />
           <StyledText2
             color="secondary"
@@ -502,7 +502,7 @@ export default function HomeView() {
             }}
           ></div>
         </UniversidadesGrid>
-        <Img src="/resources/home/pen3.svg" aspectRatio="150/1" height="10px" />
+        <Img src="/resources/home/pen3.svg" aspectRatio="150/1" height="10px" /> */}
 
         {/* Consigue tus apuntes en dos clicks */}
         <IdeaFrameDiv>
@@ -532,10 +532,10 @@ export default function HomeView() {
               textAlign="center"
               margin="2rem 0 0 0"
             >
-              ¿Te has quedado sin tiempo
+              ¿Te has quedado sin tiempo?
             </StyledText>
             <StyledText color="secondary" fontSize="2rem" textAlign="center">
-              Te lo dejamos todo fácil y organizado
+              Te lo dejamos todo fácil y organizado.
             </StyledText>
           </IdeaFrameText>
         </IdeaFrameDiv>
@@ -565,7 +565,7 @@ export default function HomeView() {
               margin="2rem 0 0 0"
               width="100%"
             >
-              Comprobamos la calidad de nuestro apuntes
+              Comprobamos la calidad de nuestro apuntes.
             </StyledText>
             <StyledText
               fontSize="2rem"
@@ -573,7 +573,7 @@ export default function HomeView() {
               textAlign="center"
               width="100%"
             >
-              Dónde los mejores estudiantes suben su material
+              Dónde los mejores estudiantes suben su material.
             </StyledText>
           </IdeaFrameText>
           <Img
@@ -599,7 +599,7 @@ export default function HomeView() {
               ¿Quiéres ganar dinero ayudando a otros estudiantes?
             </StyledText>
 
-            <StyledText fontSize="2vw">Inothy es tu sitio</StyledText>
+            <StyledText fontSize="2vw">Inothy es tu sitio.</StyledText>
             <StyledButton
               height="auto"
               padding="0.5rem 2rem"

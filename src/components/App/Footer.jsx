@@ -109,7 +109,7 @@ export default function Footer() {
         />
         <TextDiv>
           <Text fontFamily="HelveticaRounded" fontSize="4vw" textAlign="center">
-            Contáctanos
+            Únete a la comunidad
           </Text>
           <RRSS>
             <RRSSButton
@@ -137,7 +137,7 @@ export default function Footer() {
               fontSize="1.2rem"
               textAlign="center"
             >
-              ¿Cómo funciona?
+              Información
             </A>
           </Link>
         </HiddenLink>
@@ -167,7 +167,7 @@ export default function Footer() {
               fontSize="1.2rem"
               textAlign="center"
             >
-              Politica de privacidad
+              Política de privacidad
             </A>
           </Link>
         </HiddenLink>

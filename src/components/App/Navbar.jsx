@@ -683,6 +683,64 @@ export default function Nav({ transparent }) {
               >
                 Registrarse
               </Button>
+
+              <MenuHiddenButtons>
+                <Separator />
+                <Link href="/search">
+                  <Item>
+                    <Img
+                      src="/icons/search.svg"
+                      aspectRatio="83/50"
+                      width="2rem"
+                    />
+                    <Text
+                      fontSize="1.5rem"
+                      fontWeight="bold"
+                      color="secondary"
+                      cursor="inherit"
+                    >
+                      Buscar
+                    </Text>
+                  </Item>
+                </Link>
+
+                <Link href="/universities">
+                  <Item>
+                    <Img
+                      src="/icons/universities.svg"
+                      aspectRatio="83/50"
+                      width="2rem"
+                    />
+                    <Text
+                      fontSize="1.5rem"
+                      fontWeight="bold"
+                      color="secondary"
+                      cursor="inherit"
+                    >
+                      Universidades
+                    </Text>
+                  </Item>
+                </Link>
+
+                <Link href="/info">
+                  <Item>
+                    <Img
+                      src="/icons/info.svg"
+                      aspectRatio="83/50"
+                      width="2rem"
+                    />
+                    <Text
+                      fontSize="1.5rem"
+                      fontWeight="bold"
+                      color="secondary"
+                      cursor="inherit"
+                    >
+                      Información
+                    </Text>
+                  </Item>
+                </Link>
+              </MenuHiddenButtons>
+
               <Separator />
               <Link href="/universities">
                 <A

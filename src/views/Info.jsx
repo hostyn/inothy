@@ -77,6 +77,9 @@ const CardImg = styled(Img)`
 `;
 
 const CardBody = styled.div`
+  display: flex;
+  flex-direction: column;
+
   background-color: ${colors.emphasis};
   padding: ${(props) => props.padding || "6rem"};
   border-radius: ${(props) => (props.bottom ? "0 0 2vw 2vw" : "0")};
@@ -462,9 +465,9 @@ export default function InfoView() {
                 Retiros
               </TitleText>
               <BodyText fontSize="1.5vw">
-                Si has vendido apuntes y deseas retirar tu dinero, podrás hacer
-                una transferecia SEPA a tu cuenta bancaria cuando quieras y sin
-                cantidad mínima. Sólo debes ir al{" "}
+                Si has vendido apuntes y deseas retirar tu dinero podrás hacerlo
+                mediante transferencia SEPA a tu cuenta bancaria cuando quieras
+                y sin cantidad mínima. Sólo debes ir al{" "}
                 <Span fontWeight="bold">Saldo</Span> en tu perfil y solicitar el
                 retiro. A los pocos días lo recibirás en tu cuenta bancaria.
               </BodyText>
@@ -491,7 +494,8 @@ export default function InfoView() {
                 </TitleText>
                 <BodyText fontSize="1.5vw">
                   Usuario que se registró en la beta de la página. Los
-                  Embajadores tienen un 20% de descuento en apuntes.
+                  Embajadores tienen un 20% de descuento en apuntes durante este
+                  curso.
                 </BodyText>
               </FlexColumn>
               <Img src="/badge/bronze.svg" />
@@ -523,6 +527,10 @@ export default function InfoView() {
               </FlexColumn>
             </BadgeDescriptionsDiv>
           </BadgeDiv>
+          <BodyText fontSize="1.5vw" margin="2rem 0 0 0" fontWeight="bold">
+            Pronto anunciaremos todos los beneficios de poseer alguna de estas
+            insignias.
+          </BodyText>
         </CardBody>
 
         {/* <CardDiv>

@@ -10,7 +10,7 @@ import Success from "./Success";
 import Error from "./Error";
 
 export default function Payment({ documents, onSuccess = null }) {
-  const [state, setState] = useState("success");
+  const [state, setState] = useState("resume");
   const [paymentDetails, setPaymentDetails] = useState({
     cardId: null,
     totalAmount: documents.reduce(

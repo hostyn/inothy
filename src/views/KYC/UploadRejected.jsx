@@ -93,35 +93,35 @@ export default function UploadRejected({ setState }) {
         <Card>
           <StyledImg src="/resources/kyc/border.svg" />
           <Img src="/icons/forbidden.svg" width="2rem" height="2rem" />
-          <StyledText fontSize="1.5rem">Sin los bordes visibles</StyledText>
+          <StyledText fontSize="1.5rem">Sin los bordes visibles.</StyledText>
         </Card>
         <Card>
           <StyledImg src="/resources/kyc/two.svg" />
           <Img src="/icons/forbidden.svg" width="2rem" height="2rem" />
           <StyledText fontSize="1.5rem">
-            Con ambas caras en el mismo archivo
+            Con ambas caras en el mismo archivo.
           </StyledText>
         </Card>
         <Card>
           <StyledImg src="/resources/kyc/flash.svg" />
           <Img src="/icons/forbidden.svg" width="2rem" height="2rem" />
-          <StyledText fontSize="1.5rem">Con reflejos de flash</StyledText>
+          <StyledText fontSize="1.5rem">Con reflejos de flash.</StyledText>
         </Card>
         <Card>
           <StyledImg src="/resources/kyc/blur.svg" />
           <Img src="/icons/forbidden.svg" width="2rem" height="2rem" />
-          <StyledText fontSize="1.5rem">Borrosas o desenfocadas</StyledText>
+          <StyledText fontSize="1.5rem">Borrosas o desenfocadas.</StyledText>
         </Card>
         <Card>
           <StyledImg src="/resources/kyc/black.svg" />
           <Img src="/icons/forbidden.svg" width="2rem" height="2rem" />
-          <StyledText fontSize="1.5rem">En blanco y negro</StyledText>
+          <StyledText fontSize="1.5rem">En blanco y negro.</StyledText>
         </Card>
         <Card>
           <StyledImg src="/resources/kyc/finger.svg" />
           <Img src="/icons/forbidden.svg" width="2rem" height="2rem" />
           <StyledText fontSize="1.5rem">
-            Con dedos o objetos que tapen el documento
+            Con dedos u objetos que tapen el documento.
           </StyledText>
         </Card>
       </Columns>

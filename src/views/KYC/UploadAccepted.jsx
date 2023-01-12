@@ -92,31 +92,31 @@ export default function UploadAccepted({ setState }) {
           <TextWithCheck>
             <Img src="/icons/check.svg" width="2rem" height="2rem" />
             <StyledText fontSize="1.5rem">
-              Documentos que sean validos y actualizados
+              Documentos que sean válidos y actualizados.
             </StyledText>
           </TextWithCheck>
           <TextWithCheck>
             <Img src="/icons/check.svg" width="2rem" height="2rem" />
             <StyledText fontSize="1.5rem">
-              Que concuerden con la información proporcionada
+              Que concuerden con la información proporcionada.
             </StyledText>
           </TextWithCheck>
           <TextWithCheck>
             <Img src="/icons/check.svg" width="2rem" height="2rem" />
             <StyledText fontSize="1.5rem">
-              En el formato adecuado: pdf, jpg, jpeg o png
+              En el formato adecuado: pdf, jpg, jpeg o png.
             </StyledText>
           </TextWithCheck>
           <TextWithCheck>
             <Img src="/icons/check.svg" width="2rem" height="2rem" />
             <StyledText fontSize="1.5rem">
-              De tamaño entre 32KB y 10MB
+              De tamaño entre 32KB y 10MB.
             </StyledText>
           </TextWithCheck>
           <TextWithCheck>
             <Img src="/icons/check.svg" width="2rem" height="2rem" />
             <StyledText fontSize="1.5rem">
-              De personas mayores de 18 años
+              De personas mayores de 18 años.
             </StyledText>
           </TextWithCheck>
         </Rules>

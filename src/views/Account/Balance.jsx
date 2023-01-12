@@ -327,7 +327,8 @@ export default function BalanceView() {
                 Verifica tu identidad
               </Title>
               <Text margin="0.5rem 0 0 0">
-                Para que puedas retirar necesitamos que verifiques tu identidad.{" "}
+                Para que puedas retirar tu dinero necesitamos que verifiques tu
+                identidad.{" "}
                 <Link href="/info">
                   <A fontSize="1rem" fontWeight="normal">
                     Mas información.

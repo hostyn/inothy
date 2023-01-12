@@ -4,6 +4,7 @@ const mimeTypes = {
   "image/png": "png.svg",
   "application/x-rar-compressed": "rar.svg",
   "application/zip": "zip.svg",
+  "application/x-zip-compressed" : "zip.svg",
 
   "application/msword": "doc.svg",
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document":

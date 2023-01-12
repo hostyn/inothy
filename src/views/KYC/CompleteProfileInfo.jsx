@@ -200,7 +200,7 @@ export default function CompleteProfileInfo({
     <CompleteProfileInfoDiv>
       <Text fontSize="3rem">Completa tu perfil</Text>
       <Text>
-        Para que puedas retirar tu saldo necesitamos verificar tu identidad
+        Para que puedas retirar tu saldo necesitamos verificar tu identidad.
       </Text>
       <InputDiv>
         <TitleAndInput>

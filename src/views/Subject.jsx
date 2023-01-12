@@ -5,6 +5,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import A from "../components/A";
 import App from "../components/App";
+import Button from "../components/Button";
 import DocumentGridCard from "../components/DocumentGridCard";
 import Img from "../components/Img";
 import Loading from "../components/Loading";
@@ -22,6 +23,12 @@ const SubjectDiv = styled.div`
   @media (max-width: 1000px) {
     margin: 2rem;
   }
+`;
+
+const NoDocumentsDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const Logo = styled(Img)`
@@ -143,28 +150,49 @@ export default function SubjectView({ subjectData: initialSubjectData }) {
             </TitleSubtext>
           </VerticalText>
         </Title>
-        <CardGrid>
-          {subjectData.docs.map((doc, index) => {
-            if (subjectData.docs.length === index + 1)
+        {subjectData.docs.length ? (
+          <CardGrid>
+            {subjectData.docs.map((doc, index) => {
+              if (subjectData.docs.length === index + 1)
+                return (
+                  <DocumentGridCard
+                    reference={lastElementRef}
+                    key={doc.id}
+                    documentData={doc}
+                    href={`/subject/${subjectData.id}/${doc.id}`}
+                  />
+                );
+
               return (
                 <DocumentGridCard
-                  reference={lastElementRef}
                   key={doc.id}
                   documentData={doc}
                   href={`/subject/${subjectData.id}/${doc.id}`}
                 />
               );
-
-            return (
-              <DocumentGridCard
-                key={doc.id}
-                documentData={doc}
-                href={`/subject/${subjectData.id}/${doc.id}`}
-              />
-            );
-          })}
-          {loading && <Loading />}
-        </CardGrid>
+            })}
+          </CardGrid>
+        ) : (
+          <NoDocumentsDiv>
+            <Text textAlign="center" fontSize="1.5rem" margin="2rem 0 1rem 0">
+              Todavía no se han subido documentos a esta asignatura.
+            </Text>
+            <Text
+              textAlign="center"
+              fontSize="2rem"
+              color="secondary"
+              fontFamily="HelveticaRounded"
+            >
+              ¡Sé el primero!
+            </Text>
+            <Link href="/upload">
+              <Button margin="1rem auto" padding="0.5rem 1rem">
+                Subir documentos
+              </Button>
+            </Link>
+          </NoDocumentsDiv>
+        )}
+        {loading && <Loading />}
       </SubjectDiv>
     </App>
   );

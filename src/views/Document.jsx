@@ -141,10 +141,15 @@ const DocumentTitle = styled(Text)`
 const Username = styled(A)`
   word-break: break-word;
   user-select: none;
+  cursor: default;
 
   :hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
+`;
+
+const StyledDescription = styled(Text)`
+  white-space: pre-line;
 `;
 
 const NoPreview = ({ mimeType }) => {
@@ -243,24 +248,22 @@ export default function DocumentPage({ documentData }) {
               <Text color="secondary" fontSize="1.2rem" fontWeight="bold">
                 Descripción
               </Text>
-              <Text fontSize="1.2rem" margin="0.5rem 0 2rem 0">
+              <StyledDescription fontSize="1.2rem" margin="0.5rem 0 2rem 0">
                 {documentData.description}
-              </Text>
+              </StyledDescription>
             </VerticalAlign>
             <VerticalAlign>
               <Text color="secondary" fontSize="1.2rem" fontWeight="bold">
                 Usuario
               </Text>
-              <Link href={`/user/${documentData.createdById}`}>
-                <Username
-                  fontSize="1.5rem"
-                  margin="0.5rem 0 2rem 0"
-                  color="primary"
-                  fontWeight="normal"
-                >
-                  {documentData.createdBy}
-                </Username>
-              </Link>
+              <Username
+                fontSize="1.5rem"
+                margin="0.5rem 0 2rem 0"
+                color="primary"
+                fontWeight="normal"
+              >
+                {documentData.createdBy}
+              </Username>
               <Text color="secondary" fontSize="1.2rem" fontWeight="bold">
                 Precio
               </Text>

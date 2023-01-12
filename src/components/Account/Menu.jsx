@@ -191,60 +191,61 @@ export default function Menu({
               </Item>
             </Link> */}
             <Separator />
-            <A
-              textAlign="left"
-              color="primary"
-              fontWeight="normal"
-              fontSize="1rem"
-              margin="0 0 0.5rem 1rem"
-            >
-              ¿Por qué inothy?
-            </A>
-            <A
-              textAlign="left"
-              color="primary"
-              fontWeight="normal"
-              fontSize="1rem"
-              margin="0 0 0.5rem 1rem"
-            >
-              ¿Cómo funciona?
-            </A>
-            <A
-              textAlign="left"
-              color="primary"
-              fontWeight="normal"
-              fontSize="1rem"
-              margin="0 0 0.5rem 1rem"
-            >
-              ¿Quiénes somos?
-            </A>
-            <A
-              textAlign="left"
-              color="primary"
-              fontWeight="normal"
-              fontSize="1rem"
-              margin="0 0 0.5rem 1rem"
-            >
-              Términos y condiciones
-            </A>
-            <A
-              textAlign="left"
-              color="primary"
-              fontWeight="normal"
-              fontSize="1rem"
-              margin="0 0 0.5rem 1rem"
-            >
-              Política de privacidad
-            </A>
-            <A
-              textAlign="left"
-              color="primary"
-              fontWeight="normal"
-              fontSize="1rem"
-              margin="0 0 0 1rem"
-            >
-              Política de Cookies
-            </A>
+            <Link href="/universities">
+              <A
+                textAlign="left"
+                color="primary"
+                fontWeight="normal"
+                fontSize="1rem"
+                margin="0 0 0.5rem 1rem"
+              >
+                Universidades
+              </A>
+            </Link>
+            <Link href="/info">
+              <A
+                textAlign="left"
+                color="primary"
+                fontWeight="normal"
+                fontSize="1rem"
+                margin="0 0 0.5rem 1rem"
+              >
+                Información
+              </A>
+            </Link>
+            <Link href="/legal">
+              <A
+                textAlign="left"
+                color="primary"
+                fontWeight="normal"
+                fontSize="1rem"
+                margin="0 0 0.5rem 1rem"
+              >
+                Términos y condiciones
+              </A>
+            </Link>
+            <Link href="/privacy">
+              <A
+                textAlign="left"
+                color="primary"
+                fontWeight="normal"
+                fontSize="1rem"
+                margin="0 0 0.5rem 1rem"
+              >
+                Política de privacidad
+              </A>
+            </Link>
+            <Link href="/cookies">
+              <A
+                textAlign="left"
+                color="primary"
+                fontWeight="normal"
+                fontSize="1rem"
+                margin="0 0 0 1rem"
+              >
+                Política de Cookies
+              </A>
+            </Link>
           </MenuDiv>
         </MenuBackground>
         {children}
