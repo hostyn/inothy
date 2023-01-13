@@ -179,8 +179,6 @@ export async function getDocument(subjectId, docId) {
 
 export async function completeProfile(user, userData) {
   const accessToken = await user.auth.currentUser.getIdToken();
-  const localRef = localStorage.getItem("ref");
-  if (localRef) userData = { ...userData, ref: localRef };
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/completeprofile`,
@@ -467,6 +465,27 @@ export async function sendResetPasswordEmail(email) {
     {
       method: "POST",
       body: JSON.stringify({ email: email }),
+    }
+  );
+
+  if (res.status === 200) return res.json();
+  throw new Error("Internal server errror");
+}
+
+export async function addReferral(user, ref) {
+  if (!user) throw new Error("User is required");
+  if (!ref) throw new Error("Ref is required");
+
+  const accessToken = await user.auth.currentUser.getIdToken();
+
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/addreferral`,
+    {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({ ref: ref }),
     }
   );
 

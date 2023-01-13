@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { useModal } from "../../context/modalContext";
 import Welcome from "./Welcome";
-import { sendVerificationEmail } from "../../util/api";
+import { addReferral, sendVerificationEmail } from "../../util/api";
 import { colors } from "../../config/theme";
 
 const Form = styled.form`
@@ -62,7 +62,9 @@ export default function RegisterForm() {
       sendVerificationEmail(user);
       await closeModal();
       openModal(<Welcome />);
-      // logout();
+
+      const ref = localStorage.getItem("ref");
+      if (ref) addReferral(user, ref);
     } catch (e) {
       if (e.code === "auth/email-already-in-use") {
         setError((error) => ({ ...error, email: "El email ya está en uso" }));

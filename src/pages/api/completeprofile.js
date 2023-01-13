@@ -1,4 +1,4 @@
-import admin from "../../config/firebaseadmin";
+import { authAdmin, firestoreAdmin } from "../../config/firebaseadmin";
 import mangopay from "../../config/mangopay";
 import { isUsernameAvailable } from "../../util/api";
 
@@ -14,16 +14,14 @@ export default async function completeprofile(req, res) {
   }
 
   const token = req.headers.authorization.split(" ")[1];
-  const user = await admin
-    .auth()
+  const user = await authAdmin
     .verifyIdToken(token)
     .catch((error) => {
       res.status(401).json({ error: "Unauthorized" });
       return;
     });
 
-  const userData = await admin
-    .firestore()
+  const userData = await firestoreAdmin
     .collection("users")
     .doc(user.uid)
     .get();
@@ -83,8 +81,7 @@ export default async function completeprofile(req, res) {
     return;
   }
 
-  const universitySnapshot = admin
-    .firestore()
+  const universitySnapshot = firestoreAdmin
     .collection("universities")
     .doc(body.university);
 
@@ -108,6 +105,10 @@ export default async function completeprofile(req, res) {
     res.status(400).json({ error: "Invalid params" });
     return;
   }
+
+  const userRefSnapshot = await firestoreAdmin.collection('referrals').doc(user.uid).get()
+
+  const ref = userRefSnapshot.exists ? userRefSnapshot.data().ref : null
 
   // Create mangopay user
   const createUserResponse = await mangopay.Users.create({
@@ -144,8 +145,7 @@ export default async function completeprofile(req, res) {
     new Date(userData.data().createdAt) < new Date("2022-09-01GMT+2");
 
   try {
-    await admin
-      .firestore()
+    await firestoreAdmin
       .collection("users")
       .doc(user.uid)
       .update({
@@ -168,7 +168,7 @@ export default async function completeprofile(req, res) {
         university: body.university,
         school: body.school,
         degree: body.degree,
-        ref: body.ref || null,
+        ref: ref,
         ipAddress: ipAddress,
         badge: ambassador ? ["ambassador"] : [],
       });
