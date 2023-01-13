@@ -10,7 +10,7 @@ import Button from "../components/Button";
 import Img from "../components/Img";
 import Pdf from "../components/Pdf";
 import Text from "../components/Text";
-import { storage } from "../config/firebase";
+import { logEvent, storage } from "../config/firebase";
 import { colors, sizes } from "../config/theme";
 import { useAuth } from "../context/authContext";
 import { useModal } from "../context/modalContext";
@@ -208,6 +208,12 @@ export default function DocumentPage({ documentData }) {
         setPreviewUrl(url);
       });
     }
+  }, [documentData]);
+
+  useEffect(() => {
+    logEvent("view_item", {
+      item: documentData.subjectId + "/" + documentData.docId,
+    });
   }, [documentData]);
 
   return (

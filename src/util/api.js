@@ -1,3 +1,5 @@
+import { logEvent } from "../config/firebase";
+
 export async function isUsernameAvailable(username) {
   if (!username) throw new Error("Username is not defined");
   const res = await fetch(
@@ -192,6 +194,7 @@ export async function completeProfile(user, userData) {
   );
 
   if (res.status === 200) {
+    logEvent('complete_profile')
     return;
   }
   throw new Error("Internal server error");
@@ -216,6 +219,7 @@ export async function uploadFile(user, docData) {
     throw new Error("Internal server error");
   }
 
+  logEvent('upload_document')
   return await res.json();
 }
 
@@ -231,7 +235,10 @@ export async function completeKYC(user, data) {
     body: JSON.stringify(data),
   });
 
-  if (res.status === 200) return res.json();
+  if (res.status === 200) {
+    logEvent('request_kyc')
+    return res.json();
+  }
   throw new Error("Internal server error");
 }
 
@@ -343,7 +350,10 @@ export async function getDownloadUrl(user, subjectId, docId) {
     { method: "GET", headers: { authorization: `Bearer ${accessToken}` } }
   );
 
-  if (res.status === 200) return res.json();
+  if (res.status === 200) {
+    logEvent('download_document', {document: subjectId + '/' + docId})
+    return res.json();
+  } 
   throw new Error("Internal server error");
 }
 
@@ -389,7 +399,10 @@ export async function updateBankAccount(user, iban) {
     }
   );
 
-  if (res.status === 200) return res.json();
+  if (res.status === 200) {
+    logEvent('update_bank_account')
+    return res.json();
+  } 
   if (res.status === 400) throw new Error("Bad Request");
   throw new Error("Internal server errror");
 }
@@ -432,7 +445,10 @@ export async function payout(user) {
     }
   );
 
-  if (res.status === 200) return res.json();
+  if (res.status === 200) {
+    logEvent('request_payout')
+    return res.json();
+  } 
   else throw new Error("Internal server error");
 }
 

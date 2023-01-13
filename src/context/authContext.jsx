@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "../config/firebase";
+import { auth, logEvent } from "../config/firebase";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -26,16 +26,21 @@ export function AuthProvider({ children, headers: initialHeaders }) {
   const [headers, setHeaders] = useState(initialHeaders);
 
   // AUTH FUNCTIONS
-  const login = async (email, password) =>
+  const login = async (email, password) => {
     await signInWithEmailAndPassword(auth, email, password);
+    logEvent("login");
+  };
 
-  const register = async (email, password) =>
+  const register = async (email, password) => {
     await createUserWithEmailAndPassword(auth, email, password);
+    logEvent("sign_up");
+  };
 
   const logout = async () => {
     setIsUser(false);
     await signOut(auth);
     setUser(null);
+    logEvent("logout");
   };
 
   const updateData = async () => {

@@ -1,3 +1,4 @@
+import { logEvent } from "../config/firebase";
 import { completeCardRegistration, createCardRegistration } from "./api";
 
 export default async function registerCard(
@@ -27,6 +28,8 @@ export default async function registerCard(
     const registrationData = await response.text();
 
     await completeCardRegistration(cardRegistration.Id, registrationData);
+
+    logEvent('add_card')
 
     return;
   } catch {

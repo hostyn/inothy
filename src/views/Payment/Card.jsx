@@ -8,6 +8,7 @@ import { colors } from "../../config/theme";
 import { useAuth } from "../../context/authContext";
 import { buy, deleteCard, getCards } from "../../util/api";
 import Button from "../../components/Button";
+import { logEvent } from "../../config/firebase";
 
 const CardDiv = styled.div`
   display: flex;
@@ -107,6 +108,10 @@ export default function Card({
         setState("success");
         await new Promise((res) => setTimeout(res, 2000));
         await updateData();
+        logEvent("purchase", {
+          currency: "EUR",
+          value: paymentDetails.totalAmount,
+        });
         if (onSuccess) {
           onSuccess();
           return;

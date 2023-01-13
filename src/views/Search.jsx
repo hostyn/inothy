@@ -7,6 +7,7 @@ import App from "../components/App";
 import Img from "../components/Img";
 import SearchBox from "../components/SearchBox";
 import Text from "../components/Text";
+import { logEvent } from "../config/firebase";
 import { colors, sizes } from "../config/theme";
 import mimeTypes from "../util/mimeTypes";
 import { currencyFormatter } from "../util/normailize";
@@ -137,6 +138,10 @@ export default function SearchView({ q }) {
         return group;
       }, {})
     );
+  }, [q]);
+
+  useEffect(() => {
+    if (q) logEvent("search", { query: q.query });
   }, [q]);
 
   return (
