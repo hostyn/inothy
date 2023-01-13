@@ -1,6 +1,5 @@
 import mangopay from "../../config/mangopay";
 import { authAdmin, firestoreAdmin } from "../../config/firebaseadmin";
-import { ref } from "firebase/storage";
 import { getSellerAmount } from "../../util/priceCalculator";
 
 export default async function createcardregistration(req, res) {

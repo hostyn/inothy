@@ -22,7 +22,7 @@ const Success = styled.div`
 export default function State5Success() {
   return (
     <Success>
-      <Img src="/check.svg" width="20vw" height="20vw" />
+      <Img src="/check.svg" width="8rem" height="8rem" />
       <Text color="secondary" fontSize="4rem" fontWeight="bold">
         Bienvenid@
       </Text>
