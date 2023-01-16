@@ -3,6 +3,7 @@ import Link from "next/link";
 import Img from "../components/Img";
 import Text from "../components/Text";
 import A from "../components/A";
+import Button from "../components/Button";
 
 const Wrapper = styled.div`
   display: flex;
@@ -28,7 +29,9 @@ export default function VerifyEmail({ verified = false }) {
             Email verificado
           </Text>
           <Link href="/completeprofile">
-            <A>Completar el perfil</A>
+            <Button height="auto" padding="0.5rem 1rem" margin="1rem 0 0 0">
+              Completar el perfil
+            </Button>
           </Link>
         </>
       ) : (
