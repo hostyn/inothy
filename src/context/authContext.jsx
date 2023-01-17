@@ -27,13 +27,15 @@ export function AuthProvider({ children, headers: initialHeaders }) {
 
   // AUTH FUNCTIONS
   const login = async (email, password) => {
-    await signInWithEmailAndPassword(auth, email, password);
+    const user = await signInWithEmailAndPassword(auth, email, password);
     logEvent("login");
+    return user;
   };
 
   const register = async (email, password) => {
-    await createUserWithEmailAndPassword(auth, email, password);
+    const user = await createUserWithEmailAndPassword(auth, email, password);
     logEvent("sign_up");
+    return user;
   };
 
   const logout = async () => {
