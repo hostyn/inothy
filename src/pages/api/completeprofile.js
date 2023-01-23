@@ -14,17 +14,12 @@ export default async function completeprofile(req, res) {
   }
 
   const token = req.headers.authorization.split(" ")[1];
-  const user = await authAdmin
-    .verifyIdToken(token)
-    .catch((error) => {
-      res.status(401).json({ error: "Unauthorized" });
-      return;
-    });
+  const user = await authAdmin.verifyIdToken(token).catch((error) => {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  });
 
-  const userData = await firestoreAdmin
-    .collection("users")
-    .doc(user.uid)
-    .get();
+  const userData = await firestoreAdmin.collection("users").doc(user.uid).get();
 
   if (userData.data().profileCompleted) {
     res.status(400).json({ error: "Profile already completed" });
@@ -32,7 +27,7 @@ export default async function completeprofile(req, res) {
   }
 
   const body = JSON.parse(req.body);
-  const ipAddress = req.connection.remoteAddress;
+  const ipAddress = req.headers["x-forwarded-for"];
 
   if (
     body.name.length === 0 ||
@@ -106,9 +101,12 @@ export default async function completeprofile(req, res) {
     return;
   }
 
-  const userRefSnapshot = await firestoreAdmin.collection('referrals').doc(user.uid).get()
+  const userRefSnapshot = await firestoreAdmin
+    .collection("referrals")
+    .doc(user.uid)
+    .get();
 
-  const ref = userRefSnapshot.exists ? userRefSnapshot.data().ref : null
+  const ref = userRefSnapshot.exists ? userRefSnapshot.data().ref : null;
 
   // Create mangopay user
   const createUserResponse = await mangopay.Users.create({
