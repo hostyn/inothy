@@ -196,6 +196,7 @@ export async function completeProfile(user, userData) {
   if (res.status === 200) {
     logEvent("complete_profile");
     window.ttq.track("CompleteRegistration");
+    window.fbq.track("CompleteRegistration");
     return;
   }
   throw new Error("Internal server error");

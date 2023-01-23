@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import FacebookPixel from "../components/FacebookPixel";
 import TikTokPixel from "../components/TikTokPixel";
 import { AuthProvider } from "./authContext";
 import { ModalProvider } from "./modalContext";
@@ -27,6 +28,7 @@ export default function Providers({ children, headers }) {
     <>
       <GlobalStyle />
       <TikTokPixel />
+      <FacebookPixel />
       <AuthProvider headers={headers}>
         <ModalProvider>{children}</ModalProvider>
       </AuthProvider>

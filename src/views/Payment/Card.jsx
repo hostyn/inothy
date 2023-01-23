@@ -120,6 +120,15 @@ export default function Card({
             content_id: doc.subjectId + "/" + doc.docId,
           })),
         });
+
+        window.fbq.track("CompletePayment", {
+          currency: "EUR",
+          value: paymentDetails.totalAmount,
+          contents: paymentDetails.documents.map((doc) => ({
+            content_id: doc.subjectId + "/" + doc.docId,
+          })),
+        });
+
         if (onSuccess) {
           onSuccess();
           return;
