@@ -13,5 +13,3 @@ export const analytics =
   typeof window !== "undefined" ? getAnalytics(app) : null;
 
 export const logEvent = ((event, params) => logEventAnalytics(analytics, event, params));
-
-// logEventAnalytics(analytics, 'se' )

@@ -107,6 +107,7 @@ export default async function upload(req, res) {
     uploaded: userData.uploaded
       ? [...userData.uploaded, body.subject + "/" + fileSnapshot.id]
       : [body.subject + "/" + fileSnapshot.id],
+    hasUploaded: true,
   });
 
   res.status(200).json({ status: "success", path: fileSnapshot.path });

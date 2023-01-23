@@ -55,10 +55,13 @@ export default async function createcardregistration(req, res) {
     return;
   }
 
-  const isAmbassador = userData.badge?.includes('ambassador')
+  const isAmbassador = userData.badge?.includes("ambassador");
 
   const totalPrice = documents.reduce(
-    (prev, current) => isAmbassador ? prev + parseFloat(current.price) * 0.8 : prev + parseFloat(current.price),
+    (prev, current) =>
+      isAmbassador
+        ? prev + parseFloat(current.price) * 0.8
+        : prev + parseFloat(current.price),
     0
   );
 
@@ -110,7 +113,9 @@ export default async function createcardregistration(req, res) {
         recipts: documents.map((doc) => ({
           path: doc.path,
           price: isAmbassador ? doc.price * 0.8 : doc.price,
-          fee: (isAmbassador ? doc.price * 0.8 : doc.price) - getSellerAmount(doc.price),
+          fee:
+            (isAmbassador ? doc.price * 0.8 : doc.price) -
+            getSellerAmount(doc.price),
           createdBy: doc.createdBy,
         })),
       });
@@ -127,18 +132,21 @@ export default async function createcardregistration(req, res) {
           await firestoreAdmin.collection("users").doc(document.createdBy).get()
         ).data();
 
-
         const recipt = await mangopay.Transfers.create({
           AuthorId: userData.mangopayClientId,
           DebitedWalletId: userData.mangopayWalletId,
           CreditedWalletId: ownerData.mangopayWalletId,
           DebitedFunds: {
             Currency: "EUR",
-            Amount: (isAmbassador ? document.price * 0.8 : document.price) * 100,
+            Amount:
+              (isAmbassador ? document.price * 0.8 : document.price) * 100,
           },
           Fees: {
             Currency: "EUR",
-            Amount: ((isAmbassador ? document.price * 0.8 : document.price) - getSellerAmount(document.price)) * 100,
+            Amount:
+              ((isAmbassador ? document.price * 0.8 : document.price) -
+                getSellerAmount(document.price)) *
+              100,
           },
         });
 
