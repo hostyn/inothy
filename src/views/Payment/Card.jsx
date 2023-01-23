@@ -112,6 +112,14 @@ export default function Card({
           currency: "EUR",
           value: paymentDetails.totalAmount,
         });
+
+        window.ttq.track("CompletePayment", {
+          currency: "EUR",
+          value: paymentDetails.totalAmount,
+          contents: paymentDetails.documents.map((doc) => ({
+            content_id: doc.subjectId + "/" + doc.docId,
+          })),
+        });
         if (onSuccess) {
           onSuccess();
           return;
