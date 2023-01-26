@@ -65,7 +65,7 @@ export default async function createcardregistration(req, res) {
     0
   );
 
-  const ipAddress = req.headers["x-forwarded-for"];
+  const ipAddress = req.headers["x-forwarded-for"].split(",")[1];
 
   const response = await mangopay.PayIns.create({
     AuthorId: userData.mangopayClientId,

@@ -226,7 +226,7 @@ export default function DocumentPage({ documentData }) {
             fontFamily="HelveticaRounded"
             color="secondary"
           >
-            Apunte
+            Documento
           </TitleText>
           <TitleImg src="/icons/document.svg" />
         </Title>

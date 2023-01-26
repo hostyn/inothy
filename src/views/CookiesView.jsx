@@ -142,6 +142,18 @@ export default function CookiesView() {
             https://policies.google.com/technologies/cookies?hl=es
           </StyledA>
         </P>
+
+        <P>
+          TikTok:{" "}
+          <StyledA
+            userSelect="auto"
+            href="https://www.tiktok.com/legal/page/global/cookie-policy/es"
+            target="_blank"
+            fontSize="1rem"
+          >
+            https://www.tiktok.com/legal/page/global/cookie-policy/es
+          </StyledA>
+        </P>
         <P>
           La(s) entidad(es) encargada(s) del suministro de cookies podrá(n)
           ceder esta información a terceros, siempre y cuando lo exija la ley o
