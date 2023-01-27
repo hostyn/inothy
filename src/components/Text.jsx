@@ -16,6 +16,7 @@ const Text = styled.p`
   line-height: ${(props) => props.lineHeight || "initial"};
   max-width: ${(props) => props.maxWidth || "initial"};
   cursor: ${(props) => props.cursor || "inherit"};
+  line-break: ${(props) => props.lineBreak || "auto"};
 `;
 
 export default Text;

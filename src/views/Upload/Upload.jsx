@@ -105,7 +105,6 @@ const UploadBox = styled.div`
 
   & p {
     max-width: 100%;
-    line-break: anywhere;
     flex: 1;
   }
 `;
@@ -153,7 +152,13 @@ export default function UploadView({ setState }) {
   });
 
   const handleFileChange = ({ target }) => {
-    setError((error) => ({ ...error, files: null }));
+    setError((error) => ({ ...error, file: null }));
+    if (target.files[0].size > 100 * 1024 * 1024) {
+      setError((error) => ({
+        ...error,
+        file: "El archivo es demasiado grande. Máximo 100MB.",
+      }));
+    }
     setFile(target.files[0]);
   };
 
@@ -322,6 +327,12 @@ export default function UploadView({ setState }) {
         file: "Debes subir un archivo",
       }));
       anyError = true;
+    } else if (file.size > 100 * 1024 * 1024) {
+      setError((error) => ({
+        ...error,
+        file: "El archivo es demasiado grande. Máximo 100MB.",
+      }));
+      anyError = true;
     }
 
     if (parseFloat(docData.price) > docData.maxPrice) {
@@ -340,7 +351,7 @@ export default function UploadView({ setState }) {
       name: null,
       description: null,
       subject: null,
-      files: null,
+      file: null,
       price: null,
     });
     const error = validateData();
@@ -463,7 +474,10 @@ export default function UploadView({ setState }) {
                   : `2px solid ${colors.primary}`
               }
             />
-            <Text color={error.file ? "secondary" : "primary"}>
+            <Text
+              color={error.file ? "secondary" : "primary"}
+              lineBreak={error.file ? "auto" : "anywhere"}
+            >
               {error.file ? error.file : file ? `${file.name}` : ""}
             </Text>
           </UploadBox>
