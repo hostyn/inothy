@@ -1,10 +1,12 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { colors } from "../config/theme";
+import { useAuth } from "../context/authContext";
 import mimeTypes from "../util/mimeTypes";
 import { currencyFormatter } from "../util/normailize";
 import Img from "./Img";
 import Text from "./Text";
+import Span from "./Span";
 
 const Card = styled.div`
   aspect-ratio: 1;
@@ -43,6 +45,7 @@ const CardName = styled(Text)`
 `;
 
 export default function DocumentGridCard({ documentData, href, reference }) {
+  const { user } = useAuth();
   return (
     <Link href={href}>
       <Card ref={reference}>
@@ -59,8 +62,23 @@ export default function DocumentGridCard({ documentData, href, reference }) {
               ? `${documentData.name.substr(0, 47)}...`
               : documentData.name}
           </CardName>
-          <Text fontWeight="bold">
-            {currencyFormatter.format(documentData.price)}
+          <Text fontWeight="bold" fontSize="1.2rem">
+            {user?.data?.badge.includes("ambassador") && (
+              <Span
+                fontSize="1rem"
+                color="secondary"
+                textDecoration="line-through"
+                margin="0 0.5rem 0 0"
+                fontWeight="normal"
+              >
+                {currencyFormatter.format(documentData.price)}
+              </Span>
+            )}
+            {currencyFormatter.format(
+              user?.data?.badge.includes("ambassador")
+                ? documentData.price * 0.8
+                : documentData.price
+            )}
           </Text>
         </CardTitle>
       </Card>

@@ -9,6 +9,7 @@ import AuthModal from "../components/Auth/AuthModal";
 import Button from "../components/Button";
 import Img from "../components/Img";
 import Pdf from "../components/Pdf";
+import Span from "../components/Span";
 import Text from "../components/Text";
 import { logEvent, storage } from "../config/firebase";
 import { colors, sizes } from "../config/theme";
@@ -107,6 +108,23 @@ const PaymentModal = styled.div`
   }
 `;
 
+const CloseButton = styled.button`
+  font-size: 1.7rem;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  font-family: "VarelaRound";
+  color: ${colors.primary};
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+`;
+
 const StyledPdf = styled(Pdf)`
   width: 100%;
 
@@ -168,12 +186,15 @@ export default function DocumentPage({ documentData }) {
   const { openModal, closeModal } = useModal();
   const { user } = useAuth();
 
+  console.log(user);
+
   const [previewUrl, setPreviewUrl] = useState(null);
 
   const handleBuy = async () => {
     user
       ? openModal(
           <PaymentModal>
+            <CloseButton onClick={closeModal}>X</CloseButton>
             <Payment documents={[documentData]} onSuccess={closeModal} />
           </PaymentModal>
         )
@@ -273,8 +294,26 @@ export default function DocumentPage({ documentData }) {
               <Text color="secondary" fontSize="1.2rem" fontWeight="bold">
                 Precio
               </Text>
-              <Text fontSize="4rem" margin="0.5rem 0 2rem 0">
-                {currencyFormatter.format(documentData.price)}
+              <Text
+                fontSize="4rem"
+                margin="0.5rem 0 2rem 0"
+                title="Descuento de embajador"
+              >
+                {currencyFormatter.format(
+                  user?.data?.badge.includes("ambassador")
+                    ? documentData.price * 0.8
+                    : documentData.price
+                )}
+                <Span
+                  fontSize="2rem"
+                  margin="0 0 0 1rem"
+                  color="secondary"
+                  textDecoration="line-through"
+                  title="Descuento de embajador"
+                >
+                  {user?.data?.badge.includes("ambassador") &&
+                    currencyFormatter.format(documentData.price)}
+                </Span>
               </Text>
               {user?.data?.bought?.includes(
                 documentData.subjectId + "/" + documentData.docId

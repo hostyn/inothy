@@ -3,6 +3,7 @@ import Button from "../../components/Button";
 import Img from "../../components/Img";
 import Text from "../../components/Text";
 import { colors } from "../../config/theme";
+import { useAuth } from "../../context/authContext";
 import { currencyFormatter } from "../../util/normailize";
 
 const ResumeDiv = styled.div`
@@ -52,8 +53,30 @@ const DoucumentName = styled(Text)`
 `;
 
 const DocumentPrice = styled(Text)`
+  display: flex;
+  align-items: center;
   @media (max-width: 768px) {
     font-size: 1.5rem;
+  }
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+`;
+
+const DiscountText = styled.span`
+  font-size: 1.3rem;
+  margin: 0 1rem 0 0;
+  color: ${colors.secondary};
+  text-decoration: line-through;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 500px) {
+    margin: 0;
   }
 `;
 
@@ -84,6 +107,7 @@ const StyledButton = styled(Button)`
 `;
 
 export default function Resume({ paymentDetails, setState }) {
+  const { user } = useAuth();
   return (
     <ResumeDiv>
       <Title fontSize="2rem" fontWeight="bold" margin="0 0 1rem 0">
@@ -101,14 +125,28 @@ export default function Resume({ paymentDetails, setState }) {
               <Text fontSize="0.8rem">{document.createdBy}</Text>
             </VerticalText>
             <DocumentPrice fontSize="2rem" textAlign="end">
-              {currencyFormatter.format(document.price)}
+              {user?.data?.badge.includes("ambassador") && (
+                <DiscountText>
+                  {currencyFormatter.format(document.price)}
+                </DiscountText>
+              )}
+              {currencyFormatter.format(
+                user?.data?.badge.includes("ambassador")
+                  ? document.price * 0.8
+                  : document.price
+              )}
             </DocumentPrice>
           </DocumentCard>
         </div>
       ))}
       <Separator />
       <TotalText textAlign="end" fontSize="2.5rem" margin="1rem 0 0 0">
-        Total: {currencyFormatter.format(paymentDetails.totalAmount)}
+        Total:{" "}
+        {currencyFormatter.format(
+          user?.data?.badge.includes("ambassador")
+            ? paymentDetails.totalAmount * 0.8
+            : paymentDetails.totalAmount
+        )}
       </TotalText>
       <InlineContinue>
         <PoweredByMangopay src="/mangopay.png" />
