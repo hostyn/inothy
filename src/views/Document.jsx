@@ -297,7 +297,11 @@ export default function DocumentPage({ documentData }) {
               <Text
                 fontSize="4rem"
                 margin="0.5rem 0 2rem 0"
-                title="Descuento de embajador"
+                title={
+                  user?.data?.badge.includes("ambassador")
+                    ? "Descuento embajador"
+                    : "Precio"
+                }
               >
                 {currencyFormatter.format(
                   user?.data?.badge.includes("ambassador")
