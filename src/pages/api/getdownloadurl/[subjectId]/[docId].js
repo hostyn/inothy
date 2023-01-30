@@ -42,8 +42,6 @@ export default async function downloadFile(req, res) {
 
   const docData = docSnapshot.data();
 
-  console.log(docData.createdBy === user.uid);
-
   if (
     !userData.bought.includes(subjectId + "/" + docId) &&
     !(docData.createdBy === user.uid)

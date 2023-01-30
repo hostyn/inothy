@@ -186,8 +186,6 @@ export default function DocumentPage({ documentData }) {
   const { openModal, closeModal } = useModal();
   const { user } = useAuth();
 
-  console.log(user);
-
   const [previewUrl, setPreviewUrl] = useState(null);
 
   const handleBuy = async () => {
