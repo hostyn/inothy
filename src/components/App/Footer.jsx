@@ -130,7 +130,7 @@ export default function Footer() {
       </Contacto>
       <FooterDiv>
         <HiddenLink>
-          <Link href="/info">
+          <Link href="/info" passHref>
             <A
               color="white"
               fontWeight="regular"
@@ -143,7 +143,7 @@ export default function Footer() {
         </HiddenLink>
 
         <HiddenLink>
-          <Link href="/legal">
+          <Link href="/legal" passHref>
             <A
               color="white"
               fontWeight="regular"
@@ -160,7 +160,7 @@ export default function Footer() {
           </a>
         </Link>
         <HiddenLink>
-          <Link href="/privacy">
+          <Link href="/privacy" passHref>
             <A
               color="white"
               fontWeight="regular"
@@ -172,7 +172,7 @@ export default function Footer() {
           </Link>
         </HiddenLink>
         <HiddenLink>
-          <Link href="/cookies">
+          <Link href="/cookies" passHref>
             <A
               color="white"
               fontWeight="regular"

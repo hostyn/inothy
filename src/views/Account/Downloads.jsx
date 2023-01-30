@@ -66,7 +66,7 @@ export default function DownloadsView() {
               <Text textAlign="center" fontSize="1.5rem">
                 ¿Estas listo para aprobar?
               </Text>
-              <Link href="/">
+              <Link href="/" passHref>
                 <Button
                   margin="1rem 0 0 0"
                   width="auto"

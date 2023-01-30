@@ -185,7 +185,7 @@ export default function SubjectView({ subjectData: initialSubjectData }) {
             >
               ¡Sé el primero!
             </Text>
-            <Link href="/upload">
+            <Link href="/upload" passHref>
               <Button margin="1rem auto" padding="0.5rem 1rem">
                 Subir documentos
               </Button>

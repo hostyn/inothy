@@ -16,7 +16,7 @@ export default function Verified() {
       <Text textAlign="center">
         Ya puedes retirar tu saldo a tu cuenta bancaria
       </Text>
-      <Link href="/account/balance">
+      <Link href="/account/balance" passHref>
         <Button margin="1rem auto 0 auto" height="auto" padding="0.5rem 1rem">
           Retirar
         </Button>

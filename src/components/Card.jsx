@@ -54,7 +54,7 @@ const CardText = styled(Text)`
 
 export default function Card({ img, text, href }) {
   return (
-    <Link href={href}>
+    <Link href={href} passHref>
       <CardDiv>
         <CardImg src={img} />
         <CardText fontSize="2vw" userSelect="none">

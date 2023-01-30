@@ -65,7 +65,7 @@ export default function UploadsView() {
               <Text textAlign="center" fontSize="1.5rem">
                 ¿Quieres ganar dinero con tus apuntes?
               </Text>
-              <Link href="/upload">
+              <Link href="/upload" passHref>
                 <Button
                   margin="1rem 0 0 0"
                   width="auto"

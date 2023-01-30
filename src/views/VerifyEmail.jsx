@@ -28,7 +28,7 @@ export default function VerifyEmail({ verified = false }) {
           <Text fontSize="3rem" margin="2rem 0 0 0">
             Email verificado
           </Text>
-          <Link href="/completeprofile">
+          <Link href="/completeprofile" passHref>
             <Button height="auto" padding="0.5rem 1rem" margin="1rem 0 0 0">
               Completar el perfil
             </Button>
@@ -39,7 +39,7 @@ export default function VerifyEmail({ verified = false }) {
           <Text fontSize="3rem" margin="2rem 0 0 0">
             No se ha podido verificar el email
           </Text>
-          <Link href="/">
+          <Link href="/" passHref>
             <A>Volver al home</A>
           </Link>
         </>

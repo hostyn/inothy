@@ -143,7 +143,7 @@ export default function ResetPassword({ valid, oobCode, email }) {
             El enlace ha caducado o no es válido, revisa tu correo o solicita
             otro.
           </Text>
-          <Link href="/">
+          <Link href="/" passHref>
             <Button
               height="auto"
               width="auto"

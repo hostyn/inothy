@@ -170,7 +170,7 @@ export default function DegreePage({ degree }) {
           key={subject.id}
           style={{ display: "flex", flexDirection: "column" }}
         >
-          <Link href={`/subject/${subject.id}`}>
+          <Link href={`/subject/${subject.id}`} passHref>
             <SubjectTitle
               fontSize="2rem"
               fontWeight="bold"
@@ -265,7 +265,7 @@ export default function DegreePage({ degree }) {
             >
               ¡Sé el primero!
             </Text>
-            <Link href="/upload">
+            <Link href="/upload" passHref>
               <Button margin="1rem auto" padding="0.5rem 1rem">
                 Subir documentos
               </Button>

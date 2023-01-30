@@ -32,7 +32,7 @@ export default function notFound() {
           <Text fontSize="2rem" textAlign="center">
             No hemos podido encontrar lo que buscabas
           </Text>
-          <Link href="/">
+          <Link href="/" passHref>
             <A margin="1rem 0">Volver al home</A>
           </Link>
           <Img src="/resources/404/404.svg" aspectRatio="172/75" width="50%" />

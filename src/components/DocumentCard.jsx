@@ -60,7 +60,10 @@ export default function DocumentCard({ docuemntData }) {
         height="3rem"
         width="auto"
       />
-      <Link href={`/subject/${docuemntData.subjectId}/${docuemntData.docId}`}>
+      <Link
+        href={`/subject/${docuemntData.subjectId}/${docuemntData.docId}`}
+        passHref
+      >
         <StyledA color="primary" fontSize="1.5rem">
           {docuemntData.name}
         </StyledA>

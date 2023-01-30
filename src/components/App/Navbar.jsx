@@ -243,6 +243,7 @@ const HiddenLogo = styled.div`
 const HiddenButton = styled.div`
   display: none;
   justify-content: center;
+  cursor: pointer;
 
   ${(props) =>
     !props.logged &&
@@ -374,12 +375,12 @@ export default function Nav({ transparent }) {
 
         <SearchBox />
         <HiddenElement>
-          <Link href="/universities">
+          <Link href="/universities" passHref>
             <A textAlign="center">Universidades</A>
           </Link>
         </HiddenElement>
         <HiddenElement>
-          <Link href="/info">
+          <Link href="/info" passHref>
             <A textAlign="center">Información</A>
           </Link>
         </HiddenElement>
@@ -432,7 +433,7 @@ export default function Nav({ transparent }) {
               />
             </User>
             <HiddenElement>
-              <Link href="/upload">
+              <Link href="/upload" passHref>
                 <Button margin="0" width="100%">
                   Subir
                 </Button>
@@ -471,7 +472,7 @@ export default function Nav({ transparent }) {
           {isUser ? (
             <>
               <MenuHiddenButtons>
-                <Link href="/upload">
+                <Link href="/upload" passHref>
                   <Item>
                     <Img
                       src="/icons/uploads.svg"
@@ -489,7 +490,7 @@ export default function Nav({ transparent }) {
                   </Item>
                 </Link>
 
-                <Link href="/universities">
+                <Link href="/universities" passHref>
                   <Item>
                     <Img
                       src="/icons/universities.svg"
@@ -507,7 +508,7 @@ export default function Nav({ transparent }) {
                   </Item>
                 </Link>
 
-                <Link href="/info">
+                <Link href="/info" passHref>
                   <Item>
                     <Img
                       src="/icons/info.svg"
@@ -527,7 +528,7 @@ export default function Nav({ transparent }) {
 
                 <Separator />
               </MenuHiddenButtons>
-              <Link href="/account/downloads">
+              <Link href="/account/downloads" passHref>
                 <Item>
                   <Img
                     src="/icons/downloads.svg"
@@ -544,7 +545,7 @@ export default function Nav({ transparent }) {
                   </Text>
                 </Item>
               </Link>
-              <Link href="/account/profile">
+              <Link href="/account/profile" passHref>
                 <Item>
                   <Img src="/icons/profile.svg" aspectRatio="1" width="2rem" />
                   <Text
@@ -557,7 +558,7 @@ export default function Nav({ transparent }) {
                   </Text>
                 </Item>
               </Link>
-              <Link href="/account/balance">
+              <Link href="/account/balance" passHref>
                 <Item>
                   <Img
                     src="/icons/balance.svg"
@@ -574,7 +575,7 @@ export default function Nav({ transparent }) {
                   </Text>
                 </Item>
               </Link>
-              <Link href="/account/uploads">
+              <Link href="/account/uploads" passHref>
                 <Item>
                   <Img
                     src="/icons/uploads.svg"
@@ -592,7 +593,7 @@ export default function Nav({ transparent }) {
                 </Item>
               </Link>
               <Separator />
-              <Link href="/universities">
+              <Link href="/universities" passHref>
                 <A
                   textAlign="left"
                   color="primary"
@@ -603,7 +604,7 @@ export default function Nav({ transparent }) {
                   Universidades
                 </A>
               </Link>
-              <Link href="/info">
+              <Link href="/info" passHref>
                 <A
                   textAlign="left"
                   color="primary"
@@ -614,7 +615,7 @@ export default function Nav({ transparent }) {
                   Información
                 </A>
               </Link>
-              <Link href="/legal">
+              <Link href="/legal" passHref>
                 <A
                   textAlign="left"
                   color="primary"
@@ -625,7 +626,7 @@ export default function Nav({ transparent }) {
                   Términos y condiciones
                 </A>
               </Link>
-              <Link href="/privacy">
+              <Link href="/privacy" passHref>
                 <A
                   textAlign="left"
                   color="primary"
@@ -636,7 +637,7 @@ export default function Nav({ transparent }) {
                   Política de privacidad
                 </A>
               </Link>
-              <Link href="/cookies">
+              <Link href="/cookies" passHref>
                 <A
                   textAlign="left"
                   color="primary"
@@ -686,7 +687,7 @@ export default function Nav({ transparent }) {
 
               <MenuHiddenButtons>
                 <Separator />
-                <Link href="/search">
+                <Link href="/search" passHref>
                   <Item>
                     <Img
                       src="/icons/search.svg"
@@ -704,7 +705,7 @@ export default function Nav({ transparent }) {
                   </Item>
                 </Link>
 
-                <Link href="/universities">
+                <Link href="/universities" passHref>
                   <Item>
                     <Img
                       src="/icons/universities.svg"
@@ -722,7 +723,7 @@ export default function Nav({ transparent }) {
                   </Item>
                 </Link>
 
-                <Link href="/info">
+                <Link href="/info" passHref>
                   <Item>
                     <Img
                       src="/icons/info.svg"
@@ -742,7 +743,7 @@ export default function Nav({ transparent }) {
               </MenuHiddenButtons>
 
               <Separator />
-              <Link href="/universities">
+              <Link href="/universities" passHref>
                 <A
                   textAlign="left"
                   color="primary"
@@ -753,7 +754,7 @@ export default function Nav({ transparent }) {
                   Universidades
                 </A>
               </Link>
-              <Link href="/info">
+              <Link href="/info" passHref>
                 <A
                   textAlign="left"
                   color="primary"
@@ -764,33 +765,39 @@ export default function Nav({ transparent }) {
                   Información
                 </A>
               </Link>
-              <A
-                textAlign="left"
-                color="primary"
-                fontWeight="normal"
-                fontSize="1rem"
-                margin="0 0 0.5rem 1rem"
-              >
-                Términos y condiciones
-              </A>
-              <A
-                textAlign="left"
-                color="primary"
-                fontWeight="normal"
-                fontSize="1rem"
-                margin="0 0 0.5rem 1rem"
-              >
-                Política de privacidad
-              </A>
-              <A
-                textAlign="left"
-                color="primary"
-                fontWeight="normal"
-                fontSize="1rem"
-                margin="0 0 0 1rem"
-              >
-                Política de Cookies
-              </A>
+              <Link href="/legal" passHref>
+                <A
+                  textAlign="left"
+                  color="primary"
+                  fontWeight="normal"
+                  fontSize="1rem"
+                  margin="0 0 0.5rem 1rem"
+                >
+                  Términos y condiciones
+                </A>
+              </Link>
+              <Link href="privacy" passHref>
+                <A
+                  textAlign="left"
+                  color="primary"
+                  fontWeight="normal"
+                  fontSize="1rem"
+                  margin="0 0 0.5rem 1rem"
+                >
+                  Política de privacidad
+                </A>
+              </Link>
+              <Link href="/cookies" passHref>
+                <A
+                  textAlign="left"
+                  color="primary"
+                  fontWeight="normal"
+                  fontSize="1rem"
+                  margin="0 0 0 1rem"
+                >
+                  Política de Cookies
+                </A>
+              </Link>
             </>
           )}
         </Menu>

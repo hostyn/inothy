@@ -329,7 +329,7 @@ export default function BalanceView() {
               <Text margin="0.5rem 0 0 0">
                 Para que puedas retirar tu dinero necesitamos que verifiques tu
                 identidad.{" "}
-                <Link href="/info">
+                <Link href="/info" passHref>
                   <A fontSize="1rem" fontWeight="normal">
                     Mas información.
                   </A>
@@ -387,7 +387,7 @@ export default function BalanceView() {
                       </Text>
                     </>
                   )}
-                  <Link href="/kyc">
+                  <Link href="/kyc" passHref>
                     <Button margin="1rem auto 0 auto" padding="0.5rem 1rem">
                       Verificar
                     </Button>

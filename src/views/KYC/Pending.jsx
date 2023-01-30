@@ -18,7 +18,7 @@ export default function Pending() {
         horas.
       </Text>
       <Text textAlign="center">¡Mientras tanto puedes subir tus apuntes!</Text>
-      <Link href="/upload">
+      <Link href="/upload" passHref>
         <Button margin="1rem auto 0 auto" height="auto" padding="0.5rem 1rem">
           Subir apuntes
         </Button>

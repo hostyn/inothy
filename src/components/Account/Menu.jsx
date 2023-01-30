@@ -90,7 +90,7 @@ export default function Menu({
       <Grid>
         <MenuBackground>
           <MenuDiv>
-            <Link href="/account/downloads">
+            <Link href="/account/downloads" passHref>
               <Item active={downloads}>
                 <Img
                   src={
@@ -110,7 +110,7 @@ export default function Menu({
                 </Text>
               </Item>
             </Link>
-            <Link href="/account/profile">
+            <Link href="/account/profile" passHref>
               <Item active={profile}>
                 <Img
                   src={
@@ -130,7 +130,7 @@ export default function Menu({
                 </Text>
               </Item>
             </Link>
-            <Link href="/account/balance">
+            <Link href="/account/balance" passHref>
               <Item active={balance}>
                 <Img
                   src={
@@ -150,7 +150,7 @@ export default function Menu({
                 </Text>
               </Item>
             </Link>
-            <Link href="/account/uploads">
+            <Link href="/account/uploads" passHref>
               <Item active={uploads}>
                 <Img
                   src={
@@ -170,7 +170,7 @@ export default function Menu({
                 </Text>
               </Item>
             </Link>
-            {/* <Link href="/account/settings">
+            {/* <Link href="/account/settings" passHref>
               <Item active={settings}>
                 <Img
                   src={
@@ -191,7 +191,7 @@ export default function Menu({
               </Item>
             </Link> */}
             <Separator />
-            <Link href="/universities">
+            <Link href="/universities" passHref>
               <A
                 textAlign="left"
                 color="primary"
@@ -202,7 +202,7 @@ export default function Menu({
                 Universidades
               </A>
             </Link>
-            <Link href="/info">
+            <Link href="/info" passHref>
               <A
                 textAlign="left"
                 color="primary"
@@ -213,7 +213,7 @@ export default function Menu({
                 Información
               </A>
             </Link>
-            <Link href="/legal">
+            <Link href="/legal" passHref>
               <A
                 textAlign="left"
                 color="primary"
@@ -224,7 +224,7 @@ export default function Menu({
                 Términos y condiciones
               </A>
             </Link>
-            <Link href="/privacy">
+            <Link href="/privacy" passHref>
               <A
                 textAlign="left"
                 color="primary"
@@ -235,7 +235,7 @@ export default function Menu({
                 Política de privacidad
               </A>
             </Link>
-            <Link href="/cookies">
+            <Link href="/cookies" passHref>
               <A
                 textAlign="left"
                 color="primary"
