@@ -7,6 +7,7 @@ export default function Universities({ universities }) {
     <>
       <Head>
         <title>Inothy - Universidades</title>
+        <meta name="robots" content="index,follow" />
       </Head>
       <UniversitiesView universities={universities} />
     </>

@@ -7,6 +7,7 @@ export default function Degree({ degree }) {
     <>
       <Head>
         <title>{`Inothy - ${degree.name} - ${degree.university.name}`}</title>
+        <meta name="robots" content="index,follow" />
       </Head>
       <DegreePage degree={degree} />
     </>

@@ -7,6 +7,7 @@ export default function Downloads() {
     <>
       <Head>
         <title>Inothy - Descargas</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <ProtectedContent>
         <DownloadsView />

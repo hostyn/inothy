@@ -6,6 +6,7 @@ export default function Cookies() {
     <>
       <Head>
         <title>Inothy - Cookies</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <CookiesView />
     </>

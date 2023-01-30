@@ -7,6 +7,7 @@ export default function School({ school }) {
     <>
       <Head>
         <title>{`Inothy - ${school.name} - ${school.university.name}`}</title>
+        <meta name="robots" content="index,follow" />
       </Head>
       <SchoolPage school={school} />
     </>

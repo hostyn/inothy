@@ -7,6 +7,7 @@ export default function Document({ documentData }) {
     <>
       <Head>
         <title>{`Inothy - ${documentData.name}`}</title>
+        <meta name="robots" content="index,follow" />
       </Head>
       <DocumentPage documentData={documentData} />
     </>

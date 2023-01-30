@@ -7,6 +7,7 @@ export default function Profile() {
     <>
       <Head>
         <title>Inothy - Cuenta</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <ProtectedContent>
         <ProfileView />

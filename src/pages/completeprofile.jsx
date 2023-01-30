@@ -6,6 +6,7 @@ export default function CompleteProfile() {
     <>
       <Head>
         <title>Inothy: Completa tu perfil</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <CompleteProfileView />
     </>

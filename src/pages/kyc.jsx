@@ -7,6 +7,7 @@ export default function KYC() {
     <>
       <Head>
         <title>Inothy - KYC</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <ProtectedContent>
         <KYCView />

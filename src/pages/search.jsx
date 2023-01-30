@@ -7,6 +7,7 @@ export default function Search({ q }) {
     <>
       <Head>
         <title>Inothy - Buscar</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <SearchView q={q} />
     </>

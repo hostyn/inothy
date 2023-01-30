@@ -32,10 +32,10 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta name="title" content="Inothy"></meta>
+          <meta name="title" content="Inothy - Prepárate para aprobar"></meta>
           <meta
             name="description"
-            content="Compra y vende tus apuntes con comisiones bajas."
+            content="PREPÁRATE PARA APROBAR: Compra y vende tus apuntes de la universidad en Inothy. Las comisiones más bajas del mercado y los pagos más rápidos que vas a encontrar."
           ></meta>
           <meta
             name="keywords"
@@ -43,20 +43,21 @@ export default class MyDocument extends Document {
           ></meta>
           <meta name="author" content="Inothy" />
 
-          <meta name="robots" content="index, follow"></meta>
-
-          <meta property="og:title" content="Inothy" />
+          <meta property="og:title" content="Inothy - Prepárate para aprobar" />
           <meta
             property="og:description"
-            content="Compra y vende tus apuntes con comisiones bajas."
+            content="PREPÁRATE PARA APROBAR: Compra y vende tus apuntes de la universidad en Inothy. Las comisiones más bajas del mercado y los pagos más rápidos que vas a encontrar."
           />
           <meta property="og:locale" content="es_ES" />
-          <meta property="og:image" content="/icon.png" />
+          <meta property="og:image" content="/imagotipo.png" />
 
-          <meta property="twitter:title" content="Inothy" />
+          <meta
+            property="twitter:title"
+            content="Inothy - Prepárate para aprobar"
+          />
           <meta
             property="twitter:description"
-            content="Compra y vende tus apuntes con comisiones bajas."
+            content="PREPÁRATE PARA APROBAR: Compra y vende tus apuntes de la universidad en Inothy. Las comisiones más bajas del mercado y los pagos más rápidos que vas a encontrar."
           />
 
           {/* --------- FAVICONS --------- */}

@@ -7,6 +7,7 @@ export default function Upload() {
     <>
       <Head>
         <title>Inothy - Subir archivos</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <ProtectedContent>
         <UploadView />

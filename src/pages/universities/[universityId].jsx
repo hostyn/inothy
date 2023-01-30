@@ -7,6 +7,7 @@ export default function University({ university }) {
     <>
       <Head>
         <title>{`Inothy - ${university.name}`}</title>
+        <meta name="robots" content="index,follow" />
       </Head>
       <UniversityPage university={university} />
     </>

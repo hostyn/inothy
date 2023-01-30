@@ -6,6 +6,7 @@ export default function Privacy() {
     <>
       <Head>
         <title>Inothy - Política de privacidad</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
 
       <PrivacyView />

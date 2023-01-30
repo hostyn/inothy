@@ -7,6 +7,7 @@ export default function Uploads() {
     <>
       <Head>
         <title>Inothy - Subido</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <ProtectedContent>
         <UploadsView />

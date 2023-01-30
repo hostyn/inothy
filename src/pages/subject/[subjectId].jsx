@@ -7,6 +7,7 @@ export default function Subject({ subjectData }) {
     <>
       <Head>
         <title>Inothy - Subject</title>
+        <meta name="robots" content="index,follow" />
       </Head>
       <SubjectView subjectData={subjectData} />
     </>

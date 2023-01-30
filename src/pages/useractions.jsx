@@ -11,6 +11,7 @@ export default function VerifyEmailPage({ mode, verified, oobCode, email }) {
         <>
           <Head>
             <title>Inothy - Email verificado</title>
+            <meta name="robots" content="noindex,nofollow" />
           </Head>
           <VerifyEmail verified={verified} />
         </>

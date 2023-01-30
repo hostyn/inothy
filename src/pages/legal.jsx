@@ -6,6 +6,7 @@ export default function Legal() {
     <>
       <Head>
         <title>Inothy - Terminos y condiciones</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <LegalView />
     </>

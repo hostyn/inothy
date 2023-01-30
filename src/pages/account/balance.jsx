@@ -7,6 +7,7 @@ export default function Balance() {
     <>
       <Head>
         <title>Inothy - Balance</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <ProtectedContent>
         <BalanceView />

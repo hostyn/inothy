@@ -6,6 +6,7 @@ export default function Home() {
     <>
       <Head>
         <title>Inothy: Prepárate para aprobar</title>
+        <meta name="robots" content="index,follow" />
       </Head>
       <HomeView />
     </>

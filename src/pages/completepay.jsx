@@ -7,6 +7,7 @@ export default function CompletePay({ transactionId }) {
     <>
       <Head>
         <title>Inothy - Completar pago</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <ProtectedContent>
         <CompletePayPage transactionId={transactionId} />

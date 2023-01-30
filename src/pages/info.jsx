@@ -6,6 +6,7 @@ export default function Info() {
     <>
       <Head>
         <title>Inothy - Información</title>
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <InfoView />
     </>
