@@ -27,7 +27,7 @@ export default async function completeprofile(req, res) {
   }
 
   const body = JSON.parse(req.body);
-  const ipAddress = req.headers["x-forwarded-for"]?.split(",")[1] ?? null;
+  const ipAddress = req.headers["x-forwarded-for"]?.split(",")[0] ?? null;
 
   if (
     body.name.length === 0 ||
