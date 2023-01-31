@@ -108,26 +108,29 @@ export default function Card({
         setState("success");
         await new Promise((res) => setTimeout(res, 2000));
         await updateData();
-        logEvent("purchase", {
-          currency: "EUR",
-          value: paymentDetails.totalAmount,
-        });
 
-        window.ttq.track("CompletePayment", {
-          currency: "EUR",
-          value: paymentDetails.totalAmount,
-          contents: paymentDetails.documents.map((doc) => ({
-            content_id: doc.subjectId + "/" + doc.docId,
-          })),
-        });
+        try {
+          logEvent("purchase", {
+            currency: "EUR",
+            value: paymentDetails.totalAmount,
+          });
 
-        window.fbq.track("CompletePayment", {
-          currency: "EUR",
-          value: paymentDetails.totalAmount,
-          contents: paymentDetails.documents.map((doc) => ({
-            content_id: doc.subjectId + "/" + doc.docId,
-          })),
-        });
+          window.ttq.track("CompletePayment", {
+            currency: "EUR",
+            value: paymentDetails.totalAmount,
+            contents: paymentDetails.documents.map((doc) => ({
+              content_id: doc.subjectId + "/" + doc.docId,
+            })),
+          });
+
+          window.fbq.track("CompletePayment", {
+            currency: "EUR",
+            value: paymentDetails.totalAmount,
+            contents: paymentDetails.documents.map((doc) => ({
+              content_id: doc.subjectId + "/" + doc.docId,
+            })),
+          });
+        } catch {}
 
         if (onSuccess) {
           onSuccess();

@@ -230,9 +230,11 @@ export default function DocumentPage({ documentData }) {
   }, [documentData]);
 
   useEffect(() => {
-    logEvent("view_item", {
-      item: documentData.subjectId + "/" + documentData.docId,
-    });
+    try {
+      logEvent("view_item", {
+        item: documentData.subjectId + "/" + documentData.docId,
+      });
+    } catch {}
   }, [documentData]);
 
   return (

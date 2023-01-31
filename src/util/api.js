@@ -194,9 +194,11 @@ export async function completeProfile(user, userData) {
   );
 
   if (res.status === 200) {
-    logEvent("complete_profile");
-    window.ttq.track("CompleteRegistration");
-    window.fbq.track("CompleteRegistration");
+    try {
+      logEvent("complete_profile");
+      window.ttq.track("CompleteRegistration");
+      window.fbq.track("CompleteRegistration");
+    } catch {}
     return;
   }
   throw new Error("Internal server error");
@@ -220,8 +222,9 @@ export async function uploadFile(user, docData) {
   if (res.status !== 200) {
     throw new Error("Internal server error");
   }
-
-  logEvent("upload_document");
+  try {
+    logEvent("upload_document");
+  } catch {}
   return await res.json();
 }
 
@@ -238,7 +241,9 @@ export async function completeKYC(user, data) {
   });
 
   if (res.status === 200) {
-    logEvent("request_kyc");
+    try {
+      logEvent("request_kyc");
+    } catch {}
     return res.json();
   }
   throw new Error("Internal server error");
@@ -353,7 +358,9 @@ export async function getDownloadUrl(user, subjectId, docId) {
   );
 
   if (res.status === 200) {
-    logEvent("download_document", { document: subjectId + "/" + docId });
+    try {
+      logEvent("download_document", { document: subjectId + "/" + docId });
+    } catch {}
     return res.json();
   }
   throw new Error("Internal server error");
@@ -402,7 +409,9 @@ export async function updateBankAccount(user, iban) {
   );
 
   if (res.status === 200) {
-    logEvent("update_bank_account");
+    try {
+      logEvent("update_bank_account");
+    } catch {}
     return res.json();
   }
   if (res.status === 400) throw new Error("Bad Request");
@@ -448,7 +457,9 @@ export async function payout(user) {
   );
 
   if (res.status === 200) {
-    logEvent("request_payout");
+    try {
+      logEvent("request_payout");
+    } catch {}
     return res.json();
   } else throw new Error("Internal server error");
 }

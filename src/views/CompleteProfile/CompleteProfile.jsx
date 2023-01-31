@@ -132,7 +132,10 @@ export default function CompleteProfileView() {
       .then(() => new Promise((resolve) => setTimeout(resolve, 2000)))
       .then(() => updateData())
       .then(() => push("/"))
-      .catch(() => setState("error"));
+      .catch((e) => {
+        console.log(e);
+        setState("error");
+      });
     // TODO: Handle errors
   };
 

@@ -28,13 +28,17 @@ export function AuthProvider({ children, headers: initialHeaders }) {
   // AUTH FUNCTIONS
   const login = async (email, password) => {
     const user = await signInWithEmailAndPassword(auth, email, password);
-    logEvent("login");
+    try {
+      logEvent("login");
+    } catch {}
     return user;
   };
 
   const register = async (email, password) => {
     const user = await createUserWithEmailAndPassword(auth, email, password);
-    logEvent("sign_up");
+    try {
+      logEvent("sign_up");
+    } catch {}
     return user;
   };
 
@@ -42,7 +46,9 @@ export function AuthProvider({ children, headers: initialHeaders }) {
     setIsUser(false);
     await signOut(auth);
     setUser(null);
-    logEvent("logout");
+    try {
+      logEvent("logout");
+    } catch {}
   };
 
   const updateData = async () => {

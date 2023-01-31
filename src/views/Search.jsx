@@ -141,7 +141,10 @@ export default function SearchView({ q }) {
   }, [q]);
 
   useEffect(() => {
-    if (q) logEvent("search", { query: q.query });
+    if (q)
+      try {
+        logEvent("search", { query: q.query });
+      } catch {}
   }, [q]);
 
   return (

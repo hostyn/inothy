@@ -28,8 +28,9 @@ export default async function registerCard(
     const registrationData = await response.text();
 
     await completeCardRegistration(cardRegistration.Id, registrationData);
-
-    logEvent('add_card')
+    try {
+      logEvent("add_card");
+    } catch {}
 
     return;
   } catch {
