@@ -11,12 +11,12 @@ const CarouselDiv = styled.div`
   width: 100%;
   height: 16rem;
 
-  @media (max-width: 500px) {
-    height: 6rem;
-  }
-
   @media (max-width: 1280px) {
     height: 10rem;
+  }
+
+  @media (max-width: 500px) {
+    height: 6rem;
   }
 `;
 
@@ -35,14 +35,14 @@ const Image = styled(Img)`
   border: 3px solid ${colors.primary};
   overflow: hidden;
 
-  @media (max-width: 500px) {
-    height: 5rem;
-    width: 5rem;
-  }
-
   @media (max-width: 1280px) {
     height: 8rem;
     width: 8rem;
+  }
+
+  @media (max-width: 500px) {
+    height: 5rem;
+    width: 5rem;
   }
 `;
 
