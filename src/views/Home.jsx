@@ -8,6 +8,8 @@ import Span from "../components/Span";
 import { useModal } from "../context/modalContext";
 import AuthModal from "../components/Auth/AuthModal";
 import { useAuth } from "../context/authContext";
+import UniversitiesCarousel from "../components/UniversitiesCarousel/UniversitiesCarousel";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 const Home = styled.div`
   min-height: inherit;
@@ -148,10 +150,7 @@ const UniversidadesDiv = styled.div`
   grid-template-columns: 1fr auto 1fr;
 `;
 
-const UniversidadesGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-`;
+const UniversidadesGrid = styled.div``;
 
 const MejoresText = styled.div`
   background-image: url("/resources/home/background2.svg");
@@ -266,6 +265,13 @@ const StyledButton = styled(Button)`
 export default function HomeView() {
   const { openModal } = useModal();
   const { user } = useAuth();
+  const { width } = useWindowDimensions();
+
+  const calcVisualizedItems = () => {
+    if (width < 600) return 3;
+    if (width > 1280) return Math.trunc(width / 300);
+    return Math.trunc(width / 200);
+  };
 
   return (
     <App transparent>
@@ -452,7 +458,7 @@ export default function HomeView() {
         </IdeaFrameDiv>
 
         {/* Universidades */}
-        {/* <UniversidadesDiv>
+        <UniversidadesDiv>
           <Img src="/resources/home/pen1.svg" height="auto" />
           <StyledText2
             color="secondary"
@@ -465,44 +471,12 @@ export default function HomeView() {
           <Img src="/resources/home/pen2.svg" height="auto" />
         </UniversidadesDiv>
         <UniversidadesGrid>
-          <div
-            style={{
-              border: "3px solid red",
-              borderRadius: "99999px",
-              height: "16vw",
-              width: "16vw",
-              margin: "1rem auto",
-            }}
-          ></div>
-          <div
-            style={{
-              border: "3px solid red",
-              borderRadius: "99999px",
-              height: "16vw",
-              width: "16vw",
-              margin: "1rem auto",
-            }}
-          ></div>
-          <div
-            style={{
-              border: "3px solid red",
-              borderRadius: "99999px",
-              height: "16vw",
-              width: "16vw",
-              margin: "1rem auto",
-            }}
-          ></div>
-          <div
-            style={{
-              border: "3px solid red",
-              borderRadius: "99999px",
-              height: "16vw",
-              width: "16vw",
-              margin: "1rem auto",
-            }}
-          ></div>
+          <UniversitiesCarousel
+            visualizedItems={calcVisualizedItems()}
+            paddingItems={Math.trunc(calcVisualizedItems() / 2) + 1}
+          />
         </UniversidadesGrid>
-        <Img src="/resources/home/pen3.svg" aspectRatio="150/1" height="10px" /> */}
+        <Img src="/resources/home/pen3.svg" aspectRatio="150/1" height="25px" />
 
         {/* Consigue tus apuntes en dos clicks */}
         <IdeaFrameDiv>
