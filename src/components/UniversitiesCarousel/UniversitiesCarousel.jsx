@@ -5,7 +5,7 @@ import { colors } from "../../config/theme";
 import { getUniversities } from "../../util/api";
 import Img from "../Img";
 import Loading from "../Loading";
-import { VirtualizedPage } from "./VirtualizedPage";
+import { VirtualizedPage } from "../Carousel/VirtualizedPage";
 
 const CarouselDiv = styled.div`
   width: 100%;
@@ -34,6 +34,8 @@ const Image = styled(Img)`
   border-radius: 99999px;
   border: 3px solid ${colors.primary};
   overflow: hidden;
+  cursor: pointer;
+  transition: 0.2s;
 
   @media (max-width: 1280px) {
     height: 8rem;
@@ -43,6 +45,10 @@ const Image = styled(Img)`
   @media (max-width: 500px) {
     height: 5rem;
     width: 5rem;
+  }
+
+  :hover {
+    scale: 1.1;
   }
 `;
 

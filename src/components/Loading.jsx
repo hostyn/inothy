@@ -1,6 +1,4 @@
 import styled, { keyframes } from "styled-components";
-import Img from "./Img";
-import Text from "./Text";
 
 const rotateAnimation = keyframes`
   50% {
@@ -29,8 +27,6 @@ const LoadingDiv = styled.div`
     animation-timing-function: ease-in-out;
   }
 `;
-
-const Logo = styled(Img)``;
 
 export default function Loading({ className }) {
   return (

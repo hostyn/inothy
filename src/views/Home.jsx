@@ -10,6 +10,7 @@ import AuthModal from "../components/Auth/AuthModal";
 import { useAuth } from "../context/authContext";
 import UniversitiesCarousel from "../components/UniversitiesCarousel/UniversitiesCarousel";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import SoonCarousel from "../components/SoonCarousel/SoonCarousel";
 
 const Home = styled.div`
   min-height: inherit;
@@ -645,6 +646,7 @@ export default function HomeView() {
             </StyledText>
           </ComoCard>
         </ComoGrid>
+        <SoonCarousel visualizedItems={width > 900 ? 2 : 1} />
       </Home>
     </App>
   );
