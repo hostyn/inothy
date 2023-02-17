@@ -79,25 +79,25 @@ export default function CompletePayPage ({ transactionId }) {
           ? (<Loading />)
           : transactionData.status === 'SUCCEEDED'
             ? (
-          <>
-            {/* TODO: Exito */}
-            <Img src="/check.svg" aspectRatio="1" height="10rem" />
-            <Text
-              color="secondary"
-              fontSize="3rem"
-              fontWeight="bold"
-              margin="1rem 0 0 0"
-            >
-              Compra realizada con éxito
-            </Text>
-            <Text fontSize="1.5rem" margin="0 0 2rem 0">
-              Ya puedes descargar tus apuntes
-            </Text>
+            <>
+              {/* TODO: Exito */}
+              <Img src="/check.svg" aspectRatio="1" height="10rem" />
+              <Text
+                color="secondary"
+                fontSize="3rem"
+                fontWeight="bold"
+                margin="1rem 0 0 0"
+              >
+                Compra realizada con éxito
+              </Text>
+              <Text fontSize="1.5rem" margin="0 0 2rem 0">
+                Ya puedes descargar tus apuntes
+              </Text>
 
-            {bought?.map((document) => (
-              <DocumentCard key={document.docId} docuemntData={document} />
-            ))}
-          </>
+              {bought?.map((document) => (
+                <DocumentCard key={document.docId} docuemntData={document} />
+              ))}
+            </>
               )
             : (
           <>
