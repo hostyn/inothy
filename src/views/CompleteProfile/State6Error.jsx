@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import Button from "../../components/Button";
-import Img from "../../components/Img";
-import Text from "../../components/Text";
+import styled from 'styled-components'
+import Button from '../../components/Button'
+import Img from '../../components/Img'
+import Text from '../../components/Text'
 
 const ErrorDiv = styled.div`
   min-height: 100%;
@@ -12,22 +12,22 @@ const ErrorDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const Title = styled(Text)`
   @media (max-width: 768px) {
     font-size: 1.5rem;
   }
-`;
+`
 
 const StyledButton = styled(Button)`
   @media (max-width: 768px) {
     font-size: 1rem;
     padding: 10px 20px;
   }
-`;
+`
 
-export default function State6Error({ setState }) {
+export default function State6Error ({ setState }) {
   return (
     <ErrorDiv>
       <Img src="/error.svg" width="20vw" height="20vw" />
@@ -48,10 +48,10 @@ export default function State6Error({ setState }) {
         height="auto"
         padding="10px 2rem"
         margin="1rem 0 0 0"
-        onClick={() => setState("completeProfile")}
+        onClick={() => setState('completeProfile')}
       >
         Revisar información
       </StyledButton>
     </ErrorDiv>
-  );
+  )
 }

@@ -1,30 +1,29 @@
-import Input from "../../components/Input";
-import Img from "../../components/Img";
-import normalize from "../../util/normailize";
-import { useState } from "react";
-import Card, { CardImg, CardText } from "./components/Card";
-import Body from "./components/Body";
-import Cards from "./components/Cards";
-import ButtonGrid, { StyledButton } from "./components/ButtonGrid";
-import { getUniversity } from "../../util/api";
-import HeaderTitle from "./components/Title";
+import Input from '../../components/Input'
+import normalize from '../../util/normailize'
+import { useState } from 'react'
+import Card, { CardImg, CardText } from './components/Card'
+import Body from './components/Body'
+import Cards from './components/Cards'
+import ButtonGrid, { StyledButton } from './components/ButtonGrid'
+import { getUniversity } from '../../util/api'
+import HeaderTitle from './components/Title'
 
-export default function State2University({
+export default function State2University ({
   universities,
   userData,
   setUserData,
   setState,
-  setApiData,
+  setApiData
 }) {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('')
 
   const handleChange = ({ target }) => {
-    setSearchQuery(normalize(target.value));
-  };
+    setSearchQuery(normalize(target.value))
+  }
 
   const handleSubmit = () => {
-    setState("school");
-  };
+    setState('school')
+  }
 
   return (
     <Body>
@@ -36,7 +35,7 @@ export default function State2University({
             if (
               normalize(uni.name).includes(searchQuery) ||
               normalize(uni.symbol).includes(searchQuery)
-            )
+            ) {
               return (
                 <Card
                   key={uni.id}
@@ -45,34 +44,35 @@ export default function State2University({
                     setApiData((apiData) => ({
                       ...apiData,
                       schools: null,
-                      degree: null,
-                    }));
+                      degree: null
+                    }))
                     setUserData((data) => ({
                       ...data,
                       university: uni.id,
                       universityName: uni.name,
                       school: null,
-                      schoolName: "",
+                      schoolName: '',
                       degree: null,
-                      degreeName: "",
-                    }));
+                      degreeName: ''
+                    }))
                     getUniversity(uni.id).then((data) =>
                       setApiData((apiData) => ({
                         ...apiData,
                         schools: data.schools,
-                        degrees: null,
+                        degrees: null
                       }))
-                    );
+                    )
                   }}
                 >
                   <CardImg src={uni.logoUrl} />
                   <CardText>{uni.name}</CardText>
                 </Card>
-              );
+              )
+            }
           })}
       </Cards>
       <ButtonGrid>
-        <StyledButton onClick={() => setState("personalData")} back>
+        <StyledButton onClick={() => setState('personalData')} back>
           Atrás
         </StyledButton>
         <StyledButton
@@ -84,5 +84,5 @@ export default function State2University({
         </StyledButton>
       </ButtonGrid>
     </Body>
-  );
+  )
 }

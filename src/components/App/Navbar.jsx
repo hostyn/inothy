@@ -1,16 +1,16 @@
-import styled from "styled-components";
-import { sizes, colors } from "../../config/theme";
-import Button from "../Button";
-import A from "../A";
-import Img from "../Img";
-import SearchBox from "../SearchBox";
-import { useModal } from "../../context/modalContext";
-import AuthModal from "../Auth/AuthModal";
-import { useAuth } from "../../context/authContext";
-import Text from "../Text";
-import { sendVerificationEmail } from "../../util/api";
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import styled from 'styled-components'
+import { sizes, colors } from '../../config/theme'
+import Button from '../Button'
+import A from '../A'
+import Img from '../Img'
+import SearchBox from '../SearchBox'
+import { useModal } from '../../context/modalContext'
+import AuthModal from '../Auth/AuthModal'
+import { useAuth } from '../../context/authContext'
+import Text from '../Text'
+import { sendVerificationEmail } from '../../util/api'
+import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 
 const NavbarDiv = styled.nav`
   min-width: 100vw;
@@ -41,7 +41,7 @@ const NavbarDiv = styled.nav`
   @media (max-width: 768px) {
     padding: 0;
   }
-`;
+`
 
 const VerifyEmailBanner = styled.div`
   min-width: 100vw;
@@ -72,7 +72,7 @@ const VerifyEmailBanner = styled.div`
       min-width: max-content;
     }
   }
-`;
+`
 
 const Navbar = styled.div`
   min-width: calc(100% - 10rem);
@@ -90,8 +90,8 @@ const Navbar = styled.div`
 
   grid-template-columns: ${(props) =>
     props.logged
-      ? "12rem 1fr 10rem 10rem 22rem 6rem"
-      : "12rem 1fr repeat(2, 10rem) repeat(2, 12rem)"};
+      ? '12rem 1fr 10rem 10rem 22rem 6rem'
+      : '12rem 1fr repeat(2, 10rem) repeat(2, 12rem)'};
 
   padding: 2rem 2rem;
 
@@ -101,12 +101,12 @@ const Navbar = styled.div`
 
   @media (max-width: 1500px) {
     grid-template-columns: ${(props) =>
-      props.logged ? "12rem 1fr 22rem" : "12rem 1fr 12rem 4rem"};
+      props.logged ? '12rem 1fr 22rem' : '12rem 1fr 12rem 4rem'};
   }
 
   @media (max-width: 1000px) {
     grid-template-columns: ${(props) =>
-      props.logged ? "5rem 1fr 22rem" : "5rem 1fr 4rem"};
+      props.logged ? '5rem 1fr 22rem' : '5rem 1fr 4rem'};
     margin: 0 1rem;
   }
 
@@ -115,7 +115,7 @@ const Navbar = styled.div`
     padding: 2rem calc((100% - 10rem) / 2);
     margin: 0 1rem;
   }
-`;
+`
 
 const User = styled.div`
   display: flex;
@@ -141,10 +141,10 @@ const User = styled.div`
   @media (max-width: 768px) {
     display: none;
   }
-`;
+`
 
 const Menu = styled.div`
-  display: ${(props) => (props.show ? "flex" : "none")};
+  display: ${(props) => (props.show ? 'flex' : 'none')};
   flex-direction: column;
 
   min-width: 22rem;
@@ -177,7 +177,7 @@ const Menu = styled.div`
     right: 0;
     left: 0;
   }
-`;
+`
 
 const Item = styled.div`
   min-width: 100%;
@@ -196,14 +196,14 @@ const Item = styled.div`
   &:hover {
     background-color: ${colors.hover};
   }
-`;
+`
 
 const Separator = styled.div`
   margin: 1rem 0;
   height: 3px;
   width: 100%;
   background-color: ${colors.secondary};
-`;
+`
 
 const HiddenElement = styled.div`
   width: 100%;
@@ -215,7 +215,7 @@ const HiddenElement = styled.div`
   @media (max-width: 1500px) {
     display: none;
   }
-`;
+`
 
 const MenuHiddenButtons = styled.div`
   display: none;
@@ -224,21 +224,21 @@ const MenuHiddenButtons = styled.div`
   @media (max-width: 1500px) {
     display: grid;
   }
-`;
+`
 
 const HiddenLogo = styled.div`
-  display: ${(props) => (props.inverted ? "none" : "grid")};
+  display: ${(props) => (props.inverted ? 'none' : 'grid')};
   width: 100%;
   height: 100%;
 
   @media (max-width: 1000px) {
-    display: ${(props) => (props.inverted ? "grid" : "none")};
+    display: ${(props) => (props.inverted ? 'grid' : 'none')};
   }
 
   @media (max-width: 768px) {
-    display: ${(props) => (props.inverted ? "none" : "grid")};
+    display: ${(props) => (props.inverted ? 'none' : 'grid')};
   }
-`;
+`
 
 const HiddenButton = styled.div`
   display: none;
@@ -263,41 +263,41 @@ const HiddenButton = styled.div`
 
     display: flex;
   }
-`;
+`
 
 const HiddenLogin = styled(Button)`
   @media (max-width: 1500px) {
     display: none;
   }
-`;
+`
 
 const HiddenRegister = styled(Button)`
   @media (max-width: 1000px) {
     display: none;
   }
-`;
+`
 
-export default function Nav({ transparent }) {
-  const { openModal } = useModal();
-  const { user, isUser, logout } = useAuth();
-  const [showMenu, setShowMenu] = useState(false);
-  const menuRef = useRef();
-  const userRef = useRef();
-  const buttonRef = useRef();
+export default function Nav ({ transparent }) {
+  const { openModal } = useModal()
+  const { user, isUser, logout } = useAuth()
+  const [showMenu, setShowMenu] = useState(false)
+  const menuRef = useRef()
+  const userRef = useRef()
+  const buttonRef = useRef()
 
   const handleClick = async () => {
     try {
-      await sendVerificationEmail(user);
+      await sendVerificationEmail(user)
       // TODO: HACER BONITO ESTO
-      openModal(<Text>Reenviado email de verificación</Text>);
+      openModal(<Text>Reenviado email de verificación</Text>)
     } catch {
       // TODO: HACER BONITO ESTO
-      openModal(<Text>No hemos podido reenviar el email</Text>);
+      openModal(<Text>No hemos podido reenviar el email</Text>)
     }
-  };
+  }
 
   useEffect(() => {
-    function handleClickOutside(event) {
+    function handleClickOutside (event) {
       if (
         !(
           userRef.current?.contains(event.target) ||
@@ -305,14 +305,14 @@ export default function Nav({ transparent }) {
           buttonRef.current?.contains(event.target)
         )
       ) {
-        setShowMenu(false);
+        setShowMenu(false)
       }
     }
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside)
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [menuRef]);
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [menuRef])
 
   return (
     <NavbarDiv notVerified={user && !user.emailVerified}>
@@ -338,9 +338,9 @@ export default function Nav({ transparent }) {
           <Link href="/" passHref>
             <a
               style={{
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center'
               }}
             >
               <Img
@@ -357,9 +357,9 @@ export default function Nav({ transparent }) {
           <Link href="/" passHref>
             <a
               style={{
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center'
               }}
             >
               <Img
@@ -398,7 +398,8 @@ export default function Nav({ transparent }) {
             width="2rem"
           />
         </HiddenButton> */}
-        {isUser ? (
+        {isUser
+          ? (
           <>
             <User
               ref={userRef}
@@ -420,7 +421,7 @@ export default function Nav({ transparent }) {
                 userSelect="none"
               >
                 {user.data.username.length > 15
-                  ? user.data.username.substr(0, 12) + "..."
+                  ? user.data.username.substr(0, 12) + '...'
                   : user.data.username}
               </Text>
               <Img
@@ -440,7 +441,8 @@ export default function Nav({ transparent }) {
               </Link>
             </HiddenElement>
           </>
-        ) : (
+            )
+          : (
           <>
             <HiddenLogin margin="0" onClick={() => openModal(<AuthModal />)}>
               Acceder
@@ -453,7 +455,7 @@ export default function Nav({ transparent }) {
               Registrarse
             </HiddenRegister>
           </>
-        )}
+            )}
         <HiddenButton
           ref={buttonRef}
           logged={isUser}
@@ -469,7 +471,8 @@ export default function Nav({ transparent }) {
           />
         </HiddenButton>
         <Menu show={showMenu} ref={menuRef}>
-          {isUser ? (
+          {isUser
+            ? (
             <>
               <MenuHiddenButtons>
                 <Link href="/upload" passHref>
@@ -654,21 +657,22 @@ export default function Nav({ transparent }) {
                 padding="5px 0"
                 margin="0"
                 onClick={() => {
-                  logout();
-                  setShowMenu(false);
+                  logout()
+                  setShowMenu(false)
                 }}
               >
                 Cerrar sesión
               </Button>
             </>
-          ) : (
+              )
+            : (
             <>
               <Button
                 padding="0.5rem 1rem"
                 margin="0 0 1rem 0"
                 onClick={() => {
-                  setShowMenu(false);
-                  openModal(<AuthModal />);
+                  setShowMenu(false)
+                  openModal(<AuthModal />)
                 }}
               >
                 Acceder
@@ -678,8 +682,8 @@ export default function Nav({ transparent }) {
                 background="secondary"
                 margin="0 0"
                 onClick={() => {
-                  setShowMenu(false);
-                  openModal(<AuthModal selected="register" />);
+                  setShowMenu(false)
+                  openModal(<AuthModal selected="register" />)
                 }}
               >
                 Registrarse
@@ -799,9 +803,9 @@ export default function Nav({ transparent }) {
                 </A>
               </Link>
             </>
-          )}
+              )}
         </Menu>
       </Navbar>
     </NavbarDiv>
-  );
+  )
 }

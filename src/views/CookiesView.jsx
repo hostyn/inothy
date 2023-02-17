@@ -1,9 +1,8 @@
-import styled from "styled-components";
-import A from "../components/A";
-import App from "../components/App";
-import Span from "../components/Span";
-import Text from "../components/Text";
-import { sizes } from "../config/theme";
+import styled from 'styled-components'
+import A from '../components/A'
+import App from '../components/App'
+import Text from '../components/Text'
+import { sizes } from '../config/theme'
 
 const CookiesDiv = styled.div`
   display: flex;
@@ -17,25 +16,25 @@ const CookiesDiv = styled.div`
   @media (max-width: 768px) {
     margin: 1rem;
   }
-`;
+`
 
 const Title = styled(Text)`
   margin: 1rem 0 0.2rem 0;
   font-size: 1.3rem;
   font-weight: bold;
-`;
+`
 
 const P = styled(Text)`
   margin: 0 0 0.5rem 0;
   color: black;
   line-height: 1.4rem;
-`;
+`
 
 const StyledA = styled(A)`
   word-break: break-all;
-`;
+`
 
-export default function CookiesView() {
+export default function CookiesView () {
   return (
     <App>
       <CookiesDiv>
@@ -121,7 +120,7 @@ export default function CookiesView() {
           en el siguiente(s) enlace(s):
         </P>
         <P>
-          Facebook:{" "}
+          Facebook:{' '}
           <StyledA
             userSelect="auto"
             href="https://www.facebook.com/policies/cookies/"
@@ -129,10 +128,10 @@ export default function CookiesView() {
             fontSize="1rem"
           >
             https://www.facebook.com/policies/cookies/
-          </StyledA>{" "}
+          </StyledA>{' '}
         </P>
         <P>
-          Google Analytics:{" "}
+          Google Analytics:{' '}
           <StyledA
             userSelect="auto"
             href="https://www.facebook.com/policies/cookies/"
@@ -144,7 +143,7 @@ export default function CookiesView() {
         </P>
 
         <P>
-          TikTok:{" "}
+          TikTok:{' '}
           <StyledA
             userSelect="auto"
             href="https://www.tiktok.com/legal/page/global/cookie-policy/es"
@@ -175,7 +174,7 @@ export default function CookiesView() {
           privacidad y/o de cookies:
         </P>
         <P>
-          Facebook:{" "}
+          Facebook:{' '}
           <StyledA
             userSelect="auto"
             href="https://www.facebook.com/policies/cookies/"
@@ -186,7 +185,7 @@ export default function CookiesView() {
           </StyledA>
         </P>
         <P>
-          Twitter:{" "}
+          Twitter:{' '}
           <StyledA
             userSelect="auto"
             href="https://twitter.com/es/privacy"
@@ -197,7 +196,7 @@ export default function CookiesView() {
           </StyledA>
         </P>
         <P>
-          Instagram:{" "}
+          Instagram:{' '}
           <StyledA
             userSelect="auto"
             href="https://help.instagram.com/1896641480634370?ref=ig"
@@ -208,7 +207,7 @@ export default function CookiesView() {
           </StyledA>
         </P>
         <P>
-          YouTube:{" "}
+          YouTube:{' '}
           <StyledA
             userSelect="auto"
             href="https://policies.google.com/privacy?hl=es-419&gl=mx"
@@ -219,7 +218,7 @@ export default function CookiesView() {
           </StyledA>
         </P>
         <P>
-          Pinterest:{" "}
+          Pinterest:{' '}
           <StyledA
             userSelect="auto"
             href="https://policy.pinterest.com/es/privacy-policy"
@@ -230,7 +229,7 @@ export default function CookiesView() {
           </StyledA>
         </P>
         <P>
-          LinkedIn:{" "}
+          LinkedIn:{' '}
           <StyledA
             userSelect="auto"
             href="https://www.linkedin.com/legal/cookie-policy?trk=hp-cookies"
@@ -256,5 +255,5 @@ export default function CookiesView() {
         </P>
       </CookiesDiv>
     </App>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import Head from "next/head";
-import { getSubject } from "../../util/api";
-import SubjectView from "../../views/Subject";
+import Head from 'next/head'
+import { getSubject } from '../../util/api'
+import SubjectView from '../../views/Subject'
 
-export default function Subject({ subjectData }) {
+export default function Subject ({ subjectData }) {
   return (
     <>
       <Head>
@@ -11,20 +11,20 @@ export default function Subject({ subjectData }) {
       </Head>
       <SubjectView subjectData={subjectData} />
     </>
-  );
+  )
 }
 
-export async function getServerSideProps({ params: { subjectId } }) {
+export async function getServerSideProps ({ params: { subjectId } }) {
   try {
-    const data = await getSubject(subjectId, 25);
+    const data = await getSubject(subjectId, 25)
     return {
       props: {
-        subjectData: data,
-      },
-    };
+        subjectData: data
+      }
+    }
   } catch {
     return {
-      notFound: true,
-    };
+      notFound: true
+    }
   }
 }

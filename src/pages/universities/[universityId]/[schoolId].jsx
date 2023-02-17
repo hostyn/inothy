@@ -1,8 +1,8 @@
-import Head from "next/head";
-import { getSchool, getUniversity } from "../../../util/api";
-import SchoolPage from "../../../views/School";
+import Head from 'next/head'
+import { getSchool, getUniversity } from '../../../util/api'
+import SchoolPage from '../../../views/School'
 
-export default function School({ school }) {
+export default function School ({ school }) {
   return (
     <>
       <Head>
@@ -11,29 +11,29 @@ export default function School({ school }) {
       </Head>
       <SchoolPage school={school} />
     </>
-  );
+  )
 }
 
-export async function getServerSideProps({
-  params: { universityId, schoolId },
+export async function getServerSideProps ({
+  params: { universityId, schoolId }
 }) {
   try {
-    let university = getUniversity(universityId);
-    let school = getSchool(universityId, schoolId);
-    university = await university;
-    school = await school;
+    let university = getUniversity(universityId)
+    let school = getSchool(universityId, schoolId)
+    university = await university
+    school = await school
 
     return {
       props: {
         school: {
           ...school,
-          university: university,
-        },
-      },
-    };
+          university
+        }
+      }
+    }
   } catch {
     return {
-      notFound: true,
-    };
+      notFound: true
+    }
   }
 }

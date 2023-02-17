@@ -1,18 +1,16 @@
-import App from "../components/App";
-import styled from "styled-components";
-import { colors, sizes } from "../config/theme";
-import Text from "../components/Text";
-import Img from "../components/Img";
-import { useState } from "react";
-import Link from "next/link";
-import { currencyFormatter } from "../util/normailize";
-import Loading from "../components/Loading";
-import { getSubject } from "../util/api";
-import Button from "../components/Button";
-import { useAuth } from "../context/authContext";
-import mimeTypes from "../util/mimeTypes";
-import A from "../components/A";
-import DocumentGridCard from "../components/DocumentGridCard";
+import App from '../components/App'
+import styled from 'styled-components'
+import { colors, sizes } from '../config/theme'
+import Text from '../components/Text'
+import Img from '../components/Img'
+import { useState } from 'react'
+import Link from 'next/link'
+import Loading from '../components/Loading'
+import { getSubject } from '../util/api'
+import Button from '../components/Button'
+import { useAuth } from '../context/authContext'
+import A from '../components/A'
+import DocumentGridCard from '../components/DocumentGridCard'
 
 const DegreeDiv = styled.div`
   display: flex;
@@ -26,7 +24,7 @@ const DegreeDiv = styled.div`
   @media (max-width: 1000px) {
     margin: 2rem;
   }
-`;
+`
 
 const Title = styled.div`
   display: grid;
@@ -40,7 +38,7 @@ const Title = styled.div`
     grid-template-rows: 5rem auto;
     justify-items: center;
   }
-`;
+`
 
 const Logo = styled(Img)`
   aspect-ratio: 1;
@@ -51,7 +49,7 @@ const Logo = styled(Img)`
     width: 5rem;
     height: 5rem;
   }
-`;
+`
 
 const TitleText = styled(Text)`
   @media (max-width: 1000px) {
@@ -63,7 +61,7 @@ const TitleText = styled(Text)`
 
     text-align: center;
   }
-`;
+`
 
 const SubtitleText = styled(Text)`
   @media (max-width: 1000px) {
@@ -74,7 +72,7 @@ const SubtitleText = styled(Text)`
     font-size: 1.5rem;
     text-align: center;
   }
-`;
+`
 
 const SubsubtitleText = styled(Text)`
   @media (max-width: 1000px) {
@@ -85,13 +83,13 @@ const SubsubtitleText = styled(Text)`
     font-size: 1.2rem;
     text-align: center;
   }
-`;
+`
 
 const FlexColumn = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-`;
+`
 
 const YearSelector = styled.div`
   display: grid;
@@ -104,7 +102,7 @@ const YearSelector = styled.div`
   grid-template-columns: repeat(${props.years}, 2.5rem);
 
   `};
-`;
+`
 
 const YearButton = styled.p`
   display: flex;
@@ -114,9 +112,9 @@ const YearButton = styled.p`
   width: 2.5rem;
   height: 2.5rem;
   font-size: 1.5rem;
-  color: ${(props) => (props.selected ? colors.white : "inherit")};
+  color: ${(props) => (props.selected ? colors.white : 'inherit')};
   background-color: ${(props) =>
-    props.selected ? colors.primary : "transparent"};
+    props.selected ? colors.primary : 'transparent'};
   border-radius: 999999px;
   cursor: pointer;
   user-select: none;
@@ -124,9 +122,9 @@ const YearButton = styled.p`
 
   :hover {
     ${(props) =>
-      props.selected ? "initial" : `background-color: ${colors.hover}`};
+      props.selected ? 'initial' : `background-color: ${colors.hover}`};
   }
-`;
+`
 
 const LoadingDiv = styled.div`
   display: flex;
@@ -134,7 +132,7 @@ const LoadingDiv = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 20rem;
-`;
+`
 
 const CardGrid = styled.div`
   display: grid;
@@ -143,32 +141,32 @@ const CardGrid = styled.div`
   gap: 2rem;
   justify-items: center;
   margin: 0 0 1rem 0;
-`;
+`
 
 const SubjectTitle = styled(A)`
   @media (max-width: 768px) {
     font-size: 1.5rem;
   }
-`;
+`
 
-export default function DegreePage({ degree }) {
-  const { user } = useAuth();
-  const [yearSelected, setYearSelected] = useState(1);
+export default function DegreePage ({ degree }) {
+  const { user } = useAuth()
+  const [yearSelected, setYearSelected] = useState(1)
   const [yearPage, setYearPage] = useState({
-    1: loadDocs(degree.subjects.filter((subject) => subject.year === 1)),
-  });
+    1: loadDocs(degree.subjects.filter((subject) => subject.year === 1))
+  })
 
-  function loadDocs(subjects) {
+  function loadDocs (subjects) {
     return subjects
       .map((subject) => ({
         ...subject,
-        docs: subject.docs.filter((doc) => doc.createdBy !== user?.uid),
+        docs: subject.docs.filter((doc) => doc.createdBy !== user?.uid)
       }))
       .filter((subject) => subject.docs.length)
       .map((subject) => (
         <div
           key={subject.id}
-          style={{ display: "flex", flexDirection: "column" }}
+          style={{ display: 'flex', flexDirection: 'column' }}
         >
           <Link href={`/subject/${subject.id}`} passHref>
             <SubjectTitle
@@ -191,29 +189,27 @@ export default function DegreePage({ degree }) {
             ))}
           </CardGrid>
         </div>
-      ));
+      ))
   }
 
   const handleClick = async (year) => {
-    setYearSelected(year);
+    setYearSelected(year)
     if (
       !(
-        typeof yearPage[year] === "undefined" ||
-        typeof yearPage[year] === "null"
+        yearPage[year] == null
       )
-    )
-      return;
+    ) { return }
 
     const subjectsPromises = degree.subjects
       .filter((subject) => subject.year === year)
-      .map((subject) => getSubject(subject.id));
+      .map((subject) => getSubject(subject.id))
 
-    const subjectsData = await Promise.all(subjectsPromises);
+    const subjectsData = await Promise.all(subjectsPromises)
     setYearPage((yearPage) => ({
       ...yearPage,
-      [year]: loadDocs(subjectsData),
-    }));
-  };
+      [year]: loadDocs(subjectsData)
+    }))
+  }
 
   return (
     <App>
@@ -248,11 +244,14 @@ export default function DegreePage({ degree }) {
             </YearButton>
           ))}
         </YearSelector>
-        {!yearPage[yearSelected] ? (
+        {!yearPage[yearSelected]
+          ? (
           <LoadingDiv>
             <Loading />
           </LoadingDiv>
-        ) : !yearPage[yearSelected].length ? (
+            )
+          : !yearPage[yearSelected].length
+              ? (
           <>
             <Text textAlign="center" fontSize="1.5rem" margin="2rem 0 1rem 0">
               Todavía no se han subido documentos de este curso.
@@ -271,10 +270,11 @@ export default function DegreePage({ degree }) {
               </Button>
             </Link>
           </>
-        ) : (
-          yearPage[yearSelected]
-        )}
+                )
+              : (
+                  yearPage[yearSelected]
+                )}
       </DegreeDiv>
     </App>
-  );
+  )
 }

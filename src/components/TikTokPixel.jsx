@@ -1,22 +1,22 @@
-import { useRouter } from "next/router";
-import Script from "next/script";
-import { useEffect } from "react";
+import { useRouter } from 'next/router'
+import Script from 'next/script'
+import { useEffect } from 'react'
 
-const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID;
+const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID
 
 const pageview = () => {
-  window.ttq.page();
-};
+  window.ttq.page()
+}
 
-export default function TikTokPixel() {
-  const router = useRouter();
+export default function TikTokPixel () {
+  const router = useRouter()
 
   useEffect(() => {
-    router.events.on("routeChangeComplete", pageview);
+    router.events.on('routeChangeComplete', pageview)
     return () => {
-      router.events.off("routeChangeComplete", pageview);
-    };
-  }, [router.events]);
+      router.events.off('routeChangeComplete', pageview)
+    }
+  }, [router.events])
 
   return (
     <Script id="tiktokpixel" crossOrigin="">
@@ -70,5 +70,5 @@ export default function TikTokPixel() {
           ttq.page();
         })(window, document, "ttq")`}
     </Script>
-  );
+  )
 }

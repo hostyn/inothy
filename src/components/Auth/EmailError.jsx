@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import Img from "../Img";
-import Text from "../Text";
+import styled from 'styled-components'
+import Img from '../Img'
+import Text from '../Text'
 
 const EmailErrorDiv = styled.div`
   display: flex;
@@ -10,9 +10,9 @@ const EmailErrorDiv = styled.div`
   @media (max-width: 600px) {
     padding: 0 10vw;
   }
-`;
+`
 
-export default function EmailError() {
+export default function EmailError () {
   return (
     <EmailErrorDiv>
       <Img src="/error.svg" height="6rem" />
@@ -30,5 +30,5 @@ export default function EmailError() {
         Este email no está registrado o ya se ha enviado un email recientemente.
       </Text>
     </EmailErrorDiv>
-  );
+  )
 }

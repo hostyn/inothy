@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { colors } from "../config/theme";
+import styled from 'styled-components'
+import { colors } from '../config/theme'
 
 const Select = styled.select`
   padding: 10px;
@@ -9,9 +9,9 @@ const Select = styled.select`
   color: ${colors.primary};
   background-color: transparent;
   font-size: 1rem;
-  margin: ${(props) => props.margin || "0"};
+  margin: ${(props) => props.margin || '0'};
   outline: none;
-  max-width: ${(props) => props.maxWidth || "initial"};
+  max-width: ${(props) => props.maxWidth || 'initial'};
 
   -moz-appearance: none; /* Firefox */
   -webkit-appearance: none; /* Safari and Chrome */
@@ -29,6 +29,6 @@ const Select = styled.select`
     color: ${colors.disabledColor};
     background-color: ${colors.disabledBackground};
   }
-`;
+`
 
-export default Select;
+export default Select

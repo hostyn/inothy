@@ -1,16 +1,16 @@
-import App from "../components/App";
-import styled from "styled-components";
-import { sizes } from "../config/theme";
-import Img from "../components/Img";
-import Text from "../components/Text";
-import Button from "../components/Button";
-import Span from "../components/Span";
-import { useModal } from "../context/modalContext";
-import AuthModal from "../components/Auth/AuthModal";
-import { useAuth } from "../context/authContext";
-import UniversitiesCarousel from "../components/UniversitiesCarousel/UniversitiesCarousel";
-import useWindowDimensions from "../hooks/useWindowDimensions";
-import SoonCarousel from "../components/SoonCarousel/SoonCarousel";
+import App from '../components/App'
+import styled from 'styled-components'
+import { sizes } from '../config/theme'
+import Img from '../components/Img'
+import Text from '../components/Text'
+import Button from '../components/Button'
+import Span from '../components/Span'
+import { useModal } from '../context/modalContext'
+import AuthModal from '../components/Auth/AuthModal'
+import { useAuth } from '../context/authContext'
+import UniversitiesCarousel from '../components/UniversitiesCarousel/UniversitiesCarousel'
+import useWindowDimensions from '../hooks/useWindowDimensions'
+import SoonCarousel from '../components/SoonCarousel/SoonCarousel'
 
 const Home = styled.div`
   min-height: inherit;
@@ -40,7 +40,7 @@ const Home = styled.div`
           : `calc(${sizes.navbar} + ${sizes.banner})`}
       2rem 0 2rem;
   }
-`;
+`
 
 const FirstImageDiv = styled.div`
   background-image: url("/resources/home/resource1.svg");
@@ -64,39 +64,39 @@ const FirstImageDiv = styled.div`
     background-image: url("/resources/home/resource1mobile.svg");
     height: calc((100vw - 4rem) * 1037 / 1142);
   }
-`;
+`
 
 const FloatingDiv = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
   top: -20%;
-`;
+`
 
 const WelcomeText = styled(Text)`
   @media (max-width: 768px) {
     margin: 4vw 0 0 0;
     font-size: 7vw;
   }
-`;
+`
 
 const WelcomeSubtext = styled(Text)`
   @media (max-width: 768px) {
     font-size: 3.5vw;
   }
-`;
+`
 
 const WelcomeEphasis = styled(Text)`
   @media (max-width: 768px) {
     font-size: 5vw;
   }
-`;
+`
 
 const WelcomeButton = styled(Button)`
   @media (max-width: 768px) {
     font-size: 3vw;
   }
-`;
+`
 
 const IdeaFrameDiv = styled.div`
   display: grid;
@@ -104,26 +104,26 @@ const IdeaFrameDiv = styled.div`
   align-items: center;
   justify-items: center;
   justify-content: center;
-  margin: ${(props) => props.margin || "10rem 0 0 0"};
+  margin: ${(props) => props.margin || '10rem 0 0 0'};
 
   @media (max-width: 750px) {
     grid-template-columns: 1fr;
     gap: 2rem;
     margin: 5rem 0 0 0;
   }
-`;
+`
 
 const IdeaFrameText = styled.div`
   display: grid;
   flex-direction: column;
-`;
+`
 
 const PorqueImg = styled(Img)`
   @media (max-width: 750px) {
     width: 100%;
     height: calc((100vw - 4rem) * 25 / 37);
   }
-`;
+`
 
 const PorqueGrid = styled.div`
   display: grid;
@@ -136,22 +136,22 @@ const PorqueGrid = styled.div`
     gap: 4rem;
     margin: 5rem 0 0 0;
   }
-`;
+`
 
 const Card = styled.div`
   display: grid;
   grid-template-columns: 5rem 1fr;
   padding: 0;
   gap: 1rem;
-`;
+`
 
 const UniversidadesDiv = styled.div`
   margin: 10rem 0 0 0;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-`;
+`
 
-const UniversidadesGrid = styled.div``;
+const UniversidadesGrid = styled.div``
 
 const MejoresText = styled.div`
   background-image: url("/resources/home/background2.svg");
@@ -172,7 +172,7 @@ const MejoresText = styled.div`
     height: calc(100vw - 4rem);
     padding: 3rem 0 0 0;
   }
-`;
+`
 
 const MejoresImg = styled(Img)`
   width: calc((100vw - 20rem) / 2);
@@ -192,7 +192,7 @@ const MejoresImg = styled(Img)`
     width: calc((100vw - 4rem));
     height: calc((100vw - 4rem) * 0.8 * 30 / 31);
   }
-`;
+`
 
 const ComoGrid = styled.div`
   margin: 4rem 0 5rem 0;
@@ -205,44 +205,44 @@ const ComoGrid = styled.div`
     grid-template-columns: 1fr;
     margin: 2rem 0;
   }
-`;
+`
 
 const ComoCard = styled.div`
   max-width: 100%;
   display: grid;
   grid-template-rows: 1fr auto auto;
   align-items: center;
-`;
+`
 
 const StyledTitle = styled(Text)`
   @media (max-width: 750px) {
     font-size: 3rem;
   }
-`;
+`
 
 const StyledSubTitle = styled(Text)`
   @media (max-width: 750px) {
     font-size: 2rem;
   }
-`;
+`
 
 const StyledText = styled(Text)`
   @media (max-width: 750px) {
     font-size: 1.2rem;
   }
-`;
+`
 
 const StyledText2 = styled(Text)`
   @media (max-width: 750px) {
     font-size: 1.5rem;
   }
-`;
+`
 
 const HelpImg = styled(Img)`
   @media (max-width: 750px) {
     height: calc((100vw - 4rem) * 150 / 173);
   }
-`;
+`
 
 const TwoImg = styled(Img)`
   height: calc((100vw - 20rem) / 2 * 0.8 * 150 / 141);
@@ -254,25 +254,25 @@ const TwoImg = styled(Img)`
   @media (max-width: 768px) {
     height: calc((100vw - 4rem) * 0.8 * 150 / 141);
   }
-`;
+`
 
 const StyledButton = styled(Button)`
   @media (max-width: 750px) {
     font-size: 1rem;
     padding: 0.3rem 1rem;
   }
-`;
+`
 
-export default function HomeView() {
-  const { openModal } = useModal();
-  const { user } = useAuth();
-  const { width } = useWindowDimensions();
+export default function HomeView () {
+  const { openModal } = useModal()
+  const { user } = useAuth()
+  const { width } = useWindowDimensions()
 
   const calcVisualizedItems = () => {
-    if (width < 600) return 3;
-    if (width > 1280) return Math.trunc(width / 300);
-    return Math.trunc(width / 200);
-  };
+    if (width < 600) return 3
+    if (width > 1280) return Math.trunc(width / 300)
+    return Math.trunc(width / 200)
+  }
 
   return (
     <App transparent>
@@ -369,7 +369,7 @@ export default function HomeView() {
         <PorqueGrid>
           <Card>
             <Img src="/resources/home/porque1.svg" />
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               <StyledSubTitle
                 fontFamily="HelveticaRounded"
                 fontSize="2.5rem"
@@ -387,7 +387,7 @@ export default function HomeView() {
           </Card>
           <Card>
             <Img src="/resources/home/porque2.svg" />
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               <StyledSubTitle
                 fontFamily="HelveticaRounded"
                 fontSize="2.5rem"
@@ -404,7 +404,7 @@ export default function HomeView() {
           </Card>
           <Card>
             <Img src="/resources/home/porque3.svg" />
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               <StyledSubTitle
                 fontFamily="HelveticaRounded"
                 fontSize="2.5rem"
@@ -566,7 +566,7 @@ export default function HomeView() {
               fontSize="2.5vw"
               textAlign="center"
             >
-              ¿Crees que tienes los{" "}
+              ¿Crees que tienes los{' '}
               <Span color="secondary">mejores apuntes?</Span>
             </StyledText2>
 
@@ -649,5 +649,5 @@ export default function HomeView() {
         <SoonCarousel visualizedItems={width > 900 ? 2 : 1} />
       </Home>
     </App>
-  );
+  )
 }

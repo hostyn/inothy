@@ -1,16 +1,16 @@
-import { confirmPasswordReset } from "firebase/auth";
-import Link from "next/link";
-import { useState } from "react";
-import styled from "styled-components";
-import App from "../components/App";
-import Button from "../components/Button";
-import Img from "../components/Img";
-import Input from "../components/Input";
-import Loading from "../components/Loading";
-import Text from "../components/Text";
-import { auth } from "../config/firebase";
-import { colors, sizes } from "../config/theme";
-import { useAuth } from "../context/authContext";
+import { confirmPasswordReset } from 'firebase/auth'
+import Link from 'next/link'
+import { useState } from 'react'
+import styled from 'styled-components'
+import App from '../components/App'
+import Button from '../components/Button'
+import Img from '../components/Img'
+import Input from '../components/Input'
+import Loading from '../components/Loading'
+import Text from '../components/Text'
+import { auth } from '../config/firebase'
+import { colors, sizes } from '../config/theme'
+import { useAuth } from '../context/authContext'
 
 const ResetPasswordDiv = styled.div`
   display: flex;
@@ -22,111 +22,113 @@ const ResetPasswordDiv = styled.div`
 
   height: calc(100vh - ${sizes.navbar});
   justify-content: center;
-`;
+`
 
 const ButtonDiv = styled.div`
   display: flex;
   flex-direction: row-reverse;
   width: min(30rem, 100%);
   margin: 1rem auto 0 auto;
-`;
+`
 
 const InlineText = styled.div`
   display: flex;
   gap: 1rem;
   margin: 0.5rem 0 0 0;
-`;
+`
 
-export default function ResetPassword({ valid, oobCode, email }) {
-  const { login } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
-  const [state, setState] = useState("reset");
+export default function ResetPassword ({ valid, oobCode, email }) {
+  const { login } = useAuth()
+  const [isLoading, setIsLoading] = useState(false)
+  const [state, setState] = useState('reset')
 
   const [newPassword, setNewPassword] = useState({
-    password: "",
-    repeatPassword: "",
-  });
+    password: '',
+    repeatPassword: ''
+  })
 
   const [error, setError] = useState({
-    password: "",
-    repeatPassword: "",
-  });
+    password: '',
+    repeatPassword: ''
+  })
 
   const handleChange = ({ target }) => {
     setNewPassword((newPassword) => ({
       ...newPassword,
-      [target.name]: target.value,
-    }));
-  };
+      [target.name]: target.value
+    }))
+  }
 
   const validatePassword = () => {
-    let anyErrors = false;
+    let anyErrors = false
 
     if (!newPassword.password.length) {
       setError((error) => ({
         ...error,
-        password: "La contraseña es obligatoria",
-      }));
-      anyErrors = true;
+        password: 'La contraseña es obligatoria'
+      }))
+      anyErrors = true
     } else if (newPassword.password.length < 8) {
       setError((error) => ({
         ...error,
-        password: "La contraseña debe tener al menos 8 caracteres",
-      }));
-      anyErrors = true;
+        password: 'La contraseña debe tener al menos 8 caracteres'
+      }))
+      anyErrors = true
     }
 
     if (!newPassword.repeatPassword.length) {
       setError((error) => ({
         ...error,
-        repeatPassword: "Por favor repita la contraseña",
-      }));
-      anyErrors = true;
+        repeatPassword: 'Por favor repita la contraseña'
+      }))
+      anyErrors = true
     } else if (newPassword.password !== newPassword.repeatPassword) {
       setError((error) => ({
         ...error,
-        repeatPassword: "Las contraseñas no coinciden",
-      }));
-      anyErrors = true;
+        repeatPassword: 'Las contraseñas no coinciden'
+      }))
+      anyErrors = true
     }
 
-    return anyErrors;
-  };
+    return anyErrors
+  }
 
   const handleSubmit = async () => {
     setError({
-      password: "",
-      repeatPassword: "",
-    });
-    const error = validatePassword();
-    if (error) return;
+      password: '',
+      repeatPassword: ''
+    })
+    const error = validatePassword()
+    if (error) return
 
-    setIsLoading(true);
+    setIsLoading(true)
 
     try {
-      await confirmPasswordReset(auth, oobCode, newPassword.password);
-      await login(email, newPassword.password);
+      await confirmPasswordReset(auth, oobCode, newPassword.password)
+      await login(email, newPassword.password)
 
-      setState("success");
-      setIsLoading(false);
+      setState('success')
+      setIsLoading(false)
     } catch {
-      setState("error");
-      setIsLoading(false);
+      setState('error')
+      setIsLoading(false)
     }
-  };
+  }
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <App>
         <ResetPasswordDiv>
           <Loading />
         </ResetPasswordDiv>
       </App>
-    );
+    )
+  }
 
   return (
     <App>
-      {!valid ? (
+      {!valid
+        ? (
         <ResetPasswordDiv>
           <Img src="/error.svg" height="8rem" priority />
           <Text
@@ -155,7 +157,9 @@ export default function ResetPassword({ valid, oobCode, email }) {
             </Button>
           </Link>
         </ResetPasswordDiv>
-      ) : state === "reset" ? (
+          )
+        : state === 'reset'
+          ? (
         <ResetPasswordDiv>
           <Img
             src="/logo.svg"
@@ -214,7 +218,9 @@ export default function ResetPassword({ valid, oobCode, email }) {
             </Button>
           </ButtonDiv>
         </ResetPasswordDiv>
-      ) : state === "success" ? (
+            )
+          : state === 'success'
+            ? (
         <ResetPasswordDiv>
           <Img
             src="/check.svg"
@@ -231,7 +237,8 @@ export default function ResetPassword({ valid, oobCode, email }) {
             Contraseña cambiada
           </Text>
         </ResetPasswordDiv>
-      ) : (
+              )
+            : (
         <ResetPasswordDiv>
           <Img
             src="/error.svg"
@@ -248,7 +255,7 @@ export default function ResetPassword({ valid, oobCode, email }) {
             Error al cambiar la contraseña
           </Text>
         </ResetPasswordDiv>
-      )}
+              )}
     </App>
-  );
+  )
 }

@@ -1,13 +1,13 @@
-import App from "../components/App";
-import styled from "styled-components";
-import { sizes } from "../config/theme";
-import Img from "../components/Img";
-import Text from "../components/Text";
-import Input from "../components/Input";
-import { useState } from "react";
-import Loading from "../components/Loading";
-import normalize from "../util/normailize";
-import Card from "../components/Card";
+import App from '../components/App'
+import styled from 'styled-components'
+import { sizes } from '../config/theme'
+import Img from '../components/Img'
+import Text from '../components/Text'
+import Input from '../components/Input'
+import { useState } from 'react'
+import Loading from '../components/Loading'
+import normalize from '../util/normailize'
+import Card from '../components/Card'
 
 const UniversitiesDiv = styled.div`
   margin: 2rem calc(${sizes.inlineMargin} * 2);
@@ -19,7 +19,7 @@ const UniversitiesDiv = styled.div`
   @media (max-width: 1000px) {
     margin: 2rem;
   }
-`;
+`
 
 const Title = styled.div`
   display: grid;
@@ -33,7 +33,7 @@ const Title = styled.div`
     grid-template-rows: 5rem auto;
     justify-items: center;
   }
-`;
+`
 
 const TitleText = styled(Text)`
   @media (max-width: 1000px) {
@@ -43,7 +43,7 @@ const TitleText = styled(Text)`
   @media (max-width: 500px) {
     text-align: center;
   }
-`;
+`
 
 const StyledImg = styled(Img)`
   aspect-ratio: 1;
@@ -54,7 +54,7 @@ const StyledImg = styled(Img)`
     width: 5rem;
     height: 5rem;
   }
-`;
+`
 
 const UniversitiesMap = styled.div`
   display: grid;
@@ -65,14 +65,14 @@ const UniversitiesMap = styled.div`
   @media (max-width: 1500px) {
     grid-template-columns: 1fr;
   }
-`;
+`
 
-export default function UniversitiesView({ universities }) {
-  const [searchQuery, setSearchQuery] = useState("");
+export default function UniversitiesView ({ universities }) {
+  const [searchQuery, setSearchQuery] = useState('')
 
   const handleSearchQuery = ({ target }) => {
-    setSearchQuery(target.value);
-  };
+    setSearchQuery(target.value)
+  }
 
   return (
     <App>
@@ -90,26 +90,29 @@ export default function UniversitiesView({ universities }) {
         </Title>
         <Input onChange={handleSearchQuery} placeholder="Buscar universidad" />
         <UniversitiesMap>
-          {!universities ? (
+          {!universities
+            ? (
             <Loading />
-          ) : (
-            universities.map((uni) => {
-              if (
-                normalize(uni.name).includes(searchQuery) ||
-                normalize(uni.symbol).includes(searchQuery)
               )
-                return (
+            : (
+                universities.map((uni) => {
+                  if (
+                    normalize(uni.name).includes(searchQuery) ||
+                normalize(uni.symbol).includes(searchQuery)
+                  ) {
+                    return (
                   <Card
                     key={uni.id}
                     href={`/universities/${uni.id}`}
                     img={uni.logoUrl}
                     text={uni.name}
                   />
-                );
-            })
-          )}
+                    )
+                  }
+                })
+              )}
         </UniversitiesMap>
       </UniversitiesDiv>
     </App>
-  );
+  )
 }

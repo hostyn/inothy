@@ -1,8 +1,8 @@
-import { createGlobalStyle } from "styled-components";
-import FacebookPixel from "../components/FacebookPixel";
-import TikTokPixel from "../components/TikTokPixel";
-import { AuthProvider } from "./authContext";
-import { ModalProvider } from "./modalContext";
+import { createGlobalStyle } from 'styled-components'
+import FacebookPixel from '../components/FacebookPixel'
+import TikTokPixel from '../components/TikTokPixel'
+import { AuthProvider } from './authContext'
+import { ModalProvider } from './modalContext'
 
 const GlobalStyle = createGlobalStyle`
   *, *:before, *:after {
@@ -21,9 +21,9 @@ const GlobalStyle = createGlobalStyle`
     overflow-y: hidden;
   }
 
-`;
+`
 
-export default function Providers({ children, headers }) {
+export default function Providers ({ children, headers }) {
   return (
     <>
       <GlobalStyle />
@@ -33,5 +33,5 @@ export default function Providers({ children, headers }) {
         <ModalProvider>{children}</ModalProvider>
       </AuthProvider>
     </>
-  );
+  )
 }

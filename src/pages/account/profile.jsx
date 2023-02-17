@@ -1,8 +1,8 @@
-import Head from "next/head";
-import ProtectedContent from "../../components/ProtectedContent";
-import ProfileView from "../../views/Account/Profile";
+import Head from 'next/head'
+import ProtectedContent from '../../components/ProtectedContent'
+import ProfileView from '../../views/Account/Profile'
 
-export default function Profile() {
+export default function Profile () {
   return (
     <>
       <Head>
@@ -13,5 +13,5 @@ export default function Profile() {
         <ProfileView />
       </ProtectedContent>
     </>
-  );
+  )
 }

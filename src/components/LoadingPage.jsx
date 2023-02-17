@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import Loading from "./Loading";
+import styled from 'styled-components'
+import Loading from './Loading'
 
 const LoadingDiv = styled.div`
   min-height: 100vh;
@@ -9,12 +9,12 @@ const LoadingDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
-export default function LoadingPage() {
+export default function LoadingPage () {
   return (
     <LoadingDiv>
       <Loading />
     </LoadingDiv>
-  );
+  )
 }

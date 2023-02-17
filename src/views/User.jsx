@@ -1,21 +1,20 @@
-import App from "../components/App";
-import styled from "styled-components";
-import { colors, sizes } from "../config/theme";
-import Text from "../components/Text";
-import Img from "../components/Img";
-import { useState } from "react";
-import Loading from "../components/Loading";
-import { useEffect } from "react";
-import { getDocument } from "../util/api";
-import Link from "next/link";
-import { currencyFormatter } from "../util/normailize";
+import App from '../components/App'
+import styled from 'styled-components'
+import { colors, sizes } from '../config/theme'
+import Text from '../components/Text'
+import Img from '../components/Img'
+import { useState, useEffect } from 'react'
+import Loading from '../components/Loading'
+import { getDocument } from '../util/api'
+import Link from 'next/link'
+import { currencyFormatter } from '../util/normailize'
 
 const UserDiv = styled.div`
   display: grid;
   grid-template-columns: 25rem 1fr;
   margin: 3rem ${sizes.inlineMargin};
   gap: 2rem;
-`;
+`
 
 const UserColumn = styled.div`
   border: 3px solid ${colors.primary};
@@ -24,7 +23,7 @@ const UserColumn = styled.div`
 
   display: flex;
   flex-direction: column;
-`;
+`
 
 const StudyCard = styled.div`
   width: fit-content;
@@ -33,19 +32,19 @@ const StudyCard = styled.div`
   padding: 5px 10px;
   margin: 0 auto 10px 0;
   color: ${colors.primary};
-`;
+`
 
 const UploadsDiv = styled.div`
   display: flex;
   flex-direction: column;
-`;
+`
 
 const CardGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 2rem;
   margin: 0 0 1rem 0;
-`;
+`
 
 const Card = styled.div`
   aspect-ratio: 1;
@@ -62,7 +61,7 @@ const Card = styled.div`
   :hover {
     scale: 1.05;
   }
-`;
+`
 
 const CardTitle = styled.div`
   min-height: 100%;
@@ -73,38 +72,38 @@ const CardTitle = styled.div`
   min-width: 100%;
   border: 3px solid ${colors.primary};
   border-width: 3px 0 0 0;
-`;
+`
 
-export default function User({ userData }) {
-  const [loading, setLoading] = useState(true);
-  const [uploads, setUploads] = useState(null);
+export default function User ({ userData }) {
+  const [loading, setLoading] = useState(true)
+  const [uploads, setUploads] = useState(null)
 
   useEffect(() => {
     if (userData.uploaded) {
       Promise.all(
         userData.uploaded.map(async (doc) => {
-          const [subjectId, docId] = doc.split("/");
-          return getDocument(subjectId, docId);
+          const [subjectId, docId] = doc.split('/')
+          return getDocument(subjectId, docId)
         })
       )
         .then((data) =>
           data.reduce(
             (groups, item) => ({
               ...groups,
-              [item.subjectId]: [...(groups[item.subjectId] || []), item],
+              [item.subjectId]: [...(groups[item.subjectId] || []), item]
             }),
             {}
           )
         )
         .then((data) => {
-          setUploads(data);
-          setLoading(false);
-        });
+          setUploads(data)
+          setLoading(false)
+        })
     } else {
-      setUploads(null);
-      setLoading(false);
+      setUploads(null)
+      setLoading(false)
     }
-  }, [userData.uploaded]);
+  }, [userData.uploaded])
 
   return (
     <App>
@@ -133,9 +132,12 @@ export default function User({ userData }) {
           <StudyCard>{userData.school.name}</StudyCard>
           <StudyCard>{userData.degree.name}</StudyCard>
         </UserColumn>
-        {loading ? (
+        {loading
+          ? (
           <Loading />
-        ) : uploads ? (
+            )
+          : uploads
+            ? (
           <UploadsDiv>
             {Object.keys(uploads).map((subject) => (
               <UploadsDiv key={subject}>
@@ -162,10 +164,11 @@ export default function User({ userData }) {
               </UploadsDiv>
             ))}
           </UploadsDiv>
-        ) : (
+              )
+            : (
           <Text>No ha subido nada</Text>
-        )}
+              )}
       </UserDiv>
     </App>
-  );
+  )
 }

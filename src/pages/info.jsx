@@ -1,7 +1,7 @@
-import Head from "next/head";
-import InfoView from "../views/Info";
+import Head from 'next/head'
+import InfoView from '../views/Info'
 
-export default function Info() {
+export default function Info () {
   return (
     <>
       <Head>
@@ -10,5 +10,5 @@ export default function Info() {
       </Head>
       <InfoView />
     </>
-  );
+  )
 }

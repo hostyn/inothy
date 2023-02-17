@@ -1,12 +1,12 @@
-import App from "../../components/App";
-import styled from "styled-components";
-import { colors, sizes } from "../../config/theme";
-import { useState } from "react";
-import { motion } from "framer-motion";
-import Loading from "../../components/Loading";
-import Upload from "./Upload";
-import Success from "./Success";
-import Error from "./Error";
+import App from '../../components/App'
+import styled from 'styled-components'
+import { colors, sizes } from '../../config/theme'
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import Loading from '../../components/Loading'
+import Upload from './Upload'
+import Success from './Success'
+import Error from './Error'
 
 const UploadDiv = styled.div`
   display: flex;
@@ -28,7 +28,7 @@ const UploadDiv = styled.div`
     margin: 1rem;
     min-height: calc(100vh - ${sizes.navbar} - 2rem);
   }
-`;
+`
 
 const MotionDiv = styled(motion.div)`
   display: flex;
@@ -45,10 +45,10 @@ const MotionDiv = styled(motion.div)`
   @media (max-width: 768px) {
     padding: 2rem;
   }
-`;
+`
 
-export default function UploadView() {
-  const [state, setState] = useState("upload");
+export default function UploadView () {
+  const [state, setState] = useState('upload')
 
   return (
     <App>
@@ -60,12 +60,12 @@ export default function UploadView() {
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.15 }}
         >
-          {state === "upload" && <Upload setState={setState} />}
-          {state === "loading" && <Loading />}
-          {state === "success" && <Success />}
-          {state === "error" && <Error />}
+          {state === 'upload' && <Upload setState={setState} />}
+          {state === 'loading' && <Loading />}
+          {state === 'success' && <Success />}
+          {state === 'error' && <Error />}
         </MotionDiv>
       </UploadDiv>
     </App>
-  );
+  )
 }

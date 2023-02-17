@@ -1,10 +1,10 @@
-import Menu from "../../components/Account/Menu";
-import App from "../../components/App";
-import styled from "styled-components";
-import { colors, sizes } from "../../config/theme";
-import Text from "../../components/Text";
-import Img from "../../components/Img";
-import Input from "../../components/Input";
+import Menu from '../../components/Account/Menu'
+import App from '../../components/App'
+import styled from 'styled-components'
+import { colors, sizes } from '../../config/theme'
+import Text from '../../components/Text'
+import Img from '../../components/Img'
+import Input from '../../components/Input'
 
 const SettingsGrids = styled.div`
   height: ${sizes.accountHeight};
@@ -12,7 +12,7 @@ const SettingsGrids = styled.div`
   grid-template-columns: 55% 1fr;
   grid-template-rows: 55% 1fr;
   gap: 2rem;
-`;
+`
 
 const SettingsBox = styled.div`
   display: flex;
@@ -23,22 +23,22 @@ const SettingsBox = styled.div`
   border: 3px solid ${colors.primary};
   padding: 3rem;
 
-  grid-column: ${(props) => props.girdColumn || "auto"};
-  grid-row: ${(props) => props.gridRow || "auto"};
-`;
+  grid-column: ${(props) => props.girdColumn || 'auto'};
+  grid-row: ${(props) => props.gridRow || 'auto'};
+`
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
+`
 
 const InputDiv = styled.div`
   display: flex;
   flex-direction: column;
-`;
+`
 
-export default function SettingsView() {
+export default function SettingsView () {
   return (
     <App>
       <Menu settings>
@@ -90,5 +90,5 @@ export default function SettingsView() {
         </SettingsGrids>
       </Menu>
     </App>
-  );
+  )
 }

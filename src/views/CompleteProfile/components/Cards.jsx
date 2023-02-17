@@ -1,6 +1,5 @@
-import styled from "styled-components";
-import Text from "../../../components/Text";
-import { colors } from "../../../config/theme";
+import styled from 'styled-components'
+import { colors } from '../../../config/theme'
 
 const Cards = styled.div`
   display: flex;
@@ -20,6 +19,6 @@ const Cards = styled.div`
     background: ${colors.hover};
     border-radius: 10px;
   }
-`;
+`
 
-export default Cards;
+export default Cards

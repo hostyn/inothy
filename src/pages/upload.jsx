@@ -1,8 +1,8 @@
-import Head from "next/head";
-import ProtectedContent from "../components/ProtectedContent";
-import UploadView from "../views/Upload/UploadPage";
+import Head from 'next/head'
+import ProtectedContent from '../components/ProtectedContent'
+import UploadView from '../views/Upload/UploadPage'
 
-export default function Upload() {
+export default function Upload () {
   return (
     <>
       <Head>
@@ -13,5 +13,5 @@ export default function Upload() {
         <UploadView />
       </ProtectedContent>
     </>
-  );
+  )
 }

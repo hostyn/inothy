@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import Img from "../../components/Img";
-import Text from "../../components/Text";
+import styled from 'styled-components'
+import Img from '../../components/Img'
+import Text from '../../components/Text'
 
 const SuccessDiv = styled.div`
   height: 100%;
@@ -9,21 +9,21 @@ const SuccessDiv = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-`;
+`
 
 const Title = styled(Text)`
   @media (max-width: 768px) {
     font-size: 1.5rem;
   }
-`;
+`
 
 const Subtitle = styled(Text)`
   @media (max-width: 768px) {
     font-size: 1rem;
   }
-`;
+`
 
-export default function Success() {
+export default function Success () {
   return (
     <SuccessDiv>
       <Img src="/check.svg" width="6rem" height="6rem" />
@@ -40,5 +40,5 @@ export default function Success() {
         Gracias por comprar con nosotros
       </Subtitle>
     </SuccessDiv>
-  );
+  )
 }

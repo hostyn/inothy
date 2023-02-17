@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import Img from "../Img";
-import Text from "../Text";
+import styled from 'styled-components'
+import Img from '../Img'
+import Text from '../Text'
 
 const EmailSentDiv = styled.div`
   display: flex;
@@ -10,9 +10,9 @@ const EmailSentDiv = styled.div`
   @media (max-width: 600px) {
     padding: 0 10vw;
   }
-`;
+`
 
-export default function EmailSent() {
+export default function EmailSent () {
   return (
     <EmailSentDiv>
       <Img src="/check.svg" height="6rem" />
@@ -30,5 +30,5 @@ export default function EmailSent() {
         Revisa tu bandeja de entrada para cambiar tu contraseña
       </Text>
     </EmailSentDiv>
-  );
+  )
 }

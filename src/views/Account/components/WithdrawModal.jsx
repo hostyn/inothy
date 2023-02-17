@@ -1,14 +1,14 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
-import styled from "styled-components";
-import Button from "../../../components/Button";
-import Loading from "../../../components/Loading";
-import Text from "../../../components/Text";
-import { colors } from "../../../config/theme";
-import { useAuth } from "../../../context/authContext";
-import { useModal } from "../../../context/modalContext";
-import { payout } from "../../../util/api";
-import { currencyFormatter } from "../../../util/normailize";
+import { motion } from 'framer-motion'
+import { useState } from 'react'
+import styled from 'styled-components'
+import Button from '../../../components/Button'
+import Loading from '../../../components/Loading'
+import Text from '../../../components/Text'
+import { colors } from '../../../config/theme'
+import { useAuth } from '../../../context/authContext'
+import { useModal } from '../../../context/modalContext'
+import { payout } from '../../../util/api'
+import { currencyFormatter } from '../../../util/normailize'
 
 const MotionDiv = styled(motion.div)`
   display: flex;
@@ -19,46 +19,46 @@ const MotionDiv = styled(motion.div)`
   @media (max-width: 768px) {
     padding: 3rem 2rem;
   }
-`;
+`
 
 const WithdrawConfirmationModal = styled.div`
   border-radius: 20px;
   background-color: ${colors.white};
   display: flex;
   flex-direction: column;
-`;
+`
 
 const InlineText = styled.div`
   display: flex;
   justify-content: space-between;
-`;
+`
 
 const Title = styled(Text)`
   @media (max-width: 768px) {
     font-size: 1.5rem;
   }
-`;
+`
 
 const Body = styled(Text)`
   @media (max-width: 768px) {
     font-size: 1rem;
   }
-`;
+`
 
-export default function WithdrawModal({ balance, bank }) {
-  const { user } = useAuth();
-  const [state, setState] = useState("withdraw");
-  const { closeModal } = useModal();
+export default function WithdrawModal ({ balance, bank }) {
+  const { user } = useAuth()
+  const [state, setState] = useState('withdraw')
+  const { closeModal } = useModal()
 
   const handleWithdraw = async () => {
-    setState("loading");
+    setState('loading')
     try {
-      await payout(user);
-      setState("success");
+      await payout(user)
+      setState('success')
     } catch {
-      setState("error");
+      setState('error')
     }
-  };
+  }
 
   return (
     <WithdrawConfirmationModal>
@@ -69,7 +69,7 @@ export default function WithdrawModal({ balance, bank }) {
         exit={{ opacity: 0, x: -20 }}
         transition={{ duration: 0.15 }}
       >
-        {state === "withdraw" && (
+        {state === 'withdraw' && (
           <>
             <Title fontSize="2rem" color="secondary" fontWeight="bold">
               Confirmar retiro
@@ -96,8 +96,8 @@ export default function WithdrawModal({ balance, bank }) {
           </>
         )}
 
-        {state === "loading" && <Loading />}
-        {state === "success" && (
+        {state === 'loading' && <Loading />}
+        {state === 'success' && (
           <>
             <Title fontSize="2rem" color="secondary" fontWeight="bold">
               Retiro Solicitado
@@ -117,7 +117,7 @@ export default function WithdrawModal({ balance, bank }) {
             </Button>
           </>
         )}
-        {state === "error" && (
+        {state === 'error' && (
           <>
             <Text fontSize="2rem" color="secondary" fontWeight="bold">
               Ha ocurrido un error
@@ -139,5 +139,5 @@ export default function WithdrawModal({ balance, bank }) {
         )}
       </MotionDiv>
     </WithdrawConfirmationModal>
-  );
+  )
 }

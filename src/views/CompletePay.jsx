@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import App from "../components/App";
-import DocumentCard from "../components/DocumentCard";
-import Img from "../components/Img";
-import Loading from "../components/Loading";
-import Text from "../components/Text";
-import { sizes } from "../config/theme";
-import { useAuth } from "../context/authContext";
-import { getDocument, getTransaction } from "../util/api";
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import App from '../components/App'
+import DocumentCard from '../components/DocumentCard'
+import Img from '../components/Img'
+import Loading from '../components/Loading'
+import Text from '../components/Text'
+import { sizes } from '../config/theme'
+import { useAuth } from '../context/authContext'
+import { getDocument, getTransaction } from '../util/api'
 
 const CompletePayDiv = styled.div`
   min-height: calc(100vh - ${sizes.navbar});
@@ -17,67 +17,68 @@ const CompletePayDiv = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
+`
 
 // TODO: Transaction not found
 
-export default function CompletePayPage({ transactionId }) {
-  const { user, isUser, isLoading: authLoading } = useAuth();
-  const [isLoading, setIsLoading] = useState(true);
-  const [transactionData, setTransactionData] = useState(null);
-  const [bought, setBought] = useState(null);
+export default function CompletePayPage ({ transactionId }) {
+  const { user, isUser, isLoading: authLoading } = useAuth()
+  const [isLoading, setIsLoading] = useState(true)
+  const [transactionData, setTransactionData] = useState(null)
+  const [bought, setBought] = useState(null)
 
   useEffect(() => {
-    if (authLoading) return;
-    if (!isUser) return;
+    if (authLoading) return
+    if (!isUser) return
 
-    let interval = null;
+    let interval = null
 
     const getDocumentsBought = (data) => {
       return Promise.all(
         data.recipts.map(async (recipt) => {
-          const [subjectId, docId] = recipt.path.split("/");
-          return getDocument(subjectId, docId);
+          const [subjectId, docId] = recipt.path.split('/')
+          return getDocument(subjectId, docId)
         })
-      );
-    };
+      )
+    }
 
     if (!transactionData) {
       getTransaction(user, transactionId).then((data) => {
-        if (data.status === "CREATED") {
+        if (data.status === 'CREATED') {
           interval = setInterval(async () => {
-            const data = await getTransaction(user, transactionId);
-            if (data.status !== "CREATED") {
-              clearInterval(interval);
-              setTransactionData(data);
+            const data = await getTransaction(user, transactionId)
+            if (data.status !== 'CREATED') {
+              clearInterval(interval)
+              setTransactionData(data)
               getDocumentsBought(data).then((res) => {
-                setBought(res);
-                setIsLoading(false);
-              });
+                setBought(res)
+                setIsLoading(false)
+              })
             }
-          }, 1000);
+          }, 1000)
         } else {
-          setTransactionData(data);
+          setTransactionData(data)
           getDocumentsBought(data).then((res) => {
-            setBought(res);
-            setIsLoading(false);
-          });
+            setBought(res)
+            setIsLoading(false)
+          })
         }
-      });
+      })
     }
 
     // if (transactionData?.status === "SUCCEEDED") {
     //   getDocumentsBought().then((data) => setBought(data));
     // }
     // return () => clearInterval(interval);
-  }, [user, transactionId, transactionData, isUser, authLoading]);
+  }, [user, transactionId, transactionData, isUser, authLoading])
 
   return (
     <App>
       <CompletePayDiv>
-        {isLoading ? (
-          <Loading />
-        ) : transactionData.status === "SUCCEEDED" ? (
+        {isLoading
+          ? (<Loading />)
+          : transactionData.status === 'SUCCEEDED'
+            ? (
           <>
             {/* TODO: Exito */}
             <Img src="/check.svg" aspectRatio="1" height="10rem" />
@@ -97,7 +98,8 @@ export default function CompletePayPage({ transactionId }) {
               <DocumentCard key={document.docId} docuemntData={document} />
             ))}
           </>
-        ) : (
+              )
+            : (
           <>
             <Img src="/error.svg" aspectRatio="1" height="10rem" />
             <Text fontSize="3rem" fontWeight="bold" color="secondary">
@@ -107,8 +109,8 @@ export default function CompletePayPage({ transactionId }) {
               El pago ha sido cancelado o ha habido un error
             </Text>
           </>
-        )}
+              )}
       </CompletePayDiv>
     </App>
-  );
+  )
 }

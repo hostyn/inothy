@@ -1,22 +1,22 @@
-import { useState } from "react";
-import styled from "styled-components";
-import Img from "../Img";
-import { colors } from "../../config/theme";
-import { AnimatePresence, motion } from "framer-motion";
-import Text from "../Text";
-import LoginForm from "./LoginForm";
-import RegisterForm from "./RegisterForm";
-import { useModal } from "../../context/modalContext";
-import ForgetPassword from "./ForgetPassword";
-import EmailError from "./EmailError";
-import EmailSent from "./EmailSent";
+import { useState } from 'react'
+import styled from 'styled-components'
+import Img from '../Img'
+import { colors } from '../../config/theme'
+import { motion } from 'framer-motion'
+import Text from '../Text'
+import LoginForm from './LoginForm'
+import RegisterForm from './RegisterForm'
+import { useModal } from '../../context/modalContext'
+import ForgetPassword from './ForgetPassword'
+import EmailError from './EmailError'
+import EmailSent from './EmailSent'
 
 const AuthDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const AuthForm = styled.div`
   display: flex;
@@ -30,28 +30,28 @@ const AuthForm = styled.div`
   @media (max-width: 400px) {
     width: 100vw;
   }
-`;
+`
 
 const Logo = styled(Img)`
   @media (max-height: 750px) {
     height: 15vh;
     margin: 0 0 3vh 0;
   }
-`;
+`
 
 const SelectionDiv = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
   border-bottom: 2px solid #dcdcdc;
   text-align: center;
-`;
+`
 
 const MotionDiv = styled(motion.div)`
   display: grid;
   align-content: center;
   width: 100%;
   height: 100%;
-`;
+`
 
 const Underline = styled(motion.div)`
   position: relative;
@@ -61,19 +61,19 @@ const Underline = styled(motion.div)`
   min-height: 2px;
   width: 100%;
   background: ${colors.secondary};
-`;
+`
 
 const Option = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  background-color: ${(props) => (props.selected ? "#eee" : "transparent")};
+  background-color: ${(props) => (props.selected ? '#eee' : 'transparent')};
   border-radius: 10px 10px 0 0;
-`;
+`
 
-export default function AuthModal({ selected = "login" }) {
-  const [selectedState, setSelectedState] = useState(selected);
-  const { closeModal } = useModal();
+export default function AuthModal ({ selected = 'login' }) {
+  const [selectedState, setSelectedState] = useState(selected)
+  const { closeModal } = useModal()
 
   return (
     <AuthDiv>
@@ -88,8 +88,8 @@ export default function AuthModal({ selected = "login" }) {
         <SelectionDiv>
           <div>
             <Option
-              onClick={() => setSelectedState("login")}
-              selected={selectedState === "login"}
+              onClick={() => setSelectedState('login')}
+              selected={selectedState === 'login'}
             >
               <Text
                 color="secondary"
@@ -102,12 +102,12 @@ export default function AuthModal({ selected = "login" }) {
                 Login
               </Text>
             </Option>
-            {selectedState === "login" && <Underline layoutId="underline" />}
+            {selectedState === 'login' && <Underline layoutId="underline" />}
           </div>
           <div>
             <Option
-              onClick={() => setSelectedState("register")}
-              selected={selectedState === "register"}
+              onClick={() => setSelectedState('register')}
+              selected={selectedState === 'register'}
             >
               <Text
                 color="secondary"
@@ -120,7 +120,7 @@ export default function AuthModal({ selected = "login" }) {
                 Register
               </Text>
             </Option>
-            {selectedState === "register" && <Underline layoutId="underline" />}
+            {selectedState === 'register' && <Underline layoutId="underline" />}
           </div>
         </SelectionDiv>
         <MotionDiv
@@ -130,17 +130,17 @@ export default function AuthModal({ selected = "login" }) {
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.15 }}
         >
-          {selectedState === "login" && (
+          {selectedState === 'login' && (
             <LoginForm setState={setSelectedState} />
           )}
-          {selectedState === "register" && <RegisterForm />}
-          {selectedState === "forgetPassword" && (
+          {selectedState === 'register' && <RegisterForm />}
+          {selectedState === 'forgetPassword' && (
             <ForgetPassword setState={setSelectedState} />
           )}
-          {selectedState === "emailerror" && <EmailError />}
-          {selectedState === "emailsent" && <EmailSent />}
+          {selectedState === 'emailerror' && <EmailError />}
+          {selectedState === 'emailsent' && <EmailSent />}
         </MotionDiv>
       </AuthForm>
     </AuthDiv>
-  );
+  )
 }

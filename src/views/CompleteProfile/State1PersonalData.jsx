@@ -1,11 +1,10 @@
-import Text from "../../components/Text";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
-import styled from "styled-components";
-import { useState } from "react";
-import { colors } from "../../config/theme";
-import ButtonGrid, { StyledButton } from "./components/ButtonGrid";
-import HeaderTitle from "./components/Title";
+import Text from '../../components/Text'
+import Input from '../../components/Input'
+import styled from 'styled-components'
+import { useState } from 'react'
+import { colors } from '../../config/theme'
+import ButtonGrid, { StyledButton } from './components/ButtonGrid'
+import HeaderTitle from './components/Title'
 
 const InlineInput = styled.div`
   display: grid;
@@ -15,13 +14,13 @@ const InlineInput = styled.div`
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
-`;
+`
 
 const Title = styled.div`
   display: flex;
   gap: 1rem;
-  margin: ${(props) => props.margin || "initial"};
-`;
+  margin: ${(props) => props.margin || 'initial'};
+`
 
 const Body = styled.div`
   min-height: 100%;
@@ -31,7 +30,7 @@ const Body = styled.div`
 
   display: grid;
   grid-template-rows: min-content auto 3rem;
-`;
+`
 
 const Form = styled.div`
   margin: auto 0;
@@ -39,22 +38,22 @@ const Form = styled.div`
   flex-direction: column;
   overflow-y: auto;
   gap: 1rem;
-`;
+`
 
 const Error = styled.p`
   color: ${colors.secondary};
   text-align: center;
-`;
+`
 
 const VerticalDiv = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-`;
+`
 
-export default function State1PersonalData({
+export default function State1PersonalData ({
   userData,
   setUserData,
-  setState,
+  setState
 }) {
   const [data, setData] = useState({
     name: userData.name,
@@ -63,8 +62,8 @@ export default function State1PersonalData({
     address2: userData.address2,
     city: userData.city,
     region: userData.region,
-    postalCode: userData.postalCode,
-  });
+    postalCode: userData.postalCode
+  })
 
   const [error, setError] = useState({
     name: null,
@@ -73,57 +72,57 @@ export default function State1PersonalData({
     address2: null,
     city: null,
     region: null,
-    postalCode: null,
-  });
+    postalCode: null
+  })
 
   const handleChange = ({ target }) => {
-    setData((data) => ({ ...data, [target.name]: target.value }));
-  };
+    setData((data) => ({ ...data, [target.name]: target.value }))
+  }
 
   const verifyData = async () => {
-    let anyError = false;
+    let anyError = false
     // NAME
     if (data.name.length === 0) {
-      setError((error) => ({ ...error, name: "Obligatorio" }));
-      anyError = true;
+      setError((error) => ({ ...error, name: 'Obligatorio' }))
+      anyError = true
     } else if (
-      !data.name.match(/^[\w'\-,.]*[^_!¡?÷?¿\/\\+=@#$%ˆ&*(){}|~<>;:[\]]*$/)
+      !data.name.match(/^[\w'\-,.]*[^_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]*$/)
     ) {
-      setError((error) => ({ ...error, name: "No es válido" }));
-      anyError = true;
+      setError((error) => ({ ...error, name: 'No es válido' }))
+      anyError = true
     }
 
     // SURNAME
     if (data.surname.length === 0) {
-      setError((error) => ({ ...error, surname: "Obligatorio" }));
-      anyError = true;
+      setError((error) => ({ ...error, surname: 'Obligatorio' }))
+      anyError = true
     } else if (
-      !data.surname.match(/^[\w'\-,.]*[^_!¡?÷?¿\/\\+=@#$%ˆ&*(){}|~<>;:[\]]*$/)
+      !data.surname.match(/^[\w'\-,.]*[^_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]*$/)
     ) {
-      setError((error) => ({ ...error, surname: "No es válido" }));
-      anyError = true;
+      setError((error) => ({ ...error, surname: 'No es válido' }))
+      anyError = true
     }
 
     // Address
     if (data.address1.length === 0) {
-      setError((error) => ({ ...error, address1: "Obligatorio" }));
-      anyError = true;
+      setError((error) => ({ ...error, address1: 'Obligatorio' }))
+      anyError = true
     }
     if (data.city.length === 0) {
-      setError((error) => ({ ...error, city: "Obligatorio" }));
-      anyError = true;
+      setError((error) => ({ ...error, city: 'Obligatorio' }))
+      anyError = true
     }
     if (data.postalCode.length === 0) {
-      setError((error) => ({ ...error, postalCode: "Obligatorio" }));
-      anyError = true;
+      setError((error) => ({ ...error, postalCode: 'Obligatorio' }))
+      anyError = true
     }
     if (data.region.length === 0) {
-      setError((error) => ({ ...error, region: "Obligatorio" }));
-      anyError = true;
+      setError((error) => ({ ...error, region: 'Obligatorio' }))
+      anyError = true
     }
 
-    return anyError;
-  };
+    return anyError
+  }
 
   const handleSubmit = async () => {
     setError({
@@ -133,19 +132,19 @@ export default function State1PersonalData({
       address2: null,
       city: null,
       region: null,
-      postalCode: null,
-    });
+      postalCode: null
+    })
 
-    const error = await verifyData();
-    if (error) return;
+    const error = await verifyData()
+    if (error) return
 
     setUserData((userData) => ({
       ...userData,
       ...data,
-      personalDataCompleted: true,
-    }));
-    setState("university");
-  };
+      personalDataCompleted: true
+    }))
+    setState('university')
+  }
 
   return (
     <Body>
@@ -286,7 +285,7 @@ export default function State1PersonalData({
         </InlineInput>
       </Form>
       <ButtonGrid>
-        <StyledButton onClick={() => setState("completeProfile")} back>
+        <StyledButton onClick={() => setState('completeProfile')} back>
           Atrás
         </StyledButton>
         <StyledButton onClick={handleSubmit} gridColumn="2">
@@ -294,5 +293,5 @@ export default function State1PersonalData({
         </StyledButton>
       </ButtonGrid>
     </Body>
-  );
+  )
 }

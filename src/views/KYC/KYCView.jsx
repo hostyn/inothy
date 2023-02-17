@@ -1,21 +1,21 @@
-import styled from "styled-components";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { useAuth } from "../../context/authContext";
-import App from "../../components/App";
-import CompleteProfileInfo from "./CompleteProfileInfo";
-import Loading from "../../components/Loading";
-import Success from "./Success";
-import Error from "./Error";
-import Verified from "./Verified";
-import Pending from "./Pending";
-import { completeKYC } from "../../util/api";
-import { colors, sizes } from "../../config/theme";
-import UploadAccepted from "./UploadAccepted";
-import UploadRejected from "./UploadRejected";
-import DocumentSelection from "./DocumentSelection";
-import Dni from "./Dni";
-import Passport from "./Passport";
+import styled from 'styled-components'
+import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { useAuth } from '../../context/authContext'
+import App from '../../components/App'
+import CompleteProfileInfo from './CompleteProfileInfo'
+import Loading from '../../components/Loading'
+import Success from './Success'
+import Error from './Error'
+import Verified from './Verified'
+import Pending from './Pending'
+import { completeKYC } from '../../util/api'
+import { colors, sizes } from '../../config/theme'
+import UploadAccepted from './UploadAccepted'
+import UploadRejected from './UploadRejected'
+import DocumentSelection from './DocumentSelection'
+import Dni from './Dni'
+import Passport from './Passport'
 
 const UploadDiv = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ const UploadDiv = styled.div`
     margin: 1rem;
     min-height: calc(100vh - ${sizes.navbar} - 2rem);
   }
-`;
+`
 
 const MotionDiv = styled(motion.div)`
   display: flex;
@@ -53,17 +53,17 @@ const MotionDiv = styled(motion.div)`
   @media (max-width: 768px) {
     padding: 2rem;
   }
-`;
+`
 
-export default function KYCView() {
-  const { user } = useAuth();
+export default function KYCView () {
+  const { user } = useAuth()
   const [state, setState] = useState(
-    user.data.mangopayKYCStatus === "VALIDATED"
-      ? "verified"
-      : user.data.mangopayKYCStatus === "VALIDATION_ASKED"
-      ? "pending"
-      : "completeProfileInfo"
-  );
+    user.data.mangopayKYCStatus === 'VALIDATED'
+      ? 'verified'
+      : user.data.mangopayKYCStatus === 'VALIDATION_ASKED'
+        ? 'pending'
+        : 'completeProfileInfo'
+  )
 
   const [userData, setUserData] = useState({
     name: user.data.name,
@@ -76,24 +76,24 @@ export default function KYCView() {
     postalCode: user.data.address.postalCode,
     country: user.data.address.country,
     birthday: parseInt(new Date().getTime() / 1000),
-    nationality: "ES",
-    countryOfResidence: "ES",
-  });
+    nationality: 'ES',
+    countryOfResidence: 'ES'
+  })
 
   const handleKYCSubmit = async (files) => {
     try {
-      setState("loading");
+      setState('loading')
       await completeKYC(user, {
         ...userData,
-        files,
-      });
+        files
+      })
 
-      setState("success");
+      setState('success')
     } catch (e) {
-      console.log(e);
-      setState("error");
+      console.log(e)
+      setState('error')
     }
-  };
+  }
 
   return (
     <App>
@@ -105,31 +105,31 @@ export default function KYCView() {
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.15 }}
         >
-          {state === "completeProfileInfo" && (
+          {state === 'completeProfileInfo' && (
             <CompleteProfileInfo
               setUserData={setUserData}
               userData={userData}
               setState={setState}
             />
           )}
-          {state === "uploadaccepted" && <UploadAccepted setState={setState} />}
-          {state === "uploadrejected" && <UploadRejected setState={setState} />}
-          {state === "documentselection" && (
+          {state === 'uploadaccepted' && <UploadAccepted setState={setState} />}
+          {state === 'uploadrejected' && <UploadRejected setState={setState} />}
+          {state === 'documentselection' && (
             <DocumentSelection setState={setState} />
           )}
-          {state === "dni" && (
+          {state === 'dni' && (
             <Dni setState={setState} handleKYCSubmit={handleKYCSubmit} />
           )}
-          {state === "passport" && (
+          {state === 'passport' && (
             <Passport setState={setState} handleKYCSubmit={handleKYCSubmit} />
           )}
-          {state === "success" && <Success />}
-          {state === "error" && <Error />}
-          {state === "verified" && <Verified />}
-          {state === "pending" && <Pending />}
-          {state === "loading" && <Loading />}
+          {state === 'success' && <Success />}
+          {state === 'error' && <Error />}
+          {state === 'verified' && <Verified />}
+          {state === 'pending' && <Pending />}
+          {state === 'loading' && <Loading />}
         </MotionDiv>
       </UploadDiv>
     </App>
-  );
+  )
 }

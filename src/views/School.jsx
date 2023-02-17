@@ -1,14 +1,13 @@
-import App from "../components/App";
-import styled from "styled-components";
-import Text from "../components/Text";
-import { sizes } from "../config/theme";
-import Img from "../components/Img";
-import Input from "../components/Input";
-import { useState } from "react";
-import normalize from "../util/normailize";
-import Link from "next/link";
-import Card from "../components/Card";
-import { useRouter } from "next/router";
+import App from '../components/App'
+import styled from 'styled-components'
+import Text from '../components/Text'
+import { sizes } from '../config/theme'
+import Img from '../components/Img'
+import Input from '../components/Input'
+import { useState } from 'react'
+import normalize from '../util/normailize'
+import Card from '../components/Card'
+import { useRouter } from 'next/router'
 
 const SchoolDiv = styled.div`
   margin: 2rem calc(${sizes.inlineMargin} * 2);
@@ -20,7 +19,7 @@ const SchoolDiv = styled.div`
   @media (max-width: 1000px) {
     margin: 2rem;
   }
-`;
+`
 
 const Title = styled.div`
   display: grid;
@@ -34,7 +33,7 @@ const Title = styled.div`
     grid-template-rows: 5rem auto;
     justify-items: center;
   }
-`;
+`
 
 const Logo = styled(Img)`
   aspect-ratio: 1;
@@ -45,12 +44,12 @@ const Logo = styled(Img)`
     width: 5rem;
     height: 5rem;
   }
-`;
+`
 
 const FlexColumn = styled.div`
   display: flex;
   flex-direction: column;
-`;
+`
 
 const TitleText = styled(Text)`
   @media (max-width: 1000px) {
@@ -60,7 +59,7 @@ const TitleText = styled(Text)`
   @media (max-width: 500px) {
     text-align: center;
   }
-`;
+`
 
 const SubtitleText = styled(Text)`
   @media (max-width: 1000px) {
@@ -70,15 +69,15 @@ const SubtitleText = styled(Text)`
   @media (max-width: 500px) {
     text-align: center;
   }
-`;
+`
 
-export default function SchoolPage({ school }) {
-  const { asPath } = useRouter();
-  const [searchQuery, setSearchQuery] = useState("");
+export default function SchoolPage ({ school }) {
+  const { asPath } = useRouter()
+  const [searchQuery, setSearchQuery] = useState('')
 
   const handleQuerySearch = ({ target }) => {
-    setSearchQuery(target.value);
-  };
+    setSearchQuery(target.value)
+  }
 
   return (
     <App>
@@ -101,7 +100,7 @@ export default function SchoolPage({ school }) {
         <Input onChange={handleQuerySearch} placeholder="Buscar carrera" />
         {school.degrees &&
           school.degrees.map((degree) => {
-            if (normalize(degree.name).includes(searchQuery))
+            if (normalize(degree.name).includes(searchQuery)) {
               return (
                 <Card
                   key={degree.id}
@@ -109,9 +108,10 @@ export default function SchoolPage({ school }) {
                   img="/icons/university.svg"
                   text={degree.name}
                 />
-              );
+              )
+            }
           })}
       </SchoolDiv>
     </App>
-  );
+  )
 }

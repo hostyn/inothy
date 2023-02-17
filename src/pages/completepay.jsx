@@ -1,8 +1,8 @@
-import CompletePayPage from "../views/CompletePay";
-import ProtectedContent from "../components/ProtectedContent";
-import Head from "next/head";
+import CompletePayPage from '../views/CompletePay'
+import ProtectedContent from '../components/ProtectedContent'
+import Head from 'next/head'
 
-export default function CompletePay({ transactionId }) {
+export default function CompletePay ({ transactionId }) {
   return (
     <>
       <Head>
@@ -13,9 +13,9 @@ export default function CompletePay({ transactionId }) {
         <CompletePayPage transactionId={transactionId} />
       </ProtectedContent>
     </>
-  );
+  )
 }
 
-export async function getServerSideProps({ query: transactionId }) {
-  return { props: transactionId };
+export async function getServerSideProps ({ query: transactionId }) {
+  return { props: transactionId }
 }

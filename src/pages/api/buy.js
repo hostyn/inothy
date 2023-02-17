@@ -1,61 +1,60 @@
-import mangopay from "../../config/mangopay";
-import { authAdmin, firestoreAdmin } from "../../config/firebaseadmin";
-import { getSellerAmount } from "../../util/priceCalculator";
+import mangopay from '../../config/mangopay'
+import { authAdmin, firestoreAdmin } from '../../config/firebaseadmin'
+import { getSellerAmount } from '../../util/priceCalculator'
 
-export default async function createcardregistration(req, res) {
-  if (req.method !== "POST") {
-    res.status(405).json({ error: "Method not allowed" });
-    return;
+export default async function createcardregistration (req, res) {
+  if (req.method !== 'POST') {
+    res.status(405).json({ error: 'Method not allowed' })
+    return
   }
 
   if (!req.headers.authorization) {
-    res.status(401).json({ error: "Unauthorized" });
-    return;
+    res.status(401).json({ error: 'Unauthorized' })
+    return
   }
 
-  const token = req.headers.authorization.split(" ")[1];
+  const token = req.headers.authorization.split(' ')[1]
   const user = await authAdmin.verifyIdToken(token).catch((error) => {
-    console.log(error);
-    res.status(401).json({ error: "Unauthorized" });
-    return;
-  });
+    console.log(error)
+    res.status(401).json({ error: 'Unauthorized' })
+  })
 
   const userData = (
-    await firestoreAdmin.collection("users").doc(user.uid).get()
-  ).data();
+    await firestoreAdmin.collection('users').doc(user.uid).get()
+  ).data()
 
-  const body = JSON.parse(req.body);
+  const body = JSON.parse(req.body)
 
   const documents = await Promise.all(
     body.products.map(async (doc) => {
-      const [subjectId, docId] = doc.split("/");
+      const [subjectId, docId] = doc.split('/')
       const data = (
         await firestoreAdmin
-          .collection("subjects")
+          .collection('subjects')
           .doc(subjectId)
-          .collection("docs")
+          .collection('docs')
           .doc(docId)
           .get()
-      ).data();
-      return { ...data, subjectId, docId, path: doc };
+      ).data()
+      return { ...data, subjectId, docId, path: doc }
     })
-  );
+  )
 
-  let valid = documents.every((doc) => doc.createdBy !== user.uid);
+  let valid = documents.every((doc) => doc.createdBy !== user.uid)
   if (!valid) {
-    res.status(400).json({ error: "Can not buy your own documents" });
-    return;
+    res.status(400).json({ error: 'Can not buy your own documents' })
+    return
   }
 
   valid = documents.every((doc) =>
     userData.bought ? !userData.bought.includes(doc.path) : true
-  );
+  )
   if (!valid) {
-    res.status(400).json({ error: "Already bought" });
-    return;
+    res.status(400).json({ error: 'Already bought' })
+    return
   }
 
-  const isAmbassador = userData.badge?.includes("ambassador");
+  const isAmbassador = userData.badge?.includes('ambassador')
 
   const totalPrice = documents.reduce(
     (prev, current) =>
@@ -63,26 +62,26 @@ export default async function createcardregistration(req, res) {
         ? prev + parseFloat(current.price) * 0.8
         : prev + parseFloat(current.price),
     0
-  );
+  )
 
-  const ipAddress = req.headers["x-forwarded-for"]?.split(",")[0] ?? null;
+  const ipAddress = req.headers['x-forwarded-for']?.split(',')[0] ?? null
 
   const response = await mangopay.PayIns.create({
     AuthorId: userData.mangopayClientId,
     CreditedWalletId: userData.mangopayWalletId,
-    PaymentType: "CARD",
-    ExecutionType: "DIRECT",
+    PaymentType: 'CARD',
+    ExecutionType: 'DIRECT',
     DebitedFunds: {
-      Currency: "EUR",
-      Amount: totalPrice * 100,
+      Currency: 'EUR',
+      Amount: totalPrice * 100
     },
     Fees: {
-      Currency: "EUR",
-      Amount: 0,
+      Currency: 'EUR',
+      Amount: 0
     },
-    SecureModeReturnURL: process.env.NEXT_PUBLIC_FRONTEND_URL + "/completepay",
+    SecureModeReturnURL: process.env.NEXT_PUBLIC_FRONTEND_URL + '/completepay',
     CardId: body.cardId,
-    SecureMode: "DEFAULT",
+    SecureMode: 'DEFAULT',
     IpAddress: ipAddress,
     BrowserInfo: {
       AcceptHeader: body.acceptHeaders,
@@ -93,13 +92,13 @@ export default async function createcardregistration(req, res) {
       ScreenWidth: body.screenWidth,
       TimeZoneOffset: body.timezoneOffset,
       UserAgent: body.userAgent,
-      JavascriptEnabled: true,
-    },
-  });
+      JavascriptEnabled: true
+    }
+  })
 
-  if (response.Status === "CREATED") {
+  if (response.Status === 'CREATED') {
     await firestoreAdmin
-      .collection("transactions")
+      .collection('transactions')
       .doc(response.Id)
       .set({
         author: user.uid,
@@ -116,71 +115,71 @@ export default async function createcardregistration(req, res) {
           fee:
             (isAmbassador ? doc.price * 0.8 : doc.price) -
             getSellerAmount(doc.price),
-          createdBy: doc.createdBy,
-        })),
-      });
+          createdBy: doc.createdBy
+        }))
+      })
     res
       .status(200)
-      .json({ status: "created", redirectUrl: response.SecureModeRedirectURL });
-    return;
+      .json({ status: 'created', redirectUrl: response.SecureModeRedirectURL })
+    return
   }
 
-  if (response.Status === "SUCCEEDED") {
+  if (response.Status === 'SUCCEEDED') {
     const recipts = await Promise.all(
       documents.map(async (document) => {
         const ownerData = (
-          await firestoreAdmin.collection("users").doc(document.createdBy).get()
-        ).data();
+          await firestoreAdmin.collection('users').doc(document.createdBy).get()
+        ).data()
 
         const recipt = await mangopay.Transfers.create({
           AuthorId: userData.mangopayClientId,
           DebitedWalletId: userData.mangopayWalletId,
           CreditedWalletId: ownerData.mangopayWalletId,
           DebitedFunds: {
-            Currency: "EUR",
+            Currency: 'EUR',
             Amount:
-              (isAmbassador ? document.price * 0.8 : document.price) * 100,
+              (isAmbassador ? document.price * 0.8 : document.price) * 100
           },
           Fees: {
-            Currency: "EUR",
+            Currency: 'EUR',
             Amount:
               ((isAmbassador ? document.price * 0.8 : document.price) -
                 getSellerAmount(document.price)) *
-              100,
-          },
-        });
+              100
+          }
+        })
 
         const documentRef = firestoreAdmin
-          .collection("subjects")
+          .collection('subjects')
           .doc(document.subjectId)
-          .collection("docs")
-          .doc(document.docId);
+          .collection('docs')
+          .doc(document.docId)
 
         firestoreAdmin.runTransaction(async (transaction) => {
-          const document = await transaction.get(documentRef);
+          const document = await transaction.get(documentRef)
           transaction.update(documentRef, {
-            sales: document.data().sales ? document.data().sales + 1 : 1,
-          });
-        });
+            sales: document.data().sales ? document.data().sales + 1 : 1
+          })
+        })
 
         const ownerRef = firestoreAdmin
-          .collection("users")
-          .doc(document.createdBy);
+          .collection('users')
+          .doc(document.createdBy)
 
         firestoreAdmin.runTransaction(async (transaction) => {
-          const user = await transaction.get(ownerRef);
+          const user = await transaction.get(ownerRef)
           transaction.update(ownerRef, {
             sales: user.data().sales ? user.data().sales + 1 : 1,
             badge:
-              user.data().sales + 1 == 500
-                ? [...user.data().badge, "gold"]
-                : user.data().sales + 1 == 200
-                ? [...user.data().badge, "silver"]
-                : user.data().sales + 1 == 50
-                ? [...user.data().badge, "bronze"]
-                : user.data().badge,
-          });
-        });
+              user.data().sales + 1 === 500
+                ? [...user.data().badge, 'gold']
+                : user.data().sales + 1 === 200
+                  ? [...user.data().badge, 'silver']
+                  : user.data().sales + 1 === 50
+                    ? [...user.data().badge, 'bronze']
+                    : user.data().badge
+          })
+        })
 
         return {
           path: document.path,
@@ -188,12 +187,12 @@ export default async function createcardregistration(req, res) {
           createdBy: document.createdBy,
           transactionId: recipt.Id,
           creationDate: recipt.CreationDate,
-          fees: recipt.Fees.Amount / 100,
-        };
+          fees: recipt.Fees.Amount / 100
+        }
       })
-    );
+    )
 
-    await firestoreAdmin.collection("transactions").doc(response.Id).set({
+    await firestoreAdmin.collection('transactions').doc(response.Id).set({
       author: user.uid,
       authorId: response.AuthorId,
       authorWalletId: userData.mangopayWalletId,
@@ -202,22 +201,21 @@ export default async function createcardregistration(req, res) {
       amount: totalPrice,
       status: response.Status,
       cardId: response.CardId,
-      recipts: recipts,
-    });
+      recipts
+    })
 
     firestoreAdmin
-      .collection("users")
+      .collection('users')
       .doc(user.uid)
       .update({
         bought: userData.bought
           ? [...userData.bought, ...body.products]
-          : body.products,
-      });
+          : body.products
+      })
 
-    res.status(200).json({ status: "success" });
-    return;
+    res.status(200).json({ status: 'success' })
+    return
   }
 
-  res.status(500).json({ error: "internal server error" });
-  return;
+  res.status(500).json({ error: 'internal server error' })
 }

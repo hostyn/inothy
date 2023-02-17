@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { useMemo } from "react";
+import { motion } from 'framer-motion'
+import { useMemo } from 'react'
 
 export const Page = ({
   index,
@@ -7,19 +7,19 @@ export const Page = ({
   x,
   onDragEnd,
   visualizedItems,
-  onDragStart,
+  onDragStart
 }) => {
-  const child = useMemo(() => renderPage({ index }), [index, renderPage]);
+  const child = useMemo(() => renderPage({ index }), [index, renderPage])
 
   return (
     <motion.div
       style={{
-        position: "absolute",
+        position: 'absolute',
         width: `${100 / visualizedItems}%`,
-        height: "100%",
+        height: '100%',
         x,
         left: `${(index * 100) / visualizedItems}%`,
-        right: `${(index * 100) / visualizedItems}%`,
+        right: `${(index * 100) / visualizedItems}%`
       }}
       draggable
       drag="x"
@@ -29,7 +29,7 @@ export const Page = ({
     >
       {child}
     </motion.div>
-  );
-};
+  )
+}
 
-Page.displayName = "page";
+Page.displayName = 'page'

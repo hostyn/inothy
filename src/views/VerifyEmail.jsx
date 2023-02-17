@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import Link from "next/link";
-import Img from "../components/Img";
-import Text from "../components/Text";
-import A from "../components/A";
-import Button from "../components/Button";
+import styled from 'styled-components'
+import Link from 'next/link'
+import Img from '../components/Img'
+import Text from '../components/Text'
+import A from '../components/A'
+import Button from '../components/Button'
 
 const Wrapper = styled.div`
   display: flex;
@@ -12,9 +12,9 @@ const Wrapper = styled.div`
   justify-content: center;
   height: 100vh;
   width: 100vw;
-`;
+`
 
-export default function VerifyEmail({ verified = false }) {
+export default function VerifyEmail ({ verified = false }) {
   return (
     <Wrapper>
       <Img
@@ -23,7 +23,8 @@ export default function VerifyEmail({ verified = false }) {
         aspectRatio="100/31"
         height="initial"
       />
-      {verified ? (
+      {verified
+        ? (
         <>
           <Text fontSize="3rem" margin="2rem 0 0 0">
             Email verificado
@@ -34,7 +35,8 @@ export default function VerifyEmail({ verified = false }) {
             </Button>
           </Link>
         </>
-      ) : (
+          )
+        : (
         <>
           <Text fontSize="3rem" margin="2rem 0 0 0">
             No se ha podido verificar el email
@@ -43,7 +45,7 @@ export default function VerifyEmail({ verified = false }) {
             <A>Volver al home</A>
           </Link>
         </>
-      )}
+          )}
     </Wrapper>
-  );
+  )
 }

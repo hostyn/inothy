@@ -1,7 +1,7 @@
-import Head from "next/head";
-import PrivacyView from "../views/PrivaciyView";
+import Head from 'next/head'
+import PrivacyView from '../views/PrivaciyView'
 
-export default function Privacy() {
+export default function Privacy () {
   return (
     <>
       <Head>
@@ -11,5 +11,5 @@ export default function Privacy() {
 
       <PrivacyView />
     </>
-  );
+  )
 }

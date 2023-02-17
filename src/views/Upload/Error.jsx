@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import Img from "../../components/Img";
-import Text from "../../components/Text";
+import styled from 'styled-components'
+import Img from '../../components/Img'
+import Text from '../../components/Text'
 
 const ErrorDiv = styled.div`
   height: 100%;
@@ -9,28 +9,28 @@ const ErrorDiv = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-`;
+`
 
 const StyledImg = styled(Img)`
   @media (max-width: 1000px) {
     height: 6rem;
     width: 6rem;
   }
-`;
+`
 
 const StyledTitle = styled(Text)`
   @media (max-width: 1000px) {
     font-size: 2rem;
   }
-`;
+`
 
 const StyledText = styled(Text)`
   @media (max-width: 1000px) {
     font-size: 1.2rem;
   }
-`;
+`
 
-export default function Error() {
+export default function Error () {
   return (
     <ErrorDiv>
       <StyledImg src="/error.svg" aspectRatio="1" width="10rem" height="auto" />
@@ -47,5 +47,5 @@ export default function Error() {
         Vuelve a intentarlo o contacta con el soporte
       </StyledText>
     </ErrorDiv>
-  );
+  )
 }

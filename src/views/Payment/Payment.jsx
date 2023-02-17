@@ -1,24 +1,24 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import Resume from "./Resume";
-import Card from "./Card";
-import AddCard from "./AddCard";
-import Loading from "../../components/Loading";
-import CardSuccess from "./CardSuccess";
-import CardError from "./CardError";
-import Success from "./Success";
-import Error from "./Error";
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import Resume from './Resume'
+import Card from './Card'
+import AddCard from './AddCard'
+import Loading from '../../components/Loading'
+import CardSuccess from './CardSuccess'
+import CardError from './CardError'
+import Success from './Success'
+import Error from './Error'
 
-export default function Payment({ documents, onSuccess = null }) {
-  const [state, setState] = useState("resume");
+export default function Payment ({ documents, onSuccess = null }) {
+  const [state, setState] = useState('resume')
   const [paymentDetails, setPaymentDetails] = useState({
     cardId: null,
     totalAmount: documents.reduce(
       (prev, current) => prev + parseFloat(current.price),
       0
     ),
-    documents: documents,
-  });
+    documents
+  })
 
   return (
     <motion.div
@@ -28,10 +28,10 @@ export default function Payment({ documents, onSuccess = null }) {
       exit={{ opacity: 0, x: -20 }}
       transition={{ duration: 0.15 }}
     >
-      {state === "resume" && (
+      {state === 'resume' && (
         <Resume paymentDetails={paymentDetails} setState={setState} />
       )}
-      {state === "card" && (
+      {state === 'card' && (
         <Card
           setState={setState}
           paymentDetails={paymentDetails}
@@ -39,12 +39,12 @@ export default function Payment({ documents, onSuccess = null }) {
           onSuccess={onSuccess}
         />
       )}
-      {state === "addCard" && <AddCard setState={setState} />}
-      {state === "loading" && <Loading />}
-      {state === "cardSuccess" && <CardSuccess />}
-      {state === "cardError" && <CardError />}
-      {state === "success" && <Success />}
-      {state === "error" && <Error />}
+      {state === 'addCard' && <AddCard setState={setState} />}
+      {state === 'loading' && <Loading />}
+      {state === 'cardSuccess' && <CardSuccess />}
+      {state === 'cardError' && <CardError />}
+      {state === 'success' && <Success />}
+      {state === 'error' && <Error />}
     </motion.div>
-  );
+  )
 }

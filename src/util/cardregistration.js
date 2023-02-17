@@ -1,39 +1,39 @@
-import { logEvent } from "../config/firebase";
-import { completeCardRegistration, createCardRegistration } from "./api";
+import { logEvent } from '../config/firebase'
+import { completeCardRegistration, createCardRegistration } from './api'
 
-export default async function registerCard(
+export default async function registerCard (
   user,
   cardNumber,
   expirationDate,
   cvx
 ) {
-  if (!cardNumber) throw new Error("Card Number is required");
-  if (!expirationDate) throw new Error("Expiration Date is required");
-  if (!cvx) throw new Error("CVX is required");
+  if (!cardNumber) throw new Error('Card Number is required')
+  if (!expirationDate) throw new Error('Expiration Date is required')
+  if (!cvx) throw new Error('CVX is required')
 
   try {
-    const cardRegistration = await createCardRegistration(user);
+    const cardRegistration = await createCardRegistration(user)
 
     const response = await fetch(cardRegistration.CardRegistrationUrl, {
-      method: "POST",
+      method: 'POST',
       body: new URLSearchParams({
         data: cardRegistration.PreregistrationData,
         accessKeyRef: cardRegistration.AccessKey,
-        cardNumber: cardNumber,
+        cardNumber,
         cardExpirationDate: expirationDate,
-        cardCvx: cvx,
-      }),
-    });
+        cardCvx: cvx
+      })
+    })
 
-    const registrationData = await response.text();
+    const registrationData = await response.text()
 
-    await completeCardRegistration(cardRegistration.Id, registrationData);
+    await completeCardRegistration(cardRegistration.Id, registrationData)
     try {
-      logEvent("add_card");
+      logEvent('add_card')
     } catch {}
 
-    return;
+    return
   } catch {
-    throw new Error("Internal server error");
+    throw new Error('Internal server error')
   }
 }

@@ -1,18 +1,18 @@
-import Image from "next/image";
-import styled from "styled-components";
+import Image from 'next/image'
+import styled from 'styled-components'
 
 const ImageDiv = styled.div`
   position: relative;
-  width: ${(props) => props.width || "100%"};
-  height: ${(props) => props.height || "100%"};
-  aspect-ratio: ${(props) => props.aspectRatio || "auto"};
-  margin: ${(props) => props.margin || "initial"};
-  cursor: ${(props) => props.cursor || "inherit"};
-  align-self: ${(props) => props.alignSelf || "initial"};
+  width: ${(props) => props.width || '100%'};
+  height: ${(props) => props.height || '100%'};
+  aspect-ratio: ${(props) => props.aspectRatio || 'auto'};
+  margin: ${(props) => props.margin || 'initial'};
+  cursor: ${(props) => props.cursor || 'inherit'};
+  align-self: ${(props) => props.alignSelf || 'initial'};
   user-select: none;
-`;
+`
 
-export default function Img({
+export default function Img ({
   src,
   alt,
   width,
@@ -24,7 +24,7 @@ export default function Img({
   className,
   priority,
   alignSelf,
-  title,
+  title
 }) {
   return (
     <ImageDiv
@@ -46,5 +46,5 @@ export default function Img({
         priority={priority}
       />
     </ImageDiv>
-  );
+  )
 }

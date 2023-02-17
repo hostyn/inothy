@@ -1,12 +1,12 @@
-import { applyActionCode, verifyPasswordResetCode } from "firebase/auth";
-import Head from "next/head";
-import { auth } from "../config/firebase";
-import ResetPassword from "../views/ResetPassword";
-import VerifyEmail from "../views/VerifyEmail";
+import { applyActionCode, verifyPasswordResetCode } from 'firebase/auth'
+import Head from 'next/head'
+import { auth } from '../config/firebase'
+import ResetPassword from '../views/ResetPassword'
+import VerifyEmail from '../views/VerifyEmail'
 
-export default function VerifyEmailPage({ mode, verified, oobCode, email }) {
+export default function VerifyEmailPage ({ mode, verified, oobCode, email }) {
   switch (mode) {
-    case "verifyEmail":
+    case 'verifyEmail':
       return (
         <>
           <Head>
@@ -15,9 +15,9 @@ export default function VerifyEmailPage({ mode, verified, oobCode, email }) {
           </Head>
           <VerifyEmail verified={verified} />
         </>
-      );
+      )
 
-    case "resetPassword":
+    case 'resetPassword':
       return (
         <>
           <Head>
@@ -25,31 +25,31 @@ export default function VerifyEmailPage({ mode, verified, oobCode, email }) {
           </Head>
           <ResetPassword valid={verified} oobCode={oobCode} email={email} />
         </>
-      );
+      )
   }
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps (context) {
   const {
-    query: { oobCode, mode },
-  } = context;
+    query: { oobCode, mode }
+  } = context
   switch (mode) {
-    case "verifyEmail":
+    case 'verifyEmail':
       try {
-        await applyActionCode(auth, oobCode);
-        return { props: { mode, verified: true } };
+        await applyActionCode(auth, oobCode)
+        return { props: { mode, verified: true } }
       } catch (e) {
-        return { props: { mode, verified: false } };
+        return { props: { mode, verified: false } }
       }
 
-    case "resetPassword":
+    case 'resetPassword':
       try {
-        const email = await verifyPasswordResetCode(auth, oobCode);
-        return { props: { mode, verified: true, oobCode, email } };
+        const email = await verifyPasswordResetCode(auth, oobCode)
+        return { props: { mode, verified: true, oobCode, email } }
       } catch (e) {
-        return { props: { mode, verified: false, oobCode } };
+        return { props: { mode, verified: false, oobCode } }
       }
     default:
-      return { redirect: { permanent: false, destination: "/" } };
+      return { redirect: { permanent: false, destination: '/' } }
   }
 }

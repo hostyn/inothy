@@ -1,91 +1,90 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { auth, logEvent } from "../config/firebase";
+import { createContext, useContext, useEffect, useState } from 'react'
+import { auth, logEvent } from '../config/firebase'
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
-  signOut,
-} from "firebase/auth";
-import { getUserData } from "../util/api";
-import { useRouter } from "next/router";
-import LoadingPage from "../components/LoadingPage";
+  signOut
+} from 'firebase/auth'
+import { getUserData } from '../util/api'
+import { useRouter } from 'next/router'
+import LoadingPage from '../components/LoadingPage'
 
-const authContext = createContext();
-export const useAuth = () => useContext(authContext);
+const authContext = createContext()
+export const useAuth = () => useContext(authContext)
 
-export function AuthProvider({ children, headers: initialHeaders }) {
+export function AuthProvider ({ children, headers }) {
   const {
     push,
     pathname,
-    query: { ref },
-  } = useRouter();
+    query: { ref }
+  } = useRouter()
 
-  const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isUser, setIsUser] = useState(false);
-  const [headers, setHeaders] = useState(initialHeaders);
+  const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isUser, setIsUser] = useState(false)
 
   // AUTH FUNCTIONS
   const login = async (email, password) => {
-    const user = await signInWithEmailAndPassword(auth, email, password);
+    const user = await signInWithEmailAndPassword(auth, email, password)
     try {
-      logEvent("login");
+      logEvent('login')
     } catch {}
-    return user;
-  };
+    return user
+  }
 
   const register = async (email, password) => {
-    const user = await createUserWithEmailAndPassword(auth, email, password);
+    const user = await createUserWithEmailAndPassword(auth, email, password)
     try {
-      logEvent("sign_up");
+      logEvent('sign_up')
     } catch {}
-    return user;
-  };
+    return user
+  }
 
   const logout = async () => {
-    setIsUser(false);
-    await signOut(auth);
-    setUser(null);
+    setIsUser(false)
+    await signOut(auth)
+    setUser(null)
     try {
-      logEvent("logout");
+      logEvent('logout')
     } catch {}
-  };
+  }
 
   const updateData = async () => {
     if (user.emailVerified) {
-      const data = await getUserData(user);
-      setUser({ ...user, ["data"]: data });
-      if (data.profileCompleted) setIsUser(true);
-      else setIsUser(false);
+      const data = await getUserData(user)
+      setUser({ ...user, data })
+      if (data.profileCompleted) setIsUser(true)
+      else setIsUser(false)
     }
-  };
+  }
 
   useEffect(() => {
-    const localRef = localStorage.getItem("ref");
+    const localRef = localStorage.getItem('ref')
     if (!localRef && ref) {
-      localStorage.setItem("ref", ref);
+      localStorage.setItem('ref', ref)
     }
 
     const unsubscirbe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser !== null) {
         if (currentUser.emailVerified) {
           getUserData(currentUser).then((data) => {
-            setUser({ ...currentUser, data: data });
-            if (data.profileCompleted) setIsUser(true);
-            else setIsUser(false);
-            setIsLoading(false);
-          });
+            setUser({ ...currentUser, data })
+            if (data.profileCompleted) setIsUser(true)
+            else setIsUser(false)
+            setIsLoading(false)
+          })
         } else {
-          setUser(currentUser);
-          setIsUser(false);
-          setIsLoading(false);
+          setUser(currentUser)
+          setIsUser(false)
+          setIsLoading(false)
         }
       } else {
-        setIsLoading(false);
+        setIsLoading(false)
       }
-    });
-    return () => unsubscirbe();
-  }, [ref]);
+    })
+    return () => unsubscirbe()
+  }, [ref])
 
   // if (isLoading) {
   //   return <LoadingPage />;
@@ -96,11 +95,11 @@ export function AuthProvider({ children, headers: initialHeaders }) {
     user &&
     user.data &&
     !user.data.profileCompleted &&
-    pathname !== "/completeprofile" &&
-    pathname !== "/useractions"
+    pathname !== '/completeprofile' &&
+    pathname !== '/useractions'
   ) {
-    push("/completeprofile");
-    return <LoadingPage />;
+    push('/completeprofile')
+    return <LoadingPage />
   }
 
   return (
@@ -113,10 +112,10 @@ export function AuthProvider({ children, headers: initialHeaders }) {
         updateData,
         isUser,
         headers,
-        isLoading,
+        isLoading
       }}
     >
       {children}
     </authContext.Provider>
-  );
+  )
 }

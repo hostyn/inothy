@@ -1,13 +1,13 @@
-import styled from "styled-components";
-import Input from "../Input";
-import Text from "../Text";
-import Button from "../Button";
-import { useState } from "react";
-import { useAuth } from "../../context/authContext";
-import { useModal } from "../../context/modalContext";
-import Welcome from "./Welcome";
-import { addReferral, sendVerificationEmail } from "../../util/api";
-import { colors } from "../../config/theme";
+import styled from 'styled-components'
+import Input from '../Input'
+import Text from '../Text'
+import Button from '../Button'
+import { useState } from 'react'
+import { useAuth } from '../../context/authContext'
+import { useModal } from '../../context/modalContext'
+import Welcome from './Welcome'
+import { addReferral, sendVerificationEmail } from '../../util/api'
+import { colors } from '../../config/theme'
 
 const Form = styled.form`
   text-align: center;
@@ -17,13 +17,13 @@ const Form = styled.form`
   @media (max-width: 600px) {
     padding: 0 10vw;
   }
-`;
+`
 
 const Inline = styled.div`
   display: flex;
   gap: 1rem;
-  margin: ${(params) => params.margin || "initial"};
-`;
+  margin: ${(params) => params.margin || 'initial'};
+`
 
 const Error = styled.p`
   color: ${colors.secondary};
@@ -31,52 +31,52 @@ const Error = styled.p`
   bottom: 2rem;
   left: 0;
   right: 0;
-`;
+`
 
-export default function RegisterForm() {
-  const { register } = useAuth();
-  const { closeModal, openModal } = useModal();
+export default function RegisterForm () {
+  const { register } = useAuth()
+  const { closeModal, openModal } = useModal()
 
   const [form, setForm] = useState({
-    email: "",
-    password: "",
-    repeatPassword: "",
-  });
+    email: '',
+    password: '',
+    repeatPassword: ''
+  })
   const [error, setError] = useState({
     email: null,
     password: null,
-    repeatPassword: null,
-  });
+    repeatPassword: null
+  })
 
   const handleChange = ({ target }) => {
-    setForm({ ...form, [target.name]: target.value });
-  };
+    setForm({ ...form, [target.name]: target.value })
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError({ email: null, password: null, repeatPassword: null });
-    if (validateForm(form)) return;
+    e.preventDefault()
+    setError({ email: null, password: null, repeatPassword: null })
+    if (validateForm(form)) return
 
     try {
-      const { user } = await register(form.email, form.password);
-      sendVerificationEmail(user);
-      await closeModal();
-      openModal(<Welcome />);
+      const { user } = await register(form.email, form.password)
+      sendVerificationEmail(user)
+      await closeModal()
+      openModal(<Welcome />)
 
-      const ref = localStorage.getItem("ref");
-      if (ref) addReferral(user, ref);
+      const ref = localStorage.getItem('ref')
+      if (ref) addReferral(user, ref)
     } catch (e) {
-      if (e.code === "auth/email-already-in-use") {
-        setError((error) => ({ ...error, email: "El email ya está en uso" }));
+      if (e.code === 'auth/email-already-in-use') {
+        setError((error) => ({ ...error, email: 'El email ya está en uso' }))
       }
     }
-  };
+  }
 
   const validateForm = (form) => {
-    let anyErrors = false;
+    let anyErrors = false
     if (!form.email.length) {
-      setError((error) => ({ ...error, email: "El email es obligatorio" }));
-      anyErrors = true;
+      setError((error) => ({ ...error, email: 'El email es obligatorio' }))
+      anyErrors = true
     } else if (
       !form.email
         .toLowerCase()
@@ -84,39 +84,39 @@ export default function RegisterForm() {
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )
     ) {
-      setError((error) => ({ ...error, email: "El email no es válido" }));
-      anyErrors = true;
+      setError((error) => ({ ...error, email: 'El email no es válido' }))
+      anyErrors = true
     }
 
     if (!form.password.length) {
       setError((error) => ({
         ...error,
-        password: "La contraseña es obligatoria",
-      }));
-      anyErrors = true;
+        password: 'La contraseña es obligatoria'
+      }))
+      anyErrors = true
     } else if (form.password.length < 8) {
       setError((error) => ({
         ...error,
-        password: "La contraseña debe tener al menos 8 caracteres",
-      }));
-      anyErrors = true;
+        password: 'La contraseña debe tener al menos 8 caracteres'
+      }))
+      anyErrors = true
     }
 
     if (!form.repeatPassword.length) {
       setError((error) => ({
         ...error,
-        repeatPassword: "Por favor repita la contraseña",
-      }));
-      anyErrors = true;
+        repeatPassword: 'Por favor repita la contraseña'
+      }))
+      anyErrors = true
     } else if (form.password !== form.repeatPassword) {
       setError((error) => ({
         ...error,
-        repeatPassword: "Las contraseñas no coinciden",
-      }));
-      anyErrors = true;
+        repeatPassword: 'Las contraseñas no coinciden'
+      }))
+      anyErrors = true
     }
-    return anyErrors;
-  };
+    return anyErrors
+  }
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -172,5 +172,5 @@ export default function RegisterForm() {
         Registrarse
       </Button>
     </Form>
-  );
+  )
 }

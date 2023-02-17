@@ -1,27 +1,27 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import Span from "../../components/Span";
-import Img from "../../components/Img";
-import Loading from "../../components/Loading";
-import Text from "../../components/Text";
-import { colors } from "../../config/theme";
-import { useAuth } from "../../context/authContext";
-import { buy, deleteCard, getCards } from "../../util/api";
-import Button from "../../components/Button";
-import { logEvent } from "../../config/firebase";
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import Span from '../../components/Span'
+import Img from '../../components/Img'
+import Loading from '../../components/Loading'
+import Text from '../../components/Text'
+import { colors } from '../../config/theme'
+import { useAuth } from '../../context/authContext'
+import { buy, deleteCard, getCards } from '../../util/api'
+import Button from '../../components/Button'
+import { logEvent } from '../../config/firebase'
 
 const CardDiv = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
-`;
+`
 
 const Title = styled(Text)`
   @media (max-width: 768px) {
     font-size: 1.5rem;
   }
-`;
+`
 
 const CardGrid = styled.div`
   display: grid;
@@ -31,7 +31,7 @@ const CardGrid = styled.div`
   @media (max-width: 1300px) {
     grid-template-columns: 1fr;
   }
-`;
+`
 
 const CardCard = styled.div`
   display: grid;
@@ -63,18 +63,18 @@ const CardCard = styled.div`
   :hover {
     scale: 1.02;
   }
-`;
+`
 
 const CardAlias = styled(Text)`
   @media (max-width: 500px) {
     font-size: 1rem;
   }
-`;
+`
 
 const VerticalText = styled.div`
   display: flex;
   flex-direction: column;
-`;
+`
 
 const AddCardText = styled(Text)`
   grid-column: 2/4;
@@ -82,87 +82,87 @@ const AddCardText = styled(Text)`
   @media (max-width: 500px) {
     font-size: 1.5rem;
   }
-`;
+`
 
-export default function Card({
+export default function Card ({
   setState,
   paymentDetails,
   setPaymentDetails,
-  onSuccess,
+  onSuccess
 }) {
-  const { user, headers, updateData } = useAuth();
-  const [isLoading, setIsLoading] = useState(true);
-  const [cards, setCards] = useState([]);
+  const { user, headers, updateData } = useAuth()
+  const [isLoading, setIsLoading] = useState(true)
+  const [cards, setCards] = useState([])
 
   const handlePay = async () => {
-    setState("loading");
+    setState('loading')
     try {
       const res = await buy(
         user,
         paymentDetails.cardId,
         paymentDetails.documents,
         headers
-      );
+      )
 
-      if (res.status === "success") {
-        setState("success");
-        await new Promise((res) => setTimeout(res, 2000));
-        await updateData();
+      if (res.status === 'success') {
+        setState('success')
+        await new Promise((resolve) => setTimeout(resolve, 2000))
+        await updateData()
 
         try {
-          logEvent("purchase", {
-            currency: "EUR",
-            value: paymentDetails.totalAmount,
-          });
+          logEvent('purchase', {
+            currency: 'EUR',
+            value: paymentDetails.totalAmount
+          })
 
-          window.ttq.track("CompletePayment", {
-            currency: "EUR",
+          window.ttq.track('CompletePayment', {
+            currency: 'EUR',
             value: paymentDetails.totalAmount,
             contents: paymentDetails.documents.map((doc) => ({
-              content_id: doc.subjectId + "/" + doc.docId,
-            })),
-          });
+              content_id: doc.subjectId + '/' + doc.docId
+            }))
+          })
 
-          window.fbq.track("CompletePayment", {
-            currency: "EUR",
+          window.fbq.track('CompletePayment', {
+            currency: 'EUR',
             value: paymentDetails.totalAmount,
             contents: paymentDetails.documents.map((doc) => ({
-              content_id: doc.subjectId + "/" + doc.docId,
-            })),
-          });
+              content_id: doc.subjectId + '/' + doc.docId
+            }))
+          })
         } catch {}
 
         if (onSuccess) {
-          onSuccess();
-          return;
+          onSuccess()
+          return
         }
         // TODO: END
       }
 
-      if (res.status === "created") {
-        location.href = res.redirectUrl;
+      if (res.status === 'created') {
+        location.href = res.redirectUrl
       }
     } catch {
-      setState("error");
+      setState('error')
     }
-  };
+  }
 
   const handleDeleteCard = async (cardId) => {
-    await deleteCard(user, cardId);
-    const cards = await getCards(user);
-    setCards(cards);
-  };
+    await deleteCard(user, cardId)
+    const cards = await getCards(user)
+    setCards(cards)
+  }
 
   useEffect(() => {
-    if (!isLoading) return;
+    if (!isLoading) return
     getCards(user).then((cards) => {
-      setCards(cards);
-      setIsLoading(false);
-    });
-  });
+      setCards(cards)
+      setIsLoading(false)
+    })
+  })
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading />
   }
 
   return (
@@ -186,9 +186,9 @@ export default function Card({
               </CardAlias>
               <Text userSelect="none">
                 {card.ExpirationDate.substr(0, 2)}/
-                {card.ExpirationDate.substr(2, 2)} |{" "}
-                {card.CardProvider === "unknown"
-                  ? "Desconocido"
+                {card.ExpirationDate.substr(2, 2)} |{' '}
+                {card.CardProvider === 'unknown'
+                  ? 'Desconocido'
                   : card.CardProvider}
               </Text>
             </VerticalText>
@@ -202,7 +202,7 @@ export default function Card({
           height="auto"
           margin="1rem auto"
           padding="0.5rem 1rem"
-          onClick={() => setState("addCard")}
+          onClick={() => setState('addCard')}
         >
           <Img src="/icons/card.svg" />
           <AddCardText display="flex" alignItems="center" fontSize="1.8rem">
@@ -221,5 +221,5 @@ export default function Card({
         Pagar
       </Button>
     </CardDiv>
-  );
+  )
 }

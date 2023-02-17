@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import Img from "../../components/Img";
-import Text from "../../components/Text";
+import styled from 'styled-components'
+import Img from '../../components/Img'
+import Text from '../../components/Text'
 
 const Success = styled.div`
   min-width: 100%;
@@ -17,9 +17,9 @@ const Success = styled.div`
       font-size: 2rem;
     }
   }
-`;
+`
 
-export default function State5Success() {
+export default function State5Success () {
   return (
     <Success>
       <Img src="/check.svg" width="8rem" height="8rem" />
@@ -27,5 +27,5 @@ export default function State5Success() {
         Bienvenid@
       </Text>
     </Success>
-  );
+  )
 }

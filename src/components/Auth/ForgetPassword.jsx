@@ -1,11 +1,10 @@
-import { useState } from "react";
-import styled from "styled-components";
-import { colors } from "../../config/theme";
-import { useModal } from "../../context/modalContext";
-import { sendResetPasswordEmail } from "../../util/api";
-import Button from "../Button";
-import Input from "../Input";
-import Text from "../Text";
+import { useState } from 'react'
+import styled from 'styled-components'
+import { colors } from '../../config/theme'
+import { sendResetPasswordEmail } from '../../util/api'
+import Button from '../Button'
+import Input from '../Input'
+import Text from '../Text'
 
 const ForgetPasswordDiv = styled.div`
   display: flex;
@@ -16,20 +15,20 @@ const ForgetPasswordDiv = styled.div`
   @media (max-width: 600px) {
     padding: 0 10vw;
   }
-`;
+`
 
-export default function ForgetPassword({ setState }) {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState(null);
+export default function ForgetPassword ({ setState }) {
+  const [email, setEmail] = useState('')
+  const [error, setError] = useState(null)
 
   const handleChange = ({ target }) => {
-    setEmail(target.value);
-  };
+    setEmail(target.value)
+  }
 
   const validateEmail = () => {
     if (!email.length) {
-      setError("No puede estar vacío");
-      return true;
+      setError('No puede estar vacío')
+      return true
     }
 
     if (
@@ -39,29 +38,29 @@ export default function ForgetPassword({ setState }) {
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )
     ) {
-      setError("No es válido");
-      return true;
+      setError('No es válido')
+      return true
     }
 
-    return false;
-  };
+    return false
+  }
 
   const handleResetPassword = async () => {
-    setError(null);
-    const error = validateEmail();
-    if (error) return;
+    setError(null)
+    const error = validateEmail()
+    if (error) return
 
     try {
-      await sendResetPasswordEmail(email);
-      setState("emailsent");
-      await new Promise((res) => setTimeout(res, 2000));
-      setState("login");
+      await sendResetPasswordEmail(email)
+      setState('emailsent')
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+      setState('login')
     } catch {
-      setState("emailerror");
-      await new Promise((res) => setTimeout(res, 2000));
-      setState("login");
+      setState('emailerror')
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+      setState('login')
     }
-  };
+  }
 
   return (
     <ForgetPasswordDiv>
@@ -96,5 +95,5 @@ export default function ForgetPassword({ setState }) {
         Enviar email
       </Button>
     </ForgetPasswordDiv>
-  );
+  )
 }

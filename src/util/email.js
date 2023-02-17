@@ -1,20 +1,20 @@
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer')
 
 const transpoerter = nodemailer.createTransport({
-  host: "smtp.privateemail.com",
+  host: 'smtp.privateemail.com',
   port: 465,
   secure: true,
   auth: {
     user: process.env.NOREPLY_USER,
-    pass: process.env.NOREPLY_PASS,
-  },
-});
+    pass: process.env.NOREPLY_PASS
+  }
+})
 
-export async function sendVerificationEmail(email, url) {
+export async function sendVerificationEmail (email, url) {
   const message = {
-    from: "Inothy <noreply@inothy.com>",
+    from: 'Inothy <noreply@inothy.com>',
     to: email,
-    subject: "Verifica tu correo electrónico",
+    subject: 'Verifica tu correo electrónico',
     text: `Para verificar tu correo electrónico, haz click en el siguiente enlace: ${url}`,
     html: `<!DOCTYPE html>
     <html lang="es">
@@ -199,21 +199,21 @@ export async function sendVerificationEmail(email, url) {
       </body>
     </html>
     
-    `,
-  };
+    `
+  }
 
   try {
-    return transpoerter.sendMail(message);
+    return transpoerter.sendMail(message)
   } catch (error) {
-    throw new Error("Email not sent");
+    throw new Error('Email not sent')
   }
 }
 
-export async function sendPasswordResetEmail(email, url) {
+export async function sendPasswordResetEmail (email, url) {
   const message = {
-    from: "Inothy <noreply@inothy.com>",
+    from: 'Inothy <noreply@inothy.com>',
     to: email,
-    subject: "Restablece tu contraseña",
+    subject: 'Restablece tu contraseña',
     text: `Para restablecer tu contraseña, haz click en el siguiente enlace: ${url}`,
     html: `<!DOCTYPE html>
     <html lang="es">
@@ -397,11 +397,11 @@ export async function sendPasswordResetEmail(email, url) {
         </table>
       </body>
     </html>
-    `,
-  };
+    `
+  }
   try {
-    return transpoerter.sendMail(message);
+    return transpoerter.sendMail(message)
   } catch (error) {
-    throw new Error("Email not sent");
+    throw new Error('Email not sent')
   }
 }

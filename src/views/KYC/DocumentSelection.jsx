@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import Button from "../../components/Button";
-import Img from "../../components/Img";
-import Text from "../../components/Text";
-import { colors } from "../../config/theme";
+import styled from 'styled-components'
+import Button from '../../components/Button'
+import Img from '../../components/Img'
+import Text from '../../components/Text'
+import { colors } from '../../config/theme'
 
 const DocumentSelectionDiv = styled.div`
   display: grid;
@@ -10,7 +10,7 @@ const DocumentSelectionDiv = styled.div`
   flex-direction: column;
   height: 100%;
   width: 100%;
-`;
+`
 
 const DocumentsGrid = styled.div`
   display: grid;
@@ -22,7 +22,7 @@ const DocumentsGrid = styled.div`
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-`;
+`
 
 const Card = styled.div`
   display: flex;
@@ -52,9 +52,9 @@ const Card = styled.div`
     height: 40vw;
     width: 40vw;
   }
-`;
+`
 
-export default function DocumentSelection({ setState }) {
+export default function DocumentSelection ({ setState }) {
   return (
     <DocumentSelectionDiv>
       <Text
@@ -67,7 +67,7 @@ export default function DocumentSelection({ setState }) {
         Tipo de documento
       </Text>
       <DocumentsGrid>
-        <Card onClick={() => setState("dni")}>
+        <Card onClick={() => setState('dni')}>
           <Img src="/resources/kyc/dni.svg" width="80%" height="23%" />
           <Text
             fontWeight="bold"
@@ -78,7 +78,7 @@ export default function DocumentSelection({ setState }) {
             DNI O CARNET DE CONDUCIR
           </Text>
         </Card>
-        <Card onClick={() => setState("passport")}>
+        <Card onClick={() => setState('passport')}>
           <Img src="/resources/kyc/passport.svg" width="100%" height="40%" />
           <Text
             fontWeight="bold"
@@ -97,10 +97,10 @@ export default function DocumentSelection({ setState }) {
         background="white"
         color="primary"
         border={`2px solid ${colors.primary}`}
-        onClick={() => setState("uploadrejected")}
+        onClick={() => setState('uploadrejected')}
       >
         Atrás
       </Button>
     </DocumentSelectionDiv>
-  );
+  )
 }

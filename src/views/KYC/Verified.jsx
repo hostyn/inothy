@@ -1,8 +1,8 @@
-import Link from "next/link";
-import Button from "../../components/Button";
-import Text from "../../components/Text";
+import Link from 'next/link'
+import Button from '../../components/Button'
+import Text from '../../components/Text'
 
-export default function Verified() {
+export default function Verified () {
   return (
     <>
       <Text
@@ -22,5 +22,5 @@ export default function Verified() {
         </Button>
       </Link>
     </>
-  );
+  )
 }

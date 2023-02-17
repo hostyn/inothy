@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const Body = styled.div`
   min-height: 100%;
@@ -8,6 +8,6 @@ const Body = styled.div`
 
   display: grid;
   grid-template-rows: min-content 3rem auto 3rem;
-`;
+`
 
-export default Body;
+export default Body

@@ -1,9 +1,8 @@
-import styled from "styled-components";
-import A from "../components/A";
-import App from "../components/App";
-import Span from "../components/Span";
-import Text from "../components/Text";
-import { sizes } from "../config/theme";
+import styled from 'styled-components'
+import App from '../components/App'
+import Span from '../components/Span'
+import Text from '../components/Text'
+import { sizes } from '../config/theme'
 
 const PrivacyDiv = styled.div`
   display: flex;
@@ -17,32 +16,32 @@ const PrivacyDiv = styled.div`
   @media (max-width: 768px) {
     margin: 1rem;
   }
-`;
+`
 
 const Title = styled(Text)`
   margin: 1rem 0 0.2rem 0;
   font-size: 1.3rem;
   font-weight: bold;
-`;
+`
 
 const P = styled(Text)`
   margin: 0 0 0.5rem 0;
   color: black;
   line-height: 1.4rem;
-`;
+`
 
 const Bold = styled(Span)`
   font-weight: bold;
-`;
+`
 
 const Ul = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   margin: 0 0 0.5rem 0;
-`;
+`
 
-export default function PrivacyView() {
+export default function PrivacyView () {
   return (
     <App>
       <PrivacyDiv>
@@ -54,7 +53,7 @@ export default function PrivacyView() {
           aplicable al tratamiento de datos personales que realizamos a través
           de nuestra
           <Bold>Plataforma</Bold>, la cual incluye nuestra página web y
-          aplicación, y que forma parte integrante de nuestro{" "}
+          aplicación, y que forma parte integrante de nuestro{' '}
           <Bold>Acuerdo con el Usuario</Bold>.
         </P>
         <P>
@@ -101,7 +100,7 @@ export default function PrivacyView() {
           </li>
           <li>
             <P>
-              <Bold>Minimización de datos</Bold>: Se recogerán de los{" "}
+              <Bold>Minimización de datos</Bold>: Se recogerán de los{' '}
               <Bold>Usuarios</Bold> sólo los datos que son realmente necesarios
               para el correcto desarrollo de nuestros <Bold>Servicios</Bold>.
             </P>
@@ -132,7 +131,7 @@ export default function PrivacyView() {
           </li>
           <li>
             <P>
-              Atender tus peticiones o dudas y demás asuntos que como{" "}
+              Atender tus peticiones o dudas y demás asuntos que como{' '}
               <Bold>Usuario</Bold>
               tengas la necesidad de tratar con nosotros.
             </P>
@@ -159,7 +158,7 @@ export default function PrivacyView() {
           <li>
             <P>
               Realizar estadísticas, conocer el tráfico, su origen y
-              características, cómo se está utilizando nuestra{" "}
+              características, cómo se está utilizando nuestra{' '}
               <Bold>Plataforma</Bold>, la determinación de tus gustos y
               preferencias y demás.
             </P>
@@ -212,7 +211,7 @@ export default function PrivacyView() {
           Compartiremos tus datos con nuestros <Bold>proveedores</Bold>, en caso
           de tenerlos, y asegurando que se garantiza la seguridad de dichos
           datos personales, así como con <Bold>terceras empresas</Bold> que
-          colaboren de cualquier manera con nosotros, si así nos lo autoriza el{" "}
+          colaboren de cualquier manera con nosotros, si así nos lo autoriza el{' '}
           <Bold>Usuario</Bold>.
         </P>
 
@@ -244,7 +243,7 @@ export default function PrivacyView() {
           <li>
             <P>
               Solicitar la supresión de los datos personales que le conciernan
-              cuando dejen de ser necesarios para el uso y desarrollo de la{" "}
+              cuando dejen de ser necesarios para el uso y desarrollo de la{' '}
               <Bold>Plataforma</Bold>.
             </P>
           </li>
@@ -260,7 +259,7 @@ export default function PrivacyView() {
         </Ul>
         <P>
           Para ejecutar todos estos derechos descritos puedes dirigirte a
-          nosotros a través de nuestra dirección de correo electrónico:{" "}
+          nosotros a través de nuestra dirección de correo electrónico:{' '}
           <Span color="secondary">contact@inothy.com</Span>.
         </P>
 
@@ -285,5 +284,5 @@ export default function PrivacyView() {
         </P>
       </PrivacyDiv>
     </App>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import Img from "../Img";
-import styled from "styled-components";
-import Text from "../Text";
-import Span from "../Span";
-import { useModal } from "../../context/modalContext";
+import Img from '../Img'
+import styled from 'styled-components'
+import Text from '../Text'
+import Span from '../Span'
+import { useModal } from '../../context/modalContext'
 
 const WelcomeDiv = styled.div`
   max-width: 100%;
@@ -18,28 +18,28 @@ const WelcomeDiv = styled.div`
   @media (max-width: 550px) {
     grid-template-rows: 8rem 5rem auto auto;
   }
-`;
+`
 
 const WelcomeText = styled(Text)`
   @media (max-width: 768px) {
     font-size: 3rem;
   }
-`;
+`
 
 const OtherText = styled(Text)`
   @media (max-width: 768px) {
     font-size: 1.2rem;
   }
-`;
+`
 
 const SpanText = styled(Span)`
   @media (max-width: 768px) {
     font-size: 1.4rem;
   }
-`;
+`
 
-export default function Welcome() {
-  const { closeModal } = useModal();
+export default function Welcome () {
+  const { closeModal } = useModal()
   return (
     <WelcomeDiv onClick={closeModal}>
       <Img src="/imagotipo2.svg" />
@@ -48,9 +48,9 @@ export default function Welcome() {
         Bienvenid@
       </WelcomeText>
       <OtherText fontSize="1.5rem" textAlign="center">
-        Ya eres un{" "}
+        Ya eres un{' '}
         <SpanText fontSize="1.8rem" fontWeight="bold">
-          Inother{" "}
+          Inother{' '}
         </SpanText>
         más.
       </OtherText>
@@ -58,5 +58,5 @@ export default function Welcome() {
         No olvides verificar tu correo para poder continuar con el proceso.
       </OtherText>
     </WelcomeDiv>
-  );
+  )
 }

@@ -1,7 +1,7 @@
-import Head from "next/head";
-import CookiesView from "../views/CookiesView";
+import Head from 'next/head'
+import CookiesView from '../views/CookiesView'
 
-export default function Cookies() {
+export default function Cookies () {
   return (
     <>
       <Head>
@@ -10,5 +10,5 @@ export default function Cookies() {
       </Head>
       <CookiesView />
     </>
-  );
+  )
 }

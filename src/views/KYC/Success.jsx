@@ -1,17 +1,17 @@
-import Link from "next/link";
-import styled from "styled-components";
-import Button from "../../components/Button";
-import Img from "../../components/Img";
-import Text from "../../components/Text";
+import Link from 'next/link'
+import styled from 'styled-components'
+import Button from '../../components/Button'
+import Img from '../../components/Img'
+import Text from '../../components/Text'
 
 const KYCCOmpletedDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
-export default function Success() {
+export default function Success () {
   return (
     <KYCCOmpletedDiv>
       <Img
@@ -40,5 +40,5 @@ export default function Success() {
         </Button>
       </Link>
     </KYCCOmpletedDiv>
-  );
+  )
 }

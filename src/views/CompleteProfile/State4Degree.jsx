@@ -1,26 +1,25 @@
-import Text from "../../components/Text";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
-import Img from "../../components/Img";
+import Text from '../../components/Text'
+import Input from '../../components/Input'
 
-import normalize from "../../util/normailize";
-import { useState } from "react";
-import Card, { CardImg, CardText } from "./components/Card";
-import Body from "./components/Body";
-import Cards from "./components/Cards";
-import ButtonGrid, { StyledButton } from "./components/ButtonGrid";
+import normalize from '../../util/normailize'
+import { useState } from 'react'
+import Card, { CardImg, CardText } from './components/Card'
+import Body from './components/Body'
+import Cards from './components/Cards'
+import ButtonGrid, { StyledButton } from './components/ButtonGrid'
 
-export default function State4Degrees({
+export default function State4Degrees ({
   degrees,
   userData,
   setUserData,
   submit,
+  setState
 }) {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('')
 
   const handleChange = ({ target }) => {
-    setSearchQuery(normalize(target.value));
-  };
+    setSearchQuery(normalize(target.value))
+  }
 
   return (
     <Body>
@@ -36,7 +35,7 @@ export default function State4Degrees({
       <Cards>
         {degrees &&
           degrees.map((degree) => {
-            if (normalize(degree.name).includes(searchQuery))
+            if (normalize(degree.name).includes(searchQuery)) {
               return (
                 <Card
                   key={degree.id}
@@ -45,18 +44,19 @@ export default function State4Degrees({
                     setUserData((data) => ({
                       ...data,
                       degree: degree.id,
-                      degreeName: degree.name,
-                    }));
+                      degreeName: degree.name
+                    }))
                   }}
                 >
                   <CardImg src="/icons/university.svg" />
                   <CardText>{degree.name}</CardText>
                 </Card>
-              );
+              )
+            }
           })}
       </Cards>
       <ButtonGrid>
-        <StyledButton onClick={() => setState("personalData")} back>
+        <StyledButton onClick={() => setState('personalData')} back>
           Atrás
         </StyledButton>
         <StyledButton
@@ -68,5 +68,5 @@ export default function State4Degrees({
         </StyledButton>
       </ButtonGrid>
     </Body>
-  );
+  )
 }

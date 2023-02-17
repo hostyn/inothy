@@ -1,24 +1,22 @@
-import { getDownloadURL, ref } from "firebase/storage";
-import Link from "next/link";
-import { useState } from "react";
-import { useEffect } from "react";
-import styled from "styled-components";
-import A from "../components/A";
-import App from "../components/App";
-import AuthModal from "../components/Auth/AuthModal";
-import Button from "../components/Button";
-import Img from "../components/Img";
-import Pdf from "../components/Pdf";
-import Span from "../components/Span";
-import Text from "../components/Text";
-import { logEvent, storage } from "../config/firebase";
-import { colors, sizes } from "../config/theme";
-import { useAuth } from "../context/authContext";
-import { useModal } from "../context/modalContext";
-import { getDownloadUrl } from "../util/api";
-import mimeTypes from "../util/mimeTypes";
-import { currencyFormatter } from "../util/normailize";
-import Payment from "./Payment/Payment";
+import { getDownloadURL, ref } from 'firebase/storage'
+import { useState, useEffect } from 'react'
+import styled from 'styled-components'
+import A from '../components/A'
+import App from '../components/App'
+import AuthModal from '../components/Auth/AuthModal'
+import Button from '../components/Button'
+import Img from '../components/Img'
+import Pdf from '../components/Pdf'
+import Span from '../components/Span'
+import Text from '../components/Text'
+import { logEvent, storage } from '../config/firebase'
+import { colors, sizes } from '../config/theme'
+import { useAuth } from '../context/authContext'
+import { useModal } from '../context/modalContext'
+import { getDownloadUrl } from '../util/api'
+import mimeTypes from '../util/mimeTypes'
+import { currencyFormatter } from '../util/normailize'
+import Payment from './Payment/Payment'
 
 const DocumentDiv = styled.div`
   display: flex;
@@ -32,20 +30,20 @@ const DocumentDiv = styled.div`
   @media (max-width: 1000px) {
     margin: 2rem;
   }
-`;
+`
 
 const Title = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 0 1rem 0;
-`;
+`
 
 const TitleText = styled(Text)`
   @media (max-width: 768px) {
     font-size: 2rem;
   }
-`;
+`
 
 const TitleImg = styled(Img)`
   width: 8vw;
@@ -55,7 +53,7 @@ const TitleImg = styled(Img)`
     width: 3rem;
     height: 3rem;
   }
-`;
+`
 
 const DocumentBody = styled.div`
   margin: 1rem 0 4rem 0;
@@ -71,7 +69,7 @@ const DocumentBody = styled.div`
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-`;
+`
 
 const DataGrid = styled.div`
   display: grid;
@@ -82,13 +80,13 @@ const DataGrid = styled.div`
     grid-template-columns: 1fr;
     gap: 0;
   }
-`;
+`
 
 const VerticalAlign = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-`;
+`
 
 const PaymentModal = styled.div`
   background-color: ${colors.white};
@@ -106,7 +104,7 @@ const PaymentModal = styled.div`
   @media (max-width: 768px) {
     width: 100vw;
   }
-`;
+`
 
 const CloseButton = styled.button`
   font-size: 1.7rem;
@@ -123,7 +121,7 @@ const CloseButton = styled.button`
   @media (max-width: 768px) {
     display: flex;
   }
-`;
+`
 
 const StyledPdf = styled(Pdf)`
   width: 100%;
@@ -131,7 +129,7 @@ const StyledPdf = styled(Pdf)`
   @media (max-width: 768px) {
     width: calc(100vw - 4rem);
   }
-`;
+`
 
 const NoPreviewDiv = styled.div`
   display: flex;
@@ -150,11 +148,11 @@ const NoPreviewDiv = styled.div`
     width: calc(100vw - 4rem);
     height: calc((100vw - 4rem) * 25 / 19);
   }
-`;
+`
 
 const DocumentTitle = styled(Text)`
   word-break: break-word;
-`;
+`
 
 const Username = styled(A)`
   word-break: break-word;
@@ -164,29 +162,29 @@ const Username = styled(A)`
   :hover {
     text-decoration: none;
   }
-`;
+`
 
 const StyledDescription = styled(Text)`
   white-space: pre-line;
-`;
+`
 
 const NoPreview = ({ mimeType }) => {
   return (
     <NoPreviewDiv>
       <Img
-        src={`/icons/files/${mimeTypes[mimeType] || "file.svg"}`}
+        src={`/icons/files/${mimeTypes[mimeType] || 'file.svg'}`}
         width="50%"
         height="100%"
       />
     </NoPreviewDiv>
-  );
-};
+  )
+}
 
-export default function DocumentPage({ documentData }) {
-  const { openModal, closeModal } = useModal();
-  const { user } = useAuth();
+export default function DocumentPage ({ documentData }) {
+  const { openModal, closeModal } = useModal()
+  const { user } = useAuth()
 
-  const [previewUrl, setPreviewUrl] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null)
 
   const handleBuy = async () => {
     user
@@ -195,47 +193,47 @@ export default function DocumentPage({ documentData }) {
             <CloseButton onClick={closeModal}>X</CloseButton>
             <Payment documents={[documentData]} onSuccess={closeModal} />
           </PaymentModal>
-        )
-      : openModal(<AuthModal />);
-  };
+      )
+      : openModal(<AuthModal />)
+  }
 
   const handleDownload = async () => {
     const { url } = await getDownloadUrl(
       user,
       documentData.subjectId,
       documentData.docId
-    );
+    )
 
-    const response = await fetch(url);
-    const blob = await response.blob();
-    const href = URL.createObjectURL(blob);
-    const element = document.createElement("a");
-    element.href = href;
-    element.download = documentData.fileName;
-    element.click();
-    element.remove();
-    URL.revokeObjectURL(href);
-  };
+    const response = await fetch(url)
+    const blob = await response.blob()
+    const href = URL.createObjectURL(blob)
+    const element = document.createElement('a')
+    element.href = href
+    element.download = documentData.fileName
+    element.click()
+    element.remove()
+    URL.revokeObjectURL(href)
+  }
 
   useEffect(() => {
     if (documentData.preview) {
       const fileRef = ref(
         storage,
         `previews/${documentData.subjectId}/${documentData.docId}.pdf`
-      );
+      )
       getDownloadURL(fileRef).then((url) => {
-        setPreviewUrl(url);
-      });
+        setPreviewUrl(url)
+      })
     }
-  }, [documentData]);
+  }, [documentData])
 
   useEffect(() => {
     try {
-      logEvent("view_item", {
-        item: documentData.subjectId + "/" + documentData.docId,
-      });
+      logEvent('view_item', {
+        item: documentData.subjectId + '/' + documentData.docId
+      })
     } catch {}
-  }, [documentData]);
+  }, [documentData])
 
   return (
     <App>
@@ -252,18 +250,15 @@ export default function DocumentPage({ documentData }) {
           <TitleImg src="/icons/document.svg" />
         </Title>
         <DocumentBody>
-          {documentData.preview && previewUrl ? (
+          {documentData.preview && previewUrl
+            ? (
             <StyledPdf
               file={previewUrl}
               loading={<NoPreview mimeType={documentData.contentType} />}
             />
-          ) : (
-            // <Preview
-            //   type="application/pdf"
-            //   src={`${previewUrl}?#zoom=scale&scrollbar=0&toolbar=0&navpanes=0&view=Fit&pagemode=none`}
-            // ></Preview>
-            <NoPreview mimeType={documentData.contentType} />
-          )}
+              )
+            : <NoPreview mimeType={documentData.contentType} />
+            }
           <DataGrid>
             <VerticalAlign>
               <Text color="secondary" fontSize="1.2rem" fontWeight="bold">
@@ -298,13 +293,13 @@ export default function DocumentPage({ documentData }) {
                 fontSize="4rem"
                 margin="0.5rem 0 2rem 0"
                 title={
-                  user?.data?.badge.includes("ambassador")
-                    ? "Descuento embajador"
-                    : "Precio"
+                  user?.data?.badge.includes('ambassador')
+                    ? 'Descuento embajador'
+                    : 'Precio'
                 }
               >
                 {currencyFormatter.format(
-                  user?.data?.badge.includes("ambassador")
+                  user?.data?.badge.includes('ambassador')
                     ? documentData.price * 0.8
                     : documentData.price
                 )}
@@ -315,13 +310,14 @@ export default function DocumentPage({ documentData }) {
                   textDecoration="line-through"
                   title="Descuento de embajador"
                 >
-                  {user?.data?.badge.includes("ambassador") &&
+                  {user?.data?.badge.includes('ambassador') &&
                     currencyFormatter.format(documentData.price)}
                 </Span>
               </Text>
               {user?.data?.bought?.includes(
-                documentData.subjectId + "/" + documentData.docId
-              ) ? (
+                documentData.subjectId + '/' + documentData.docId
+              )
+                ? (
                 <Button
                   margin="0"
                   height="auto"
@@ -331,7 +327,8 @@ export default function DocumentPage({ documentData }) {
                 >
                   Descargar
                 </Button>
-              ) : (
+                  )
+                : (
                 <Button
                   margin="0"
                   height="auto"
@@ -342,11 +339,11 @@ export default function DocumentPage({ documentData }) {
                 >
                   Comprar
                 </Button>
-              )}
+                  )}
             </VerticalAlign>
           </DataGrid>
         </DocumentBody>
       </DocumentDiv>
     </App>
-  );
+  )
 }

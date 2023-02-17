@@ -1,15 +1,15 @@
-import styled from "styled-components";
-import Button from "../../components/Button";
-import Img from "../../components/Img";
-import Text from "../../components/Text";
-import { colors } from "../../config/theme";
+import styled from 'styled-components'
+import Button from '../../components/Button'
+import Img from '../../components/Img'
+import Text from '../../components/Text'
+import { colors } from '../../config/theme'
 
 const UploadInfoDiv = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-`;
+`
 
 const InlineText = styled.div`
   display: grid;
@@ -28,14 +28,14 @@ const InlineText = styled.div`
       height: calc(5rem * 3 / 4);
     }
   }
-`;
+`
 
 const TextWithCheck = styled.div`
   display: grid;
   align-items: center;
   grid-template-columns: 2rem 1fr;
   gap: 1rem;
-`;
+`
 
 const Columns = styled.div`
   display: grid;
@@ -44,33 +44,33 @@ const Columns = styled.div`
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
   }
-`;
+`
 
 const Rules = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
   margin: 1rem 0;
-`;
+`
 
 const StyledImg = styled(Img)`
   @media (max-width: 900px) {
     display: none;
   }
-`;
+`
 
 const StyledText = styled(Text)`
   @media (max-width: 768px) {
     font-size: 1rem;
   }
-`;
+`
 
 const ButtonsDiv = styled.div`
   display: flex;
   justify-content: space-between;
-`;
+`
 
-export default function UploadAccepted({ setState }) {
+export default function UploadAccepted ({ setState }) {
   return (
     <UploadInfoDiv>
       <InlineText>
@@ -130,7 +130,7 @@ export default function UploadAccepted({ setState }) {
           background="white"
           color="primary"
           border={`2px solid ${colors.primary}`}
-          onClick={() => setState("completeProfileInfo")}
+          onClick={() => setState('completeProfileInfo')}
         >
           Atrás
         </Button>
@@ -138,11 +138,11 @@ export default function UploadAccepted({ setState }) {
           margin="0"
           height="auto"
           padding="0.5rem 1rem"
-          onClick={() => setState("uploadrejected")}
+          onClick={() => setState('uploadrejected')}
         >
           Siguiente
         </Button>
       </ButtonsDiv>
     </UploadInfoDiv>
-  );
+  )
 }

@@ -1,23 +1,23 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useAuth } from "../context/authContext";
-import LoadingPage from "./LoadingPage";
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { useAuth } from '../context/authContext'
+import LoadingPage from './LoadingPage'
 
-export default function ProtectedContent({ children }) {
-  const { isUser, isLoading } = useAuth();
-  const [redirect, setRedirect] = useState(true);
-  const { push } = useRouter();
+export default function ProtectedContent ({ children }) {
+  const { isUser, isLoading } = useAuth()
+  const [redirect, setRedirect] = useState(true)
+  const { push } = useRouter()
 
   useEffect(() => {
     if (!isLoading & !isUser) {
-      push("/");
-      setRedirect(true);
+      push('/')
+      setRedirect(true)
     } else {
-      setRedirect(false);
+      setRedirect(false)
     }
-  }, [isUser, push, isLoading]);
+  }, [isUser, push, isLoading])
 
-  if (isLoading) return <LoadingPage />;
+  if (isLoading) return <LoadingPage />
 
-  return redirect ? <LoadingPage /> : <>{children}</>;
+  return redirect ? <LoadingPage /> : <>{children}</>
 }

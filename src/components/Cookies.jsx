@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import { colors } from "../config/theme";
-import Button from "./Button";
-import Text from "./Text";
-import A from "./A";
-import { useRouter } from "next/router";
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { colors } from '../config/theme'
+import Button from './Button'
+import Text from './Text'
+import A from './A'
+import { useRouter } from 'next/router'
 
 const Backdrop = styled.div`
   background-color: ${colors.backdrop};
@@ -15,7 +15,7 @@ const Backdrop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const Modal = styled.div`
   background-color: ${colors.white};
@@ -29,7 +29,7 @@ const Modal = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 0 0 20px ${colors.shadow};
-`;
+`
 
 const InlineText = styled.div`
   margin: 1rem 0 0 0;
@@ -40,35 +40,35 @@ const InlineText = styled.div`
   @media (max-width: 500px) {
     grid-template-columns: 1fr;
   }
-`;
+`
 
-export default function Cookies() {
-  const [cookiesAccepted, setCookiesAccepted] = useState(true);
-  const { pathname } = useRouter();
+export default function Cookies () {
+  const [cookiesAccepted, setCookiesAccepted] = useState(true)
+  const { pathname } = useRouter()
 
   const handleAccept = () => {
-    localStorage.setItem("cookiesAccepted", "true");
-    setCookiesAccepted(true);
-  };
+    localStorage.setItem('cookiesAccepted', 'true')
+    setCookiesAccepted(true)
+  }
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const localCookiesAccepted = localStorage.getItem("cookiesAccepted");
-      setCookiesAccepted(localCookiesAccepted === "true");
+    if (typeof window !== 'undefined') {
+      const localCookiesAccepted = localStorage.getItem('cookiesAccepted')
+      setCookiesAccepted(localCookiesAccepted === 'true')
     }
-  }, []);
+  }, [])
 
   return (
     <>
-      {!cookiesAccepted && pathname !== "/cookies" && (
+      {!cookiesAccepted && pathname !== '/cookies' && (
         <Backdrop>
           <Modal>
             <Text fontSize="2rem">Cookies</Text>
             <Text textAlign="center">
-              Utilizamos{" "}
+              Utilizamos{' '}
               <A fontSize="1rem" href="/cookies">
                 cookies
-              </A>{" "}
+              </A>{' '}
               de terceros con fines comerciales.
             </Text>
             <InlineText>
@@ -94,5 +94,5 @@ export default function Cookies() {
         </Backdrop>
       )}
     </>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import App from "../components/App";
-import styled from "styled-components";
-import { colors, sizes } from "../config/theme";
-import Text from "../components/Text";
-import Img from "../components/Img";
-import Span from "../components/Span";
+import App from '../components/App'
+import styled from 'styled-components'
+import { colors } from '../config/theme'
+import Text from '../components/Text'
+import Img from '../components/Img'
+import Span from '../components/Span'
 
 const InfoDiv = styled.div`
   margin: 3rem 10rem;
@@ -17,7 +17,7 @@ const InfoDiv = styled.div`
   @media (max-width: 768px) {
     margin: 3rem 2rem;
   }
-`;
+`
 
 const HeaderImg = styled(Img)`
   margin: 2rem 0 8rem 0;
@@ -35,12 +35,12 @@ const HeaderImg = styled(Img)`
     height: calc((100vw - 4rem) * 41 / 100);
     margin: 2rem 0;
   }
-`;
+`
 
 const CardDiv = styled.div`
   background-color: ${colors.emphasis};
-  border-radius: ${(props) => (props.top ? "2vw 2vw 0 0" : "0")};
-`;
+  border-radius: ${(props) => (props.top ? '2vw 2vw 0 0' : '0')};
+`
 
 const CardHeader = styled.div`
   display: grid;
@@ -58,13 +58,13 @@ const CardHeader = styled.div`
     grid-template-columns: 2rem 1fr 5vw;
     padding: 1.5rem;
   }
-`;
+`
 
 const CardHeaderText = styled(Text)`
   @media (max-width: 1000px) {
     font-size: 1.5rem;
   }
-`;
+`
 
 const CardImg = styled(Img)`
   height: 5vw;
@@ -74,24 +74,24 @@ const CardImg = styled(Img)`
     height: 2rem;
     width: 2rem;
   }
-`;
+`
 
 const CardBody = styled.div`
   display: flex;
   flex-direction: column;
 
   background-color: ${colors.emphasis};
-  padding: ${(props) => props.padding || "6rem"};
-  border-radius: ${(props) => (props.bottom ? "0 0 2vw 2vw" : "0")};
+  padding: ${(props) => props.padding || '6rem'};
+  border-radius: ${(props) => (props.bottom ? '0 0 2vw 2vw' : '0')};
 
   @media (max-width: 1200px) {
-    padding: ${(props) => props.padding || "4rem"};
+    padding: ${(props) => props.padding || '4rem'};
   }
 
   @media (max-width: 1000px) {
-    padding: ${(props) => props.padding || "2rem"};
+    padding: ${(props) => props.padding || '2rem'};
   }
-`;
+`
 
 const PricesDiv = styled.div`
   display: grid;
@@ -105,7 +105,7 @@ const PricesDiv = styled.div`
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
-`;
+`
 
 const PricesImg = styled(Img)`
   grid-column: 1 / 3;
@@ -113,18 +113,18 @@ const PricesImg = styled(Img)`
     grid-column: 1;
     height: calc((100vw - 8rem) * 0.6 * 5 / 4);
   }
-`;
+`
 
 const FlexColumn = styled.div`
   display: flex;
   flex-direction: column;
-`;
+`
 
 const ListElement = styled.div`
   display: grid;
   grid-template-columns: 4rem 1fr;
   gap: 2rem;
-  margin: ${(props) => props.margin || "initial"};
+  margin: ${(props) => props.margin || 'initial'};
 
   @media (max-width: 1200px) {
     grid-template-columns: 3rem 1fr;
@@ -135,7 +135,7 @@ const ListElement = styled.div`
     grid-template-columns: 2rem 1fr;
     gap: 1rem;
   }
-`;
+`
 
 const ListIndex = styled(Text)`
   @media (max-width: 1200px) {
@@ -145,27 +145,27 @@ const ListIndex = styled(Text)`
   @media (max-width: 768px) {
     font-size: 3rem;
   }
-`;
+`
 
 const TitleText = styled(Text)`
   @media (max-width: 1000px) {
     font-size: 1.5rem;
     margin: 0 0 0.5rem 0;
   }
-`;
+`
 
 const BodyText = styled(Text)`
   @media (max-width: 1000px) {
     font-size: 1rem;
   }
-`;
+`
 
 const PaymentImg = styled(Img)`
   @media (max-width: 768px) {
     width: calc(100vw - 8rem);
     height: calc((100vw - 8rem) * 0.7 * 50 / 83);
   }
-`;
+`
 
 const BadgeDiv = styled.div`
   display: grid;
@@ -175,7 +175,7 @@ const BadgeDiv = styled.div`
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
-`;
+`
 
 const BadgeDescriptionsDiv = styled.div`
   align-items: center;
@@ -189,13 +189,13 @@ const BadgeDescriptionsDiv = styled.div`
     grid-auto-rows: auto;
     gap: 1rem;
   }
-`;
+`
 
 const BadgeImg = styled(Img)`
   @media (max-width: 600px) {
     display: none;
   }
-`;
+`
 
 const FeesImg = styled(Img)`
   height: calc((100vw - 20rem) * 75 / 88);
@@ -207,12 +207,12 @@ const FeesImg = styled(Img)`
   @media (max-width: 768px) {
     height: calc((100vw - 4rem) * 75 / 88);
   }
-`;
+`
 
-const VerifiedDiv = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 30vw;
-`;
+// const VerifiedDiv = styled.div`
+//   display: grid;
+//   grid-template-columns: 1fr 30vw;
+// `
 
 const WhyDiv = styled.div`
   display: grid;
@@ -224,7 +224,7 @@ const WhyDiv = styled.div`
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-`;
+`
 
 const WhyImg = styled(Img)`
   @media (max-width: 768px) {
@@ -232,9 +232,9 @@ const WhyImg = styled(Img)`
     height: calc((100vw - 8rem) * 0.7 * 25 / 26);
     justify-self: center;
   }
-`;
+`
 
-export default function InfoView() {
+export default function InfoView () {
   return (
     <App>
       <InfoDiv>
@@ -467,7 +467,7 @@ export default function InfoView() {
               <BodyText fontSize="1.5vw">
                 Si has vendido apuntes y deseas retirar tu dinero podrás hacerlo
                 mediante transferencia SEPA a tu cuenta bancaria cuando quieras
-                y sin cantidad mínima. Sólo debes ir al{" "}
+                y sin cantidad mínima. Sólo debes ir al{' '}
                 <Span fontWeight="bold">Saldo</Span> en tu perfil y solicitar el
                 retiro. A los pocos días lo recibirás en tu cuenta bancaria.
               </BodyText>
@@ -639,7 +639,7 @@ export default function InfoView() {
               <BodyText fontSize="1.8vw">
                 En ningun momento almacenamos ninguna información sobre tu
                 identidad. Esta es manejada por un proveedor regulado por la
-                Unión Europea para cumplir con la{" "}
+                Unión Europea para cumplir con la{' '}
                 <Span fontWeight="bold">Ley de Protección de Datos</Span>.
               </BodyText>
             </FlexColumn>
@@ -647,5 +647,5 @@ export default function InfoView() {
         </CardBody>
       </InfoDiv>
     </App>
-  );
+  )
 }

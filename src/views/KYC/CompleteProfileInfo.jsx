@@ -1,34 +1,34 @@
-import { useState } from "react";
-import styled from "styled-components";
-import Input from "../../components/Input";
-import Text from "../../components/Text";
-import Select from "../../components/Select";
-import countries from "../../config/countries";
-import Button from "../../components/Button";
-import { colors } from "../../config/theme";
-import getAge from "../../util/getAge";
+import { useState } from 'react'
+import styled from 'styled-components'
+import Input from '../../components/Input'
+import Text from '../../components/Text'
+import Select from '../../components/Select'
+import countries from '../../config/countries'
+import Button from '../../components/Button'
+import { colors } from '../../config/theme'
+import getAge from '../../util/getAge'
 
 const months = [
-  "Enero",
-  "Febrero",
-  "Marzo",
-  "Abril",
-  "Mayo",
-  "Junio",
-  "Julio",
-  "Agosto",
-  "Septiembre",
-  "Octubre",
-  "Noviembre",
-  "Diciembre",
-];
+  'Enero',
+  'Febrero',
+  'Marzo',
+  'Abril',
+  'Mayo',
+  'Junio',
+  'Julio',
+  'Agosto',
+  'Septiembre',
+  'Octubre',
+  'Noviembre',
+  'Diciembre'
+]
 
 const CompleteProfileInfoDiv = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 100%;
   max-width: 100%;
-`;
+`
 
 const InputDiv = styled.div`
   display: grid;
@@ -38,13 +38,13 @@ const InputDiv = styled.div`
   @media (max-width: 1000px) {
     grid-template-columns: 1fr;
   }
-`;
+`
 
 const TitleAndInput = styled.div`
   display: flex;
   flex-direction: column;
   margin: 1rem 0 0 0;
-`;
+`
 
 const BirthDiv = styled.div`
   display: grid;
@@ -54,23 +54,23 @@ const BirthDiv = styled.div`
   @media (max-width: 500px) {
     grid-template-columns: 1fr;
   }
-`;
+`
 
 const InlineText = styled.div`
   display: flex;
   gap: 1rem;
-`;
+`
 
 const range = (size, start = 1) => {
-  return [...Array(size).keys()].map((x) => x + start);
-};
+  return [...Array(size).keys()].map((x) => x + start)
+}
 
-const daysInMonth = (y, m) => new Date(parseInt(y), parseInt(m), 0).getDate();
+const daysInMonth = (y, m) => new Date(parseInt(y), parseInt(m), 0).getDate()
 
-export default function CompleteProfileInfo({
+export default function CompleteProfileInfo ({
   setUserData,
   userData,
-  setState,
+  setState
 }) {
   const [error, setError] = useState({
     name: null,
@@ -80,93 +80,93 @@ export default function CompleteProfileInfo({
     address2: null,
     city: null,
     region: null,
-    postalCode: null,
-  });
+    postalCode: null
+  })
 
   const [birthDate, setBirthDate] = useState({
     day: new Date(parseInt(userData.birthday) * 1000).getUTCDate(),
     month: new Date(parseInt(userData.birthday) * 1000).getUTCMonth() + 1,
-    year: new Date(parseInt(userData.birthday) * 1000).getUTCFullYear(),
-  });
+    year: new Date(parseInt(userData.birthday) * 1000).getUTCFullYear()
+  })
 
   const handleDate = ({ target }) => {
-    if (target.name === "day") {
+    if (target.name === 'day') {
       setBirthDate((date) => ({
         ...date,
-        day: target.value,
-      }));
-      return;
+        day: target.value
+      }))
+      return
     }
 
     const days = daysInMonth(
-      target.name === "year" ? target.value : birthDate.year,
-      target.name === "month" ? target.value : birthDate.month
-    );
+      target.name === 'year' ? target.value : birthDate.year,
+      target.name === 'month' ? target.value : birthDate.month
+    )
 
     setBirthDate((date) => ({
       ...date,
 
       [target.name]: target.value,
-      day: parseInt(date.day) > days ? days : date.day,
-    }));
-  };
+      day: parseInt(date.day) > days ? days : date.day
+    }))
+  }
 
   const handleChange = ({ target }) => {
-    setUserData((data) => ({ ...data, [target.name]: target.value }));
-  };
+    setUserData((data) => ({ ...data, [target.name]: target.value }))
+  }
 
   const verifyData = () => {
     // TODO: comprobar que es mayor de edad
-    let anyError = false;
+    let anyError = false
     // NAME
     if (userData.name.length === 0) {
-      setError((error) => ({ ...error, name: "No puede estar vacío" }));
-      anyError = true;
+      setError((error) => ({ ...error, name: 'No puede estar vacío' }))
+      anyError = true
     } else if (
-      !userData.name.match(/^[\w'\-,.]*[^_!¡?÷?¿\/\\+=@#$%ˆ&*(){}|~<>;:[\]]*$/)
+      !userData.name.match(/^[\w'\-,.]*[^_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]*$/)
     ) {
-      setError((error) => ({ ...error, name: "No es válido" }));
-      anyError = true;
+      setError((error) => ({ ...error, name: 'No es válido' }))
+      anyError = true
     }
     // SURNAME
     if (userData.surname.length === 0) {
-      setError((error) => ({ ...error, surname: "No puede estar vacío" }));
-      anyError = true;
+      setError((error) => ({ ...error, surname: 'No puede estar vacío' }))
+      anyError = true
     } else if (
       !userData.surname.match(
-        /^[\w'\-,.]*[^_!¡?÷?¿\/\\+=@#$%ˆ&*(){}|~<>;:[\]]*$/
+        /^[\w'\-,.]*[^_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]*$/
       )
     ) {
-      setError((error) => ({ ...error, surname: "No es válido" }));
-      anyError = true;
+      setError((error) => ({ ...error, surname: 'No es válido' }))
+      anyError = true
     }
 
     if (userData.address1.length === 0) {
-      setError((error) => ({ ...error, address1: "No puede estar vacía" }));
-      anyError = true;
+      setError((error) => ({ ...error, address1: 'No puede estar vacía' }))
+      anyError = true
     }
     if (userData.city.length === 0) {
-      setError((error) => ({ ...error, city: "No puede estar vacía" }));
-      anyError = true;
+      setError((error) => ({ ...error, city: 'No puede estar vacía' }))
+      anyError = true
     }
     if (userData.postalCode.length === 0) {
-      setError((error) => ({ ...error, postalCode: "No puede estar vacío" }));
-      anyError = true;
+      setError((error) => ({ ...error, postalCode: 'No puede estar vacío' }))
+      anyError = true
     }
     if (userData.region.length === 0) {
-      setError((error) => ({ ...error, region: "No puede estar vacía" }));
-      anyError = true;
+      setError((error) => ({ ...error, region: 'No puede estar vacía' }))
+      anyError = true
     }
 
     if (
       getAge(new Date(birthDate.year, birthDate.month - 1, birthDate.day + 1)) <
       18
     ) {
-      setError((error) => ({ ...error, age: "Debes ser mayor de edad" }));
-      anyError = true;
+      setError((error) => ({ ...error, age: 'Debes ser mayor de edad' }))
+      anyError = true
     }
-    return anyError;
-  };
+    return anyError
+  }
 
   const handleSubmit = async () => {
     setError({
@@ -177,24 +177,24 @@ export default function CompleteProfileInfo({
       address2: null,
       city: null,
       region: null,
-      postalCode: null,
-    });
-    const error = verifyData();
-    if (error) return;
+      postalCode: null
+    })
+    const error = verifyData()
+    if (error) return
 
     const birthday =
       new Date(
         birthDate.year,
         birthDate.month - 1,
         birthDate.day + 1
-      ).getTime() / 1000;
+      ).getTime() / 1000
 
     setUserData((userData) => ({
       ...userData,
-      birthday,
-    }));
-    setState("uploadaccepted");
-  };
+      birthday
+    }))
+    setState('uploadaccepted')
+  }
 
   return (
     <CompleteProfileInfoDiv>
@@ -409,5 +409,5 @@ export default function CompleteProfileInfo({
         Siguiente
       </Button>
     </CompleteProfileInfoDiv>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import Img from "../../components/Img";
-import styled from "styled-components";
-import Text from "../../components/Text";
+import Img from '../../components/Img'
+import styled from 'styled-components'
+import Text from '../../components/Text'
 
 const CardSuccessDiv = styled.div`
   display: flex;
@@ -8,21 +8,21 @@ const CardSuccessDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const Title = styled(Text)`
   @media (max-width: 768px) {
     font-size: 1.5rem;
   }
-`;
+`
 
 const Subtitle = styled(Text)`
   @media (max-width: 768px) {
     font-size: 1rem;
   }
-`;
+`
 
-export default function CardSuccess() {
+export default function CardSuccess () {
   return (
     <CardSuccessDiv>
       <Img src="/check.svg" height="6rem" width="6rem" />
@@ -39,5 +39,5 @@ export default function CardSuccess() {
         Ya puedes utilizar la tarjeta para comprar en Inothy.
       </Subtitle>
     </CardSuccessDiv>
-  );
+  )
 }

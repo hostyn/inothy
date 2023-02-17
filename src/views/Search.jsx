@@ -1,16 +1,13 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useState } from "react";
-import styled from "styled-components";
-import App from "../components/App";
-import Img from "../components/Img";
-import SearchBox from "../components/SearchBox";
-import Text from "../components/Text";
-import { logEvent } from "../config/firebase";
-import { colors, sizes } from "../config/theme";
-import mimeTypes from "../util/mimeTypes";
-import { currencyFormatter } from "../util/normailize";
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import App from '../components/App'
+import Img from '../components/Img'
+import SearchBox from '../components/SearchBox'
+import Text from '../components/Text'
+import { logEvent } from '../config/firebase'
+import { colors, sizes } from '../config/theme'
 
 const EmptySearch = styled.div`
   height: calc(100vh - ${sizes.navbar});
@@ -18,7 +15,7 @@ const EmptySearch = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const SearchDiv = styled.div`
   margin: 2rem calc(${sizes.inlineMargin} * 2);
@@ -29,11 +26,11 @@ const SearchDiv = styled.div`
   @media (max-width: 768px) {
     margin: 2rem;
   }
-`;
+`
 
-const ResultTypeDiv = styled.div``;
+const ResultTypeDiv = styled.div``
 
-const ResultTitle = styled(Text)``;
+const ResultTitle = styled(Text)``
 
 const HorizontalCard = styled.div`
   display: grid;
@@ -48,46 +45,46 @@ const HorizontalCard = styled.div`
   :hover {
     background-color: ${colors.hover};
   }
-`;
+`
 
-const DocumentCard = styled.div`
-  display: grid;
-  grid-template-columns: 3rem 1fr 6rem;
-  gap: 1rem;
-  padding: 10px;
-  border-radius: 10px;
-  transition: 0.2s;
-  cursor: pointer;
-  user-select: none;
+// const DocumentCard = styled.div`
+//   display: grid;
+//   grid-template-columns: 3rem 1fr 6rem;
+//   gap: 1rem;
+//   padding: 10px;
+//   border-radius: 10px;
+//   transition: 0.2s;
+//   cursor: pointer;
+//   user-select: none;
 
-  :hover {
-    background-color: ${colors.hover};
-  }
-`;
+//   :hover {
+//     background-color: ${colors.hover};
+//   }
+// `
 
 const VerticalText = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-`;
+`
 
 const PageSelectorDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-`;
+`
 
 const PagesDiv = styled.div`
   display: flex;
   align-items: center;
   background-color: ${colors.emphasis};
   border-radius: 10000px;
-`;
+`
 
 const PageDiv = styled.div`
   background-color: ${(props) =>
-    props.selected ? colors.primary : "transparent"};
+    props.selected ? colors.primary : 'transparent'};
   border-radius: 1000000px;
   height: 2rem;
   width: 2rem;
@@ -104,7 +101,7 @@ const PageDiv = styled.div`
       background-color: ${colors.hover}
     }
   `};
-`;
+`
 
 const getPages = (page, total) => {
   return [...Array(total).keys()].map(
@@ -114,42 +111,44 @@ const getPages = (page, total) => {
       item === page - 1 ||
       item === page ||
       item === page + 1
-  );
-};
+  )
+}
 
-export default function SearchView({ q }) {
+export default function SearchView ({ q }) {
   const [results, setResults] = useState(
     q?.hits.reduce((group, product) => {
-      const { type } = product;
-      group[type] = group[type] ?? [];
-      group[type].push(product);
-      return group;
+      const { type } = product
+      group[type] = group[type] ?? []
+      group[type].push(product)
+      return group
     }, {})
-  );
+  )
 
-  const { push } = useRouter();
+  const { push } = useRouter()
 
   useEffect(() => {
     setResults(
       q?.hits.reduce((group, product) => {
-        const { type } = product;
-        group[type] = group[type] ?? [];
-        group[type].push(product);
-        return group;
+        const { type } = product
+        group[type] = group[type] ?? []
+        group[type].push(product)
+        return group
       }, {})
-    );
-  }, [q]);
+    )
+  }, [q])
 
   useEffect(() => {
-    if (q)
+    if (q) {
       try {
-        logEvent("search", { query: q.query });
+        logEvent('search', { query: q.query })
       } catch {}
-  }, [q]);
+    }
+  }, [q])
 
   return (
     <App>
-      {!q ? (
+      {!q
+        ? (
         <EmptySearch>
           <Img src="/logo.svg" height="6rem" />
           <Text fontSize="2rem" fontFamily="HelveticaRounded" margin="1rem 0">
@@ -157,7 +156,9 @@ export default function SearchView({ q }) {
           </Text>
           <SearchBox height="3rem" width="min(80%, 50rem)" noHide />
         </EmptySearch>
-      ) : Object.keys(results || []).length === 0 ? (
+          )
+        : Object.keys(results || []).length === 0
+          ? (
         <EmptySearch>
           <Img src="/logo.svg" height="6rem" />
           <Text
@@ -171,10 +172,11 @@ export default function SearchView({ q }) {
           </Text>
           <SearchBox height="3rem" width="min(80%, 50rem)" noHide />
         </EmptySearch>
-      ) : (
+            )
+          : (
         <SearchDiv>
           <Text>
-            Mostrando {q.hits.length} de {q.nbHits} resultados para{" "}
+            Mostrando {q.hits.length} de {q.nbHits} resultados para{' '}
             {'"' + q.query + '"'}
           </Text>
 
@@ -188,7 +190,7 @@ export default function SearchView({ q }) {
               {results.university.map((item) => (
                 <Link
                   key={item.objectID}
-                  href={"/universities/" + item.objectID}
+                  href={'/universities/' + item.objectID}
                 >
                   <HorizontalCard>
                     <Img src={item.logoUrl} height="3rem" width="3rem" />
@@ -212,7 +214,7 @@ export default function SearchView({ q }) {
               {results.school.map((item) => (
                 <Link
                   key={item.objectID}
-                  href={"/universities/" + item.objectID}
+                  href={'/universities/' + item.objectID}
                 >
                   <HorizontalCard>
                     <Img src={item.logoUrl} height="3rem" width="3rem" />
@@ -237,7 +239,7 @@ export default function SearchView({ q }) {
               {results.degree.map((item) => (
                 <Link
                   key={item.objectID}
-                  href={"/universities/" + item.objectID}
+                  href={'/universities/' + item.objectID}
                 >
                   <HorizontalCard>
                     <Img src={item.logoUrl} height="3rem" width="3rem" />
@@ -262,7 +264,7 @@ export default function SearchView({ q }) {
                 Asignaturas
               </ResultTitle>
               {results.subject.map((item) => (
-                <Link key={item.objectID} href={"/subject/" + item.objectID}>
+                <Link key={item.objectID} href={'/subject/' + item.objectID}>
                   <HorizontalCard>
                     <Img src={item.logoUrl} height="3rem" width="3rem" />
                     <VerticalText>
@@ -280,77 +282,79 @@ export default function SearchView({ q }) {
           <PageSelectorDiv>
             <Text
               onClick={() =>
-                push("/search?q=" + q.query, null, { shallow: false })
+                push('/search?q=' + q.query, null, { shallow: false })
               }
-              cursor={q.page === 0 ? "default" : "pointer"}
+              cursor={q.page === 0 ? 'default' : 'pointer'}
               fontWeight="bold"
               fontSize="1.5rem"
               disabled={q.page === 0}
-              color={q.page === 0 ? "hover" : "primary"}
+              color={q.page === 0 ? 'hover' : 'primary'}
               userSelect="none"
             >
-              {"<"}
+              {'<'}
             </Text>
             <PagesDiv>
               {getPages(q.page, q.nbPages)
                 .reduce((current, actual, index) => {
                   if (actual) {
-                    return [...current, index];
+                    return [...current, index]
                   }
 
                   if (current[current.length - 1] !== false) {
-                    return [...current, false];
+                    return [...current, false]
                   }
 
-                  return current;
+                  return current
                 }, [])
                 .map((item, index) =>
-                  item !== false ? (
+                  item !== false
+                    ? (
                     <PageDiv
                       key={item}
                       selected={q.page === item}
                       disabled={q.page === item}
                       onClick={() =>
-                        push("/search?q=" + q.query + "&page=" + item, null, {
-                          shallow: false,
+                        push('/search?q=' + q.query + '&page=' + item, null, {
+                          shallow: false
                         })
                       }
                     >
                       <Text
                         fontSize="1rem"
-                        color={q.page === item ? "white" : "black"}
+                        color={q.page === item ? 'white' : 'black'}
                         fontWeight="bold"
                         userSelect="none"
                       >
                         {item + 1}
                       </Text>
                     </PageDiv>
-                  ) : (
+                      )
+                    : (
                     <Text key={index} userSelect="none">
                       ...
                     </Text>
-                  )
+                      )
                 )}
             </PagesDiv>
 
             <Text
               onClick={() =>
-                push("/search?q=" + q.query + "&page=" + (q.page + 1), null, {
-                  shallow: false,
+                push('/search?q=' + q.query + '&page=' + (q.page + 1), null, {
+                  shallow: false
                 })
               }
-              cursor={q.page === q.nbPages - 1 ? "default" : "pointer"}
+              cursor={q.page === q.nbPages - 1 ? 'default' : 'pointer'}
               fontWeight="bold"
               fontSize="1.5rem"
               disabled={q.page === q.nbPages - 1}
-              color={q.page === q.nbPages - 1 ? "hover" : "primary"}
+              color={q.page === q.nbPages - 1 ? 'hover' : 'primary'}
               userSelect="none"
             >
-              {">"}
+              {'>'}
             </Text>
           </PageSelectorDiv>
         </SearchDiv>
-      )}
+            )}
     </App>
-  );
+  )
 }

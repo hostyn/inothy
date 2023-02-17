@@ -1,7 +1,7 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { createContext, useContext, useState } from "react";
-import styled from "styled-components";
-import { colors } from "../config/theme";
+import { motion, AnimatePresence } from 'framer-motion'
+import { createContext, useContext, useState } from 'react'
+import styled from 'styled-components'
+import { colors } from '../config/theme'
 
 const Backdrop = styled(motion.div)`
   position: fixed;
@@ -16,51 +16,51 @@ const Backdrop = styled(motion.div)`
   z-index: 999;
   background-color: ${colors.backdrop};
   backdrop-filter: blur(5px);
-`;
+`
 
 const dropIn = {
   hidden: {
-    y: "-100vh",
-    opacity: 0,
+    y: '-100vh',
+    opacity: 0
   },
   visible: {
-    y: "0",
+    y: '0',
     opacity: 1,
     transition: {
       duration: 0.3,
-      type: "spring",
+      type: 'spring',
       damping: 100,
-      stiffness: 500,
-    },
+      stiffness: 500
+    }
   },
   exit: {
-    y: "100vh",
+    y: '100vh',
     opacity: 0,
     transition: {
       duration: 0.3,
-      type: "tween",
-    },
-  },
-};
+      type: 'tween'
+    }
+  }
+}
 
-const ModalContext = createContext();
+const ModalContext = createContext()
 
-export const useModal = () => useContext(ModalContext);
+export const useModal = () => useContext(ModalContext)
 
 export const ModalProvider = ({ children }) => {
-  const [Modal, setModal] = useState(<></>);
-  const [showModal, setShowModal] = useState(false);
+  const [Modal, setModal] = useState(<></>)
+  const [showModal, setShowModal] = useState(false)
   const openModal = (modal) => {
-    window.document.body.classList.add("modal-open");
-    setModal(modal);
-    setShowModal(true);
-  };
+    window.document.body.classList.add('modal-open')
+    setModal(modal)
+    setShowModal(true)
+  }
 
   const closeModal = async () => {
-    window.document.body.classList.remove("modal-open");
-    setShowModal(false);
-    return new Promise((resolve) => setTimeout(resolve, 330));
-  };
+    window.document.body.classList.remove('modal-open')
+    setShowModal(false)
+    return new Promise((resolve) => setTimeout(resolve, 330))
+  }
 
   return (
     <ModalContext.Provider value={{ openModal, closeModal }}>
@@ -87,5 +87,5 @@ export const ModalProvider = ({ children }) => {
       </AnimatePresence>
       {children}
     </ModalContext.Provider>
-  );
-};
+  )
+}

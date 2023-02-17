@@ -1,7 +1,7 @@
-import Head from "next/head";
-import LegalView from "../views/LegalView";
+import Head from 'next/head'
+import LegalView from '../views/LegalView'
 
-export default function Legal() {
+export default function Legal () {
   return (
     <>
       <Head>
@@ -10,5 +10,5 @@ export default function Legal() {
       </Head>
       <LegalView />
     </>
-  );
+  )
 }

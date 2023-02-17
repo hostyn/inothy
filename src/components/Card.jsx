@@ -1,8 +1,8 @@
-import Link from "next/link";
-import styled from "styled-components";
-import { colors } from "../config/theme";
-import Img from "./Img";
-import Text from "./Text";
+import Link from 'next/link'
+import styled from 'styled-components'
+import { colors } from '../config/theme'
+import Img from './Img'
+import Text from './Text'
 
 const CardDiv = styled.div`
   display: grid;
@@ -26,7 +26,7 @@ const CardDiv = styled.div`
     gap: 1rem;
     padding: 10px;
   }
-`;
+`
 
 const CardImg = styled(Img)`
   height: 5rem;
@@ -36,7 +36,7 @@ const CardImg = styled(Img)`
     height: 3rem;
     width: 3rem;
   }
-`;
+`
 
 const CardText = styled(Text)`
   @media (max-width: 1500px) {
@@ -50,9 +50,9 @@ const CardText = styled(Text)`
   @media (max-width: 500px) {
     font-size: 1.2rem;
   }
-`;
+`
 
-export default function Card({ img, text, href }) {
+export default function Card ({ img, text, href }) {
   return (
     <Link href={href} passHref>
       <CardDiv>
@@ -62,5 +62,5 @@ export default function Card({ img, text, href }) {
         </CardText>
       </CardDiv>
     </Link>
-  );
+  )
 }

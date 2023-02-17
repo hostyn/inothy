@@ -1,8 +1,8 @@
-import Link from "next/link";
-import Button from "../../components/Button";
-import Text from "../../components/Text";
+import Link from 'next/link'
+import Button from '../../components/Button'
+import Text from '../../components/Text'
 
-export default function Pending() {
+export default function Pending () {
   return (
     <>
       <Text
@@ -24,5 +24,5 @@ export default function Pending() {
         </Button>
       </Link>
     </>
-  );
+  )
 }

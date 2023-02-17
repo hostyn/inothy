@@ -1,11 +1,10 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import styled from "styled-components";
-import { colors } from "../../config/theme";
-import { getUniversities } from "../../util/api";
-import Img from "../Img";
-import Loading from "../Loading";
-import { VirtualizedPage } from "../Carousel/VirtualizedPage";
+import { useState, useEffect } from 'react'
+import styled from 'styled-components'
+import { colors } from '../../config/theme'
+import { getUniversities } from '../../util/api'
+import Img from '../Img'
+import Loading from '../Loading'
+import { VirtualizedPage } from '../Carousel/VirtualizedPage'
 
 const CarouselDiv = styled.div`
   width: 100%;
@@ -18,7 +17,7 @@ const CarouselDiv = styled.div`
   @media (max-width: 500px) {
     height: 6rem;
   }
-`;
+`
 
 const ImageDiv = styled.div`
   width: 100%;
@@ -26,7 +25,7 @@ const ImageDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const Image = styled(Img)`
   height: 12rem;
@@ -50,29 +49,30 @@ const Image = styled(Img)`
   :hover {
     scale: 1.1;
   }
-`;
+`
 
-export default function UniversitiesCarousel({
+export default function UniversitiesCarousel ({
   visualizedItems = 2,
-  paddingItems = 2,
+  paddingItems = 2
 }) {
-  const [universities, setUniversities] = useState(null);
+  const [universities, setUniversities] = useState(null)
 
   useEffect(() => {
-    getUniversities().then((universities) => setUniversities(universities));
-  }, []);
+    getUniversities().then((universities) => setUniversities(universities))
+  }, [])
 
   return (
     <CarouselDiv>
-      {universities ? (
+      {universities
+        ? (
         <VirtualizedPage
           visualizedItems={visualizedItems}
           paddingItems={paddingItems}
         >
           {({ index }) => {
-            const modulo = index % universities.length;
+            const modulo = index % universities.length
             const imageIndex =
-              modulo < 0 ? universities.length + modulo : modulo;
+              modulo < 0 ? universities.length + modulo : modulo
             return (
               <ImageDiv>
                 <Image
@@ -82,12 +82,13 @@ export default function UniversitiesCarousel({
                   src={universities[imageIndex].logoUrl}
                 />
               </ImageDiv>
-            );
+            )
           }}
         </VirtualizedPage>
-      ) : (
+          )
+        : (
         <Loading />
-      )}
+          )}
     </CarouselDiv>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import { colors, sizes } from "../../config/theme";
-import Text from "../../components/Text";
-import Img from "../../components/Img";
-import A from "../../components/A";
-import Link from "next/link";
+import styled from 'styled-components'
+import { colors, sizes } from '../../config/theme'
+import Text from '../../components/Text'
+import Img from '../../components/Img'
+import A from '../../components/A'
+import Link from 'next/link'
 
 const AccountDiv = styled.div`
   margin: 0 ${sizes.inlineMargin};
@@ -14,7 +14,7 @@ const AccountDiv = styled.div`
     min-height: calc(100vh - ${sizes.navbar} - 6rem);
     margin: 0 2rem;
   }
-`;
+`
 
 const Grid = styled.div`
   display: grid;
@@ -25,7 +25,7 @@ const Grid = styled.div`
     grid-template-columns: 1fr;
     min-height: inherit;
   }
-`;
+`
 
 const MenuBackground = styled.div`
   background-image: url("/resources/account/menu.svg");
@@ -37,7 +37,7 @@ const MenuBackground = styled.div`
   @media (max-width: 1000px) {
     display: none;
   }
-`;
+`
 
 const MenuDiv = styled.div`
   height: calc(${sizes.accountHeight} - 6rem);
@@ -48,7 +48,7 @@ const MenuDiv = styled.div`
   padding: 2rem;
   border-radius: 10px;
   border: 3px solid ${colors.primary};
-`;
+`
 
 const Item = styled.div`
   min-width: 100%;
@@ -63,27 +63,27 @@ const Item = styled.div`
   padding: 0.2rem 1rem;
   transition: 0.2s;
   background-color: ${(props) =>
-    props.active ? colors.primary : "transparent"};
+    props.active ? colors.primary : 'transparent'};
 
   &:hover {
     ${(props) => !props.active && `background-color: ${colors.hover}`};
   }
-`;
+`
 
 const Separator = styled.div`
   margin: 0 0 1rem 0;
   height: 3px;
   width: 100%;
   background-color: ${colors.secondary};
-`;
+`
 
-export default function Menu({
+export default function Menu ({
   children,
   downloads = false,
   profile = false,
   balance = false,
   uploads = false,
-  settings = false,
+  settings = false
 }) {
   return (
     <AccountDiv>
@@ -95,8 +95,8 @@ export default function Menu({
                 <Img
                   src={
                     downloads
-                      ? "/icons/downloads_inverted.svg"
-                      : "/icons/downloads.svg"
+                      ? '/icons/downloads_inverted.svg'
+                      : '/icons/downloads.svg'
                   }
                   aspectRatio="83/50"
                 />
@@ -104,7 +104,7 @@ export default function Menu({
                   cursor="inherit"
                   fontSize="1.5rem"
                   fontWeight="bold"
-                  color={downloads ? "white" : "secondary"}
+                  color={downloads ? 'white' : 'secondary'}
                 >
                   Descargas
                 </Text>
@@ -115,8 +115,8 @@ export default function Menu({
                 <Img
                   src={
                     profile
-                      ? "/icons/profile_inverted.svg"
-                      : "/icons/profile.svg"
+                      ? '/icons/profile_inverted.svg'
+                      : '/icons/profile.svg'
                   }
                   aspectRatio="1"
                 />
@@ -124,7 +124,7 @@ export default function Menu({
                   cursor="inherit"
                   fontSize="1.5rem"
                   fontWeight="bold"
-                  color={profile ? "white" : "secondary"}
+                  color={profile ? 'white' : 'secondary'}
                 >
                   Cuenta
                 </Text>
@@ -135,8 +135,8 @@ export default function Menu({
                 <Img
                   src={
                     balance
-                      ? "/icons/balance_inverted.svg"
-                      : "/icons/balance.svg"
+                      ? '/icons/balance_inverted.svg'
+                      : '/icons/balance.svg'
                   }
                   aspectRatio="33/25"
                 />
@@ -144,7 +144,7 @@ export default function Menu({
                   cursor="inherit"
                   fontSize="1.5rem"
                   fontWeight="bold"
-                  color={balance ? "white" : "secondary"}
+                  color={balance ? 'white' : 'secondary'}
                 >
                   Saldo
                 </Text>
@@ -155,8 +155,8 @@ export default function Menu({
                 <Img
                   src={
                     uploads
-                      ? "/icons/uploads_inverted.svg"
-                      : "/icons/uploads.svg"
+                      ? '/icons/uploads_inverted.svg'
+                      : '/icons/uploads.svg'
                   }
                   aspectRatio="83/50"
                 />
@@ -164,7 +164,7 @@ export default function Menu({
                   cursor="inherit"
                   fontSize="1.5rem"
                   fontWeight="bold"
-                  color={uploads ? "white" : "secondary"}
+                  color={uploads ? 'white' : 'secondary'}
                 >
                   Subido
                 </Text>
@@ -251,5 +251,5 @@ export default function Menu({
         {children}
       </Grid>
     </AccountDiv>
-  );
+  )
 }

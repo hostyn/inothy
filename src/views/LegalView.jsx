@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import App from "../components/App";
-import Span from "../components/Span";
-import Text from "../components/Text";
-import { sizes } from "../config/theme";
+import styled from 'styled-components'
+import App from '../components/App'
+import Span from '../components/Span'
+import Text from '../components/Text'
+import { sizes } from '../config/theme'
 
 const LegalDiv = styled.div`
   display: flex;
@@ -16,32 +16,32 @@ const LegalDiv = styled.div`
   @media (max-width: 768px) {
     margin: 1rem;
   }
-`;
+`
 
 const Title = styled(Text)`
   margin: 1rem 0 0.2rem 0;
   font-size: 1.3rem;
   font-weight: bold;
-`;
+`
 
 const P = styled(Text)`
   margin: 0 0 0.5rem 0;
   color: black;
   line-height: 1.4rem;
-`;
+`
 
 const Bold = styled(Span)`
   font-weight: bold;
-`;
+`
 
 const Ul = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   margin: 0 0 0.5rem 0;
-`;
+`
 
-export default function LegalView() {
+export default function LegalView () {
   return (
     <App>
       <LegalDiv>
@@ -50,7 +50,7 @@ export default function LegalView() {
         </Text>
         <P>
           Bienvenido a <Bold>INOTHY</Bold> y muchas gracias por escoger nuestra
-          plataforma. En cuanto aceptes los siguientes{" "}
+          plataforma. En cuanto aceptes los siguientes{' '}
           <Bold>términos y condiciones</Bold> que proponemos para el correcto
           uso de nuestra plataforma, pasarás a formar parte de nuestra
           comunidad.
@@ -64,7 +64,7 @@ export default function LegalView() {
           Estonia, con dirección en Harju maakond, Tallinn, Lasnamäe linnaosa,
           Lõõtsa tn 2a, 11415 y registrada bajo las autoridades de Estonia con
           número de registro 16579634, autorizada para llevar a cabo actividades
-          comerciales en la red, tal y como realizamos en la presenta{" "}
+          comerciales en la red, tal y como realizamos en la presenta{' '}
           <Bold>Plataforma</Bold>.
         </P>
 
@@ -126,7 +126,7 @@ export default function LegalView() {
         </P>
         <P>
           Se aclara que una persona o empresa registrada en nuestros Servicios,
-          tiene la posibilidad de ser, simultáneamente,{" "}
+          tiene la posibilidad de ser, simultáneamente,{' '}
           <Bold>Usuario y Vendedor</Bold>.
         </P>
 
@@ -137,12 +137,12 @@ export default function LegalView() {
           para utilizar nuestros Servicios.
         </P>
         <P>
-          Sugerimos que todo <Bold>Usuario</Bold> lea los{" "}
-          <Bold>Términos y Condiciones</Bold>, así como la{" "}
+          Sugerimos que todo <Bold>Usuario</Bold> lea los{' '}
+          <Bold>Términos y Condiciones</Bold>, así como la{' '}
           <Bold>Política de Privacidad</Bold>.
         </P>
         <P>
-          Al aceptar estos términos y comenzar a usar nuestros{" "}
+          Al aceptar estos términos y comenzar a usar nuestros{' '}
           <Bold>Servicios</Bold>, asumes y aceptas que trataremos determinados
           datos de carácter personal que nos hayas proporcionado en beneficio de
           la empresa.
@@ -150,14 +150,14 @@ export default function LegalView() {
         <P>
           Si representas a una empresa, institución o persona jurídica,
           confirmas al aceptar las presentes condiciones que tienes la
-          suficiente capacidad y derechos pertinentes para utilizar nuestros{" "}
+          suficiente capacidad y derechos pertinentes para utilizar nuestros{' '}
           <Bold>Servicios</Bold> en nombre de dicha empresa, institución o
           persona jurídica.
         </P>
 
         <Title>Registro</Title>
         <P>
-          El uso de nuestros <Bold>Servicios</Bold> está limitado para{" "}
+          El uso de nuestros <Bold>Servicios</Bold> está limitado para{' '}
           <Bold>Usuarios</Bold> registrados. El uso para los usuarios de
           internet que no se registren queda limitado. Por lo tanto, cada
           Usuario será responsable de mantener los mecanismos de seguridad
@@ -165,7 +165,7 @@ export default function LegalView() {
           contraseña de cada <Bold>Usuario</Bold> es personal e intransferible.
         </P>
         <P>
-          En caso de <Bold>solicitud de cambio de contraseña</Bold>, el{" "}
+          En caso de <Bold>solicitud de cambio de contraseña</Bold>, el{' '}
           <Bold>Usuario</Bold> deberá seguir los pasos que se le sean indicados
           por la Plataforma para el restablecimiento de la misma.
         </P>
@@ -174,15 +174,15 @@ export default function LegalView() {
           nuestros <Bold>Servicios</Bold>.
         </P>
         <P>
-          La introducción de tus datos de carácter personal en la{" "}
+          La introducción de tus datos de carácter personal en la{' '}
           <Bold>Plataforma</Bold>
           requerirá que se acepte la Política de Privacidad.
         </P>
         <P>
-          Los <Bold>Usuarios</Bold> no tienen permitido{" "}
-          <Bold>acceder o piratear</Bold>, sin la autorización de{" "}
-          <Bold>INOTHY</Bold>, áreas de acceso restringido del{" "}
-          <Bold>Servicio</Bold>, lo cual podría estar sujeto a{" "}
+          Los <Bold>Usuarios</Bold> no tienen permitido{' '}
+          <Bold>acceder o piratear</Bold>, sin la autorización de{' '}
+          <Bold>INOTHY</Bold>, áreas de acceso restringido del{' '}
+          <Bold>Servicio</Bold>, lo cual podría estar sujeto a{' '}
           <Bold>responsabilidad civil y/o penal</Bold>, así como con la
           utilización de cualquier sistema automatizado, o lectores fuera de los
           navegadores web convencionales.
@@ -203,7 +203,7 @@ export default function LegalView() {
         <Ul>
           <li>
             <P>
-              Subir y/o vender Contenidos de los que no se posean{" "}
+              Subir y/o vender Contenidos de los que no se posean{' '}
               <Bold>derechos de autor</Bold>, es decir, que no hayan sido
               creados por ellos mismos o de los que no se disponga autorización
               del autor de los mismos para su distribución como fin lucrativo.
@@ -213,17 +213,17 @@ export default function LegalView() {
             <P>
               Subir <Bold>contenido falso</Bold> a la <Bold>Plataforma</Bold>,
               es decir, que su contenido no se corresponda con lo estipulado por
-              él mismo en el anuncio de venta del documento en la{" "}
+              él mismo en el anuncio de venta del documento en la{' '}
               <Bold>Plataforma</Bold>. En ese caso, no se permitirá el retiro
               del saldo correspondiente a dichas ventas.
             </P>
           </li>
           <li>
             <P>
-              Transmitir, retransmitir o distribuir{" "}
+              Transmitir, retransmitir o distribuir{' '}
               <Bold>
                 {'"'}spam{'"'}
-              </Bold>{" "}
+              </Bold>{' '}
               o {'"'}
               mensajes en cadena{'"'}.
             </P>
@@ -253,8 +253,8 @@ export default function LegalView() {
           </li>
         </Ul>
         <P>
-          <Bold>INOTHY</Bold> advierte de que no puede{" "}
-          <Bold>verificar la edad</Bold> de los <Bold>Usuarios</Bold>{" "}
+          <Bold>INOTHY</Bold> advierte de que no puede{' '}
+          <Bold>verificar la edad</Bold> de los <Bold>Usuarios</Bold>{' '}
           registrados, a pesar de solicitar revisiones del KYC (de las siglas en
           inglés “Know Your Costumer”), por lo que le es imposible localizar y
           verificar la existencia de aquellos que no cumplan la edad mínima
@@ -265,14 +265,14 @@ export default function LegalView() {
           responsabilidad residente en sus representantes legales en cada caso.
           El <Bold>Usuario</Bold>, mediante el registro, manifiesta
           responsablemente y garantiza que tiene al menos 18 años y que está
-          capacitado mentalmente para poder realizar el uso de nuestros{" "}
+          capacitado mentalmente para poder realizar el uso de nuestros{' '}
           <Bold>Servicios</Bold>.
         </P>
 
         <Title>Pagos a Usuarios</Title>
         <P>
-          Al basarse la <Bold>Plataforma</Bold> en un{" "}
-          <Bold>mercado de precios libre con topes</Bold>, cada{" "}
+          Al basarse la <Bold>Plataforma</Bold> en un{' '}
+          <Bold>mercado de precios libre con topes</Bold>, cada{' '}
           <Bold>Vendedor</Bold> decide la cantidad económica que desea recibir
           por cada descarga en un <Bold>Contenido</Bold> concreto. El
           procedimiento de compra y de venta de los <Bold>Contenidos</Bold> en
@@ -284,7 +284,7 @@ export default function LegalView() {
               El <Bold>Usuario</Bold> seleccionará los bienes que desea
               adquirir. Se le redireccionará al procedimiento de pago y pagará
               el importe del <Bold>Contenido</Bold> a la <Bold>Plataforma</Bold>
-              , además del IVA correspondiente. Dicha compra aparecerá en el{" "}
+              , además del IVA correspondiente. Dicha compra aparecerá en el{' '}
               <Bold>
                 porcentaje correspondiente del importe después de comisiones de
                 la plataforma de pagos
@@ -304,11 +304,11 @@ export default function LegalView() {
           </li>
         </Ul>
         <P>
-          Todos los trámites de pagos son gestionados por{" "}
+          Todos los trámites de pagos son gestionados por{' '}
           <Bold>Mangopay SA</Bold>, y todos los aspectos legales en relación con
-          la gestión y tramitación de los pagos se pueden consultar en sus{" "}
+          la gestión y tramitación de los pagos se pueden consultar en sus{' '}
           <Bold>términos y condiciones</Bold>, los cuales facilitamos también,
-          de la misma manera que los presentes, en nuestra{" "}
+          de la misma manera que los presentes, en nuestra{' '}
           <Bold>Plataforma</Bold>.
         </P>
         <P>
@@ -341,20 +341,20 @@ export default function LegalView() {
           que pueden estar sujetos, según la jurisdicción aplicable.
         </P>
         <P>
-          En el caso de que, a la hora de realizar un recibo, el{" "}
-          <Bold>Usuario</Bold> indicara una cuenta o una dirección errónea,{" "}
-          <Bold>INOTHY</Bold> no se responsabiliza de que el{" "}
+          En el caso de que, a la hora de realizar un recibo, el{' '}
+          <Bold>Usuario</Bold> indicara una cuenta o una dirección errónea,{' '}
+          <Bold>INOTHY</Bold> no se responsabiliza de que el{' '}
           <Bold>Usuario</Bold> acabe recibiendo o no dicho saldo.
         </P>
 
         <Title>Facturas</Title>
         <P>
-          Debido a la naturaleza de la operación de venta de nuestra{" "}
-          <Bold>Plataforma</Bold>,<Bold>Inothy</Bold> no remitirá factura al{" "}
+          Debido a la naturaleza de la operación de venta de nuestra{' '}
+          <Bold>Plataforma</Bold>,<Bold>Inothy</Bold> no remitirá factura al{' '}
           <Bold>Usuario</Bold> que use sus <Bold>Servicios</Bold>, a no ser que
-          este así lo solicite vía correo electrónico, escribiendo a{" "}
+          este así lo solicite vía correo electrónico, escribiendo a{' '}
           <Span color="secondary">contact@inothy.com</Span>. Esta factura sólo
-          incluye los <Bold>Servicios</Bold> que son responsabilidad de{" "}
+          incluye los <Bold>Servicios</Bold> que son responsabilidad de{' '}
           <Bold>Inothy</Bold>, es decir, las comisiones. El importe
           correspondiente a la parte del <Bold>Vendedor</Bold> es
           responsabilidad del propio <Bold>Vendedor</Bold>, por lo que, si se
@@ -363,8 +363,8 @@ export default function LegalView() {
           nosotros poder notificar al <Bold>Vendedor</Bold> de ello. Las
           facturas de la parte correspondiente a <Bold>Inothy</Bold>, a pesar de
           no remitirse al cliente en primera instancia, son creadas en la misma
-          fecha en la que tiene lugar la operación mercantil en la{" "}
-          <Bold>Plataforma</Bold> y almacenadas bajo la contabilidad de la{" "}
+          fecha en la que tiene lugar la operación mercantil en la{' '}
+          <Bold>Plataforma</Bold> y almacenadas bajo la contabilidad de la{' '}
           <Bold>Plataforma</Bold>.
         </P>
 
@@ -376,9 +376,9 @@ export default function LegalView() {
           mundial, durante toda la vigencia de los derechos de autor y de la
           propiedad intelectual sobre sus <Bold>Contenidos</Bold>, con el objeto
           de que <Bold>INOTHY</Bold> pueda utilizar, reproducir, distribuir,
-          realizar obras derivadas de, mostrar y ejecutar ese{" "}
-          <Bold>Contenido</Bold> en relación con la prestación de los{" "}
-          <Bold>Servicios</Bold> y con el funcionamiento de los{" "}
+          realizar obras derivadas de, mostrar y ejecutar ese{' '}
+          <Bold>Contenido</Bold> en relación con la prestación de los{' '}
+          <Bold>Servicios</Bold> y con el funcionamiento de los{' '}
           <Bold>Servicios</Bold> y de la actividad de <Bold>INOTHY</Bold>,
           incluyendo sin limitación alguna, a efectos de promoción y
           redistribución de los Servicios en cualquier formato y a través de
@@ -391,14 +391,14 @@ export default function LegalView() {
           Todos los <Bold>Contenidos</Bold> subidos a la <Bold>Plataforma</Bold>
           , por lo tanto, pasan también a ser propiedad de <Bold>INOTHY</Bold> y
           esta licencia perdurará de manera indefinida, incluso aun habiendo
-          sido borrado dicho <Bold>Contenido</Bold> por parte del{" "}
+          sido borrado dicho <Bold>Contenido</Bold> por parte del{' '}
           <Bold>Usuario o Vendedor</Bold> del cual es la autoría del propio.
         </P>
         <P>
           Todo ello sin perjuicio de la remuneración que en su caso tenga
           derecho el <Bold>Vendedor</Bold> de conformidad con la Plataforma. Con
-          respecto a cualquier contraprestación económica, <Bold>INOTHY</Bold>{" "}
-          aplicará las retenciones e impuestos aplicables que correspondan. El{" "}
+          respecto a cualquier contraprestación económica, <Bold>INOTHY</Bold>{' '}
+          aplicará las retenciones e impuestos aplicables que correspondan. El{' '}
           <Bold>Vendedor</Bold> receptor de cualquier pago se compromete
           igualmente a satisfacer los impuestos correspondientes por los
           ingresos que reciba por sus ventas en la
@@ -406,20 +406,20 @@ export default function LegalView() {
           responsabilidad de la <Bold>Plataforma</Bold>.
         </P>
         <P>
-          A su vez, el <Bold>Vendedor</Bold> proporciona a favor de cualquier{" "}
+          A su vez, el <Bold>Vendedor</Bold> proporciona a favor de cualquier{' '}
           <Bold>Usuario</Bold> que compre sus <Bold>Contenidos</Bold> una
-          licencia mundial, no exclusiva y exenta de royalties para acceder a su{" "}
+          licencia mundial, no exclusiva y exenta de royalties para acceder a su{' '}
           <Bold>Contenido</Bold> a través de la <Bold>Plataforma</Bold> y poder
           descargarlo para su uso personal.
         </P>
         <P>
           Las anteriores licencias otorgadas por los <Bold>Vendedores</Bold> con
           respecto a sus <Bold>Contenidos</Bold> nunca quedarán canceladas, ni
-          aun borrando dicho <Bold>Contenido</Bold> de la{" "}
+          aun borrando dicho <Bold>Contenido</Bold> de la{' '}
           <Bold>Plataforma</Bold>.
         </P>
         <P>
-          Queda totalmente prohibida la distribución de unos{" "}
+          Queda totalmente prohibida la distribución de unos{' '}
           <Bold>Servicios</Bold> adquiridos en la <Bold>Plataforma</Bold> fuera
           de la misma.
         </P>
@@ -428,7 +428,7 @@ export default function LegalView() {
         <P>
           <Bold>INOTHY</Bold> es un prestador de servicio de intermediación, y,
           como tal, no tiene la obligación de controlar, vigilar ni inspeccionar
-          previamente los <Bold>Contenidos</Bold> que los <Bold>Usuarios</Bold>{" "}
+          previamente los <Bold>Contenidos</Bold> que los <Bold>Usuarios</Bold>{' '}
           y Vendedores alojan o suben en sus <Bold>Servicios</Bold>.
         </P>
         <P>
@@ -439,11 +439,11 @@ export default function LegalView() {
         <P>
           Sin embargo, <Bold>INOTHY</Bold> se compromete a suspender o retirar
           aquellos <Bold>Contenidos</Bold> presunta o claramente ilícitos de los
-          que tenga conocimiento efectivo una vez tales <Bold>Contenidos</Bold>{" "}
+          que tenga conocimiento efectivo una vez tales <Bold>Contenidos</Bold>{' '}
           han sido denunciados por algún <Bold>Usuario o Vendedor</Bold>.
         </P>
         <P>
-          <Bold>INOTHY</Bold> no puede garantizar a sus <Bold>Usuarios</Bold>{" "}
+          <Bold>INOTHY</Bold> no puede garantizar a sus <Bold>Usuarios</Bold>{' '}
           que los <Bold>Contenidos</Bold> estén libres de errores, pero pone
           previsualizaciones a disposición de los mismos antes de comprarlos,
           así como un sistema de reportes en caso de que se haya comprado y
@@ -452,7 +452,7 @@ export default function LegalView() {
         </P>
         <P>
           <Bold>INOTHY</Bold> se reserva el derecho a modificar total o
-          parcialmente algunas o todas las características de la{" "}
+          parcialmente algunas o todas las características de la{' '}
           <Bold>Plataforma</Bold>, siempre que se consideren necesarias, de las
           cuales, previamente, se notificará a los
           <Bold>Usuarios</Bold>, incluso por medios de correo electrónico,
@@ -460,20 +460,20 @@ export default function LegalView() {
           página web y aplicación.
         </P>
         <P>
-          Debido a los riesgos inherentes al uso de internet,{" "}
+          Debido a los riesgos inherentes al uso de internet,{' '}
           <Bold>INOTHY</Bold> no será responsable de ningún daño o virus que
           pueda afectar a los dispositivos de los <Bold>Usuarios</Bold> o a
-          cualquier otra propiedad cuando se estén utilizando nuestros{" "}
+          cualquier otra propiedad cuando se estén utilizando nuestros{' '}
           <Bold>Servicios</Bold>.
         </P>
         <P>
-          Con el alcance máximo permitido por la legislación aplicable, los{" "}
-          <Bold>Usuarios</Bold> se comprometen a mantener indemne a{" "}
-          <Bold>INOTHY</Bold> o a cualquier empresa vinculada al{" "}
+          Con el alcance máximo permitido por la legislación aplicable, los{' '}
+          <Bold>Usuarios</Bold> se comprometen a mantener indemne a{' '}
+          <Bold>INOTHY</Bold> o a cualquier empresa vinculada al{' '}
           <Bold>Servicio</Bold>, por las demandas y procedimientos legales que
-          puedan surgir como consecuencia del uso de la <Bold>Plataforma</Bold>{" "}
+          puedan surgir como consecuencia del uso de la <Bold>Plataforma</Bold>{' '}
           por parte de los <Bold>Usuarios</Bold> o de cualquier violación de
-          estas <Bold>Condiciones</Bold> por parte de otros{" "}
+          estas <Bold>Condiciones</Bold> por parte de otros{' '}
           <Bold>Usuarios</Bold> o terceros.
         </P>
 
@@ -483,14 +483,14 @@ export default function LegalView() {
           correo electrónico, para notificaciones y consultas generales, y
           proporciona un formulario, a través de la <Bold>Plataforma</Bold>,
           mediante el cual el Usuario puede notificar/reportar cualquier error o
-          copyright en relación con algún documento que esté alojado en la{" "}
+          copyright en relación con algún documento que esté alojado en la{' '}
           <Bold>Plataforma</Bold>.
         </P>
 
         <Title>Procedimiento a seguir por parte de INOTHY</Title>
         <P>
           Para ambos casos, una vez recibida la notificación de una posible
-          infracción o error, <Bold>INOTHY</Bold> se compromete a examinar los{" "}
+          infracción o error, <Bold>INOTHY</Bold> se compromete a examinar los{' '}
           <Bold>Contenidos</Bold> reportados en un plazo máximo de 30 días y a
           suspenderlos en caso de confirmarse el error o infracción.
         </P>
@@ -502,11 +502,11 @@ export default function LegalView() {
         </P>
         <P>
           <Bold>INOTHY</Bold> se reserva el derecho a suspender temporalmente o
-          cancelar la cuenta, así como borrar un Contenido en concreto del{" "}
+          cancelar la cuenta, así como borrar un Contenido en concreto del{' '}
           <Bold>Usuario</Bold> responsable del <Bold>Contenido</Bold> que
           incumpla las <Bold>Condiciones y las Políticas de Privacidad</Bold>, o
-          sea culpable de vulnerar los derechos de autor de terceros o de otros{" "}
-          <Bold>Usuarios</Bold> también registrados en la{" "}
+          sea culpable de vulnerar los derechos de autor de terceros o de otros{' '}
+          <Bold>Usuarios</Bold> también registrados en la{' '}
           <Bold>Plataforma</Bold>.
         </P>
         <P>
@@ -523,12 +523,12 @@ export default function LegalView() {
 
         <Title>Permanencia</Title>
         <P>
-          Exceptuando el caso en el que <Bold>INOTHY</Bold> decida cancelar los{" "}
-          <Bold>Servicios</Bold> o cancelar la cuenta de un <Bold>Usuario</Bold>{" "}
-          en concreto, los <Bold>Servicios</Bold> proporcionados por{" "}
+          Exceptuando el caso en el que <Bold>INOTHY</Bold> decida cancelar los{' '}
+          <Bold>Servicios</Bold> o cancelar la cuenta de un <Bold>Usuario</Bold>{' '}
+          en concreto, los <Bold>Servicios</Bold> proporcionados por{' '}
           <Bold>INOTHY</Bold> tienen una duración indeterminada de acuerdo con
           las siguientes <Bold>Condiciones</Bold>, a no ser que un usuario
-          solicite a<Bold>INOTHY</Bold> explícitamente la eliminación de su{" "}
+          solicite a<Bold>INOTHY</Bold> explícitamente la eliminación de su{' '}
           <Bold>Usuario</Bold>.
         </P>
 
@@ -536,14 +536,14 @@ export default function LegalView() {
         <P>
           <Bold>INOTHY</Bold> está facultado para cancelar, o cesar los
           Servicios o la prestación de los mismos, en cualquier momento y a su
-          discreción y por cualquier motivo. En cualquier caso,{" "}
+          discreción y por cualquier motivo. En cualquier caso,{' '}
           <Bold>INOTHY</Bold> notificaría a todos los <Bold>Usuarios</Bold> con
           la suficiente antelación y permitiría los retiros del 80% del saldo de
           manera extraordinaria.
         </P>
         <P>
           <Bold>INOTHY</Bold> se reserva el derecho a eliminar sin previo aviso,
-          toda cuenta cuyo <Bold>Usuario</Bold> haya infringido las presentes{" "}
+          toda cuenta cuyo <Bold>Usuario</Bold> haya infringido las presentes{' '}
           <Bold>Condiciones y/o la Política de Privacidad</Bold>.
         </P>
         <P>
@@ -561,16 +561,16 @@ export default function LegalView() {
 
         <Title>Convalidación</Title>
         <P>
-          Si alguna de estas disposiciones legales de las{" "}
+          Si alguna de estas disposiciones legales de las{' '}
           <Bold>Condiciones</Bold> se considerase ilícita, inválida o
           inaplicable, por alguna razón, dicha disposición no se tomará en
-          consideración y se separará de estos{" "}
+          consideración y se separará de estos{' '}
           <Bold>Términos y Condiciones</Bold>, no afectando a la validez y
           aplicación de las restantes disposiciones.
         </P>
         <P>
-          En caso de escisión, fusión, quiebra o adquisición de los{" "}
-          <Bold>Servicios de INOTHY</Bold> por parte de terceros,{" "}
+          En caso de escisión, fusión, quiebra o adquisición de los{' '}
+          <Bold>Servicios de INOTHY</Bold> por parte de terceros,{' '}
           <Bold>INOTHY</Bold> se reserva el derecho de transferir o asignar la
           información que haya recogido de los <Bold>Usuarios</Bold> como parte
           de dicha fusión, adquisición, venta u otro cambio de control.
@@ -609,12 +609,12 @@ export default function LegalView() {
         <P>
           <Bold>Todos los derechos reservados</Bold>. Todos los derechos de
           autor, marcas comerciales y logotipos utilizados que formen parte o
-          aparezcan en la <Bold>Plataforma</Bold>, son{" "}
+          aparezcan en la <Bold>Plataforma</Bold>, son{' '}
           <Bold>propiedad de INOTHY</Bold> o propiedad de terceros. No se le
           permite a los Usuarios utilizarlos sin nuestro previo consentimiento
           por escrito o sin el consentimiento de dicho tercero.
         </P>
       </LegalDiv>
     </App>
-  );
+  )
 }

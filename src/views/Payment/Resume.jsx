@@ -1,28 +1,28 @@
-import styled from "styled-components";
-import Button from "../../components/Button";
-import Img from "../../components/Img";
-import Text from "../../components/Text";
-import { colors } from "../../config/theme";
-import { useAuth } from "../../context/authContext";
-import { currencyFormatter } from "../../util/normailize";
+import styled from 'styled-components'
+import Button from '../../components/Button'
+import Img from '../../components/Img'
+import Text from '../../components/Text'
+import { colors } from '../../config/theme'
+import { useAuth } from '../../context/authContext'
+import { currencyFormatter } from '../../util/normailize'
 
 const ResumeDiv = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
-`;
+`
 
 const Title = styled(Text)`
   @media (max-width: 768px) {
     font-size: 1.5rem;
   }
-`;
+`
 
 const Separator = styled.div`
   height: 2px;
   background-color: ${colors.hover};
-`;
+`
 
 const DocumentCard = styled.div`
   display: grid;
@@ -30,19 +30,19 @@ const DocumentCard = styled.div`
   gap: 1rem;
   padding: 10px;
   align-items: center;
-`;
+`
 
 const VerticalText = styled.div`
   display: flex;
   flex-direction: column;
-`;
+`
 
 const InlineContinue = styled.div`
   display: flex;
   justify-content: space-between;
   margin: auto 0 0 1rem;
   align-items: center;
-`;
+`
 
 const DoucumentName = styled(Text)`
   word-break: break-word;
@@ -50,7 +50,7 @@ const DoucumentName = styled(Text)`
   @media (max-width: 768px) {
     font-size: 1rem;
   }
-`;
+`
 
 const DocumentPrice = styled(Text)`
   display: flex;
@@ -63,7 +63,7 @@ const DocumentPrice = styled(Text)`
     flex-direction: column;
     align-items: flex-end;
   }
-`;
+`
 
 const DiscountText = styled.span`
   font-size: 1.3rem;
@@ -78,13 +78,13 @@ const DiscountText = styled.span`
   @media (max-width: 500px) {
     margin: 0;
   }
-`;
+`
 
 const TotalText = styled(Text)`
   @media (max-width: 768px) {
     font-size: 2rem;
   }
-`;
+`
 
 const PoweredByMangopay = styled(Img)`
   height: 1.2rem;
@@ -94,7 +94,7 @@ const PoweredByMangopay = styled(Img)`
     height: 1rem;
     width: calc(1rem * 1345 / 152);
   }
-`;
+`
 
 const StyledButton = styled(Button)`
   height: auto;
@@ -104,10 +104,10 @@ const StyledButton = styled(Button)`
   @media (max-width: 768px) {
     font-size: 1rem;
   }
-`;
+`
 
-export default function Resume({ paymentDetails, setState }) {
-  const { user } = useAuth();
+export default function Resume ({ paymentDetails, setState }) {
+  const { user } = useAuth()
   return (
     <ResumeDiv>
       <Title fontSize="2rem" fontWeight="bold" margin="0 0 1rem 0">
@@ -125,13 +125,13 @@ export default function Resume({ paymentDetails, setState }) {
               <Text fontSize="0.8rem">{document.createdBy}</Text>
             </VerticalText>
             <DocumentPrice fontSize="2rem" textAlign="end">
-              {user?.data?.badge.includes("ambassador") && (
+              {user?.data?.badge.includes('ambassador') && (
                 <DiscountText>
                   {currencyFormatter.format(document.price)}
                 </DiscountText>
               )}
               {currencyFormatter.format(
-                user?.data?.badge.includes("ambassador")
+                user?.data?.badge.includes('ambassador')
                   ? document.price * 0.8
                   : document.price
               )}
@@ -141,9 +141,9 @@ export default function Resume({ paymentDetails, setState }) {
       ))}
       <Separator />
       <TotalText textAlign="end" fontSize="2.5rem" margin="1rem 0 0 0">
-        Total:{" "}
+        Total:{' '}
         {currencyFormatter.format(
-          user?.data?.badge.includes("ambassador")
+          user?.data?.badge.includes('ambassador')
             ? paymentDetails.totalAmount * 0.8
             : paymentDetails.totalAmount
         )}
@@ -154,11 +154,11 @@ export default function Resume({ paymentDetails, setState }) {
           height="auto"
           padding="0.5rem 1rem"
           margin="0"
-          onClick={() => setState("card")}
+          onClick={() => setState('card')}
         >
           Continuar
         </StyledButton>
       </InlineContinue>
     </ResumeDiv>
-  );
+  )
 }

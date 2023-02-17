@@ -1,19 +1,19 @@
-import { useState } from "react";
-import styled from "styled-components";
-import Button from "../../components/Button";
-import Fileinput from "../../components/Fileinput";
-import Img from "../../components/Img";
-import Text from "../../components/Text";
-import { colors } from "../../config/theme";
-import blobToBase64 from "../../util/blobToB64";
+import { useState } from 'react'
+import styled from 'styled-components'
+import Button from '../../components/Button'
+import Fileinput from '../../components/Fileinput'
+import Img from '../../components/Img'
+import Text from '../../components/Text'
+import { colors } from '../../config/theme'
+import blobToBase64 from '../../util/blobToB64'
 
-const acceptedMimes = ["application/pdf", "image/jpeg", "image/png"];
+const acceptedMimes = ['application/pdf', 'image/jpeg', 'image/png']
 
 const DniDiv = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-`;
+`
 
 const DniGrid = styled.div`
   margin: 1rem 0;
@@ -25,19 +25,19 @@ const DniGrid = styled.div`
   @media (max-width: 650px) {
     grid-template-columns: 1fr;
   }
-`;
+`
 
 const DniCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-`;
+`
 
 const InlineText = styled.div`
   display: flex;
   align-items: center;
-`;
+`
 
 const StyledImg = styled(Img)`
   height: calc(16rem * 75 / 122);
@@ -51,74 +51,74 @@ const StyledImg = styled(Img)`
     height: calc(13rem * 75 / 122);
     width: 13rem;
   }
-`;
+`
 
-export default function Dni({ setState, handleKYCSubmit }) {
-  const [error, setError] = useState({ front: null, back: null });
-  const [files, setFiles] = useState({ front: null, back: null });
+export default function Dni ({ setState, handleKYCSubmit }) {
+  const [error, setError] = useState({ front: null, back: null })
+  const [files, setFiles] = useState({ front: null, back: null })
 
   const handleChange = ({ target }) => {
-    setError((error) => ({ ...error, [target.name]: null }));
+    setError((error) => ({ ...error, [target.name]: null }))
 
-    const file = target.files[0];
+    const file = target.files[0]
 
     if (!acceptedMimes.includes(file.type)) {
       setError((error) => ({
         ...error,
-        [target.name]: "Tipo de archivo no admitido",
-      }));
-      setFiles((files) => ({ ...files, [target.name]: null }));
-      return;
+        [target.name]: 'Tipo de archivo no admitido'
+      }))
+      setFiles((files) => ({ ...files, [target.name]: null }))
+      return
     }
 
     if (file.size < 32768) {
       setError((error) => ({
         ...error,
-        [target.name]: "El archivo es demasiado pequeño",
-      }));
-      setFiles((files) => ({ ...files, [target.name]: null }));
-      return;
+        [target.name]: 'El archivo es demasiado pequeño'
+      }))
+      setFiles((files) => ({ ...files, [target.name]: null }))
+      return
     }
 
     if (file.size > 10485760) {
       setError((error) => ({
         ...error,
-        [target.name]: "El archivo es demasiado grande",
-      }));
-      setFiles((files) => ({ ...files, [target.name]: null }));
-      return;
+        [target.name]: 'El archivo es demasiado grande'
+      }))
+      setFiles((files) => ({ ...files, [target.name]: null }))
+      return
     }
 
-    setFiles((files) => ({ ...files, [target.name]: file }));
-  };
+    setFiles((files) => ({ ...files, [target.name]: file }))
+  }
 
   const verifyData = () => {
-    let anyError = false;
+    let anyError = false
 
     if (!files.front) {
-      setError((error) => ({ ...error, front: "Debes subir un archivo" }));
-      anyError = true;
+      setError((error) => ({ ...error, front: 'Debes subir un archivo' }))
+      anyError = true
     }
 
     if (!files.back) {
-      setError((error) => ({ ...error, back: "Debes subir un archivo" }));
-      anyError = true;
+      setError((error) => ({ ...error, back: 'Debes subir un archivo' }))
+      anyError = true
     }
 
-    return anyError;
-  };
+    return anyError
+  }
 
   const handleSubmit = async () => {
-    const error = verifyData();
-    if (error) return;
+    const error = verifyData()
+    if (error) return
 
     const b64files = await Promise.all([
       blobToBase64(files.front),
-      blobToBase64(files.back),
-    ]);
+      blobToBase64(files.back)
+    ])
 
-    handleKYCSubmit(b64files);
-  };
+    handleKYCSubmit(b64files)
+  }
 
   return (
     <DniDiv>
@@ -143,7 +143,7 @@ export default function Dni({ setState, handleKYCSubmit }) {
             Adjuntar anverso
           </Fileinput>
           <Text
-            color={error.front ? "secondary" : "disabledColor"}
+            color={error.front ? 'secondary' : 'disabledColor'}
             fontSize="1.1rem"
           >
             {error.front || files.front?.name}
@@ -161,7 +161,7 @@ export default function Dni({ setState, handleKYCSubmit }) {
             Adjuntar reverso
           </Fileinput>
           <Text
-            color={error.back ? "secondary" : "disabledColor"}
+            color={error.back ? 'secondary' : 'disabledColor'}
             fontSize="1.1rem"
           >
             {error.back || files.back?.name}
@@ -176,7 +176,7 @@ export default function Dni({ setState, handleKYCSubmit }) {
           background="white"
           color="primary"
           border={`2px solid ${colors.primary}`}
-          onClick={() => setState("documentselection")}
+          onClick={() => setState('documentselection')}
         >
           Atrás
         </Button>
@@ -190,5 +190,5 @@ export default function Dni({ setState, handleKYCSubmit }) {
         </Button>
       </InlineText>
     </DniDiv>
-  );
+  )
 }

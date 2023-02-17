@@ -1,8 +1,8 @@
-import Head from "next/head";
-import algoliaIndex from "../config/algolia";
-import SearchView from "../views/Search";
+import Head from 'next/head'
+import algoliaIndex from '../config/algolia'
+import SearchView from '../views/Search'
 
-export default function Search({ q }) {
+export default function Search ({ q }) {
   return (
     <>
       <Head>
@@ -11,15 +11,15 @@ export default function Search({ q }) {
       </Head>
       <SearchView q={q} />
     </>
-  );
+  )
 }
 
-export async function getServerSideProps(context) {
-  const { q, page } = context.query;
+export async function getServerSideProps (context) {
+  const { q, page } = context.query
 
-  if (!q) return { props: {} };
+  if (!q) return { props: {} }
 
-  const res = await algoliaIndex.search(q, { page: page || 0 });
+  const res = await algoliaIndex.search(q, { page: page || 0 })
 
-  return { props: { q: res } };
+  return { props: { q: res } }
 }

@@ -1,8 +1,8 @@
-import Head from "next/head";
-import ProtectedContent from "../components/ProtectedContent";
-import KYCView from "../views/KYC/KYCView";
+import Head from 'next/head'
+import ProtectedContent from '../components/ProtectedContent'
+import KYCView from '../views/KYC/KYCView'
 
-export default function KYC() {
+export default function KYC () {
   return (
     <>
       <Head>
@@ -13,5 +13,5 @@ export default function KYC() {
         <KYCView />
       </ProtectedContent>
     </>
-  );
+  )
 }

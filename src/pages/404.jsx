@@ -1,10 +1,10 @@
-import Img from "../components/Img";
-import styled from "styled-components";
-import Text from "../components/Text";
-import App from "../components/App";
-import Link from "next/link";
-import A from "../components/A";
-import Head from "next/head";
+import Img from '../components/Img'
+import styled from 'styled-components'
+import Text from '../components/Text'
+import App from '../components/App'
+import Link from 'next/link'
+import A from '../components/A'
+import Head from 'next/head'
 
 const NotFoundDiv = styled.div`
   display: flex;
@@ -13,9 +13,9 @@ const NotFoundDiv = styled.div`
   justify-content: center;
   min-height: inherit;
   min-width: 100vw;
-`;
+`
 
-export default function notFound() {
+export default function notFound () {
   return (
     <>
       <Head>
@@ -39,5 +39,5 @@ export default function notFound() {
         </NotFoundDiv>
       </App>
     </>
-  );
+  )
 }

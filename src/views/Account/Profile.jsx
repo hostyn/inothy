@@ -1,16 +1,16 @@
-import Menu from "../../components/Account/Menu";
-import App from "../../components/App";
-import styled from "styled-components";
-import { colors, sizes } from "../../config/theme";
-import Text from "../../components/Text";
-import Img from "../../components/Img";
-import Input from "../../components/Input";
-import Textarea from "../../components/Textarea";
-import { useAuth } from "../../context/authContext";
-import { useEffect, useState } from "react";
-import Select from "../../components/Select";
-import { getSchool, getUniversities, getUniversity } from "../../util/api";
-import { BadgesNames } from "../../config/constants";
+import Menu from '../../components/Account/Menu'
+import App from '../../components/App'
+import styled from 'styled-components'
+import { colors, sizes } from '../../config/theme'
+import Text from '../../components/Text'
+import Img from '../../components/Img'
+import Input from '../../components/Input'
+import Textarea from '../../components/Textarea'
+import { useAuth } from '../../context/authContext'
+import { useEffect, useState } from 'react'
+import Select from '../../components/Select'
+import { getSchool, getUniversities, getUniversity } from '../../util/api'
+import { BadgesNames } from '../../config/constants'
 
 const ProfileGrid = styled.div`
   min-height: ${sizes.accountHeight};
@@ -30,7 +30,7 @@ const ProfileGrid = styled.div`
   @media (max-width: 1000px) {
     max-width: calc(100vw - 4rem);
   }
-`;
+`
 
 const ProfileBox = styled.div`
   display: flex;
@@ -55,7 +55,7 @@ const ProfileBox = styled.div`
   @media (max-width: 768px) {
     padding: 2rem;
   }
-`;
+`
 
 const University = styled.div`
   display: flex;
@@ -75,7 +75,7 @@ const University = styled.div`
   @media (max-width: 768px) {
     padding: 2rem;
   }
-`;
+`
 
 const BadgesDiv = styled.div`
   display: flex;
@@ -95,18 +95,18 @@ const BadgesDiv = styled.div`
   @media (max-width: 768px) {
     padding: 2rem;
   }
-`;
+`
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
+`
 
 const InputDiv = styled.div`
   display: flex;
   flex-direction: column;
-`;
+`
 
 const Badges = styled.div`
   display: grid;
@@ -114,58 +114,57 @@ const Badges = styled.div`
   width: 100%;
   height: 100%;
   gap: 1rem;
-`;
+`
 
 const Title = styled(Text)`
   @media (max-width: 768px) {
     font-size: 2rem;
   }
-`;
+`
 
 const Subtitle = styled(Text)`
   @media (max-width: 768px) {
     font-size: 1.2rem;
   }
-`;
+`
 
 const StyledImg = styled(Img)`
   @media (max-width: 768px) {
     height: 4rem;
     width: 4rem;
   }
-`;
+`
 
-export default function ProfileView() {
-  const { user } = useAuth();
+export default function ProfileView () {
+  const { user } = useAuth()
   const [userData, setUserData] = useState({
     name: user.data.name,
-    surname: user.data.surname,
-  });
+    surname: user.data.surname
+  })
 
   const [data, setData] = useState({
     universities: null,
     schools: null,
-    degrees: null,
-  });
+    degrees: null
+  })
 
   const handleChange = ({ target }) => {
-    setUserData({ ...userData, [target.name]: target.value });
-  };
+    setUserData({ ...userData, [target.name]: target.value })
+  }
 
   useEffect(() => {
     getUniversities().then((res) =>
       setData((data) => ({ ...data, universities: res }))
-    );
+    )
 
     getUniversity(user.data.university).then((res) =>
       setData((data) => ({ ...data, schools: res.schools }))
-    );
+    )
 
     getSchool(user.data.university, user.data.school).then((res) =>
       setData((data) => ({ ...data, degrees: res.degrees }))
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    )
+  }, [])
 
   return (
     <App>
@@ -271,7 +270,8 @@ export default function ProfileView() {
             >
               Insignias
             </Title>
-            {user.data.badge.length ? (
+            {user.data.badge.length
+              ? (
               <Badges>
                 {user.data.badge.map((badge) => (
                   <Img
@@ -281,14 +281,15 @@ export default function ProfileView() {
                   />
                 ))}
               </Badges>
-            ) : (
+                )
+              : (
               <Text fontSize="1.5rem" margin="auto" fontWeight="bold">
                 Aún no tienes insignias
               </Text>
-            )}
+                )}
           </BadgesDiv>
         </ProfileGrid>
       </Menu>
     </App>
-  );
+  )
 }

@@ -1,13 +1,13 @@
-import App from "../components/App";
-import styled from "styled-components";
-import { colors, sizes } from "../config/theme";
-import Img from "../components/Img";
-import Text from "../components/Text";
-import Input from "../components/Input";
-import { useState } from "react";
-import normalize from "../util/normailize";
-import { useRouter } from "next/router";
-import Card from "../components/Card";
+import App from '../components/App'
+import styled from 'styled-components'
+import { sizes } from '../config/theme'
+import Img from '../components/Img'
+import Text from '../components/Text'
+import Input from '../components/Input'
+import { useState } from 'react'
+import normalize from '../util/normailize'
+import { useRouter } from 'next/router'
+import Card from '../components/Card'
 
 const UniversityDiv = styled.div`
   margin: 2rem calc(${sizes.inlineMargin} * 2);
@@ -19,7 +19,7 @@ const UniversityDiv = styled.div`
   @media (max-width: 1000px) {
     margin: 2rem;
   }
-`;
+`
 
 const Title = styled.div`
   display: grid;
@@ -33,7 +33,7 @@ const Title = styled.div`
     grid-template-rows: 5rem auto;
     justify-items: center;
   }
-`;
+`
 
 const TitleText = styled(Text)`
   @media (max-width: 1000px) {
@@ -43,7 +43,7 @@ const TitleText = styled(Text)`
   @media (max-width: 500px) {
     text-align: center;
   }
-`;
+`
 
 const Logo = styled(Img)`
   aspect-ratio: 1;
@@ -54,15 +54,15 @@ const Logo = styled(Img)`
     width: 5rem;
     height: 5rem;
   }
-`;
+`
 
-export default function UniversityPage({ university }) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const { asPath } = useRouter();
+export default function UniversityPage ({ university }) {
+  const [searchQuery, setSearchQuery] = useState('')
+  const { asPath } = useRouter()
 
   const handleQuerySearch = ({ target }) => {
-    setSearchQuery(target.value);
-  };
+    setSearchQuery(target.value)
+  }
 
   return (
     <App>
@@ -84,7 +84,7 @@ export default function UniversityPage({ university }) {
         />
         {university.schools &&
           university.schools.map((school) => {
-            if (normalize(school.name).includes(searchQuery))
+            if (normalize(school.name).includes(searchQuery)) {
               return (
                 <Card
                   key={school.id}
@@ -92,9 +92,10 @@ export default function UniversityPage({ university }) {
                   img="/icons/university.svg"
                   text={school.name}
                 />
-              );
+              )
+            }
           })}
       </UniversityDiv>
     </App>
-  );
+  )
 }

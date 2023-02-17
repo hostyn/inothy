@@ -1,9 +1,9 @@
-import Link from "next/link";
-import styled from "styled-components";
-import { colors, sizes } from "../../config/theme";
-import A from "../A";
-import Img from "../Img";
-import Text from "../Text";
+import Link from 'next/link'
+import styled from 'styled-components'
+import { colors, sizes } from '../../config/theme'
+import A from '../A'
+import Img from '../Img'
+import Text from '../Text'
 
 const FooterDiv = styled.footer`
   min-width: 100vw;
@@ -25,7 +25,7 @@ const FooterDiv = styled.footer`
     grid-template-columns: 13rem;
     padding: 1rem calc((100% - 13rem) / 2);
   }
-`;
+`
 
 const Contacto = styled.div`
   background-image: url("/resources/footer/background.svg");
@@ -49,7 +49,7 @@ const Contacto = styled.div`
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
-`;
+`
 
 const TextDiv = styled.div`
   display: flex;
@@ -60,13 +60,13 @@ const TextDiv = styled.div`
       font-size: 6vw;
     }
   }
-`;
+`
 
 const RRSS = styled.div`
   display: flex;
   justify-content: center;
   margin: 1vw 0 0 0;
-`;
+`
 
 const RRSSButton = styled.a`
   aspect-ratio: 1;
@@ -83,21 +83,21 @@ const RRSSButton = styled.a`
     height: 10vw;
     margin: 0 4vw;
   }
-`;
+`
 
 const HiddenLink = styled.div`
   @media (max-width: 1000px) {
     display: none;
   }
-`;
+`
 
 const HiddenImg = styled(Img)`
   @media (max-width: 600px) {
     display: none;
   }
-`;
+`
 
-export default function Footer() {
+export default function Footer () {
   return (
     <>
       <Contacto>
@@ -155,7 +155,7 @@ export default function Footer() {
           </Link>
         </HiddenLink>
         <Link href="/" passHref>
-          <a style={{ height: "100%" }}>
+          <a style={{ height: '100%' }}>
             <Img src="/isologo.svg" priority />
           </a>
         </Link>
@@ -185,5 +185,5 @@ export default function Footer() {
         </HiddenLink>
       </FooterDiv>
     </>
-  );
+  )
 }
