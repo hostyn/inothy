@@ -15,6 +15,7 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": "src",
+    "useUnknownInCatchVariables": false,
     "paths": {
       "@ui/*": ["components/ui/*"]
     }

@@ -9,7 +9,7 @@ export const colors = {
   emphasis: '#F4F2F1',
   userEmphasis: '#eaeaea',
   shadow: 'rgba(0, 0, 0, 0.1)',
-  disabledButton: '#415369'
+  disabledButton: '#415369',
 }
 
 export const sizes = {
@@ -18,5 +18,5 @@ export const sizes = {
   footer: '100px',
   buttonText: '1.3rem',
   inlineMargin: '5rem',
-  accountHeight: '40rem'
+  accountHeight: '40rem',
 }
