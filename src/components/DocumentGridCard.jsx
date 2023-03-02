@@ -46,6 +46,7 @@ const CardName = styled(Text)`
 
 export default function DocumentGridCard ({ documentData, href, reference }) {
   const { user } = useAuth()
+  const isDiscountActive = new Date() < new Date('07-01-2023')
   return (
     <Link href={href}>
       <Card ref={reference}>
@@ -63,7 +64,7 @@ export default function DocumentGridCard ({ documentData, href, reference }) {
               : documentData.name}
           </CardName>
           <Text fontWeight="bold" fontSize="1.2rem">
-            {user?.data?.badge.includes('ambassador') && (
+            {user?.data?.badge.includes('ambassador') | isDiscountActive && (
               <Span
                 fontSize="1rem"
                 color="secondary"
@@ -77,7 +78,9 @@ export default function DocumentGridCard ({ documentData, href, reference }) {
             {currencyFormatter.format(
               user?.data?.badge.includes('ambassador')
                 ? documentData.price * 0.8
-                : documentData.price
+                : isDiscountActive
+                  ? documentData.price * 0.9
+                  : documentData.price
             )}
           </Text>
         </CardTitle>

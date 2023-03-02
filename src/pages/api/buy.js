@@ -55,16 +55,20 @@ export default async function createcardregistration (req, res) {
   }
 
   const isAmbassador = userData.badge?.includes('ambassador')
+  const isDiscountActive = new Date() < new Date('07-01-2023')
 
   const totalPrice = documents.reduce(
     (prev, current) =>
       isAmbassador
         ? prev + parseFloat(current.price) * 0.8
-        : prev + parseFloat(current.price),
+        : isDiscountActive
+          ? prev + parseFloat(current.price) * 0.9
+          : prev + parseFloat(current.price),
     0
   )
 
-  const ipAddress = req.headers['x-forwarded-for']?.split(',')[0] ?? null
+  // TODO: Fix in development
+  const ipAddress = req.headers['x-forwarded-for']?.split(',')[0] ?? '127.0.0.1'
 
   const response = await mangopay.PayIns.create({
     AuthorId: userData.mangopayClientId,
@@ -111,9 +115,17 @@ export default async function createcardregistration (req, res) {
         cardId: response.CardId,
         recipts: documents.map((doc) => ({
           path: doc.path,
-          price: isAmbassador ? doc.price * 0.8 : doc.price,
+          price: isAmbassador
+            ? doc.price * 0.8
+            : isDiscountActive
+              ? doc.price * 0.9
+              : doc.price,
           fee:
-            (isAmbassador ? doc.price * 0.8 : doc.price) -
+            (isAmbassador
+              ? doc.price * 0.8
+              : isDiscountActive
+                ? doc.price * 0.9
+                : doc.price) -
             getSellerAmount(doc.price),
           createdBy: doc.createdBy
         }))
@@ -138,12 +150,20 @@ export default async function createcardregistration (req, res) {
           DebitedFunds: {
             Currency: 'EUR',
             Amount:
-              (isAmbassador ? document.price * 0.8 : document.price) * 100
+              (isAmbassador
+                ? document.price * 0.8
+                : isDiscountActive
+                  ? document.price * 0.9
+                  : document.price) * 100
           },
           Fees: {
             Currency: 'EUR',
             Amount:
-              ((isAmbassador ? document.price * 0.8 : document.price) -
+              ((isAmbassador
+                ? document.price * 0.8
+                : isDiscountActive
+                  ? document.price * 0.9
+                  : document.price) -
                 getSellerAmount(document.price)) *
               100
           }

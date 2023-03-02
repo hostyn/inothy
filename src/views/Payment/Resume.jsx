@@ -108,6 +108,7 @@ const StyledButton = styled(Button)`
 
 export default function Resume ({ paymentDetails, setState }) {
   const { user } = useAuth()
+  const isDiscountActive = new Date() < new Date('07-01-2023')
   return (
     <ResumeDiv>
       <Title fontSize="2rem" fontWeight="bold" margin="0 0 1rem 0">
@@ -125,7 +126,7 @@ export default function Resume ({ paymentDetails, setState }) {
               <Text fontSize="0.8rem">{document.createdBy}</Text>
             </VerticalText>
             <DocumentPrice fontSize="2rem" textAlign="end">
-              {user?.data?.badge.includes('ambassador') && (
+              {user?.data?.badge.includes('ambassador') | isDiscountActive && (
                 <DiscountText>
                   {currencyFormatter.format(document.price)}
                 </DiscountText>
@@ -133,7 +134,9 @@ export default function Resume ({ paymentDetails, setState }) {
               {currencyFormatter.format(
                 user?.data?.badge.includes('ambassador')
                   ? document.price * 0.8
-                  : document.price
+                  : isDiscountActive
+                    ? document.price * 0.9
+                    : document.price
               )}
             </DocumentPrice>
           </DocumentCard>
@@ -145,7 +148,7 @@ export default function Resume ({ paymentDetails, setState }) {
         {currencyFormatter.format(
           user?.data?.badge.includes('ambassador')
             ? paymentDetails.totalAmount * 0.8
-            : paymentDetails.totalAmount
+            : isDiscountActive ? paymentDetails.totalAmount * 0.9 : paymentDetails.totalAmount
         )}
       </TotalText>
       <InlineContinue>

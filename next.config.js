@@ -1,13 +1,13 @@
-//next.config.js
+// next.config.js
 
 module.exports = {
   reactStrictMode: true,
   compiler: {
-    styledComponents: true,
+    styledComponents: true
   },
   images: {
-    domains: ["storage.googleapis.com"],
-  },
+    domains: ['storage.googleapis.com']
+  }
   // swcMinify: true,
   // async headers() {
   //   return [
@@ -27,5 +27,5 @@ module.exports = {
   //   ];
   // },
 
-  //... other configs
-};
+  // ... other configs
+}

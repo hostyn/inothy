@@ -184,6 +184,8 @@ export default function DocumentPage ({ documentData }) {
   const { openModal, closeModal } = useModal()
   const { user } = useAuth()
 
+  const isDiscountActive = new Date() < new Date('07-01-2023')
+
   const [previewUrl, setPreviewUrl] = useState(null)
 
   const handleBuy = async () => {
@@ -301,7 +303,7 @@ export default function DocumentPage ({ documentData }) {
                 {currencyFormatter.format(
                   user?.data?.badge.includes('ambassador')
                     ? documentData.price * 0.8
-                    : documentData.price
+                    : isDiscountActive ? documentData.price * 0.9 : documentData.price
                 )}
                 <Span
                   fontSize="2rem"
@@ -310,7 +312,7 @@ export default function DocumentPage ({ documentData }) {
                   textDecoration="line-through"
                   title="Descuento de embajador"
                 >
-                  {user?.data?.badge.includes('ambassador') &&
+                  {user?.data?.badge.includes('ambassador') | isDiscountActive &&
                     currencyFormatter.format(documentData.price)}
                 </Span>
               </Text>
