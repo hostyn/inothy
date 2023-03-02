@@ -1,4 +1,4 @@
-import App from 'next/app'
+import App, { type AppProps, type AppContext } from 'next/app'
 import Cookies from '../components/Cookies'
 import Providers from '../context/Providers'
 import '../styles/global.css'
@@ -7,7 +7,7 @@ import Head from 'next/head'
 
 pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.js'
 
-export default function MyApp ({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
       <Head>
@@ -21,13 +21,13 @@ export default function MyApp ({ Component, pageProps }) {
   )
 }
 
-MyApp.getInitialProps = async (appContext) => {
+MyApp.getInitialProps = async (appContext: AppContext) => {
   // calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(appContext)
   return {
     pageProps: {
       ...appProps.pageProps,
-      headers: appContext.ctx.req ? appContext.ctx.req.headers : null
-    }
+      headers: appContext.ctx.req?.headers ?? null,
+    },
   }
 }
