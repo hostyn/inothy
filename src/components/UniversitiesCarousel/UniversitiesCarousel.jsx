@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { colors } from '../../config/theme'
 import { getUniversities } from '../../util/api'
-import Img from '../Img'
+import Img from '@ui/Img'
 import Loading from '../Loading'
 import { VirtualizedPage } from '../Carousel/VirtualizedPage'
 

@@ -1,4 +1,4 @@
-import Input from '../../components/Input'
+import Input from '@ui/Input'
 import normalize from '../../util/normailize'
 import { useState } from 'react'
 import Card, { CardImg, CardText } from './components/Card'

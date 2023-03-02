@@ -7,6 +7,7 @@ specifiers:
   '@types/react-dom': ^18.0.11
   '@types/react-pdf': ^6.2.0
   '@types/styled-components': ^5.1.26
+  '@types/uuid': ^9.0.1
   '@typescript-eslint/eslint-plugin': ^5.0.0
   '@typescript-eslint/parser': ^5.54.0
   algoliasearch: ^4.14.3
@@ -61,6 +62,7 @@ devDependencies:
   '@types/react-dom': 18.0.11
   '@types/react-pdf': 6.2.0
   '@types/styled-components': 5.1.26
+  '@types/uuid': 9.0.1
   '@typescript-eslint/eslint-plugin': 5.54.0_taqo6537i43f5nwueystvkx5de
   '@typescript-eslint/parser': 5.54.0_3wg4h5ynvvzze5kok5uwjq3zc4
   eslint: 8.20.0
@@ -1458,6 +1460,10 @@ packages:
       '@types/hoist-non-react-statics': 3.3.1
       '@types/react': 18.0.25
       csstype: 3.1.1
+    dev: true
+
+  /@types/uuid/9.0.1:
+    resolution: {integrity: sha512-rFT3ak0/2trgvp4yYZo5iKFEPsET7vKydKF+VRCxlQ9bpheehyAJH89dAkaLEq/j/RZXJIqcgsmPJKUP1Z28HA==}
     dev: true
 
   /@typescript-eslint/eslint-plugin/5.54.0_taqo6537i43f5nwueystvkx5de:

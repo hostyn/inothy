@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import Img from '../../components/Img'
-import Text from '../../components/Text'
+import Img from '@ui/Img'
+import Text from '@ui/Text'
 
 const Success = styled.div`
   min-width: 100%;

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Button from '../../../components/Button'
+import Button from '@ui/Button'
 import { colors } from '../../../config/theme'
 
 const ButtonGrid = styled.div`

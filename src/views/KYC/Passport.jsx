@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import Button from '../../components/Button'
-import Fileinput from '../../components/Fileinput'
-import Img from '../../components/Img'
-import Text from '../../components/Text'
+import Button from '@ui/Button'
+import Fileinput from '@ui/Fileinput'
+import Img from '@ui/Img'
+import Text from '@ui/Text'
 import { colors } from '../../config/theme'
 import blobToBase64 from '../../util/blobToB64'
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import Button from '../../components/Button'
-import Img from '../../components/Img'
-import Text from '../../components/Text'
+import Button from '@ui/Button'
+import Img from '@ui/Img'
+import Text from '@ui/Text'
 import { colors } from '../../config/theme'
 
 const DocumentSelectionDiv = styled.div`

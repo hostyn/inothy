@@ -32,7 +32,7 @@
 })(this, function() {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ([
+/******/ 	const __webpack_modules__ = ([
 /* 0 */,
 /* 1 */
 /***/ ((__unused_webpack_module, exports, __w_pdfjs_require__) => {
@@ -44,21 +44,21 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.WorkerTask = exports.WorkerMessageHandler = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _pdf_manager = __w_pdfjs_require__(7);
+const _pdf_manager = __w_pdfjs_require__(7);
 
-var _writer = __w_pdfjs_require__(71);
+const _writer = __w_pdfjs_require__(71);
 
-var _is_node = __w_pdfjs_require__(4);
+const _is_node = __w_pdfjs_require__(4);
 
-var _message_handler = __w_pdfjs_require__(99);
+const _message_handler = __w_pdfjs_require__(99);
 
-var _worker_stream = __w_pdfjs_require__(100);
+const _worker_stream = __w_pdfjs_require__(100);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
 class WorkerTask {
   constructor(name) {
@@ -195,8 +195,8 @@ class WorkerMessageHandler {
         return pdfManagerCapability.promise;
       }
 
-      let pdfStream,
-          cachedChunks = [];
+      let pdfStream;
+          let cachedChunks = [];
 
       try {
         pdfStream = new _worker_stream.PDFWorkerStream(handler);
@@ -1522,8 +1522,8 @@ class Util {
   }
 
   static bezierBoundingBox(x0, y0, x1, y1, x2, y2, x3, y3) {
-    const tvalues = [],
-          bounds = [[], []];
+    const tvalues = [];
+          const bounds = [[], []];
     let a, b, c, t, t1, t2, b2ac, sqrtb2ac;
 
     for (let i = 0; i < 2; ++i) {
@@ -1544,7 +1544,7 @@ class Util {
 
         t = -c / b;
 
-        if (0 < t && t < 1) {
+        if (t > 0 && t < 1) {
           tvalues.push(t);
         }
 
@@ -1560,19 +1560,19 @@ class Util {
 
       t1 = (-b + sqrtb2ac) / (2 * a);
 
-      if (0 < t1 && t1 < 1) {
+      if (t1 > 0 && t1 < 1) {
         tvalues.push(t1);
       }
 
       t2 = (-b - sqrtb2ac) / (2 * a);
 
-      if (0 < t2 && t2 < 1) {
+      if (t2 > 0 && t2 < 1) {
         tvalues.push(t2);
       }
     }
 
-    let j = tvalues.length,
-        mt;
+    let j = tvalues.length;
+        let mt;
     const jlen = j;
 
     while (j--) {
@@ -1596,8 +1596,8 @@ exports.Util = Util;
 const PDFStringTranslateTable = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x2d8, 0x2c7, 0x2c6, 0x2d9, 0x2dd, 0x2db, 0x2da, 0x2dc, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x2022, 0x2020, 0x2021, 0x2026, 0x2014, 0x2013, 0x192, 0x2044, 0x2039, 0x203a, 0x2212, 0x2030, 0x201e, 0x201c, 0x201d, 0x2018, 0x2019, 0x201a, 0x2122, 0xfb01, 0xfb02, 0x141, 0x152, 0x160, 0x178, 0x17d, 0x131, 0x142, 0x153, 0x161, 0x17e, 0, 0x20ac];
 
 function stringToPDFString(str) {
-  const length = str.length,
-        strBuf = [];
+  const length = str.length;
+        const strBuf = [];
 
   if (str[0] === "\xFE" && str[1] === "\xFF") {
     for (let i = 2; i < length; i += 2) {
@@ -1724,8 +1724,8 @@ function createObjectURL(data, contentType = "", forceDataSchema = false) {
     const b1 = data[i] & 0xff;
     const b2 = data[i + 1] & 0xff;
     const b3 = data[i + 2] & 0xff;
-    const d1 = b1 >> 2,
-          d2 = (b1 & 3) << 4 | b2 >> 4;
+    const d1 = b1 >> 2;
+          const d2 = (b1 & 3) << 4 | b2 >> 4;
     const d3 = i + 1 < ii ? (b2 & 0xf) << 2 | b3 >> 6 : 64;
     const d4 = i + 2 < ii ? b3 & 0x3f : 64;
     buffer += digits[d1] + digits[d2] + digits[d3] + digits[d4];
@@ -1740,7 +1740,7 @@ function createObjectURL(data, contentType = "", forceDataSchema = false) {
 
 
 
-var _is_node = __w_pdfjs_require__(4);
+const _is_node = __w_pdfjs_require__(4);
 
 ;
 
@@ -1775,9 +1775,9 @@ exports.isRef = isRef;
 exports.isRefsEqual = isRefsEqual;
 exports.isStream = isStream;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _base_stream = __w_pdfjs_require__(6);
+const _base_stream = __w_pdfjs_require__(6);
 
 const CIRCULAR_REF = Symbol("CIRCULAR_REF");
 exports.CIRCULAR_REF = CIRCULAR_REF;
@@ -1794,7 +1794,7 @@ const Name = function NameClosure() {
 
     static get(name) {
       const nameValue = nameCache[name];
-      return nameValue ? nameValue : nameCache[name] = new Name(name);
+      return nameValue || (nameCache[name] = new Name(name));
     }
 
     static _clearCache() {
@@ -1818,7 +1818,7 @@ const Cmd = function CmdClosure() {
 
     static get(cmd) {
       const cmdValue = cmdCache[cmd];
-      return cmdValue ? cmdValue : cmdCache[cmd] = new Cmd(cmd);
+      return cmdValue || (cmdCache[cmd] = new Cmd(cmd));
     }
 
     static _clearCache() {
@@ -1958,8 +1958,8 @@ class Dict {
     dictArray,
     mergeSubDicts = false
   }) {
-    const mergedDict = new Dict(xref),
-          properties = new Map();
+    const mergedDict = new Dict(xref);
+          const properties = new Map();
 
     for (const dict of dictArray) {
       if (!(dict instanceof Dict)) {
@@ -2029,7 +2029,7 @@ const Ref = function RefClosure() {
     static get(num, gen) {
       const key = gen === 0 ? `${num}R` : `${num}R${gen}`;
       const refValue = refCache[key];
-      return refValue ? refValue : refCache[key] = new Ref(num, gen);
+      return refValue || (refCache[key] = new Ref(num, gen));
     }
 
     static _clearCache() {
@@ -2156,7 +2156,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.BaseStream = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 class BaseStream {
   constructor() {
@@ -2263,15 +2263,15 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.NetworkPdfManager = exports.LocalPdfManager = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _chunked_stream = __w_pdfjs_require__(8);
+const _chunked_stream = __w_pdfjs_require__(8);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _document = __w_pdfjs_require__(11);
+const _document = __w_pdfjs_require__(11);
 
-var _stream = __w_pdfjs_require__(10);
+const _stream = __w_pdfjs_require__(10);
 
 function parseDocBaseUrl(url) {
   if (url) {
@@ -2486,11 +2486,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.ChunkedStreamManager = exports.ChunkedStream = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _stream = __w_pdfjs_require__(10);
+const _stream = __w_pdfjs_require__(10);
 
 class ChunkedStream extends _stream.Stream {
   constructor(length, chunkSize, manager) {
@@ -2765,8 +2765,8 @@ class ChunkedStreamManager {
       rangeReader.onProgress = this.onProgress.bind(this);
     }
 
-    let chunks = [],
-        loaded = 0;
+    let chunks = [];
+        let loaded = 0;
     return new Promise((resolve, reject) => {
       const readChunk = chunk => {
         try {
@@ -3077,9 +3077,9 @@ exports.recoverJsURL = recoverJsURL;
 exports.toRomanNumerals = toRomanNumerals;
 exports.validateCSSFont = validateCSSFont;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
 function getLookupTableFactory(initializer) {
   let lookup;
@@ -3159,8 +3159,8 @@ class DocStats {
   }
 
   _send() {
-    const streamTypes = Object.create(null),
-          fontTypes = Object.create(null);
+    const streamTypes = Object.create(null);
+          const fontTypes = Object.create(null);
 
     for (const type of this._streamTypes) {
       streamTypes[type] = true;
@@ -3441,7 +3441,7 @@ function encodeToXmlString(str) {
   for (let i = 0, ii = str.length; i < ii; i++) {
     const char = str.codePointAt(i);
 
-    if (0x20 <= char && char <= 0x7e) {
+    if (char >= 0x20 && char <= 0x7e) {
       const entity = XMLEntities[char];
 
       if (entity) {
@@ -3547,9 +3547,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.StringStream = exports.Stream = exports.NullStream = void 0;
 
-var _base_stream = __w_pdfjs_require__(6);
+const _base_stream = __w_pdfjs_require__(6);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 class Stream extends _base_stream.BaseStream {
   constructor(arrayBuffer, start, length, dict) {
@@ -3655,39 +3655,39 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.Page = exports.PDFDocument = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _xfa_fonts = __w_pdfjs_require__(12);
+const _xfa_fonts = __w_pdfjs_require__(12);
 
-var _stream = __w_pdfjs_require__(10);
+const _stream = __w_pdfjs_require__(10);
 
-var _annotation = __w_pdfjs_require__(22);
+const _annotation = __w_pdfjs_require__(22);
 
-var _base_stream = __w_pdfjs_require__(6);
+const _base_stream = __w_pdfjs_require__(6);
 
-var _crypto = __w_pdfjs_require__(72);
+const _crypto = __w_pdfjs_require__(72);
 
-var _catalog = __w_pdfjs_require__(64);
+const _catalog = __w_pdfjs_require__(64);
 
-var _parser = __w_pdfjs_require__(27);
+const _parser = __w_pdfjs_require__(27);
 
-var _object_loader = __w_pdfjs_require__(70);
+const _object_loader = __w_pdfjs_require__(70);
 
-var _operator_list = __w_pdfjs_require__(62);
+const _operator_list = __w_pdfjs_require__(62);
 
-var _evaluator = __w_pdfjs_require__(25);
+const _evaluator = __w_pdfjs_require__(25);
 
-var _decode_stream = __w_pdfjs_require__(29);
+const _decode_stream = __w_pdfjs_require__(29);
 
-var _struct_tree = __w_pdfjs_require__(69);
+const _struct_tree = __w_pdfjs_require__(69);
 
-var _factory = __w_pdfjs_require__(74);
+const _factory = __w_pdfjs_require__(74);
 
-var _xref = __w_pdfjs_require__(98);
+const _xref = __w_pdfjs_require__(98);
 
 const DEFAULT_USER_UNIT = 1.0;
 const LETTER_SIZE_MEDIABOX = [0, 0, 612, 792];
@@ -3956,10 +3956,10 @@ class Page {
         };
       }
 
-      const renderForms = !!(intent & _util.RenderingIntentFlag.ANNOTATIONS_FORMS),
-            intentAny = !!(intent & _util.RenderingIntentFlag.ANY),
-            intentDisplay = !!(intent & _util.RenderingIntentFlag.DISPLAY),
-            intentPrint = !!(intent & _util.RenderingIntentFlag.PRINT);
+      const renderForms = !!(intent & _util.RenderingIntentFlag.ANNOTATIONS_FORMS);
+            const intentAny = !!(intent & _util.RenderingIntentFlag.ANY);
+            const intentDisplay = !!(intent & _util.RenderingIntentFlag.DISPLAY);
+            const intentPrint = !!(intent & _util.RenderingIntentFlag.PRINT);
       const opListPromises = [];
 
       for (const annotation of annotations) {
@@ -4047,9 +4047,9 @@ class Page {
         return annotationsData;
       }
 
-      const intentAny = !!(intent & _util.RenderingIntentFlag.ANY),
-            intentDisplay = !!(intent & _util.RenderingIntentFlag.DISPLAY),
-            intentPrint = !!(intent & _util.RenderingIntentFlag.PRINT);
+      const intentAny = !!(intent & _util.RenderingIntentFlag.ANY);
+            const intentDisplay = !!(intent & _util.RenderingIntentFlag.DISPLAY);
+            const intentPrint = !!(intent & _util.RenderingIntentFlag.PRINT);
 
       for (const annotation of annotations) {
         if (intentAny || intentDisplay && annotation.viewable || intentPrint && annotation.printable) {
@@ -4231,8 +4231,8 @@ class PDFDocument {
     } else {
       const step = 1024;
       const startXRefLength = STARTXREF_SIGNATURE.length;
-      let found = false,
-          pos = stream.end;
+      let found = false;
+          let pos = stream.end;
 
       while (!found && pos > 0) {
         pos -= step - startXRefLength;
@@ -4281,8 +4281,8 @@ class PDFDocument {
 
     stream.moveStart();
     const MAX_PDF_VERSION_LENGTH = 12;
-    let version = "",
-        ch;
+    let version = "";
+        let ch;
 
     while ((ch = stream.getByte()) > 0x20) {
       if (version.length >= MAX_PDF_VERSION_LENGTH) {
@@ -5035,21 +5035,21 @@ Object.defineProperty(exports, "__esModule", ({
 exports.getXfaFontDict = getXfaFontDict;
 exports.getXfaFontName = getXfaFontName;
 
-var _calibri_factors = __w_pdfjs_require__(13);
+const _calibri_factors = __w_pdfjs_require__(13);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _helvetica_factors = __w_pdfjs_require__(14);
+const _helvetica_factors = __w_pdfjs_require__(14);
 
-var _liberationsans_widths = __w_pdfjs_require__(15);
+const _liberationsans_widths = __w_pdfjs_require__(15);
 
-var _myriadpro_factors = __w_pdfjs_require__(16);
+const _myriadpro_factors = __w_pdfjs_require__(16);
 
-var _segoeui_factors = __w_pdfjs_require__(17);
+const _segoeui_factors = __w_pdfjs_require__(17);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _fonts_utils = __w_pdfjs_require__(18);
+const _fonts_utils = __w_pdfjs_require__(18);
 
 const getXFAFontMap = (0, _core_utils.getLookupTableFactory)(function (t) {
   t["MyriadPro-Regular"] = t["PdfJS-Fallback-Regular"] = {
@@ -5453,13 +5453,13 @@ exports.normalizeFontName = normalizeFontName;
 exports.recoverGlyphName = recoverGlyphName;
 exports.type1FontGlyphMapping = type1FontGlyphMapping;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _encodings = __w_pdfjs_require__(19);
+const _encodings = __w_pdfjs_require__(19);
 
-var _glyphlist = __w_pdfjs_require__(20);
+const _glyphlist = __w_pdfjs_require__(20);
 
-var _unicode = __w_pdfjs_require__(21);
+const _unicode = __w_pdfjs_require__(21);
 
 const SEAC_ANALYSIS_ENABLED = true;
 exports.SEAC_ANALYSIS_ENABLED = SEAC_ANALYSIS_ENABLED;
@@ -5673,7 +5673,7 @@ __w_pdfjs_require__.r(__webpack_exports__);
 /* harmony export */   "getDingbatsGlyphsUnicode": () => (/* binding */ getDingbatsGlyphsUnicode),
 /* harmony export */   "getGlyphsUnicode": () => (/* binding */ getGlyphsUnicode)
 /* harmony export */ });
-/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __w_pdfjs_require__(9);
+/* harmony import */ const _core_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __w_pdfjs_require__(9);
 
 const getGlyphsUnicode = (0,_core_utils_js__WEBPACK_IMPORTED_MODULE_0__.getArrayLookupTableFactory)(function () {
  return [
@@ -14747,7 +14747,7 @@ __w_pdfjs_require__.r(__webpack_exports__);
 /* harmony export */   "mapSpecialUnicodeValues": () => (/* binding */ mapSpecialUnicodeValues),
 /* harmony export */   "reverseIfRtl": () => (/* binding */ reverseIfRtl)
 /* harmony export */ });
-/* harmony import */ var _core_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __w_pdfjs_require__(9);
+/* harmony import */ const _core_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __w_pdfjs_require__(9);
 
 const getSpecialPUASymbols = (0,_core_utils_js__WEBPACK_IMPORTED_MODULE_0__.getLookupTableFactory)(function (t) {
  t[63721] = 0x00a9;
@@ -18109,31 +18109,31 @@ Object.defineProperty(exports, "__esModule", ({
 exports.MarkupAnnotation = exports.AnnotationFactory = exports.AnnotationBorderStyle = exports.Annotation = void 0;
 exports.getQuadPoints = getQuadPoints;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _default_appearance = __w_pdfjs_require__(23);
+const _default_appearance = __w_pdfjs_require__(23);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _bidi = __w_pdfjs_require__(59);
+const _bidi = __w_pdfjs_require__(59);
 
-var _catalog = __w_pdfjs_require__(64);
+const _catalog = __w_pdfjs_require__(64);
 
-var _colorspace = __w_pdfjs_require__(24);
+const _colorspace = __w_pdfjs_require__(24);
 
-var _file_spec = __w_pdfjs_require__(66);
+const _file_spec = __w_pdfjs_require__(66);
 
-var _object_loader = __w_pdfjs_require__(70);
+const _object_loader = __w_pdfjs_require__(70);
 
-var _operator_list = __w_pdfjs_require__(62);
+const _operator_list = __w_pdfjs_require__(62);
 
-var _stream = __w_pdfjs_require__(10);
+const _stream = __w_pdfjs_require__(10);
 
-var _writer = __w_pdfjs_require__(71);
+const _writer = __w_pdfjs_require__(71);
 
-var _factory = __w_pdfjs_require__(74);
+const _factory = __w_pdfjs_require__(74);
 
 class AnnotationFactory {
   static create(xref, ref, pdfManager, idFactory, collectFields) {
@@ -19441,11 +19441,11 @@ class TextWidgetAnnotation extends WidgetAnnotation {
     const positions = font.getCharPositions(line);
     const scale = fontSize / 1000;
     const chunks = [];
-    let lastSpacePosInStringStart = -1,
-        lastSpacePosInStringEnd = -1,
-        lastSpacePos = -1,
-        startChunk = 0,
-        currentWidth = 0;
+    let lastSpacePosInStringStart = -1;
+        let lastSpacePosInStringEnd = -1;
+        let lastSpacePos = -1;
+        let startChunk = 0;
+        let currentWidth = 0;
 
     for (let i = 0, ii = glyphs.length; i < ii; i++) {
       const [start, end] = positions[i];
@@ -20125,8 +20125,8 @@ class LineAnnotation extends MarkupAnnotation {
     if (!this.appearance) {
       const strokeColor = this.color ? Array.from(this.color).map(c => c / 255) : [0, 0, 0];
       const strokeAlpha = parameters.dict.get("CA");
-      let fillColor = null,
-          interiorColor = parameters.dict.getArray("IC");
+      let fillColor = null;
+          let interiorColor = parameters.dict.getArray("IC");
 
       if (interiorColor) {
         interiorColor = getRgbColor(interiorColor, null);
@@ -20134,8 +20134,8 @@ class LineAnnotation extends MarkupAnnotation {
       }
 
       const fillAlpha = fillColor ? strokeAlpha : null;
-      const borderWidth = this.borderStyle.width || 1,
-            borderAdjust = 2 * borderWidth;
+      const borderWidth = this.borderStyle.width || 1;
+            const borderAdjust = 2 * borderWidth;
       const bbox = [this.data.lineCoordinates[0] - borderAdjust, this.data.lineCoordinates[1] - borderAdjust, this.data.lineCoordinates[2] + borderAdjust, this.data.lineCoordinates[3] + borderAdjust];
 
       if (!_util.Util.intersect(this.rectangle, bbox)) {
@@ -20167,8 +20167,8 @@ class SquareAnnotation extends MarkupAnnotation {
     if (!this.appearance) {
       const strokeColor = this.color ? Array.from(this.color).map(c => c / 255) : [0, 0, 0];
       const strokeAlpha = parameters.dict.get("CA");
-      let fillColor = null,
-          interiorColor = parameters.dict.getArray("IC");
+      let fillColor = null;
+          let interiorColor = parameters.dict.getArray("IC");
 
       if (interiorColor) {
         interiorColor = getRgbColor(interiorColor, null);
@@ -20286,8 +20286,8 @@ class PolylineAnnotation extends MarkupAnnotation {
     if (!this.appearance) {
       const strokeColor = this.color ? Array.from(this.color).map(c => c / 255) : [0, 0, 0];
       const strokeAlpha = parameters.dict.get("CA");
-      const borderWidth = this.borderStyle.width || 1,
-            borderAdjust = 2 * borderWidth;
+      const borderWidth = this.borderStyle.width || 1;
+            const borderAdjust = 2 * borderWidth;
       const bbox = [Infinity, Infinity, -Infinity, -Infinity];
 
       for (const vertex of this.data.vertices) {
@@ -20365,8 +20365,8 @@ class InkAnnotation extends MarkupAnnotation {
     if (!this.appearance) {
       const strokeColor = this.color ? Array.from(this.color).map(c => c / 255) : [0, 0, 0];
       const strokeAlpha = parameters.dict.get("CA");
-      const borderWidth = this.borderStyle.width || 1,
-            borderAdjust = 2 * borderWidth;
+      const borderWidth = this.borderStyle.width || 1;
+            const borderAdjust = 2 * borderWidth;
       const bbox = [Infinity, Infinity, -Infinity, -Infinity];
 
       for (const inkLists of this.data.inkLists) {
@@ -20569,17 +20569,17 @@ Object.defineProperty(exports, "__esModule", ({
 exports.createDefaultAppearance = createDefaultAppearance;
 exports.parseDefaultAppearance = parseDefaultAppearance;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _colorspace = __w_pdfjs_require__(24);
+const _colorspace = __w_pdfjs_require__(24);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _evaluator = __w_pdfjs_require__(25);
+const _evaluator = __w_pdfjs_require__(25);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _stream = __w_pdfjs_require__(10);
+const _stream = __w_pdfjs_require__(10);
 
 class DefaultAppearanceEvaluator extends _evaluator.EvaluatorPreprocessor {
   constructor(str) {
@@ -20684,19 +20684,19 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.ColorSpace = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
 function resizeRgbImage(src, dest, w1, h1, w2, h2, alpha01) {
   const COMPONENTS = 3;
   alpha01 = alpha01 !== 1 ? 0 : alpha01;
   const xRatio = w1 / w2;
   const yRatio = h1 / h2;
-  let newIndex = 0,
-      oldIndex;
+  let newIndex = 0;
+      let oldIndex;
   const xScaled = new Uint16Array(w2);
   const w1Scanline = w1 * COMPONENTS;
 
@@ -20805,8 +20805,8 @@ class ColorSpace {
       if (needsResizing) {
         resizeRgbImage(rgbBuf, dest, originalWidth, originalHeight, width, height, alpha01);
       } else {
-        let destPos = 0,
-            rgbPos = 0;
+        let destPos = 0;
+            let rgbPos = 0;
 
         for (let i = 0, ii = width * actualHeight; i < ii; i++) {
           dest[destPos++] = rgbBuf[rgbPos++];
@@ -21235,8 +21235,8 @@ class DeviceGrayCS extends ColorSpace {
 
   getRgbBuffer(src, srcOffset, count, dest, destOffset, bits, alpha01) {
     const scale = 255 / ((1 << bits) - 1);
-    let j = srcOffset,
-        q = destOffset;
+    let j = srcOffset;
+        let q = destOffset;
 
     for (let i = 0; i < count; ++i) {
       const c = scale * src[j++];
@@ -21271,8 +21271,8 @@ class DeviceRgbCS extends ColorSpace {
     }
 
     const scale = 255 / ((1 << bits) - 1);
-    let j = srcOffset,
-        q = destOffset;
+    let j = srcOffset;
+        let q = destOffset;
 
     for (let i = 0; i < count; ++i) {
       dest[q++] = scale * src[j++];
@@ -21751,55 +21751,55 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.PartialEvaluator = exports.EvaluatorPreprocessor = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _cmap = __w_pdfjs_require__(26);
+const _cmap = __w_pdfjs_require__(26);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _fonts = __w_pdfjs_require__(44);
+const _fonts = __w_pdfjs_require__(44);
 
-var _fonts_utils = __w_pdfjs_require__(18);
+const _fonts_utils = __w_pdfjs_require__(18);
 
-var _encodings = __w_pdfjs_require__(19);
+const _encodings = __w_pdfjs_require__(19);
 
-var _standard_fonts = __w_pdfjs_require__(47);
+const _standard_fonts = __w_pdfjs_require__(47);
 
-var _unicode = __w_pdfjs_require__(21);
+const _unicode = __w_pdfjs_require__(21);
 
-var _pattern = __w_pdfjs_require__(55);
+const _pattern = __w_pdfjs_require__(55);
 
-var _xfa_fonts = __w_pdfjs_require__(12);
+const _xfa_fonts = __w_pdfjs_require__(12);
 
-var _to_unicode_map = __w_pdfjs_require__(48);
+const _to_unicode_map = __w_pdfjs_require__(48);
 
-var _function = __w_pdfjs_require__(56);
+const _function = __w_pdfjs_require__(56);
 
-var _parser = __w_pdfjs_require__(27);
+const _parser = __w_pdfjs_require__(27);
 
-var _image_utils = __w_pdfjs_require__(58);
+const _image_utils = __w_pdfjs_require__(58);
 
-var _stream = __w_pdfjs_require__(10);
+const _stream = __w_pdfjs_require__(10);
 
-var _base_stream = __w_pdfjs_require__(6);
+const _base_stream = __w_pdfjs_require__(6);
 
-var _bidi = __w_pdfjs_require__(59);
+const _bidi = __w_pdfjs_require__(59);
 
-var _colorspace = __w_pdfjs_require__(24);
+const _colorspace = __w_pdfjs_require__(24);
 
-var _decode_stream = __w_pdfjs_require__(29);
+const _decode_stream = __w_pdfjs_require__(29);
 
-var _glyphlist = __w_pdfjs_require__(20);
+const _glyphlist = __w_pdfjs_require__(20);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _metrics = __w_pdfjs_require__(60);
+const _metrics = __w_pdfjs_require__(60);
 
-var _murmurhash = __w_pdfjs_require__(61);
+const _murmurhash = __w_pdfjs_require__(61);
 
-var _operator_list = __w_pdfjs_require__(62);
+const _operator_list = __w_pdfjs_require__(62);
 
-var _image = __w_pdfjs_require__(63);
+const _image = __w_pdfjs_require__(63);
 
 const DefaultPartialEvaluatorOptions = Object.freeze({
   maxImageSize: -1,
@@ -21982,8 +21982,8 @@ class PartialEvaluator {
       processed.put(resources.objId);
     }
 
-    const nodes = [resources],
-          xref = this.xref;
+    const nodes = [resources];
+          const xref = this.xref;
 
     while (nodes.length) {
       const node = nodes.shift();
@@ -22131,8 +22131,8 @@ class PartialEvaluator {
       return null;
     }
 
-    const standardFontNameToFileName = (0, _standard_fonts.getFontNameToFileMap)(),
-          filename = standardFontNameToFileName[name];
+    const standardFontNameToFileName = (0, _standard_fonts.getFontNameToFileMap)();
+          const filename = standardFontNameToFileName[name];
     let data;
 
     if (this.options.standardFontDataUrl !== null) {
@@ -22349,8 +22349,8 @@ class PartialEvaluator {
       return;
     }
 
-    let objId = `img_${this.idFactory.createObjId()}`,
-        cacheGlobally = false;
+    let objId = `img_${this.idFactory.createObjId()}`;
+        let cacheGlobally = false;
 
     if (this.parsingType3Font) {
       objId = `${this.idFactory.getDocId()}_type3_${objId}`;
@@ -22451,8 +22451,8 @@ class PartialEvaluator {
     }
 
     const transferMaps = [];
-    let numFns = 0,
-        numEffectfulFns = 0;
+    let numFns = 0;
+        let numEffectfulFns = 0;
 
     for (const entry of transferArray) {
       const transferObj = this.xref.fetchIfRef(entry);
@@ -22467,8 +22467,8 @@ class PartialEvaluator {
 
       const transferFn = this._pdfFunctionFactory.create(transferObj);
 
-      const transferMap = new Uint8Array(256),
-            tmp = new Float32Array(1);
+      const transferMap = new Uint8Array(256);
+            const tmp = new Float32Array(1);
 
       for (let j = 0; j < 256; j++) {
         tmp[0] = j / 255;
@@ -22922,7 +22922,7 @@ class PartialEvaluator {
     let id = localShadingPatternCache.get(shading);
 
     if (!id) {
-      var shadingFill = _pattern.Pattern.parseShading(shading, this.xref, resources, this.handler, this._pdfFunctionFactory, localColorSpaceCache);
+      const shadingFill = _pattern.Pattern.parseShading(shading, this.xref, resources, this.handler, this._pdfFunctionFactory, localColorSpaceCache);
 
       const patternIR = shadingFill.getIR();
       id = `pattern_${this.idFactory.createObjId()}`;
@@ -23705,8 +23705,8 @@ class PartialEvaluator {
         return textContentItem;
       }
 
-      const font = textState.font,
-            loadedName = font.loadedName;
+      const font = textState.font;
+            const loadedName = font.loadedName;
 
       if (!seenStyles.has(loadedName)) {
         seenStyles.add(loadedName);
@@ -23769,8 +23769,8 @@ class PartialEvaluator {
 
     function replaceWhitespace(str) {
       const ii = str.length;
-      let i = 0,
-          code;
+      let i = 0;
+          let code;
 
       while (i < ii && (code = str.charCodeAt(i)) >= 0x20 && code <= 0x7f) {
         i++;
@@ -24104,8 +24104,8 @@ class PartialEvaluator {
       task.ensureNotTerminated();
       timeSlotManager.reset();
       const operation = {};
-      let stop,
-          args = [];
+      let stop;
+          let args = [];
 
       while (!(stop = timeSlotManager.check())) {
         args.length = 0;
@@ -24121,8 +24121,8 @@ class PartialEvaluator {
 
         switch (fn | 0) {
           case _util.OPS.setFont:
-            var fontNameArg = args[0].name,
-                fontSizeArg = args[1];
+            var fontNameArg = args[0].name;
+                var fontSizeArg = args[1];
 
             if (textState.font && fontNameArg === textState.fontName && fontSizeArg === textState.fontSize) {
               break;
@@ -25022,8 +25022,8 @@ class PartialEvaluator {
       composite = true;
     }
 
-    const firstChar = dict.get("FirstChar") || 0,
-          lastChar = dict.get("LastChar") || (composite ? 0xffff : 0xff);
+    const firstChar = dict.get("FirstChar") || 0;
+          const lastChar = dict.get("LastChar") || (composite ? 0xffff : 0xff);
     const descriptor = dict.get("FontDescriptor");
 
     if (descriptor) {
@@ -25041,8 +25041,8 @@ class PartialEvaluator {
           } else if ((0, _primitives.isRef)(entry)) {
             hash.update(entry.toString());
           } else if (Array.isArray(entry)) {
-            const diffLength = entry.length,
-                  diffBuf = new Array(diffLength);
+            const diffLength = entry.length;
+                  const diffBuf = new Array(diffLength);
 
             for (let j = 0; j < diffLength; j++) {
               const diffEntry = entry[j];
@@ -25435,8 +25435,8 @@ class TranslatedFont {
       ignoreErrors: false
     });
     type3Evaluator.parsingType3Font = true;
-    const translatedFont = this.font,
-          type3Dependencies = this.type3Dependencies;
+    const translatedFont = this.font;
+          const type3Dependencies = this.type3Dependencies;
     let loadCharProcsPromise = Promise.resolve();
     const charProcs = this.dict.get("CharProcs");
     const fontResources = this.dict.get("Resources") || resources;
@@ -25495,8 +25495,8 @@ class TranslatedFont {
       this._bbox[3] = Math.max(this._bbox[3], charBBox[3]);
     }
 
-    let i = 1,
-        ii = operatorList.length;
+    let i = 1;
+        let ii = operatorList.length;
 
     while (i < ii) {
       switch (operatorList.fnArray[i]) {
@@ -25521,8 +25521,8 @@ class TranslatedFont {
 
         case _util.OPS.setGState:
           const [gStateObj] = operatorList.argsArray[i];
-          let j = 0,
-              jj = gStateObj.length;
+          let j = 0;
+              let jj = gStateObj.length;
 
           while (j < jj) {
             const [gStateKey] = gStateObj[j];
@@ -26168,15 +26168,15 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.IdentityCMap = exports.CMapFactory = exports.CMap = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _parser = __w_pdfjs_require__(27);
+const _parser = __w_pdfjs_require__(27);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _stream = __w_pdfjs_require__(10);
+const _stream = __w_pdfjs_require__(10);
 
 const BUILT_IN_CMAPS = ["Adobe-GB1-UCS2", "Adobe-CNS1-UCS2", "Adobe-Japan1-UCS2", "Adobe-Korea1-UCS2", "78-EUC-H", "78-EUC-V", "78-H", "78-RKSJ-H", "78-RKSJ-V", "78-V", "78ms-RKSJ-H", "78ms-RKSJ-V", "83pv-RKSJ-H", "90ms-RKSJ-H", "90ms-RKSJ-V", "90msp-RKSJ-H", "90msp-RKSJ-V", "90pv-RKSJ-H", "90pv-RKSJ-V", "Add-H", "Add-RKSJ-H", "Add-RKSJ-V", "Add-V", "Adobe-CNS1-0", "Adobe-CNS1-1", "Adobe-CNS1-2", "Adobe-CNS1-3", "Adobe-CNS1-4", "Adobe-CNS1-5", "Adobe-CNS1-6", "Adobe-GB1-0", "Adobe-GB1-1", "Adobe-GB1-2", "Adobe-GB1-3", "Adobe-GB1-4", "Adobe-GB1-5", "Adobe-Japan1-0", "Adobe-Japan1-1", "Adobe-Japan1-2", "Adobe-Japan1-3", "Adobe-Japan1-4", "Adobe-Japan1-5", "Adobe-Japan1-6", "Adobe-Korea1-0", "Adobe-Korea1-1", "Adobe-Korea1-2", "B5-H", "B5-V", "B5pc-H", "B5pc-V", "CNS-EUC-H", "CNS-EUC-V", "CNS1-H", "CNS1-V", "CNS2-H", "CNS2-V", "ETHK-B5-H", "ETHK-B5-V", "ETen-B5-H", "ETen-B5-V", "ETenms-B5-H", "ETenms-B5-V", "EUC-H", "EUC-V", "Ext-H", "Ext-RKSJ-H", "Ext-RKSJ-V", "Ext-V", "GB-EUC-H", "GB-EUC-V", "GB-H", "GB-V", "GBK-EUC-H", "GBK-EUC-V", "GBK2K-H", "GBK2K-V", "GBKp-EUC-H", "GBKp-EUC-V", "GBT-EUC-H", "GBT-EUC-V", "GBT-H", "GBT-V", "GBTpc-EUC-H", "GBTpc-EUC-V", "GBpc-EUC-H", "GBpc-EUC-V", "H", "HKdla-B5-H", "HKdla-B5-V", "HKdlb-B5-H", "HKdlb-B5-V", "HKgccs-B5-H", "HKgccs-B5-V", "HKm314-B5-H", "HKm314-B5-V", "HKm471-B5-H", "HKm471-B5-V", "HKscs-B5-H", "HKscs-B5-V", "Hankaku", "Hiragana", "KSC-EUC-H", "KSC-EUC-V", "KSC-H", "KSC-Johab-H", "KSC-Johab-V", "KSC-V", "KSCms-UHC-H", "KSCms-UHC-HW-H", "KSCms-UHC-HW-V", "KSCms-UHC-V", "KSCpc-EUC-H", "KSCpc-EUC-V", "Katakana", "NWP-H", "NWP-V", "RKSJ-H", "RKSJ-V", "Roman", "UniCNS-UCS2-H", "UniCNS-UCS2-V", "UniCNS-UTF16-H", "UniCNS-UTF16-V", "UniCNS-UTF32-H", "UniCNS-UTF32-V", "UniCNS-UTF8-H", "UniCNS-UTF8-V", "UniGB-UCS2-H", "UniGB-UCS2-V", "UniGB-UTF16-H", "UniGB-UTF16-V", "UniGB-UTF32-H", "UniGB-UTF32-V", "UniGB-UTF8-H", "UniGB-UTF8-V", "UniJIS-UCS2-H", "UniJIS-UCS2-HW-H", "UniJIS-UCS2-HW-V", "UniJIS-UCS2-V", "UniJIS-UTF16-H", "UniJIS-UTF16-V", "UniJIS-UTF32-H", "UniJIS-UTF32-V", "UniJIS-UTF8-H", "UniJIS-UTF8-V", "UniJIS2004-UTF16-H", "UniJIS2004-UTF16-V", "UniJIS2004-UTF32-H", "UniJIS2004-UTF32-V", "UniJIS2004-UTF8-H", "UniJIS2004-UTF8-V", "UniJISPro-UCS2-HW-V", "UniJISPro-UCS2-V", "UniJISPro-UTF8-V", "UniJISX0213-UTF32-H", "UniJISX0213-UTF32-V", "UniJISX02132004-UTF32-H", "UniJISX02132004-UTF32-V", "UniKS-UCS2-H", "UniKS-UCS2-V", "UniKS-UTF16-H", "UniKS-UTF16-V", "UniKS-UTF32-H", "UniKS-UTF32-V", "UniKS-UTF8-H", "UniKS-UTF8-V", "V", "WP-Symbol"];
 const MAX_MAP_RANGE = 2 ** 24 - 1;
@@ -26528,9 +26528,9 @@ const BinaryCMapReader = function BinaryCMapReaderClosure() {
         stack[sp++] = b & 0x7f;
       } while (!last);
 
-      let i = size,
-          buffer = 0,
-          bufferSize = 0;
+      let i = size;
+          let buffer = 0;
+          let bufferSize = 0;
 
       while (i >= 0) {
         while (bufferSize < 8 && stack.length > 0) {
@@ -27091,41 +27091,41 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.Parser = exports.Linearization = exports.Lexer = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _ascii_85_stream = __w_pdfjs_require__(28);
+const _ascii_85_stream = __w_pdfjs_require__(28);
 
-var _ascii_hex_stream = __w_pdfjs_require__(30);
+const _ascii_hex_stream = __w_pdfjs_require__(30);
 
-var _ccitt_stream = __w_pdfjs_require__(31);
+const _ccitt_stream = __w_pdfjs_require__(31);
 
-var _flate_stream = __w_pdfjs_require__(33);
+const _flate_stream = __w_pdfjs_require__(33);
 
-var _jbig2_stream = __w_pdfjs_require__(34);
+const _jbig2_stream = __w_pdfjs_require__(34);
 
-var _jpeg_stream = __w_pdfjs_require__(37);
+const _jpeg_stream = __w_pdfjs_require__(37);
 
-var _jpx_stream = __w_pdfjs_require__(39);
+const _jpx_stream = __w_pdfjs_require__(39);
 
-var _lzw_stream = __w_pdfjs_require__(41);
+const _lzw_stream = __w_pdfjs_require__(41);
 
-var _stream = __w_pdfjs_require__(10);
+const _stream = __w_pdfjs_require__(10);
 
-var _predictor_stream = __w_pdfjs_require__(42);
+const _predictor_stream = __w_pdfjs_require__(42);
 
-var _run_length_stream = __w_pdfjs_require__(43);
+const _run_length_stream = __w_pdfjs_require__(43);
 
 const MAX_LENGTH_TO_CACHE = 1000;
 const MAX_ADLER32_LENGTH = 5552;
 
 function computeAdler32(bytes) {
   const bytesLength = bytes.length;
-  let a = 1,
-      b = 0;
+  let a = 1;
+      let b = 0;
 
   for (let i = 0; i < bytesLength; ++i) {
     a += bytes[i] & 0xff;
@@ -27269,18 +27269,18 @@ class Parser {
   }
 
   findDefaultInlineStreamEnd(stream) {
-    const E = 0x45,
-          I = 0x49,
-          SPACE = 0x20,
-          LF = 0xa,
-          CR = 0xd,
-          NUL = 0x0;
-    const lexer = this.lexer,
-          startPos = stream.pos,
-          n = 10;
-    let state = 0,
-        ch,
-        maybeEIPos;
+    const E = 0x45;
+          const I = 0x49;
+          const SPACE = 0x20;
+          const LF = 0xa;
+          const CR = 0xd;
+          const NUL = 0x0;
+    const lexer = this.lexer;
+          const startPos = stream.pos;
+          const n = 10;
+    let state = 0;
+        let ch;
+        let maybeEIPos;
 
     while ((ch = stream.getByte()) !== -1) {
       if (state === 0) {
@@ -27353,9 +27353,9 @@ class Parser {
 
   findDCTDecodeInlineStreamEnd(stream) {
     const startPos = stream.pos;
-    let foundEOI = false,
-        b,
-        markerLength;
+    let foundEOI = false;
+        let b;
+        let markerLength;
 
     while ((b = stream.getByte()) !== -1) {
       if (b !== 0xff) {
@@ -27441,8 +27441,8 @@ class Parser {
   }
 
   findASCII85DecodeInlineStreamEnd(stream) {
-    const TILDE = 0x7e,
-          GT = 0x3e;
+    const TILDE = 0x7e;
+          const GT = 0x3e;
     const startPos = stream.pos;
     let ch;
 
@@ -27507,10 +27507,10 @@ class Parser {
   }
 
   inlineStreamSkipEI(stream) {
-    const E = 0x45,
-          I = 0x49;
-    let state = 0,
-        ch;
+    const E = 0x45;
+          const I = 0x49;
+    let state = 0;
+        let ch;
 
     while ((ch = stream.getByte()) !== -1) {
       if (state === 0) {
@@ -28348,9 +28348,9 @@ class Lexer {
   }
 
   peekObj() {
-    const streamPos = this.stream.pos,
-          currentChar = this.currentChar,
-          beginInlineImagePos = this.beginInlineImagePos;
+    const streamPos = this.stream.pos;
+          const currentChar = this.currentChar;
+          const beginInlineImagePos = this.beginInlineImagePos;
     let nextObj;
 
     try {
@@ -28467,9 +28467,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.Ascii85Stream = void 0;
 
-var _decode_stream = __w_pdfjs_require__(29);
+const _decode_stream = __w_pdfjs_require__(29);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
 class Ascii85Stream extends _decode_stream.DecodeStream {
   constructor(str, maybeLength) {
@@ -28567,9 +28567,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.StreamsSequenceStream = exports.DecodeStream = void 0;
 
-var _base_stream = __w_pdfjs_require__(6);
+const _base_stream = __w_pdfjs_require__(6);
 
-var _stream = __w_pdfjs_require__(10);
+const _stream = __w_pdfjs_require__(10);
 
 const emptyBuffer = new Uint8Array(0);
 
@@ -28760,7 +28760,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.AsciiHexStream = void 0;
 
-var _decode_stream = __w_pdfjs_require__(29);
+const _decode_stream = __w_pdfjs_require__(29);
 
 class AsciiHexStream extends _decode_stream.DecodeStream {
   constructor(str, maybeLength) {
@@ -28834,11 +28834,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.CCITTFaxStream = void 0;
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _ccitt = __w_pdfjs_require__(32);
+const _ccitt = __w_pdfjs_require__(32);
 
-var _decode_stream = __w_pdfjs_require__(29);
+const _decode_stream = __w_pdfjs_require__(29);
 
 class CCITTFaxStream extends _decode_stream.DecodeStream {
   constructor(str, maybeLength, params) {
@@ -28896,7 +28896,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.CCITTFaxDecoder = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 const ccittEOL = -2;
 const ccittEOF = -1;
@@ -29601,9 +29601,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.FlateStream = void 0;
 
-var _decode_stream = __w_pdfjs_require__(29);
+const _decode_stream = __w_pdfjs_require__(29);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 const codeLenCodeMap = new Int32Array([16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15]);
 const lengthDecode = new Int32Array([0x00003, 0x00004, 0x00005, 0x00006, 0x00007, 0x00008, 0x00009, 0x0000a, 0x1000b, 0x1000d, 0x1000f, 0x10011, 0x20013, 0x20017, 0x2001b, 0x2001f, 0x30023, 0x3002b, 0x30033, 0x3003b, 0x40043, 0x40053, 0x40063, 0x40073, 0x50083, 0x500a3, 0x500c3, 0x500e3, 0x00102, 0x00102, 0x00102]);
@@ -29771,8 +29771,8 @@ class FlateStream extends _decode_stream.DecodeStream {
 
       this.codeBuf = 0;
       this.codeSize = 0;
-      const bufferLength = this.bufferLength,
-            end = bufferLength + blockLen;
+      const bufferLength = this.bufferLength;
+            const end = bufferLength + blockLen;
       buffer = this.ensureBuffer(end);
       this.bufferLength = end;
 
@@ -29916,13 +29916,13 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.Jbig2Stream = void 0;
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _decode_stream = __w_pdfjs_require__(29);
+const _decode_stream = __w_pdfjs_require__(29);
 
-var _jbig = __w_pdfjs_require__(35);
+const _jbig = __w_pdfjs_require__(35);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 class Jbig2Stream extends _decode_stream.DecodeStream {
   constructor(stream, maybeLength, params) {
@@ -29992,13 +29992,13 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.Jbig2Image = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _arithmetic_decoder = __w_pdfjs_require__(36);
+const _arithmetic_decoder = __w_pdfjs_require__(36);
 
-var _ccitt = __w_pdfjs_require__(32);
+const _ccitt = __w_pdfjs_require__(32);
 
 class Jbig2Error extends _util.BaseException {
   constructor(msg) {
@@ -30323,10 +30323,10 @@ function decodeBitmap(mmr, width, height, templateIndex, prediction, skip, at, d
   const templateX = new Int8Array(templateLength);
   const templateY = new Int8Array(templateLength);
   const changingTemplateEntries = [];
-  let reuseMask = 0,
-      minX = 0,
-      maxX = 0,
-      minY = 0;
+  let reuseMask = 0;
+      let minX = 0;
+      let maxX = 0;
+      let minY = 0;
   let c, k;
 
   for (k = 0; k < templateLength; k++) {
@@ -30363,13 +30363,13 @@ function decodeBitmap(mmr, width, height, templateIndex, prediction, skip, at, d
   const bitmap = [];
   const decoder = decodingContext.decoder;
   const contexts = decodingContext.contextCache.getContexts("GB");
-  let ltp = 0,
-      j,
-      i0,
-      j0,
-      contextLabel = 0,
-      bit,
-      shift;
+  let ltp = 0;
+      let j;
+      let i0;
+      let j0;
+      let contextLabel = 0;
+      let bit;
+      let shift;
 
   for (let i = 0; i < height; i++) {
     if (prediction) {
@@ -30541,8 +30541,8 @@ function decodeSymbolDictionary(huffman, refinement, symbols, numberOfNewSymbols
   while (newSymbols.length < numberOfNewSymbols) {
     const deltaHeight = huffman ? huffmanTables.tableDeltaHeight.decode(huffmanInput) : decodeInteger(contextCache, "IADH", decoder);
     currentHeight += deltaHeight;
-    let currentWidth = 0,
-        totalWidth = 0;
+    let currentWidth = 0;
+        let totalWidth = 0;
     const firstSymbol = huffman ? symbolWidths.length : 0;
 
     while (true) {
@@ -30599,12 +30599,12 @@ function decodeSymbolDictionary(huffman, refinement, symbols, numberOfNewSymbols
       if (firstSymbol === numberOfSymbolsDecoded - 1) {
         newSymbols.push(collectiveBitmap);
       } else {
-        let i,
-            y,
-            xMin = 0,
-            xMax,
-            bitmapWidth,
-            symbolBitmap;
+        let i;
+            let y;
+            let xMin = 0;
+            let xMax;
+            let bitmapWidth;
+            let symbolBitmap;
 
         for (i = firstSymbol; i < numberOfSymbolsDecoded; i++) {
           bitmapWidth = symbolWidths[i];
@@ -30622,11 +30622,11 @@ function decodeSymbolDictionary(huffman, refinement, symbols, numberOfNewSymbols
     }
   }
 
-  const exportedSymbols = [],
-        flags = [];
-  let currentFlag = false,
-      i,
-      ii;
+  const exportedSymbols = [];
+        const flags = [];
+  let currentFlag = false;
+      let i;
+      let ii;
   const totalSymbolsLength = symbols.length + numberOfNewSymbols;
 
   while (flags.length < totalSymbolsLength) {
@@ -30864,8 +30864,8 @@ function decodeHalftoneRegion(mmr, patterns, template, regionWidth, regionHeight
 
   const numberOfPatterns = patterns.length;
   const pattern0 = patterns[0];
-  const patternWidth = pattern0[0].length,
-        patternHeight = pattern0.length;
+  const patternWidth = pattern0[0].length;
+        const patternHeight = pattern0.length;
   const bitsPerValue = (0, _core_utils.log2)(numberOfPatterns);
   const at = [];
 
@@ -31123,8 +31123,8 @@ const RegionSegmentInformationFieldLength = 17;
 
 function processSegment(segment, visitor) {
   const header = segment.header;
-  const data = segment.data,
-        end = segment.end;
+  const data = segment.data;
+        const end = segment.end;
   let position = segment.start;
   let args, at, i, atLength;
 
@@ -31391,12 +31391,12 @@ function parseJbig2(data) {
   } = visitor.currentPageInfo;
   const bitPacked = visitor.buffer;
   const imgData = new Uint8ClampedArray(width * height);
-  let q = 0,
-      k = 0;
+  let q = 0;
+      let k = 0;
 
   for (let i = 0; i < height; i++) {
-    let mask = 0,
-        buffer;
+    let mask = 0;
+        let buffer;
 
     for (let j = 0; j < width; j++) {
       if (!mask) {
@@ -31433,8 +31433,8 @@ class SimpleSegmentVisitor {
 
   drawBitmap(regionInfo, bitmap) {
     const pageInfo = this.currentPageInfo;
-    const width = regionInfo.width,
-          height = regionInfo.height;
+    const width = regionInfo.width;
+          const height = regionInfo.height;
     const rowSize = pageInfo.width + 7 >> 3;
     const combinationOperator = pageInfo.combinationOperatorOverride ? regionInfo.combinationOperator : pageInfo.combinationOperator;
     const buffer = this.buffer;
@@ -31706,11 +31706,11 @@ class HuffmanTable {
       histogram[lines[i].prefixLength]++;
     }
 
-    let currentLength = 1,
-        firstCode = 0,
-        currentCode,
-        currentTemp,
-        line;
+    let currentLength = 1;
+        let firstCode = 0;
+        let currentCode;
+        let currentTemp;
+        let line;
     histogram[0] = 0;
 
     while (currentLength <= prefixLengthMax) {
@@ -31743,9 +31743,9 @@ function decodeTablesSegment(data, start, end) {
   const prefixSizeBits = (flags >> 1 & 7) + 1;
   const rangeSizeBits = (flags >> 4 & 7) + 1;
   const lines = [];
-  let prefixLength,
-      rangeLength,
-      currentRangeLow = lowestValue;
+  let prefixLength;
+      let rangeLength;
+      let currentRangeLow = lowestValue;
 
   do {
     prefixLength = reader.readBits(prefixSizeBits);
@@ -31878,8 +31878,8 @@ class Reader {
   }
 
   readBits(numBits) {
-    let result = 0,
-        i;
+    let result = 0;
+        let i;
 
     for (i = numBits - 1; i >= 0; i--) {
       result |= this.readBit() << i;
@@ -31973,10 +31973,10 @@ function getTextRegionHuffmanTables(textRegion, referredTo, customTables, number
 
   reader.byteAlign();
   const symbolIDTable = new HuffmanTable(codes, false);
-  let customIndex = 0,
-      tableFirstS,
-      tableDeltaS,
-      tableDeltaT;
+  let customIndex = 0;
+      let tableFirstS;
+      let tableDeltaS;
+      let tableDeltaT;
 
   switch (textRegion.huffmanFS) {
     case 0:
@@ -32038,9 +32038,9 @@ function getTextRegionHuffmanTables(textRegion, referredTo, customTables, number
 }
 
 function getSymbolDictionaryHuffmanTables(dictionary, referredTo, customTables) {
-  let customIndex = 0,
-      tableDeltaHeight,
-      tableDeltaWidth;
+  let customIndex = 0;
+      let tableDeltaHeight;
+      let tableDeltaWidth;
 
   switch (dictionary.huffmanDHSelector) {
     case 0:
@@ -32122,8 +32122,8 @@ function decodeMMRBitmap(input, width, height, endOfBlock) {
   };
   const decoder = new _ccitt.CCITTFaxDecoder(input, params);
   const bitmap = [];
-  let currentByte,
-      eof = false;
+  let currentByte;
+      let eof = false;
 
   for (let y = 0; y < height; y++) {
     const row = new Uint8Array(width);
@@ -32469,8 +32469,8 @@ class ArithmeticDecoder {
   }
 
   readBit(contexts, pos) {
-    let cx_index = contexts[pos] >> 1,
-        cx_mps = contexts[pos] & 1;
+    let cx_index = contexts[pos] >> 1;
+        let cx_mps = contexts[pos] & 1;
     const qeTableIcx = QeTable[cx_index];
     const qeIcx = qeTableIcx.qe;
     let d;
@@ -32544,13 +32544,13 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.JpegStream = void 0;
 
-var _decode_stream = __w_pdfjs_require__(29);
+const _decode_stream = __w_pdfjs_require__(29);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _jpg = __w_pdfjs_require__(38);
+const _jpg = __w_pdfjs_require__(38);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 class JpegStream extends _decode_stream.DecodeStream {
   constructor(stream, maybeLength, params) {
@@ -32644,9 +32644,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.JpegImage = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
 class JpegError extends _util.BaseException {
   constructor(msg) {
@@ -32681,10 +32681,10 @@ const dctSqrt2 = 5793;
 const dctSqrt1d2 = 2896;
 
 function buildHuffmanTable(codeLengths, values) {
-  let k = 0,
-      i,
-      j,
-      length = 16;
+  let k = 0;
+      let i;
+      let j;
+      let length = 16;
 
   while (length > 0 && !codeLengths[length - 1]) {
     length--;
@@ -32694,8 +32694,8 @@ function buildHuffmanTable(codeLengths, values) {
     children: [],
     index: 0
   }];
-  let p = code[0],
-      q;
+  let p = code[0];
+      let q;
 
   for (i = 0; i < length; i++) {
     for (j = 0; j < codeLengths[i]; j++) {
@@ -32742,8 +32742,8 @@ function decodeScan(data, offset, frame, components, resetInterval, spectralStar
   const mcusPerLine = frame.mcusPerLine;
   const progressive = frame.progressive;
   const startOffset = offset;
-  let bitsData = 0,
-      bitsCount = 0;
+  let bitsData = 0;
+      let bitsCount = 0;
 
   function readBit() {
     if (bitsCount > 0) {
@@ -32836,8 +32836,8 @@ function decodeScan(data, offset, frame, components, resetInterval, spectralStar
 
     while (k < 64) {
       const rs = decodeHuffman(component.huffmanTableAC);
-      const s = rs & 15,
-            r = rs >> 4;
+      const s = rs & 15;
+            const r = rs >> 4;
 
       if (s === 0) {
         if (r < 15) {
@@ -32878,8 +32878,8 @@ function decodeScan(data, offset, frame, components, resetInterval, spectralStar
 
     while (k <= e) {
       const rs = decodeHuffman(component.huffmanTableAC);
-      const s = rs & 15,
-            r = rs >> 4;
+      const s = rs & 15;
+            const r = rs >> 4;
 
       if (s === 0) {
         if (r < 15) {
@@ -32898,8 +32898,8 @@ function decodeScan(data, offset, frame, components, resetInterval, spectralStar
     }
   }
 
-  let successiveACState = 0,
-      successiveACNextValue;
+  let successiveACState = 0;
+      let successiveACNextValue;
 
   function decodeACSuccessive(component, blockOffset) {
     let k = spectralStart;
@@ -33013,8 +33013,8 @@ function decodeScan(data, offset, frame, components, resetInterval, spectralStar
     decodeFn = decodeBaseline;
   }
 
-  let mcu = 0,
-      fileMarker;
+  let mcu = 0;
+      let fileMarker;
   let mcuExpected;
 
   if (componentsLength === 1) {
@@ -33085,8 +33085,8 @@ function decodeScan(data, offset, frame, components, resetInterval, spectralStar
 }
 
 function quantizeAndInverse(component, blockBufferOffset, p) {
-  const qt = component.quantizationTable,
-        blockData = component.blockData;
+  const qt = component.quantizationTable;
+        const blockData = component.blockData;
   let v0, v1, v2, v3, v4, v5, v6, v7;
   let p0, p1, p2, p3, p4, p5, p6, p7;
   let t;
@@ -33410,8 +33410,8 @@ class JpegImage {
     let frame, resetInterval;
     let numSOSMarkers = 0;
     const quantizationTables = [];
-    const huffmanTablesAC = [],
-          huffmanTablesDC = [];
+    const huffmanTablesAC = [];
+          const huffmanTablesDC = [];
     let fileMarker = (0, _core_utils.readUint16)(data, offset);
     offset += 2;
 
@@ -33525,8 +33525,8 @@ class JpegImage {
           frame.components = [];
           frame.componentIds = {};
           const componentsCount = data[offset++];
-          let maxH = 0,
-              maxV = 0;
+          let maxH = 0;
+              let maxV = 0;
 
           for (i = 0; i < componentsCount; i++) {
             const componentId = data[offset];
@@ -33591,8 +33591,8 @@ class JpegImage {
         case 0xffda:
           const parseDNLMarker = ++numSOSMarkers === 1 && !dnlScanLines;
           offset += 2;
-          const selectorsCount = data[offset++],
-                components = [];
+          const selectorsCount = data[offset++];
+                const components = [];
 
           for (i = 0; i < selectorsCount; i++) {
             const index = data[offset++];
@@ -33605,9 +33605,9 @@ class JpegImage {
             components.push(component);
           }
 
-          const spectralStart = data[offset++],
-                spectralEnd = data[offset++],
-                successiveApproximation = data[offset++];
+          const spectralStart = data[offset++];
+                const spectralEnd = data[offset++];
+                const successiveApproximation = data[offset++];
 
           try {
             const processed = decodeScan(data, offset, frame, components, resetInterval, spectralStart, spectralEnd, successiveApproximation >> 4, successiveApproximation & 15, parseDNLMarker);
@@ -33689,8 +33689,8 @@ class JpegImage {
   }
 
   _getLinearizedBlockData(width, height, isSourcePDF = false) {
-    const scaleX = this.width / width,
-          scaleY = this.height / height;
+    const scaleX = this.width / width;
+          const scaleY = this.height / height;
     let component, componentScaleX, componentScaleY, blocksPerScanline;
     let x, y, i, j, k;
     let index;
@@ -33891,11 +33891,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.JpxStream = void 0;
 
-var _decode_stream = __w_pdfjs_require__(29);
+const _decode_stream = __w_pdfjs_require__(29);
 
-var _jpx = __w_pdfjs_require__(40);
+const _jpx = __w_pdfjs_require__(40);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 class JpxStream extends _decode_stream.DecodeStream {
   constructor(stream, maybeLength, params) {
@@ -33971,11 +33971,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.JpxImage = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _arithmetic_decoder = __w_pdfjs_require__(36);
+const _arithmetic_decoder = __w_pdfjs_require__(36);
 
 class JpxError extends _util.BaseException {
   constructor(msg) {
@@ -34124,13 +34124,13 @@ class JpxImage {
       while (position + 1 < end) {
         const code = (0, _core_utils.readUint16)(data, position);
         position += 2;
-        let length = 0,
-            j,
-            sqcd,
-            spqcds,
-            spqcdSize,
-            scalarExpounded,
-            tile;
+        let length = 0;
+            let j;
+            let sqcd;
+            let spqcds;
+            let spqcdSize;
+            let scalarExpounded;
+            let tile;
 
         switch (code) {
           case 0xff4f:
@@ -34638,10 +34638,10 @@ function LayerResolutionComponentPositionIterator(context) {
     maxDecompositionLevelsCount = Math.max(maxDecompositionLevelsCount, tile.components[q].codingStyleParameters.decompositionLevelsCount);
   }
 
-  let l = 0,
-      r = 0,
-      i = 0,
-      k = 0;
+  let l = 0;
+      let r = 0;
+      let i = 0;
+      let k = 0;
 
   this.nextPacket = function JpxImage_nextPacket() {
     for (; l < layersCount; l++) {
@@ -34687,10 +34687,10 @@ function ResolutionLayerComponentPositionIterator(context) {
     maxDecompositionLevelsCount = Math.max(maxDecompositionLevelsCount, tile.components[q].codingStyleParameters.decompositionLevelsCount);
   }
 
-  let r = 0,
-      l = 0,
-      i = 0,
-      k = 0;
+  let r = 0;
+      let l = 0;
+      let i = 0;
+      let k = 0;
 
   this.nextPacket = function JpxImage_nextPacket() {
     for (; r <= maxDecompositionLevelsCount; r++) {
@@ -34803,11 +34803,11 @@ function PositionComponentResolutionLayerIterator(context) {
   const componentsCount = siz.Csiz;
   const precinctsSizes = getPrecinctSizesInImageScale(tile);
   const precinctsIterationSizes = precinctsSizes;
-  let l = 0,
-      r = 0,
-      c = 0,
-      px = 0,
-      py = 0;
+  let l = 0;
+      let r = 0;
+      let c = 0;
+      let px = 0;
+      let py = 0;
 
   this.nextPacket = function JpxImage_nextPacket() {
     for (; py < precinctsIterationSizes.maxNumHigh; py++) {
@@ -34854,11 +34854,11 @@ function ComponentPositionResolutionLayerIterator(context) {
   const layersCount = tile.codingStyleDefaultParameters.layersCount;
   const componentsCount = siz.Csiz;
   const precinctsSizes = getPrecinctSizesInImageScale(tile);
-  let l = 0,
-      r = 0,
-      c = 0,
-      px = 0,
-      py = 0;
+  let l = 0;
+      let r = 0;
+      let c = 0;
+      let px = 0;
+      let py = 0;
 
   this.nextPacket = function JpxImage_nextPacket() {
     for (; c < componentsCount; ++c) {
@@ -35073,9 +35073,9 @@ function buildPackets(context) {
 
 function parseTilePackets(context, data, offset, dataLength) {
   let position = 0;
-  let buffer,
-      bufferSize = 0,
-      skipNextBit = false;
+  let buffer;
+      let bufferSize = 0;
+      let skipNextBit = false;
 
   function readBits(count) {
     while (bufferSize < count) {
@@ -35169,8 +35169,8 @@ function parseTilePackets(context, data, offset, dataLength) {
       continue;
     }
 
-    const layerNumber = packet.layerNumber,
-          queue = [];
+    const layerNumber = packet.layerNumber;
+          const queue = [];
     let codeblock;
 
     for (let i = 0, ii = packet.codeblocks.length; i < ii; i++) {
@@ -35313,8 +35313,8 @@ function copyCoefficients(coefficients, levelWidth, levelHeight, subband, delta,
     const bitModel = new BitModel(blockWidth, blockHeight, codeblock.subbandType, codeblock.zeroBitPlanes, mb);
     let currentCodingpassType = 2;
     const data = codeblock.data;
-    let totalLength = 0,
-        codingpasses = 0;
+    let totalLength = 0;
+        let codingpasses = 0;
     let j, jj, dataItem;
 
     for (j = 0, jj = data.length; j < jj; j++) {
@@ -35482,12 +35482,12 @@ function transformComponents(context) {
       items: out
     };
     let shift, offset;
-    let pos = 0,
-        j,
-        jj,
-        y0,
-        y1,
-        y2;
+    let pos = 0;
+        let j;
+        let jj;
+        let y0;
+        let y1;
+        let y2;
 
     if (tile.codingStyleDefaultParameters.multipleComponentTransform) {
       const fourComponents = componentsCount === 4;
@@ -35580,9 +35580,9 @@ class TagTree {
   }
 
   reset(i, j) {
-    let currentLevel = 0,
-        value = 0,
-        level;
+    let currentLevel = 0;
+        let value = 0;
+        let level;
 
     while (currentLevel < this.levels.length) {
       level = this.levels[currentLevel];
@@ -35779,8 +35779,8 @@ const BitModel = function BitModelClosure() {
 
     setNeighborsSignificance(row, column, index) {
       const neighborsSignificance = this.neighborsSignificance;
-      const width = this.width,
-            height = this.height;
+      const width = this.width;
+            const height = this.height;
       const left = column > 0;
       const right = column + 1 < width;
       let i;
@@ -35826,8 +35826,8 @@ const BitModel = function BitModelClosure() {
 
     runSignificancePropagationPass() {
       const decoder = this.decoder;
-      const width = this.width,
-            height = this.height;
+      const width = this.width;
+            const height = this.height;
       const coefficentsMagnitude = this.coefficentsMagnitude;
       const coefficentsSign = this.coefficentsSign;
       const neighborsSignificance = this.neighborsSignificance;
@@ -35875,8 +35875,8 @@ const BitModel = function BitModelClosure() {
     }
 
     decodeSignBit(row, column, index) {
-      const width = this.width,
-            height = this.height;
+      const width = this.width;
+            const height = this.height;
       const coefficentsMagnitude = this.coefficentsMagnitude;
       const coefficentsSign = this.coefficentsSign;
       let contribution, sign0, sign1, significance1;
@@ -35931,8 +35931,8 @@ const BitModel = function BitModelClosure() {
 
     runMagnitudeRefinementPass() {
       const decoder = this.decoder;
-      const width = this.width,
-            height = this.height;
+      const width = this.width;
+            const height = this.height;
       const coefficentsMagnitude = this.coefficentsMagnitude;
       const neighborsSignificance = this.neighborsSignificance;
       const contexts = this.contexts;
@@ -35971,8 +35971,8 @@ const BitModel = function BitModelClosure() {
 
     runCleanupPass() {
       const decoder = this.decoder;
-      const width = this.width,
-            height = this.height;
+      const width = this.width;
+            const height = this.height;
       const neighborsSignificance = this.neighborsSignificance;
       const coefficentsMagnitude = this.coefficentsMagnitude;
       const coefficentsSign = this.coefficentsSign;
@@ -35995,10 +35995,10 @@ const BitModel = function BitModelClosure() {
         for (let j = 0; j < width; j++) {
           const index0 = indexBase + j;
           const allEmpty = checkAllEmpty && processingFlags[index0] === 0 && processingFlags[index0 + oneRowDown] === 0 && processingFlags[index0 + twoRowsDown] === 0 && processingFlags[index0 + threeRowsDown] === 0 && neighborsSignificance[index0] === 0 && neighborsSignificance[index0 + oneRowDown] === 0 && neighborsSignificance[index0 + twoRowsDown] === 0 && neighborsSignificance[index0 + threeRowsDown] === 0;
-          let i1 = 0,
-              index = index0;
-          let i = i0,
-              sign;
+          let i1 = 0;
+              let index = index0;
+          let i = i0;
+              let sign;
 
           if (allEmpty) {
             const hasSignificantCoefficent = decoder.readBit(contexts, RUNLENGTH_CONTEXT);
@@ -36087,10 +36087,10 @@ class Transform {
   }
 
   extend(buffer, offset, size) {
-    let i1 = offset - 1,
-        j1 = offset + 1;
-    let i2 = offset + size - 2,
-        j2 = offset + size;
+    let i1 = offset - 1;
+        let j1 = offset + 1;
+    let i2 = offset + size - 2;
+        let j2 = offset + size;
     buffer[i1--] = buffer[j1++];
     buffer[j2++] = buffer[i2--];
     buffer[i1--] = buffer[j1++];
@@ -36106,8 +36106,8 @@ class Transform {
   }
 
   iterate(ll, hl_lh_hh, u0, v0) {
-    const llWidth = ll.width,
-          llHeight = ll.height;
+    const llWidth = ll.width;
+          const llHeight = ll.height;
     let llItems = ll.items;
     const width = hl_lh_hh.width;
     const height = hl_lh_hh.height;
@@ -36148,8 +36148,8 @@ class Transform {
       colBuffers.push(new Float32Array(height + 2 * bufferPadding));
     }
 
-    let b,
-        currentBuffer = 0;
+    let b;
+        let currentBuffer = 0;
     ll = bufferPadding + height;
 
     if (height === 1) {
@@ -36312,7 +36312,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.LZWStream = void 0;
 
-var _decode_stream = __w_pdfjs_require__(29);
+const _decode_stream = __w_pdfjs_require__(29);
 
 class LZWStream extends _decode_stream.DecodeStream {
   constructor(str, maybeLength, earlyChange) {
@@ -36364,8 +36364,8 @@ class LZWStream extends _decode_stream.DecodeStream {
   }
 
   readBlock() {
-    const blockSize = 512,
-          decodedSizeDelta = blockSize;
+    const blockSize = 512;
+          const decodedSizeDelta = blockSize;
     let estimatedDecodedSize = blockSize * 2;
     let i, j, q;
     const lzwState = this.lzwState;
@@ -36462,11 +36462,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.PredictorStream = void 0;
 
-var _decode_stream = __w_pdfjs_require__(29);
+const _decode_stream = __w_pdfjs_require__(29);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
 class PredictorStream extends _decode_stream.DecodeStream {
   constructor(str, maybeLength, params) {
@@ -36515,10 +36515,10 @@ class PredictorStream extends _decode_stream.DecodeStream {
       return;
     }
 
-    let inbuf = 0,
-        outbuf = 0;
-    let inbits = 0,
-        outbits = 0;
+    let inbuf = 0;
+        let outbuf = 0;
+    let inbits = 0;
+        let outbits = 0;
     let pos = bufferLength;
     let i;
 
@@ -36555,8 +36555,8 @@ class PredictorStream extends _decode_stream.DecodeStream {
     } else {
       const compArray = new Uint8Array(colors + 1);
       const bitMask = (1 << bits) - 1;
-      let j = 0,
-          k = bufferLength;
+      let j = 0;
+          let k = bufferLength;
       const columns = this.columns;
 
       for (i = 0; i < columns; ++i) {
@@ -36605,10 +36605,10 @@ class PredictorStream extends _decode_stream.DecodeStream {
       prevRow = new Uint8Array(rowBytes);
     }
 
-    let i,
-        j = bufferLength,
-        up,
-        c;
+    let i;
+        let j = bufferLength;
+        let up;
+        let c;
 
     switch (predictor) {
       case 0:
@@ -36714,7 +36714,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.RunLengthStream = void 0;
 
-var _decode_stream = __w_pdfjs_require__(29);
+const _decode_stream = __w_pdfjs_require__(29);
 
 class RunLengthStream extends _decode_stream.DecodeStream {
   constructor(str, maybeLength) {
@@ -36772,37 +36772,37 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.Font = exports.ErrorFont = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _cff_parser = __w_pdfjs_require__(45);
+const _cff_parser = __w_pdfjs_require__(45);
 
-var _fonts_utils = __w_pdfjs_require__(18);
+const _fonts_utils = __w_pdfjs_require__(18);
 
-var _glyphlist = __w_pdfjs_require__(20);
+const _glyphlist = __w_pdfjs_require__(20);
 
-var _encodings = __w_pdfjs_require__(19);
+const _encodings = __w_pdfjs_require__(19);
 
-var _standard_fonts = __w_pdfjs_require__(47);
+const _standard_fonts = __w_pdfjs_require__(47);
 
-var _unicode = __w_pdfjs_require__(21);
+const _unicode = __w_pdfjs_require__(21);
 
-var _to_unicode_map = __w_pdfjs_require__(48);
+const _to_unicode_map = __w_pdfjs_require__(48);
 
-var _cff_font = __w_pdfjs_require__(49);
+const _cff_font = __w_pdfjs_require__(49);
 
-var _font_renderer = __w_pdfjs_require__(50);
+const _font_renderer = __w_pdfjs_require__(50);
 
-var _glyf = __w_pdfjs_require__(51);
+const _glyf = __w_pdfjs_require__(51);
 
-var _cmap = __w_pdfjs_require__(26);
+const _cmap = __w_pdfjs_require__(26);
 
-var _opentype_file_builder = __w_pdfjs_require__(52);
+const _opentype_file_builder = __w_pdfjs_require__(52);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _stream = __w_pdfjs_require__(10);
+const _stream = __w_pdfjs_require__(10);
 
-var _type1_font = __w_pdfjs_require__(53);
+const _type1_font = __w_pdfjs_require__(53);
 
 const PRIVATE_USE_AREAS = [[0xe000, 0xf8ff], [0x100000, 0x10fffd]];
 const PDF_GLYPH_SPACE_UNITS = 1000;
@@ -36841,8 +36841,8 @@ function adjustToUnicode(properties, builtInEncoding) {
     return;
   }
 
-  const toUnicode = [],
-        glyphsUnicodeMap = (0, _glyphlist.getGlyphsUnicode)();
+  const toUnicode = [];
+        const glyphsUnicodeMap = (0, _glyphlist.getGlyphsUnicode)();
 
   for (const charCode in builtInEncoding) {
     if (properties.hasIncludedToUnicodeMap) {
@@ -37427,8 +37427,8 @@ class Font {
     let isSerifFont = !!(properties.flags & _fonts_utils.FontFlags.Serif);
 
     if (!isSerifFont && !properties.isSimulatedFlags) {
-      const baseName = name.replace(/[,_]/g, "-").split("-")[0],
-            serifFonts = (0, _standard_fonts.getSerifFonts)();
+      const baseName = name.replace(/[,_]/g, "-").split("-")[0];
+            const serifFonts = (0, _standard_fonts.getSerifFonts)();
 
       for (const namePart of baseName.split("+")) {
         if (serifFonts[namePart]) {
@@ -37576,8 +37576,8 @@ class Font {
     const type = this.type;
     const subtype = this.subtype;
     let fontName = (0, _fonts_utils.normalizeFontName)(name);
-    const stdFontMap = (0, _standard_fonts.getStdFontMap)(),
-          nonStdFontMap = (0, _standard_fonts.getNonStdFontMap)();
+    const stdFontMap = (0, _standard_fonts.getStdFontMap)();
+          const nonStdFontMap = (0, _standard_fonts.getNonStdFontMap)();
     const isStandardFont = !!stdFontMap[fontName];
     const isMappedToStandardFont = !!(nonStdFontMap[fontName] && stdFontMap[nonStdFontMap[fontName]]);
     fontName = stdFontMap[fontName] || nonStdFontMap[fontName] || fontName;
@@ -37880,8 +37880,8 @@ class Font {
           let correctlySorted = true;
 
           if (i < numTables - 1) {
-            const nextBytes = file.peekBytes(2),
-                  nextPlatformId = int16(nextBytes[0], nextBytes[1]);
+            const nextBytes = file.peekBytes(2);
+                  const nextPlatformId = int16(nextBytes[0], nextBytes[1]);
 
             if (nextPlatformId < platformId) {
               correctlySorted = false;
@@ -38011,8 +38011,8 @@ class Font {
           segments[segIndex].delta = file.getUint16();
         }
 
-        let offsetsCount = 0,
-            offsetIndex;
+        let offsetsCount = 0;
+            let offsetIndex;
 
         for (segIndex = 0; segIndex < segCount; segIndex++) {
           segment = segments[segIndex];
@@ -38173,9 +38173,9 @@ class Font {
         return glyphProfile;
       }
 
-      let i,
-          j = 10,
-          flagsCount = 0;
+      let i;
+          let j = 10;
+          let flagsCount = 0;
 
       for (i = 0; i < contoursCount; i++) {
         const endPoint = glyf[j] << 8 | glyf[j + 1];
@@ -38407,8 +38407,8 @@ class Font {
     function readPostScriptTable(post, propertiesObj, maxpNumGlyphs) {
       const start = (font.start ? font.start : 0) + post.offset;
       font.pos = start;
-      const length = post.length,
-            end = start + length;
+      const length = post.length;
+            const end = start + length;
       const version = font.getInt32();
       font.skip(28);
       let glyphNames;
@@ -38445,8 +38445,8 @@ class Font {
             break;
           }
 
-          const customNames = [],
-                strBuf = [];
+          const customNames = [];
+                const strBuf = [];
 
           while (font.pos < end) {
             const stringLength = font.getByte();
@@ -38496,8 +38496,8 @@ class Font {
       const start = (font.start ? font.start : 0) + nameTable.offset;
       font.pos = start;
       const names = [[], []];
-      const length = nameTable.length,
-            end = start + length;
+      const length = nameTable.length;
+            const end = start + length;
       const format = font.getUint16();
       const FORMAT_0_HEADER_LENGTH = 6;
 
@@ -38562,21 +38562,21 @@ class Font {
 
     function sanitizeTTProgram(table, ttContext) {
       let data = table.data;
-      let i = 0,
-          j,
-          n,
-          b,
-          funcId,
-          pc,
-          lastEndf = 0,
-          lastDeff = 0;
+      let i = 0;
+          let j;
+          let n;
+          let b;
+          let funcId;
+          let pc;
+          let lastEndf = 0;
+          let lastDeff = 0;
       const stack = [];
       const callstack = [];
       const functionsCalled = [];
       let tooComplexToFollowFunctions = ttContext.tooComplexToFollowFunctions;
-      let inFDEF = false,
-          ifLevel = 0,
-          inELSE = 0;
+      let inFDEF = false;
+          let ifLevel = 0;
+          let inELSE = 0;
 
       for (let ii = data.length; i < ii;) {
         const op = data[i++];
@@ -39067,8 +39067,8 @@ class Font {
       const cmapEncodingId = cmapTable.encodingId;
       const cmapMappings = cmapTable.mappings;
       const cmapMappingsLength = cmapMappings.length;
-      let baseEncoding = [],
-          forcePostTable = false;
+      let baseEncoding = [];
+          let forcePostTable = false;
 
       if (properties.hasEncoding && (properties.baseEncodingName === "MacRomanEncoding" || properties.baseEncodingName === "WinAnsiEncoding")) {
         baseEncoding = (0, _encodings.getEncoding)(properties.baseEncodingName);
@@ -39475,8 +39475,8 @@ class Font {
     glyphs = [];
 
     if (this.cMap) {
-      const c = Object.create(null),
-            ii = chars.length;
+      const c = Object.create(null);
+            const ii = chars.length;
       let i = 0;
 
       while (i < ii) {
@@ -39616,11 +39616,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.CFFTopDict = exports.CFFStrings = exports.CFFStandardStrings = exports.CFFPrivateDict = exports.CFFParser = exports.CFFIndex = exports.CFFHeader = exports.CFFFDSelect = exports.CFFCompiler = exports.CFFCharset = exports.CFF = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _charsets = __w_pdfjs_require__(46);
+const _charsets = __w_pdfjs_require__(46);
 
-var _encodings = __w_pdfjs_require__(19);
+const _encodings = __w_pdfjs_require__(19);
 
 const MAX_SUBR_NESTING = 10;
 const CFFStandardStrings = [".notdef", "space", "exclam", "quotedbl", "numbersign", "dollar", "percent", "ampersand", "quoteright", "parenleft", "parenright", "asterisk", "plus", "comma", "hyphen", "period", "slash", "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "colon", "semicolon", "less", "equal", "greater", "question", "at", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "bracketleft", "backslash", "bracketright", "asciicircum", "underscore", "quoteleft", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "braceleft", "bar", "braceright", "asciitilde", "exclamdown", "cent", "sterling", "fraction", "yen", "florin", "section", "currency", "quotesingle", "quotedblleft", "guillemotleft", "guilsinglleft", "guilsinglright", "fi", "fl", "endash", "dagger", "daggerdbl", "periodcentered", "paragraph", "bullet", "quotesinglbase", "quotedblbase", "quotedblright", "guillemotright", "ellipsis", "perthousand", "questiondown", "grave", "acute", "circumflex", "tilde", "macron", "breve", "dotaccent", "dieresis", "ring", "cedilla", "hungarumlaut", "ogonek", "caron", "emdash", "AE", "ordfeminine", "Lslash", "Oslash", "OE", "ordmasculine", "ae", "dotlessi", "lslash", "oslash", "oe", "germandbls", "onesuperior", "logicalnot", "mu", "trademark", "Eth", "onehalf", "plusminus", "Thorn", "onequarter", "divide", "brokenbar", "degree", "thorn", "threequarters", "twosuperior", "registered", "minus", "eth", "multiply", "threesuperior", "copyright", "Aacute", "Acircumflex", "Adieresis", "Agrave", "Aring", "Atilde", "Ccedilla", "Eacute", "Ecircumflex", "Edieresis", "Egrave", "Iacute", "Icircumflex", "Idieresis", "Igrave", "Ntilde", "Oacute", "Ocircumflex", "Odieresis", "Ograve", "Otilde", "Scaron", "Uacute", "Ucircumflex", "Udieresis", "Ugrave", "Yacute", "Ydieresis", "Zcaron", "aacute", "acircumflex", "adieresis", "agrave", "aring", "atilde", "ccedilla", "eacute", "ecircumflex", "edieresis", "egrave", "iacute", "icircumflex", "idieresis", "igrave", "ntilde", "oacute", "ocircumflex", "odieresis", "ograve", "otilde", "scaron", "uacute", "ucircumflex", "udieresis", "ugrave", "yacute", "ydieresis", "zcaron", "exclamsmall", "Hungarumlautsmall", "dollaroldstyle", "dollarsuperior", "ampersandsmall", "Acutesmall", "parenleftsuperior", "parenrightsuperior", "twodotenleader", "onedotenleader", "zerooldstyle", "oneoldstyle", "twooldstyle", "threeoldstyle", "fouroldstyle", "fiveoldstyle", "sixoldstyle", "sevenoldstyle", "eightoldstyle", "nineoldstyle", "commasuperior", "threequartersemdash", "periodsuperior", "questionsmall", "asuperior", "bsuperior", "centsuperior", "dsuperior", "esuperior", "isuperior", "lsuperior", "msuperior", "nsuperior", "osuperior", "rsuperior", "ssuperior", "tsuperior", "ff", "ffi", "ffl", "parenleftinferior", "parenrightinferior", "Circumflexsmall", "hyphensuperior", "Gravesmall", "Asmall", "Bsmall", "Csmall", "Dsmall", "Esmall", "Fsmall", "Gsmall", "Hsmall", "Ismall", "Jsmall", "Ksmall", "Lsmall", "Msmall", "Nsmall", "Osmall", "Psmall", "Qsmall", "Rsmall", "Ssmall", "Tsmall", "Usmall", "Vsmall", "Wsmall", "Xsmall", "Ysmall", "Zsmall", "colonmonetary", "onefitted", "rupiah", "Tildesmall", "exclamdownsmall", "centoldstyle", "Lslashsmall", "Scaronsmall", "Zcaronsmall", "Dieresissmall", "Brevesmall", "Caronsmall", "Dotaccentsmall", "Macronsmall", "figuredash", "hypheninferior", "Ogoneksmall", "Ringsmall", "Cedillasmall", "questiondownsmall", "oneeighth", "threeeighths", "fiveeighths", "seveneighths", "onethird", "twothirds", "zerosuperior", "foursuperior", "fivesuperior", "sixsuperior", "sevensuperior", "eightsuperior", "ninesuperior", "zeroinferior", "oneinferior", "twoinferior", "threeinferior", "fourinferior", "fiveinferior", "sixinferior", "seveninferior", "eightinferior", "nineinferior", "centinferior", "dollarinferior", "periodinferior", "commainferior", "Agravesmall", "Aacutesmall", "Acircumflexsmall", "Atildesmall", "Adieresissmall", "Aringsmall", "AEsmall", "Ccedillasmall", "Egravesmall", "Eacutesmall", "Ecircumflexsmall", "Edieresissmall", "Igravesmall", "Iacutesmall", "Icircumflexsmall", "Idieresissmall", "Ethsmall", "Ntildesmall", "Ogravesmall", "Oacutesmall", "Ocircumflexsmall", "Otildesmall", "Odieresissmall", "OEsmall", "Oslashsmall", "Ugravesmall", "Uacutesmall", "Ucircumflexsmall", "Udieresissmall", "Yacutesmall", "Thornsmall", "Ydieresissmall", "001.000", "001.001", "001.002", "001.003", "Black", "Bold", "Book", "Light", "Medium", "Regular", "Roman", "Semibold"];
@@ -41395,8 +41395,8 @@ class CFFCompiler {
     }
 
     const data = [count >> 8 & 0xff, count & 0xff];
-    let lastOffset = 1,
-        i;
+    let lastOffset = 1;
+        let i;
 
     for (i = 0; i < count; ++i) {
       lastOffset += objects[i].length;
@@ -41480,9 +41480,9 @@ exports.getSerifFonts = exports.getNonStdFontMap = exports.getGlyphMapForStandar
 exports.getStandardFontName = getStandardFontName;
 exports.getSymbolsFonts = exports.getSupplementalGlyphMapForCalibri = exports.getSupplementalGlyphMapForArialBlack = exports.getStdFontMap = void 0;
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _fonts_utils = __w_pdfjs_require__(18);
+const _fonts_utils = __w_pdfjs_require__(18);
 
 const getStdFontMap = (0, _core_utils.getLookupTableFactory)(function (t) {
   t["Times-Roman"] = "Times-Roman";
@@ -42293,7 +42293,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.ToUnicodeMap = exports.IdentityToUnicodeMap = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 class ToUnicodeMap {
   constructor(cmap = []) {
@@ -42395,11 +42395,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.CFFFont = void 0;
 
-var _cff_parser = __w_pdfjs_require__(45);
+const _cff_parser = __w_pdfjs_require__(45);
 
-var _fonts_utils = __w_pdfjs_require__(18);
+const _fonts_utils = __w_pdfjs_require__(18);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 class CFFFont {
   constructor(file, properties) {
@@ -42479,8 +42479,8 @@ class CFFFont {
       return;
     }
 
-    const charsets = charset.charset,
-          encodings = encoding.encoding;
+    const charsets = charset.charset;
+          const encodings = encoding.encoding;
     const map = [];
 
     for (const charCode in encodings) {
@@ -42515,15 +42515,15 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.FontRendererFactory = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _cff_parser = __w_pdfjs_require__(45);
+const _cff_parser = __w_pdfjs_require__(45);
 
-var _glyphlist = __w_pdfjs_require__(20);
+const _glyphlist = __w_pdfjs_require__(20);
 
-var _encodings = __w_pdfjs_require__(19);
+const _encodings = __w_pdfjs_require__(19);
 
-var _stream = __w_pdfjs_require__(10);
+const _stream = __w_pdfjs_require__(10);
 
 function getLong(data, offset) {
   return data[offset] << 24 | data[offset + 1] << 16 | data[offset + 2] << 8 | data[offset + 3];
@@ -42655,9 +42655,9 @@ function parseGlyfTable(glyf, loca, isGlyphLocationsLong) {
 
 function lookupCmap(ranges, unicode) {
   const code = unicode.codePointAt(0);
-  let gid = 0,
-      l = 0,
-      r = ranges.length - 1;
+  let gid = 0;
+      let l = 0;
+      let r = ranges.length - 1;
 
   while (l < r) {
     const c = l + r + 1 >> 1;
@@ -42704,8 +42704,8 @@ function compileGlyf(code, cmds, font) {
   let i = 0;
   const numberOfContours = (code[i] << 24 | code[i + 1] << 16) >> 16;
   let flags;
-  let x = 0,
-      y = 0;
+  let x = 0;
+      let y = 0;
   i += 10;
 
   if (numberOfContours < 0) {
@@ -42732,10 +42732,10 @@ function compileGlyf(code, cmds, font) {
         y = 0;
       }
 
-      let scaleX = 1,
-          scaleY = 1,
-          scale01 = 0,
-          scale10 = 0;
+      let scaleX = 1;
+          let scaleY = 1;
+          let scale01 = 0;
+          let scale10 = 0;
 
       if (flags & 0x08) {
         scaleX = scaleY = (code[i] << 24 | code[i + 1] << 16) / 1073741824;
@@ -42895,8 +42895,8 @@ function compileCharString(charStringCode, cmds, font, glyphId) {
   }
 
   const stack = [];
-  let x = 0,
-      y = 0;
+  let x = 0;
+      let y = 0;
   let stems = 0;
 
   function parse(code) {
@@ -43060,8 +43060,8 @@ function compileCharString(charStringCode, cmds, font, glyphId) {
               break;
 
             case 37:
-              const x0 = x,
-                    y0 = y;
+              const x0 = x;
+                    const y0 = y;
               xa = x + stack.shift();
               ya = y + stack.shift();
               xb = xa + stack.shift();
@@ -44146,9 +44146,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.OpenTypeFileBuilder = void 0;
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 function writeInt16(dest, offset, num) {
   dest[offset] = num >> 8 & 0xff;
@@ -44186,8 +44186,8 @@ class OpenTypeFileBuilder {
   }
 
   static getSearchParams(entriesCount, entrySize) {
-    let maxPower2 = 1,
-        log2 = 0;
+    let maxPower2 = 1;
+        let log2 = 0;
 
     while ((maxPower2 ^ entriesCount) > maxPower2) {
       maxPower2 <<= 1;
@@ -44286,24 +44286,24 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.Type1Font = void 0;
 
-var _cff_parser = __w_pdfjs_require__(45);
+const _cff_parser = __w_pdfjs_require__(45);
 
-var _fonts_utils = __w_pdfjs_require__(18);
+const _fonts_utils = __w_pdfjs_require__(18);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _stream = __w_pdfjs_require__(10);
+const _stream = __w_pdfjs_require__(10);
 
-var _type1_parser = __w_pdfjs_require__(54);
+const _type1_parser = __w_pdfjs_require__(54);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 function findBlock(streamBytes, signature, startIndex) {
   const streamBytesLength = streamBytes.length;
   const signatureLength = signature.length;
   const scanLength = streamBytesLength - signatureLength;
-  let i = startIndex,
-      found = false;
+  let i = startIndex;
+      let found = false;
 
   while (i < scanLength) {
     let j = 0;
@@ -44651,13 +44651,13 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.Type1Parser = void 0;
 
-var _encodings = __w_pdfjs_require__(19);
+const _encodings = __w_pdfjs_require__(19);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _stream = __w_pdfjs_require__(10);
+const _stream = __w_pdfjs_require__(10);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 const HINTING_ENABLED = false;
 
@@ -44982,11 +44982,11 @@ const Type1Parser = function Type1ParserClosure() {
       return new Uint8Array(0);
     }
 
-    const c1 = 52845,
-          c2 = 22719;
-    let r = key | 0,
-        i,
-        j;
+    const c1 = 52845;
+          const c2 = 22719;
+    let r = key | 0;
+        let i;
+        let j;
 
     for (i = 0; i < discardNumber; i++) {
       r = (data[i] + r) * c1 + c2 & (1 << 16) - 1;
@@ -45005,11 +45005,11 @@ const Type1Parser = function Type1ParserClosure() {
   }
 
   function decryptAscii(data, key, discardNumber) {
-    const c1 = 52845,
-          c2 = 22719;
+    const c1 = 52845;
+          const c2 = 22719;
     let r = key | 0;
-    const count = data.length,
-          maybeLength = count >>> 1;
+    const count = data.length;
+          const maybeLength = count >>> 1;
     const decrypted = new Uint8Array(maybeLength);
     let i, j;
 
@@ -45137,8 +45137,8 @@ const Type1Parser = function Type1ParserClosure() {
 
     extractFontProgram(properties) {
       const stream = this.stream;
-      const subrs = [],
-            charstrings = [];
+      const subrs = [];
+            const charstrings = [];
       const privateData = Object.create(null);
       privateData.lenIV = 4;
       const program = {
@@ -45375,13 +45375,13 @@ Object.defineProperty(exports, "__esModule", ({
 exports.Pattern = void 0;
 exports.getTilingPatternIR = getTilingPatternIR;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _colorspace = __w_pdfjs_require__(24);
+const _colorspace = __w_pdfjs_require__(24);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
 const ShadingType = {
   FUNCTION_BASED: 1,
@@ -45473,8 +45473,8 @@ class RadialAxialShading extends BaseShading {
       this.bbox = null;
     }
 
-    let t0 = 0.0,
-        t1 = 1.0;
+    let t0 = 0.0;
+        let t1 = 1.0;
 
     if (dict.has("Domain")) {
       const domainArr = dict.getArray("Domain");
@@ -45482,8 +45482,8 @@ class RadialAxialShading extends BaseShading {
       t1 = domainArr[1];
     }
 
-    let extendStart = false,
-        extendEnd = false;
+    let extendStart = false;
+        let extendEnd = false;
 
     if (dict.has("Extend")) {
       const extendArr = dict.getArray("Extend");
@@ -45513,8 +45513,8 @@ class RadialAxialShading extends BaseShading {
       return;
     }
 
-    const color = new Float32Array(cs.numComps),
-          ratio = new Float32Array(1);
+    const color = new Float32Array(cs.numComps);
+          const ratio = new Float32Array(1);
     let rgbColor;
 
     for (let i = 0; i <= NUMBER_OF_SAMPLES; i++) {
@@ -45681,8 +45681,8 @@ const getB = function getBClosure() {
     const lut = [];
 
     for (let i = 0; i <= count; i++) {
-      const t = i / count,
-            t_ = 1 - t;
+      const t = i / count;
+            const t_ = 1 - t;
       lut.push(new Float32Array([t_ * t_ * t_, 3 * t * t_ * t_, 3 * t * t * t_, t * t * t]));
     }
 
@@ -45815,7 +45815,7 @@ class MeshShading extends BaseShading {
       const color = reader.readComponents();
 
       if (verticesLeft === 0) {
-        if (!(0 <= f && f <= 2)) {
+        if (!(f >= 0 && f <= 2)) {
           throw new _util.FormatError("Unknown type4 flag");
         }
 
@@ -45882,7 +45882,7 @@ class MeshShading extends BaseShading {
     while (reader.hasData) {
       const f = reader.readFlag();
 
-      if (!(0 <= f && f <= 3)) {
+      if (!(f >= 0 && f <= 3)) {
         throw new _util.FormatError("Unknown type6 flag");
       }
 
@@ -46012,7 +46012,7 @@ class MeshShading extends BaseShading {
     while (reader.hasData) {
       const f = reader.readFlag();
 
-      if (!(0 <= f && f <= 3)) {
+      if (!(f >= 0 && f <= 3)) {
         throw new _util.FormatError("Unknown type7 flag");
       }
 
@@ -46144,8 +46144,8 @@ class MeshShading extends BaseShading {
   _buildFigureFromPatch(index) {
     const figure = this.figures[index];
     (0, _util.assert)(figure.type === "patch", "Unexpected patch mesh figure");
-    const coords = this.coords,
-          colors = this.colors;
+    const coords = this.coords;
+          const colors = this.colors;
     const pi = figure.coords;
     const ci = figure.colors;
     const figureMinX = Math.min(coords[pi[0]][0], coords[pi[3]][0], coords[pi[12]][0], coords[pi[15]][0]);
@@ -46160,14 +46160,14 @@ class MeshShading extends BaseShading {
     const figureCoords = new Int32Array((splitYBy + 1) * verticesPerRow);
     const figureColors = new Int32Array((splitYBy + 1) * verticesPerRow);
     let k = 0;
-    const cl = new Uint8Array(3),
-          cr = new Uint8Array(3);
-    const c0 = colors[ci[0]],
-          c1 = colors[ci[1]],
-          c2 = colors[ci[2]],
-          c3 = colors[ci[3]];
-    const bRow = getB(splitYBy),
-          bCol = getB(splitXBy);
+    const cl = new Uint8Array(3);
+          const cr = new Uint8Array(3);
+    const c0 = colors[ci[0]];
+          const c1 = colors[ci[1]];
+          const c2 = colors[ci[2]];
+          const c3 = colors[ci[3]];
+    const bRow = getB(splitYBy);
+          const bCol = getB(splitXBy);
 
     for (let row = 0; row <= splitYBy; row++) {
       cl[0] = (c0[0] * (splitYBy - row) + c2[0] * row) / splitYBy | 0;
@@ -46182,8 +46182,8 @@ class MeshShading extends BaseShading {
           continue;
         }
 
-        let x = 0,
-            y = 0;
+        let x = 0;
+            let y = 0;
         let q = 0;
 
         for (let i = 0; i <= 3; i++) {
@@ -46222,14 +46222,14 @@ class MeshShading extends BaseShading {
   }
 
   _updateBounds() {
-    let minX = this.coords[0][0],
-        minY = this.coords[0][1],
-        maxX = minX,
-        maxY = minY;
+    let minX = this.coords[0][0];
+        let minY = this.coords[0][1];
+        let maxX = minX;
+        let maxY = minY;
 
     for (let i = 1, ii = this.coords.length; i < ii; i++) {
-      const x = this.coords[i][0],
-            y = this.coords[i][1];
+      const x = this.coords[i][0];
+            const y = this.coords[i][1];
       minX = minX > x ? x : minX;
       minY = minY > y ? y : minY;
       maxX = maxX < x ? x : maxX;
@@ -46265,9 +46265,9 @@ class MeshShading extends BaseShading {
     const figures = this.figures;
 
     for (i = 0, ii = figures.length; i < ii; i++) {
-      const figure = figures[i],
-            ps = figure.coords,
-            cs = figure.colors;
+      const figure = figures[i];
+            const ps = figure.coords;
+            const cs = figure.colors;
 
       for (j = 0, jj = ps.length; j < jj; j++) {
         ps[j] *= 2;
@@ -46318,13 +46318,13 @@ Object.defineProperty(exports, "__esModule", ({
 exports.PostScriptEvaluator = exports.PostScriptCompiler = exports.PDFFunctionFactory = void 0;
 exports.isPDFFunction = isPDFFunction;
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _ps_parser = __w_pdfjs_require__(57);
+const _ps_parser = __w_pdfjs_require__(57);
 
-var _image_utils = __w_pdfjs_require__(58);
+const _image_utils = __w_pdfjs_require__(58);
 
 class PDFFunctionFactory {
   constructor({
@@ -46623,8 +46623,8 @@ class PDFFunction {
         cubeN[j] = 1;
       }
 
-      let k = outputSize,
-          pos = 1;
+      let k = outputSize;
+          let pos = 1;
 
       for (i = 0; i < inputSize; ++i) {
         const domain_2i = domain[i][0];
@@ -47434,8 +47434,8 @@ const PostScriptCompiler = function PostScriptCompilerClosure() {
     compile(code, domain, range) {
       const stack = [];
       const instructions = [];
-      const inputSize = domain.length >> 1,
-            outputSize = range.length >> 1;
+      const inputSize = domain.length >> 1;
+            const outputSize = range.length >> 1;
       let lastRegister = 0;
       let n, j;
       let num1, num2, ast1, ast2, tmpVar, item;
@@ -47609,11 +47609,11 @@ const PostScriptCompiler = function PostScriptCompilerClosure() {
       }
 
       for (let i = 0, ii = stack.length; i < ii; i++) {
-        const expr = stack[i],
-              statementBuilder = new ExpressionBuilderVisitor();
+        const expr = stack[i];
+              const statementBuilder = new ExpressionBuilderVisitor();
         expr.visit(statementBuilder);
-        const min = range[i * 2],
-              max = range[i * 2 + 1];
+        const min = range[i * 2];
+              const max = range[i * 2 + 1];
         const out = [statementBuilder.toString()];
 
         if (min > expr.min) {
@@ -47652,11 +47652,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.PostScriptParser = exports.PostScriptLexer = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
 class PostScriptParser {
   constructor(lexer) {
@@ -47903,9 +47903,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.LocalTilingPatternCache = exports.LocalImageCache = exports.LocalGStateCache = exports.LocalFunctionCache = exports.LocalColorSpaceCache = exports.GlobalImageCache = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
 class BaseLocalCache {
   constructor(options) {
@@ -48225,7 +48225,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.bidi = bidi;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 const baseTypes = ["BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "S", "B", "S", "WS", "B", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "B", "B", "B", "S", "WS", "ON", "ON", "ET", "ET", "ET", "ON", "ON", "ON", "ON", "ON", "ES", "CS", "ES", "CS", "CS", "EN", "EN", "EN", "EN", "EN", "EN", "EN", "EN", "EN", "EN", "CS", "ON", "ON", "ON", "ON", "ON", "ON", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "ON", "ON", "ON", "ON", "ON", "ON", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "ON", "ON", "ON", "ON", "BN", "BN", "BN", "BN", "BN", "BN", "B", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "BN", "CS", "ON", "ET", "ET", "ET", "ET", "ON", "ON", "ON", "ON", "L", "ON", "ON", "BN", "ON", "ON", "ET", "ET", "EN", "EN", "ON", "L", "ON", "ON", "ON", "EN", "L", "ON", "ON", "ON", "ON", "ON", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "ON", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "L", "ON", "L", "L", "L", "L", "L", "L", "L", "L"];
 const arabicTypes = ["AN", "AN", "AN", "AN", "AN", "AN", "ON", "ON", "AL", "ET", "ET", "AL", "CS", "AL", "ON", "ON", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "AL", "AL", "", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "AN", "AN", "AN", "AN", "AN", "AN", "AN", "AN", "AN", "AN", "ET", "AN", "AN", "AL", "AL", "AL", "NSM", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "AN", "ON", "NSM", "NSM", "NSM", "NSM", "NSM", "NSM", "AL", "AL", "NSM", "NSM", "ON", "NSM", "NSM", "NSM", "NSM", "AL", "AL", "EN", "EN", "EN", "EN", "EN", "EN", "EN", "EN", "EN", "EN", "AL", "AL", "AL", "AL", "AL", "AL"];
@@ -48302,15 +48302,15 @@ function bidi(str, startLevel = -1, vertical = false) {
 
     if (charCode <= 0x00ff) {
       charType = baseTypes[charCode];
-    } else if (0x0590 <= charCode && charCode <= 0x05f4) {
+    } else if (charCode >= 0x0590 && charCode <= 0x05f4) {
       charType = "R";
-    } else if (0x0600 <= charCode && charCode <= 0x06ff) {
+    } else if (charCode >= 0x0600 && charCode <= 0x06ff) {
       charType = arabicTypes[charCode & 0xff];
 
       if (!charType) {
         (0, _util.warn)("Bidi: invalid Unicode character " + charCode.toString(16));
       }
-    } else if (0x0700 <= charCode && charCode <= 0x08ac) {
+    } else if (charCode >= 0x0700 && charCode <= 0x08ac) {
       charType = "AL";
     }
 
@@ -48536,7 +48536,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.getMetrics = void 0;
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
 const getMetrics = (0, _core_utils.getLookupTableFactory)(function (t) {
   t.Courier = 600;
@@ -51489,7 +51489,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.MurmurHash3_64 = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 const SEED = 0xc3d2e1f0;
 const MASK_HIGH = 0xffff0000;
@@ -51528,14 +51528,14 @@ class MurmurHash3_64 {
     const blockCounts = length >> 2;
     const tailLength = length - blockCounts * 4;
     const dataUint32 = new Uint32Array(data.buffer, 0, blockCounts);
-    let k1 = 0,
-        k2 = 0;
-    let h1 = this.h1,
-        h2 = this.h2;
-    const C1 = 0xcc9e2d51,
-          C2 = 0x1b873593;
-    const C1_LOW = C1 & MASK_LOW,
-          C2_LOW = C2 & MASK_LOW;
+    let k1 = 0;
+        let k2 = 0;
+    let h1 = this.h1;
+        let h2 = this.h2;
+    const C1 = 0xcc9e2d51;
+          const C2 = 0x1b873593;
+    const C1_LOW = C1 & MASK_LOW;
+          const C2_LOW = C2 & MASK_LOW;
 
     for (let i = 0; i < blockCounts; i++) {
       if (i & 1) {
@@ -51585,8 +51585,8 @@ class MurmurHash3_64 {
   }
 
   hexdigest() {
-    let h1 = this.h1,
-        h2 = this.h2;
+    let h1 = this.h1;
+        let h2 = this.h2;
     h1 ^= h2 >>> 1;
     h1 = h1 * 0xed558ccd & MASK_HIGH | h1 * 0x8ccd & MASK_LOW;
     h2 = h2 * 0xff51afd7 & MASK_HIGH | ((h2 << 16 | h1 >>> 16) * 0xafd7ed55 & MASK_HIGH) >>> 16;
@@ -51594,8 +51594,8 @@ class MurmurHash3_64 {
     h1 = h1 * 0x1a85ec53 & MASK_HIGH | h1 * 0xec53 & MASK_LOW;
     h2 = h2 * 0xc4ceb9fe & MASK_HIGH | ((h2 << 16 | h1 >>> 16) * 0xb9fe1a85 & MASK_HIGH) >>> 16;
     h1 ^= h2 >>> 1;
-    const hex1 = (h1 >>> 0).toString(16),
-          hex2 = (h2 >>> 0).toString(16);
+    const hex1 = (h1 >>> 0).toString(16);
+          const hex2 = (h2 >>> 0).toString(16);
     return hex1.padStart(8, "0") + hex2.padStart(8, "0");
   }
 
@@ -51614,7 +51614,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.OperatorList = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 function addState(parentState, pattern, checkFn, iterateFn, processFn) {
   let state = parentState;
@@ -51676,8 +51676,8 @@ addState(InitialState, [_util.OPS.save, _util.OPS.transform, _util.OPS.paintInli
   const MAX_IMAGES_IN_INLINE_IMAGES_BLOCK = 200;
   const MAX_WIDTH = 1000;
   const IMAGE_PADDING = 1;
-  const fnArray = context.fnArray,
-        argsArray = context.argsArray;
+  const fnArray = context.fnArray;
+        const argsArray = context.argsArray;
   const curr = context.iCurr;
   const iFirstSave = curr - 3;
   const iFirstTransform = curr - 2;
@@ -51691,8 +51691,8 @@ addState(InitialState, [_util.OPS.save, _util.OPS.transform, _util.OPS.paintInli
   let maxX = 0;
   const map = [];
   let maxLineHeight = 0;
-  let currentX = IMAGE_PADDING,
-      currentY = IMAGE_PADDING;
+  let currentX = IMAGE_PADDING;
+      let currentY = IMAGE_PADDING;
 
   for (let q = 0; q < count; q++) {
     const transform = argsArray[iFirstTransform + (q << 2)];
@@ -51782,8 +51782,8 @@ addState(InitialState, [_util.OPS.save, _util.OPS.transform, _util.OPS.paintImag
   const MIN_IMAGES_IN_MASKS_BLOCK = 10;
   const MAX_IMAGES_IN_MASKS_BLOCK = 100;
   const MAX_SAME_IMAGES_IN_MASKS_BLOCK = 1000;
-  const fnArray = context.fnArray,
-        argsArray = context.argsArray;
+  const fnArray = context.fnArray;
+        const argsArray = context.argsArray;
   const curr = context.iCurr;
   const iFirstSave = curr - 3;
   const iFirstTransform = curr - 2;
@@ -51798,10 +51798,10 @@ addState(InitialState, [_util.OPS.save, _util.OPS.transform, _util.OPS.paintImag
   let isSameImage = false;
   let iTransform, transformArgs;
   const firstPIMXOArg0 = argsArray[iFirstPIMXO][0];
-  const firstTransformArg0 = argsArray[iFirstTransform][0],
-        firstTransformArg1 = argsArray[iFirstTransform][1],
-        firstTransformArg2 = argsArray[iFirstTransform][2],
-        firstTransformArg3 = argsArray[iFirstTransform][3];
+  const firstTransformArg0 = argsArray[iFirstTransform][0];
+        const firstTransformArg1 = argsArray[iFirstTransform][1];
+        const firstTransformArg2 = argsArray[iFirstTransform][2];
+        const firstTransformArg3 = argsArray[iFirstTransform][3];
 
   if (firstTransformArg1 === firstTransformArg2) {
     isSameImage = true;
@@ -51862,8 +51862,8 @@ addState(InitialState, [_util.OPS.save, _util.OPS.transform, _util.OPS.paintImag
   const iFirstTransform = context.iCurr - 2;
   return argsArray[iFirstTransform][1] === 0 && argsArray[iFirstTransform][2] === 0;
 }, function iterateImageGroup(context, i) {
-  const fnArray = context.fnArray,
-        argsArray = context.argsArray;
+  const fnArray = context.fnArray;
+        const argsArray = context.argsArray;
   const iFirstSave = context.iCurr - 3;
   const pos = (i - iFirstSave) % 4;
 
@@ -51908,8 +51908,8 @@ addState(InitialState, [_util.OPS.save, _util.OPS.transform, _util.OPS.paintImag
 }, function (context, i) {
   const MIN_IMAGES_IN_BLOCK = 3;
   const MAX_IMAGES_IN_BLOCK = 1000;
-  const fnArray = context.fnArray,
-        argsArray = context.argsArray;
+  const fnArray = context.fnArray;
+        const argsArray = context.argsArray;
   const curr = context.iCurr;
   const iFirstSave = curr - 3;
   const iFirstTransform = curr - 2;
@@ -51938,8 +51938,8 @@ addState(InitialState, [_util.OPS.save, _util.OPS.transform, _util.OPS.paintImag
   return iFirstSave + 1;
 });
 addState(InitialState, [_util.OPS.beginText, _util.OPS.setFont, _util.OPS.setTextMatrix, _util.OPS.showText, _util.OPS.endText], null, function iterateShowTextGroup(context, i) {
-  const fnArray = context.fnArray,
-        argsArray = context.argsArray;
+  const fnArray = context.fnArray;
+        const argsArray = context.argsArray;
   const iFirstSave = context.iCurr - 4;
   const pos = (i - iFirstSave) % 5;
 
@@ -51976,8 +51976,8 @@ addState(InitialState, [_util.OPS.beginText, _util.OPS.setFont, _util.OPS.setTex
 }, function (context, i) {
   const MIN_CHARS_IN_BLOCK = 3;
   const MAX_CHARS_IN_BLOCK = 1000;
-  const fnArray = context.fnArray,
-        argsArray = context.argsArray;
+  const fnArray = context.fnArray;
+        const argsArray = context.argsArray;
   const curr = context.iCurr;
   const iFirstBeginText = curr - 4;
   const iFirstSetFont = curr - 3;
@@ -52045,8 +52045,8 @@ class QueueOptimizer extends NullOptimizer {
 
   _optimize() {
     const fnArray = this.queue.fnArray;
-    let i = this.lastProcessed,
-        ii = fnArray.length;
+    let i = this.lastProcessed;
+        let ii = fnArray.length;
     let state = this.state;
     let match = this.match;
 
@@ -52269,17 +52269,17 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.PDFImage = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _colorspace = __w_pdfjs_require__(24);
+const _colorspace = __w_pdfjs_require__(24);
 
-var _decode_stream = __w_pdfjs_require__(29);
+const _decode_stream = __w_pdfjs_require__(29);
 
-var _jpeg_stream = __w_pdfjs_require__(37);
+const _jpeg_stream = __w_pdfjs_require__(37);
 
-var _jpx = __w_pdfjs_require__(40);
+const _jpx = __w_pdfjs_require__(40);
 
 function decodeAndClamp(value, addend, coefficient, max) {
   value = addend + value * coefficient;
@@ -52307,11 +52307,11 @@ function resizeImageMask(src, bpc, w1, h1, w2, h2) {
 
   const xRatio = w1 / w2;
   const yRatio = h1 / h2;
-  let i,
-      j,
-      py,
-      newIndex = 0,
-      oldIndex;
+  let i;
+      let j;
+      let py;
+      let newIndex = 0;
+      let oldIndex;
   const xScaled = new Uint16Array(w2);
   const w1Scanline = w1;
 
@@ -52463,8 +52463,8 @@ class PDFImage {
       });
     } else if (mask) {
       if ((0, _primitives.isStream)(mask)) {
-        const maskDict = mask.dict,
-              imageMask = maskDict.get("IM", "ImageMask");
+        const maskDict = mask.dict;
+              const imageMask = maskDict.get("IM", "ImageMask");
 
         if (!imageMask) {
           (0, _util.warn)("Ignoring /Mask in image without /ImageMask.");
@@ -52620,9 +52620,9 @@ class PDFImage {
 
     const rowComps = width * numComps;
     const max = (1 << bpc) - 1;
-    let i = 0,
-        ii,
-        buf;
+    let i = 0;
+        let ii;
+        let buf;
 
     if (bpc === 1) {
       let mask, loop1End, loop2End;
@@ -52945,25 +52945,25 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.Catalog = void 0;
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _name_number_tree = __w_pdfjs_require__(65);
+const _name_number_tree = __w_pdfjs_require__(65);
 
-var _base_stream = __w_pdfjs_require__(6);
+const _base_stream = __w_pdfjs_require__(6);
 
-var _colorspace = __w_pdfjs_require__(24);
+const _colorspace = __w_pdfjs_require__(24);
 
-var _file_spec = __w_pdfjs_require__(66);
+const _file_spec = __w_pdfjs_require__(66);
 
-var _image_utils = __w_pdfjs_require__(58);
+const _image_utils = __w_pdfjs_require__(58);
 
-var _metadata_parser = __w_pdfjs_require__(67);
+const _metadata_parser = __w_pdfjs_require__(67);
 
-var _struct_tree = __w_pdfjs_require__(69);
+const _struct_tree = __w_pdfjs_require__(69);
 
 function fetchDestination(dest) {
   if (dest instanceof _primitives.Dict) {
@@ -53216,8 +53216,8 @@ class Catalog {
     }];
     const processed = new _primitives.RefSet();
     processed.put(obj);
-    const xref = this.xref,
-          blackColor = new Uint8ClampedArray(3);
+    const xref = this.xref;
+          const blackColor = new Uint8ClampedArray(3);
 
     while (queue.length > 0) {
       const i = queue.shift();
@@ -53476,9 +53476,9 @@ class Catalog {
       };
     }
 
-    const xref = this.xref,
-          parsedOrderRefs = new _primitives.RefSet(),
-          MAX_NESTED_LEVELS = 10;
+    const xref = this.xref;
+          const parsedOrderRefs = new _primitives.RefSet();
+          const MAX_NESTED_LEVELS = 10;
     return {
       name: (0, _util.isString)(config.get("Name")) ? (0, _util.stringToPDFString)(config.get("Name")) : null,
       creator: (0, _util.isString)(config.get("Creator")) ? (0, _util.stringToPDFString)(config.get("Creator")) : null,
@@ -53513,8 +53513,8 @@ class Catalog {
   }
 
   get destinations() {
-    const obj = this._readDests(),
-          dests = Object.create(null);
+    const obj = this._readDests();
+          const dests = Object.create(null);
 
     if (obj instanceof _name_number_tree.NameTree) {
       for (const [key, value] of obj.getAll()) {
@@ -53600,12 +53600,12 @@ class Catalog {
     }
 
     const pageLabels = new Array(this.numPages);
-    let style = null,
-        prefix = "";
+    let style = null;
+        let prefix = "";
     const numberTree = new _name_number_tree.NumberTree(obj, this.xref);
     const nums = numberTree.getAll();
-    let currentLabel = "",
-        currentIndex = 1;
+    let currentLabel = "";
+        let currentIndex = 1;
 
     for (let i = 0, ii = this.numPages; i < ii; i++) {
       const labelDict = nums.get(i);
@@ -53669,8 +53669,8 @@ class Catalog {
         case "A":
         case "a":
           const LIMIT = 26;
-          const A_UPPER_CASE = 0x41,
-                A_LOWER_CASE = 0x61;
+          const A_UPPER_CASE = 0x41;
+                const A_LOWER_CASE = 0x61;
           const baseCharCode = style === "a" ? A_LOWER_CASE : A_UPPER_CASE;
           const letterIndex = currentIndex - 1;
           const character = String.fromCharCode(baseCharCode + letterIndex % LIMIT);
@@ -54095,8 +54095,8 @@ class Catalog {
       visitedNodes.put(pagesRef);
     }
 
-    const xref = this.xref,
-          pageKidsCountCache = this.pageKidsCountCache;
+    const xref = this.xref;
+          const pageKidsCountCache = this.pageKidsCountCache;
     let currentPageIndex = 0;
 
     function next() {
@@ -54330,8 +54330,8 @@ class Catalog {
     const xref = this.xref;
 
     function pagesBeforeRef(kidRef) {
-      let total = 0,
-          parentRef;
+      let total = 0;
+          let parentRef;
       return xref.fetchAsync(kidRef).then(function (node) {
         if ((0, _primitives.isRefsEqual)(kidRef, pageRef) && !(0, _primitives.isDict)(node, "Page") && !((0, _primitives.isDict)(node) && !node.has("Type") && node.has("Contents"))) {
           throw new _util.FormatError("The reference does not point to a /Page dictionary.");
@@ -54432,9 +54432,9 @@ class Catalog {
     }
 
     const docBaseUrl = params.docBaseUrl || null;
-    let action = destDict.get("A"),
-        url,
-        dest;
+    let action = destDict.get("A");
+        let url;
+        let dest;
 
     if (!(0, _primitives.isDict)(action)) {
       if (destDict.has("Dest")) {
@@ -54611,9 +54611,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.NumberTree = exports.NameTree = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
 class NameOrNumberTree {
   constructor(root, xref, type) {
@@ -54698,8 +54698,8 @@ class NameOrNumberTree {
         return null;
       }
 
-      let l = 0,
-          r = kids.length - 1;
+      let l = 0;
+          let r = kids.length - 1;
 
       while (l <= r) {
         const m = l + r >> 1;
@@ -54724,12 +54724,12 @@ class NameOrNumberTree {
     const entries = kidsOrEntries.get(this._type);
 
     if (Array.isArray(entries)) {
-      let l = 0,
-          r = entries.length - 2;
+      let l = 0;
+          let r = entries.length - 2;
 
       while (l <= r) {
-        const tmp = l + r >> 1,
-              m = tmp + (tmp & 1);
+        const tmp = l + r >> 1;
+              const m = tmp + (tmp & 1);
         const currentKey = xref.fetchIfRef(entries[m]);
 
         if (key < currentKey) {
@@ -54776,9 +54776,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.FileSpec = void 0;
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 function pickPlatformItem(dict) {
   if (dict.has("UF")) {
@@ -54880,7 +54880,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.MetadataParser = void 0;
 
-var _xml_parser = __w_pdfjs_require__(68);
+const _xml_parser = __w_pdfjs_require__(68);
 
 class MetadataParser {
   constructor(data) {
@@ -55019,7 +55019,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.XMLParserErrorCode = exports.XMLParserBase = exports.SimpleXMLParser = exports.SimpleDOMNode = void 0;
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
 const XMLParserErrorCode = {
   NoError: 0,
@@ -55100,8 +55100,8 @@ class XMLParserBase {
 
     while (pos < s.length && s[pos] !== ">" && s[pos] !== "/" && s[pos] !== "?") {
       skipWs();
-      let attrName = "",
-          attrValue = "";
+      let attrName = "";
+          let attrValue = "";
 
       while (pos < s.length && !isWhitespace(s, pos) && s[pos] !== "=") {
         attrName += s[pos];
@@ -55566,11 +55566,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.StructTreeRoot = exports.StructTreePage = void 0;
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _name_number_tree = __w_pdfjs_require__(65);
+const _name_number_tree = __w_pdfjs_require__(65);
 
 const MAX_DEPTH = 40;
 const StructElementType = {
@@ -55935,11 +55935,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.ObjectLoader = void 0;
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 function mayHaveChildren(value) {
   return value instanceof _primitives.Ref || value instanceof _primitives.Dict || Array.isArray(value) || (0, _primitives.isStream)(value);
@@ -56084,15 +56084,15 @@ Object.defineProperty(exports, "__esModule", ({
 exports.incrementalUpdate = incrementalUpdate;
 exports.writeDict = writeDict;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _xml_parser = __w_pdfjs_require__(68);
+const _xml_parser = __w_pdfjs_require__(68);
 
-var _crypto = __w_pdfjs_require__(72);
+const _crypto = __w_pdfjs_require__(72);
 
 function writeDict(dict, buffer, transform) {
   buffer.push("<<");
@@ -56439,11 +56439,11 @@ exports.calculateSHA256 = exports.calculateMD5 = exports.PDF20 = exports.PDF17 =
 exports.calculateSHA384 = calculateSHA384;
 exports.calculateSHA512 = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _decrypt_stream = __w_pdfjs_require__(73);
+const _decrypt_stream = __w_pdfjs_require__(73);
 
 class ARCFourCipher {
   constructor(key) {
@@ -56467,8 +56467,8 @@ class ARCFourCipher {
   }
 
   encryptBlock(data) {
-    let a = this.a,
-        b = this.b;
+    let a = this.a;
+        let b = this.b;
     const s = this.s;
     const n = data.length;
     const output = new Uint8Array(n);
@@ -56505,10 +56505,10 @@ const calculateMD5 = function calculateMD5Closure() {
   const k = new Int32Array([-680876936, -389564586, 606105819, -1044525330, -176418897, 1200080426, -1473231341, -45705983, 1770035416, -1958414417, -42063, -1990404162, 1804603682, -40341101, -1502002290, 1236535329, -165796510, -1069501632, 643717713, -373897302, -701558691, 38016083, -660478335, -405537848, 568446438, -1019803690, -187363961, 1163531501, -1444681467, -51403784, 1735328473, -1926607734, -378558, -2022574463, 1839030562, -35309556, -1530992060, 1272893353, -155497632, -1094730640, 681279174, -358537222, -722521979, 76029189, -640364487, -421815835, 530742520, -995338651, -198630844, 1126891415, -1416354905, -57434055, 1700485571, -1894986606, -1051523, -2054922799, 1873313359, -30611744, -1560198380, 1309151649, -145523070, -1120210379, 718787259, -343485551]);
 
   function hash(data, offset, length) {
-    let h0 = 1732584193,
-        h1 = -271733879,
-        h2 = -1732584194,
-        h3 = 271733878;
+    let h0 = 1732584193;
+        let h1 = -271733879;
+        let h2 = -1732584194;
+        let h3 = 271733878;
     const paddedLength = length + 72 & ~63;
     const padded = new Uint8Array(paddedLength);
     let i, j;
@@ -56539,12 +56539,12 @@ const calculateMD5 = function calculateMD5Closure() {
         w[j] = padded[i] | padded[i + 1] << 8 | padded[i + 2] << 16 | padded[i + 3] << 24;
       }
 
-      let a = h0,
-          b = h1,
-          c = h2,
-          d = h3,
-          f,
-          g;
+      let a = h0;
+          let b = h1;
+          let c = h2;
+          let d = h3;
+          let f;
+          let g;
 
       for (j = 0; j < 64; ++j) {
         if (j < 16) {
@@ -56561,9 +56561,9 @@ const calculateMD5 = function calculateMD5Closure() {
           g = 7 * j & 15;
         }
 
-        const tmp = d,
-              rotateArg = a + f + k[j] + w[g] | 0,
-              rotate = r[j];
+        const tmp = d;
+              const rotateArg = a + f + k[j] + w[g] | 0;
+              const rotate = r[j];
         d = c;
         c = b;
         b = b + (rotateArg << rotate | rotateArg >>> 32 - rotate) | 0;
@@ -56708,14 +56708,14 @@ const calculateSHA256 = function calculateSHA256Closure() {
   const k = [0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da, 0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967, 0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85, 0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070, 0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3, 0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2];
 
   function hash(data, offset, length) {
-    let h0 = 0x6a09e667,
-        h1 = 0xbb67ae85,
-        h2 = 0x3c6ef372,
-        h3 = 0xa54ff53a,
-        h4 = 0x510e527f,
-        h5 = 0x9b05688c,
-        h6 = 0x1f83d9ab,
-        h7 = 0x5be0cd19;
+    let h0 = 0x6a09e667;
+        let h1 = 0xbb67ae85;
+        let h2 = 0x3c6ef372;
+        let h3 = 0xa54ff53a;
+        let h4 = 0x510e527f;
+        let h5 = 0x9b05688c;
+        let h6 = 0x1f83d9ab;
+        let h7 = 0x5be0cd19;
     const paddedLength = Math.ceil((length + 9) / 64) * 64;
     const padded = new Uint8Array(paddedLength);
     let i, j;
@@ -56751,16 +56751,16 @@ const calculateSHA256 = function calculateSHA256Closure() {
         w[j] = littleSigmaPrime(w[j - 2]) + w[j - 7] + littleSigma(w[j - 15]) + w[j - 16] | 0;
       }
 
-      let a = h0,
-          b = h1,
-          c = h2,
-          d = h3,
-          e = h4,
-          f = h5,
-          g = h6,
-          h = h7,
-          t1,
-          t2;
+      let a = h0;
+          let b = h1;
+          let c = h2;
+          let d = h3;
+          let e = h4;
+          let f = h5;
+          let g = h6;
+          let h = h7;
+          let t1;
+          let t2;
 
       for (j = 0; j < 64; ++j) {
         t1 = h + sigmaPrime(e) + ch(e, f, g) + k[j] + w[j];
@@ -56920,18 +56920,18 @@ const calculateSHA512 = function calculateSHA512Closure() {
       w[i] = new Word64(0, 0);
     }
 
-    let a = new Word64(0, 0),
-        b = new Word64(0, 0),
-        c = new Word64(0, 0);
-    let d = new Word64(0, 0),
-        e = new Word64(0, 0),
-        f = new Word64(0, 0);
-    let g = new Word64(0, 0),
-        h = new Word64(0, 0);
-    const t1 = new Word64(0, 0),
-          t2 = new Word64(0, 0);
-    const tmp1 = new Word64(0, 0),
-          tmp2 = new Word64(0, 0);
+    let a = new Word64(0, 0);
+        let b = new Word64(0, 0);
+        let c = new Word64(0, 0);
+    let d = new Word64(0, 0);
+        let e = new Word64(0, 0);
+        let f = new Word64(0, 0);
+    let g = new Word64(0, 0);
+        let h = new Word64(0, 0);
+    const t1 = new Word64(0, 0);
+          const t2 = new Word64(0, 0);
+    const tmp1 = new Word64(0, 0);
+          const tmp2 = new Word64(0, 0);
     let tmp3;
 
     for (i = 0; i < paddedLength;) {
@@ -57226,8 +57226,8 @@ class AESBaseCipher {
 
   _decryptBlock2(data, finalize) {
     const sourceLength = data.length;
-    let buffer = this.buffer,
-        bufferLength = this.bufferPosition;
+    let buffer = this.buffer;
+        let bufferLength = this.bufferPosition;
     const result = [];
     let iv = this.iv;
 
@@ -57316,8 +57316,8 @@ class AESBaseCipher {
 
   encrypt(data, iv) {
     const sourceLength = data.length;
-    let buffer = this.buffer,
-        bufferLength = this.bufferPosition;
+    let buffer = this.buffer;
+        let bufferLength = this.bufferPosition;
     const result = [];
 
     if (!iv) {
@@ -57515,8 +57515,8 @@ const PDF20 = function PDF20Closure() {
     let i = 0;
 
     while (i < 64 || e[e.length - 1] > i - 32) {
-      const combinedLength = password.length + k.length + userBytes.length,
-            combinedArray = new Uint8Array(combinedLength);
+      const combinedLength = password.length + k.length + userBytes.length;
+            const combinedArray = new Uint8Array(combinedLength);
       let writeOffset = 0;
       combinedArray.set(password, writeOffset);
       writeOffset += password.length;
@@ -57685,9 +57685,9 @@ const CipherTransformFactory = function CipherTransformFactoryClosure() {
   function prepareKeyData(fileId, password, ownerPassword, userPassword, flags, revision, keyLength, encryptMetadata) {
     const hashDataSize = 40 + ownerPassword.length + fileId.length;
     const hashData = new Uint8Array(hashDataSize);
-    let i = 0,
-        j,
-        n;
+    let i = 0;
+        let j;
+        let n;
 
     if (password) {
       n = Math.min(32, password.length);
@@ -58028,7 +58028,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.DecryptStream = void 0;
 
-var _decode_stream = __w_pdfjs_require__(29);
+const _decode_stream = __w_pdfjs_require__(29);
 
 const chunkSize = 512;
 
@@ -58062,8 +58062,8 @@ class DecryptStream extends _decode_stream.DecodeStream {
     const decrypt = this.decrypt;
     chunk = decrypt(chunk, !hasMoreData);
     let bufferLength = this.bufferLength;
-    const n = chunk.length,
-          buffer = this.ensureBuffer(bufferLength + n);
+    const n = chunk.length;
+          const buffer = this.ensureBuffer(bufferLength + n);
 
     for (let i = 0; i < n; i++) {
       buffer[bufferLength++] = chunk[i];
@@ -58087,21 +58087,21 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.XFAFactory = void 0;
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
-var _bind = __w_pdfjs_require__(79);
+const _bind = __w_pdfjs_require__(79);
 
-var _data = __w_pdfjs_require__(85);
+const _data = __w_pdfjs_require__(85);
 
-var _fonts = __w_pdfjs_require__(83);
+const _fonts = __w_pdfjs_require__(83);
 
-var _utils = __w_pdfjs_require__(76);
+const _utils = __w_pdfjs_require__(76);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _parser = __w_pdfjs_require__(86);
+const _parser = __w_pdfjs_require__(86);
 
-var _xhtml = __w_pdfjs_require__(96);
+const _xhtml = __w_pdfjs_require__(96);
 
 class XFAFactory {
   constructor(data) {
@@ -58283,15 +58283,15 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.XmlObject = exports.XFAObjectArray = exports.XFAObject = exports.XFAAttribute = exports.StringObject = exports.OptionObject = exports.Option10 = exports.Option01 = exports.IntegerObject = exports.ContentObject = exports.$uid = exports.$toStyle = exports.$toString = exports.$toPages = exports.$toHTML = exports.$text = exports.$tabIndex = exports.$setValue = exports.$setSetAttributes = exports.$setId = exports.$searchNode = exports.$root = exports.$resolvePrototypes = exports.$removeChild = exports.$pushPara = exports.$pushGlyphs = exports.$popPara = exports.$onText = exports.$onChildCheck = exports.$onChild = exports.$nsAttributes = exports.$nodeName = exports.$namespaceId = exports.$isUsable = exports.$isTransparent = exports.$isThereMoreWidth = exports.$isSplittable = exports.$isNsAgnostic = exports.$isDescendent = exports.$isDataValue = exports.$isCDATAXml = exports.$isBindable = exports.$insertAt = exports.$indexOf = exports.$ids = exports.$hasSettableValue = exports.$globalData = exports.$getTemplateRoot = exports.$getSubformParent = exports.$getRealChildrenByNameIt = exports.$getParent = exports.$getNextPage = exports.$getExtra = exports.$getDataValue = exports.$getContainedChildren = exports.$getChildrenByNameIt = exports.$getChildrenByName = exports.$getChildrenByClass = exports.$getChildren = exports.$getAvailableSpace = exports.$getAttributes = exports.$getAttributeIt = exports.$flushHTML = exports.$finalize = exports.$extra = exports.$dump = exports.$data = exports.$content = exports.$consumed = exports.$clone = exports.$cleanup = exports.$cleanPage = exports.$clean = exports.$childrenToHTML = exports.$appendChild = exports.$addHTML = exports.$acceptWhitespace = void 0;
 
-var _utils = __w_pdfjs_require__(76);
+const _utils = __w_pdfjs_require__(76);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _namespaces = __w_pdfjs_require__(77);
+const _namespaces = __w_pdfjs_require__(77);
 
-var _som = __w_pdfjs_require__(78);
+const _som = __w_pdfjs_require__(78);
 
 const $acceptWhitespace = Symbol();
 exports.$acceptWhitespace = $acceptWhitespace;
@@ -59491,7 +59491,7 @@ exports.getRelevant = getRelevant;
 exports.getStringOption = getStringOption;
 exports.stripQuotes = stripQuotes;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 const dimConverters = {
   pt: x => x,
@@ -59829,11 +59829,11 @@ Object.defineProperty(exports, "__esModule", ({
 exports.createDataNode = createDataNode;
 exports.searchNode = searchNode;
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
-var _namespaces = __w_pdfjs_require__(77);
+const _namespaces = __w_pdfjs_require__(77);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 const namePattern = /^[^.[]+/;
 const indexPattern = /^[^\]]+/;
@@ -60176,15 +60176,15 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.Binder = void 0;
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
-var _template = __w_pdfjs_require__(80);
+const _template = __w_pdfjs_require__(80);
 
-var _som = __w_pdfjs_require__(78);
+const _som = __w_pdfjs_require__(78);
 
-var _namespaces = __w_pdfjs_require__(77);
+const _namespaces = __w_pdfjs_require__(77);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 const NS_DATASETS = _namespaces.NamespaceIds.datasets.id;
 
@@ -60775,23 +60775,23 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.Value = exports.Text = exports.TemplateNamespace = exports.Template = exports.SetProperty = exports.Items = exports.Field = exports.BindItems = void 0;
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
-var _namespaces = __w_pdfjs_require__(77);
+const _namespaces = __w_pdfjs_require__(77);
 
-var _layout = __w_pdfjs_require__(81);
+const _layout = __w_pdfjs_require__(81);
 
-var _html_utils = __w_pdfjs_require__(82);
+const _html_utils = __w_pdfjs_require__(82);
 
-var _utils = __w_pdfjs_require__(76);
+const _utils = __w_pdfjs_require__(76);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _fonts = __w_pdfjs_require__(83);
+const _fonts = __w_pdfjs_require__(83);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _som = __w_pdfjs_require__(78);
+const _som = __w_pdfjs_require__(78);
 
 const TEMPLATE_NS_ID = _namespaces.NamespaceIds.template.id;
 const SVG_NS = "http://www.w3.org/2000/svg";
@@ -66700,9 +66700,9 @@ exports.checkDimensions = checkDimensions;
 exports.flushHTML = flushHTML;
 exports.getAvailableSpace = getAvailableSpace;
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
-var _html_utils = __w_pdfjs_require__(82);
+const _html_utils = __w_pdfjs_require__(82);
 
 function createLine(node, children) {
   return {
@@ -67062,15 +67062,15 @@ exports.setMinMaxDimensions = setMinMaxDimensions;
 exports.setPara = setPara;
 exports.toStyle = toStyle;
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _utils = __w_pdfjs_require__(76);
+const _utils = __w_pdfjs_require__(76);
 
-var _fonts = __w_pdfjs_require__(83);
+const _fonts = __w_pdfjs_require__(83);
 
-var _text = __w_pdfjs_require__(84);
+const _text = __w_pdfjs_require__(84);
 
 function measureToString(m) {
   if (typeof m === "string") {
@@ -67735,11 +67735,11 @@ exports.FontFinder = void 0;
 exports.getMetrics = getMetrics;
 exports.selectFont = selectFont;
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
-var _utils = __w_pdfjs_require__(76);
+const _utils = __w_pdfjs_require__(76);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 class FontFinder {
   constructor(pdfFonts) {
@@ -67942,7 +67942,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.TextMeasure = void 0;
 
-var _fonts = __w_pdfjs_require__(83);
+const _fonts = __w_pdfjs_require__(83);
 
 const WIDTH_FACTOR = 1.02;
 
@@ -68117,12 +68117,12 @@ class TextMeasure {
   }
 
   compute(maxWidth) {
-    let lastSpacePos = -1,
-        lastSpaceWidth = 0,
-        width = 0,
-        height = 0,
-        currentLineWidth = 0,
-        currentLineHeight = 0;
+    let lastSpacePos = -1;
+        let lastSpaceWidth = 0;
+        let width = 0;
+        let height = 0;
+        let currentLineWidth = 0;
+        let currentLineHeight = 0;
     let isBroken = false;
     let isFirstLine = true;
 
@@ -68210,7 +68210,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.DataHandler = void 0;
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
 class DataHandler {
   constructor(root, data) {
@@ -68287,13 +68287,13 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.XFAParser = void 0;
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
-var _xml_parser = __w_pdfjs_require__(68);
+const _xml_parser = __w_pdfjs_require__(68);
 
-var _builder = __w_pdfjs_require__(87);
+const _builder = __w_pdfjs_require__(87);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 class XFAParser extends _xml_parser.XMLParserBase {
   constructor(rootNameSpace = null, richText = false) {
@@ -68480,17 +68480,17 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.Builder = void 0;
 
-var _namespaces = __w_pdfjs_require__(77);
+const _namespaces = __w_pdfjs_require__(77);
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
-var _setup = __w_pdfjs_require__(88);
+const _setup = __w_pdfjs_require__(88);
 
-var _template = __w_pdfjs_require__(80);
+const _template = __w_pdfjs_require__(80);
 
-var _unknown = __w_pdfjs_require__(97);
+const _unknown = __w_pdfjs_require__(97);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 class Root extends _xfa_object.XFAObject {
   constructor(ids) {
@@ -68713,23 +68713,23 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.NamespaceSetUp = void 0;
 
-var _config = __w_pdfjs_require__(89);
+const _config = __w_pdfjs_require__(89);
 
-var _connection_set = __w_pdfjs_require__(90);
+const _connection_set = __w_pdfjs_require__(90);
 
-var _datasets = __w_pdfjs_require__(91);
+const _datasets = __w_pdfjs_require__(91);
 
-var _locale_set = __w_pdfjs_require__(92);
+const _locale_set = __w_pdfjs_require__(92);
 
-var _signature = __w_pdfjs_require__(93);
+const _signature = __w_pdfjs_require__(93);
 
-var _stylesheet = __w_pdfjs_require__(94);
+const _stylesheet = __w_pdfjs_require__(94);
 
-var _template = __w_pdfjs_require__(80);
+const _template = __w_pdfjs_require__(80);
 
-var _xdp = __w_pdfjs_require__(95);
+const _xdp = __w_pdfjs_require__(95);
 
-var _xhtml = __w_pdfjs_require__(96);
+const _xhtml = __w_pdfjs_require__(96);
 
 const NamespaceSetUp = {
   config: _config.ConfigNamespace,
@@ -68755,13 +68755,13 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.ConfigNamespace = void 0;
 
-var _namespaces = __w_pdfjs_require__(77);
+const _namespaces = __w_pdfjs_require__(77);
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
-var _utils = __w_pdfjs_require__(76);
+const _utils = __w_pdfjs_require__(76);
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 const CONFIG_NS_ID = _namespaces.NamespaceIds.config.id;
 
@@ -70644,9 +70644,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.ConnectionSetNamespace = void 0;
 
-var _namespaces = __w_pdfjs_require__(77);
+const _namespaces = __w_pdfjs_require__(77);
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
 const CONNECTION_SET_NS_ID = _namespaces.NamespaceIds.connectionSet.id;
 
@@ -70858,9 +70858,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.DatasetsNamespace = void 0;
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
-var _namespaces = __w_pdfjs_require__(77);
+const _namespaces = __w_pdfjs_require__(77);
 
 const DATASETS_NS_ID = _namespaces.NamespaceIds.datasets.id;
 
@@ -70926,11 +70926,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.LocaleSetNamespace = void 0;
 
-var _namespaces = __w_pdfjs_require__(77);
+const _namespaces = __w_pdfjs_require__(77);
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
-var _utils = __w_pdfjs_require__(76);
+const _utils = __w_pdfjs_require__(76);
 
 const LOCALE_SET_NS_ID = _namespaces.NamespaceIds.localeSet.id;
 
@@ -71264,9 +71264,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.SignatureNamespace = void 0;
 
-var _namespaces = __w_pdfjs_require__(77);
+const _namespaces = __w_pdfjs_require__(77);
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
 const SIGNATURE_NS_ID = _namespaces.NamespaceIds.signature.id;
 
@@ -71305,9 +71305,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.StylesheetNamespace = void 0;
 
-var _namespaces = __w_pdfjs_require__(77);
+const _namespaces = __w_pdfjs_require__(77);
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
 const STYLESHEET_NS_ID = _namespaces.NamespaceIds.stylesheet.id;
 
@@ -71346,9 +71346,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.XdpNamespace = void 0;
 
-var _namespaces = __w_pdfjs_require__(77);
+const _namespaces = __w_pdfjs_require__(77);
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
 const XDP_NS_ID = _namespaces.NamespaceIds.xdp.id;
 
@@ -71400,13 +71400,13 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.XhtmlNamespace = void 0;
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
-var _namespaces = __w_pdfjs_require__(77);
+const _namespaces = __w_pdfjs_require__(77);
 
-var _html_utils = __w_pdfjs_require__(82);
+const _html_utils = __w_pdfjs_require__(82);
 
-var _utils = __w_pdfjs_require__(76);
+const _utils = __w_pdfjs_require__(76);
 
 const XHTML_NS_ID = _namespaces.NamespaceIds.xhtml.id;
 const $richText = Symbol();
@@ -71935,9 +71935,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.UnknownNamespace = void 0;
 
-var _namespaces = __w_pdfjs_require__(77);
+const _namespaces = __w_pdfjs_require__(77);
 
-var _xfa_object = __w_pdfjs_require__(75);
+const _xfa_object = __w_pdfjs_require__(75);
 
 class UnknownNamespace {
   constructor(nsId) {
@@ -71963,17 +71963,17 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.XRef = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
-var _primitives = __w_pdfjs_require__(5);
+const _primitives = __w_pdfjs_require__(5);
 
-var _core_utils = __w_pdfjs_require__(9);
+const _core_utils = __w_pdfjs_require__(9);
 
-var _parser = __w_pdfjs_require__(27);
+const _parser = __w_pdfjs_require__(27);
 
-var _base_stream = __w_pdfjs_require__(6);
+const _base_stream = __w_pdfjs_require__(6);
 
-var _crypto = __w_pdfjs_require__(72);
+const _crypto = __w_pdfjs_require__(72);
 
 class XRef {
   constructor(stream, pdfManager) {
@@ -72218,9 +72218,9 @@ class XRef {
       for (let i = streamState.entryNum; i < n; ++i) {
         streamState.entryNum = i;
         streamState.streamPos = stream.pos;
-        let type = 0,
-            offset = 0,
-            generation = 0;
+        let type = 0;
+            let offset = 0;
+            let generation = 0;
 
         for (let j = 0; j < typeFieldWidth; ++j) {
           const typeByte = stream.getByte();
@@ -72288,16 +72288,16 @@ class XRef {
   }
 
   indexObjects() {
-    const TAB = 0x9,
-          LF = 0xa,
-          CR = 0xd,
-          SPACE = 0x20;
-    const PERCENT = 0x25,
-          LT = 0x3c;
+    const TAB = 0x9;
+          const LF = 0xa;
+          const CR = 0xd;
+          const SPACE = 0x20;
+    const PERCENT = 0x25;
+          const LT = 0x3c;
 
     function readToken(data, offset) {
-      let token = "",
-          ch = data[offset];
+      let token = "";
+          let ch = data[offset];
 
       while (ch !== LF && ch !== CR && ch !== LT) {
         if (++offset >= data.length) {
@@ -72312,8 +72312,8 @@ class XRef {
     }
 
     function skipUntil(data, offset, what) {
-      const length = what.length,
-            dataLength = data.length;
+      const length = what.length;
+            const dataLength = data.length;
       let skipped = 0;
 
       while (offset < dataLength) {
@@ -72348,11 +72348,11 @@ class XRef {
 
     const stream = this.stream;
     stream.pos = 0;
-    const buffer = stream.getBytes(),
-          length = buffer.length;
+    const buffer = stream.getBytes();
+          const length = buffer.length;
     let position = stream.start;
-    const trailers = [],
-          xrefStms = [];
+    const trailers = [];
+          const xrefStms = [];
 
     while (position < length) {
       let ch = buffer[position];
@@ -72384,11 +72384,11 @@ class XRef {
         trailers.push(position);
         position += skipUntil(buffer, position, startxrefBytes);
       } else if (m = objRegExp.exec(token)) {
-        const num = m[1] | 0,
-              gen = m[2] | 0;
-        let contentLength,
-            startPos = position + token.length,
-            updateEntries = false;
+        const num = m[1] | 0;
+              const gen = m[2] | 0;
+        let contentLength;
+            let startPos = position + token.length;
+            let updateEntries = false;
 
         if (!this.entries[num]) {
           updateEntries = true;
@@ -72792,8 +72792,8 @@ class XRef {
         continue;
       }
 
-      const num = nums[i],
-            entry = this.entries[num];
+      const num = nums[i];
+            const entry = this.entries[num];
 
       if (entry && entry.offset === tableOffset && entry.gen === i) {
         this._cacheMap.set(num, obj);
@@ -72849,7 +72849,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.MessageHandler = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 const CallbackKind = {
   UNKNOWN: 0,
@@ -73024,10 +73024,10 @@ class MessageHandler {
   }
 
   sendWithStream(actionName, data, queueingStrategy, transfers) {
-    const streamId = this.streamId++,
-          sourceName = this.sourceName,
-          targetName = this.targetName,
-          comObj = this.comObj;
+    const streamId = this.streamId++;
+          const sourceName = this.sourceName;
+          const targetName = this.targetName;
+          const comObj = this.comObj;
     return new ReadableStream({
       start: controller => {
         const startCapability = (0, _util.createPromiseCapability)();
@@ -73078,12 +73078,12 @@ class MessageHandler {
   }
 
   _createStreamSink(data) {
-    const streamId = data.streamId,
-          sourceName = this.sourceName,
-          targetName = data.sourceName,
-          comObj = this.comObj;
-    const self = this,
-          action = this.actionHandler[data.action];
+    const streamId = data.streamId;
+          const sourceName = this.sourceName;
+          const targetName = data.sourceName;
+          const comObj = this.comObj;
+    const self = this;
+          const action = this.actionHandler[data.action];
     const streamSink = {
       enqueue(chunk, size = 1, transfers) {
         if (this.isCancelled) {
@@ -73171,12 +73171,12 @@ class MessageHandler {
   }
 
   _processStreamMessage(data) {
-    const streamId = data.streamId,
-          sourceName = this.sourceName,
-          targetName = data.sourceName,
-          comObj = this.comObj;
-    const streamController = this.streamControllers[streamId],
-          streamSink = this.streamSinks[streamId];
+    const streamId = data.streamId;
+          const sourceName = this.sourceName;
+          const targetName = data.sourceName;
+          const comObj = this.comObj;
+    const streamController = this.streamControllers[streamId];
+          const streamSink = this.streamSinks[streamId];
 
     switch (data.stream) {
       case StreamKind.START_COMPLETE:
@@ -73336,7 +73336,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.PDFWorkerStream = void 0;
 
-var _util = __w_pdfjs_require__(2);
+const _util = __w_pdfjs_require__(2);
 
 class PDFWorkerStream {
   constructor(msgHandler) {
@@ -73479,17 +73479,17 @@ class PDFWorkerStreamRangeReader {
 /******/ 	]);
 /************************************************************************/
 /******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
+/******/ 	const __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
 /******/ 	function __w_pdfjs_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		const cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 		const module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
@@ -73507,7 +73507,7 @@ class PDFWorkerStreamRangeReader {
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
 /******/ 		__w_pdfjs_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
+/******/ 			for(const key in definition) {
 /******/ 				if(__w_pdfjs_require__.o(definition, key) && !__w_pdfjs_require__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
@@ -73532,10 +73532,10 @@ class PDFWorkerStreamRangeReader {
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
+const __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-var exports = __webpack_exports__;
+const exports = __webpack_exports__;
 
 
 Object.defineProperty(exports, "__esModule", ({
@@ -73558,4 +73558,4 @@ const pdfjsBuild = 'a2ae56f39';
 /******/ })()
 ;
 });
-//# sourceMappingURL=pdf.worker.js.map
+// # sourceMappingURL=pdf.worker.js.map

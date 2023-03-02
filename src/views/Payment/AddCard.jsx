@@ -1,9 +1,9 @@
 import { useAuth } from '../../context/authContext'
 import styled from 'styled-components'
 import { useState } from 'react'
-import Text from '../../components/Text'
-import Input from '../../components/Input'
-import Button from '../../components/Button'
+import Text from '@ui/Text'
+import Input from '@ui/Input'
+import Button from '@ui/Button'
 import registerCard from '../../util/cardregistration'
 import { colors } from '../../config/theme'
 

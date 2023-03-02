@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import Link from 'next/link'
-import Img from '../components/Img'
-import Text from '../components/Text'
-import A from '../components/A'
-import Button from '../components/Button'
+import Img from '@ui/Img'
+import Text from '@ui/Text'
+import A from '@ui/A'
+import Button from '@ui/Button'
 
 const Wrapper = styled.div`
   display: flex;

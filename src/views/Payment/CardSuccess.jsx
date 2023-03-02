@@ -1,6 +1,6 @@
-import Img from '../../components/Img'
+import Img from '@ui/Img'
 import styled from 'styled-components'
-import Text from '../../components/Text'
+import Text from '@ui/Text'
 
 const CardSuccessDiv = styled.div`
   display: flex;

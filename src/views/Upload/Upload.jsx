@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { useEffect, useState } from 'react'
-import Input from '../../components/Input'
-import Button from '../../components/Button'
+import Input from '@ui/Input'
+import Button from '@ui/Button'
 import { uuidv4 } from '@firebase/util'
 import { ref, uploadBytes } from 'firebase/storage'
 import { storage } from '../../config/firebase'
@@ -13,12 +13,12 @@ import {
   getUniversity,
   uploadFile
 } from '../../util/api'
-import Select from '../../components/Select'
-import Text from '../../components/Text'
-import Img from '../../components/Img'
-import Textarea from '../../components/Textarea'
-import Fileinput from '../../components/Fileinput'
-// import Checkbox from "../../components/Checkbox";
+import Select from '@ui/Select'
+import Text from '@ui/Text'
+import Img from '@ui/Img'
+import Textarea from '../../components/ui/Textarea'
+import Fileinput from '@ui/Fileinput'
+// import Checkbox from "@ui/Checkbox";
 import { colors } from '../../config/theme'
 import { useRouter } from 'next/router'
 

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { colors } from '../config/theme'
-import Button from './Button'
-import Text from './Text'
-import A from './A'
+import Button from '@ui/Button'
+import Text from '@ui/Text'
+import A from '@ui/A'
 import { useRouter } from 'next/router'
 
 const Backdrop = styled.div`

@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import { colors } from '../../config/theme'
 import { VirtualizedPage } from '../Carousel/VirtualizedPage'
-import Text from '../Text'
-import Img from '../Img'
-import Span from '../Span'
+import Text from '@ui/Text'
+import Img from '@ui/Img'
+import Span from '@ui/Span'
 
 const SoonCarouselDiv = styled.div`
   display: flex;

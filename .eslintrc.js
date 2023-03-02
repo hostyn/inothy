@@ -21,5 +21,6 @@ module.exports = {
     'react'
   ],
   rules: {
+    "@typescript-eslint/no-misused-promises": 'off'
   }
 }

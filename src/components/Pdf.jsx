@@ -3,7 +3,7 @@ import { Document, Page } from 'react-pdf'
 import styled from 'styled-components'
 import { colors } from '../config/theme'
 import Loading from './Loading'
-import Text from './Text'
+import Text from '@ui/Text'
 
 const StyledLoading = styled(Loading)`
   height: ${(props) => `${props.height}px`};

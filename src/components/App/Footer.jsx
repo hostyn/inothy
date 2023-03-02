@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 import { colors, sizes } from '../../config/theme'
-import A from '../A'
-import Img from '../Img'
-import Text from '../Text'
+import A from '@ui/A'
+import Img from '@ui/Img'
+import Text from '@ui/Text'
 
 const FooterDiv = styled.footer`
   min-width: 100vw;

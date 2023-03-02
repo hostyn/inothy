@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import A from '../components/A'
+import A from '@ui/A'
 import App from '../components/App'
-import Text from '../components/Text'
+import Text from '@ui/Text'
 import { sizes } from '../config/theme'
 
 const CookiesDiv = styled.div`

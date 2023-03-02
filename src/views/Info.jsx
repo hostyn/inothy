@@ -1,9 +1,9 @@
 import App from '../components/App'
 import styled from 'styled-components'
 import { colors } from '../config/theme'
-import Text from '../components/Text'
-import Img from '../components/Img'
-import Span from '../components/Span'
+import Text from '@ui/Text'
+import Img from '@ui/Img'
+import Span from '@ui/Span'
 
 const InfoDiv = styled.div`
   margin: 3rem 10rem;

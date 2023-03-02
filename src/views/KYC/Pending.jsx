@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import Button from '../../components/Button'
-import Text from '../../components/Text'
+import Button from '@ui/Button'
+import Text from '@ui/Text'
 
 export default function Pending () {
   return (

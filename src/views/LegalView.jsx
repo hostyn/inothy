@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import App from '../components/App'
-import Span from '../components/Span'
-import Text from '../components/Text'
+import Span from '@ui/Span'
+import Text from '@ui/Text'
 import { sizes } from '../config/theme'
 
 const LegalDiv = styled.div`

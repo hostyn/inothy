@@ -1,5 +1,5 @@
-import Text from '../../components/Text'
-import Input from '../../components/Input'
+import Text from '@ui/Text'
+import Input from '@ui/Input'
 import styled from 'styled-components'
 import { useState } from 'react'
 import { colors } from '../../config/theme'

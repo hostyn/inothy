@@ -1,5 +1,5 @@
 // next.config.js
-
+/** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
   compiler: {
@@ -8,24 +8,4 @@ module.exports = {
   images: {
     domains: ['storage.googleapis.com']
   }
-  // swcMinify: true,
-  // async headers() {
-  //   return [
-  //     {
-  //       source: "/",
-  //       headers: [
-  //         {
-  //           key: "cross-origin-opener-policy",
-  //           value: "same-origin",
-  //         },
-  //         {
-  //           key: "cross-origin-embedder-policy",
-  //           value: "require-corp",
-  //         },
-  //       ],
-  //     },
-  //   ];
-  // },
-
-  // ... other configs
 }

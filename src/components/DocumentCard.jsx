@@ -4,9 +4,9 @@ import { colors } from '../config/theme'
 import { useAuth } from '../context/authContext'
 import { getDownloadUrl } from '../util/api'
 import mimeTypes from '../util/mimeTypes'
-import A from './A'
-import Button from './Button'
-import Img from './Img'
+import A from '@ui/A'
+import Button from '@ui/Button'
+import Img from '@ui/Img'
 
 const Card = styled.div`
   display: grid;

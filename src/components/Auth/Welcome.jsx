@@ -1,7 +1,7 @@
-import Img from '../Img'
+import Img from '@ui/Img'
 import styled from 'styled-components'
-import Text from '../Text'
-import Span from '../Span'
+import Text from '@ui/Text'
+import Span from '@ui/Span'
 import { useModal } from '../../context/modalContext'
 
 const WelcomeDiv = styled.div`

@@ -1,5 +1,10 @@
 import styled from 'styled-components'
-import { colors } from '../config/theme'
+import { colors } from '../../config/theme'
+
+interface ICheckbox {
+  children?: JSX.Element | JSX.Element[]
+  onChange?: () => unknown
+}
 
 const Label = styled.label`
   display: grid;
@@ -19,7 +24,10 @@ const Span = styled.span`
   color: ${colors.primary};
 `
 
-export default function Checkbox ({ children, onChange }) {
+export default function Checkbox({
+  children,
+  onChange,
+}: ICheckbox): JSX.Element {
   return (
     <Label>
       <Input type="checkbox" onChange={onChange} />

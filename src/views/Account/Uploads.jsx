@@ -6,9 +6,9 @@ import DocumentCard from '../../components/DocumentCard'
 import { useAuth } from '../../context/authContext'
 import { getDocument } from '../../util/api'
 import Loading from '../../components/Loading'
-import Text from '../../components/Text'
+import Text from '@ui/Text'
 import Link from 'next/link'
-import Button from '../../components/Button'
+import Button from '@ui/Button'
 
 const UploadesDiv = styled.div`
   display: flex;

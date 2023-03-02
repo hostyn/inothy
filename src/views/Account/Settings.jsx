@@ -2,9 +2,9 @@ import Menu from '../../components/Account/Menu'
 import App from '../../components/App'
 import styled from 'styled-components'
 import { colors, sizes } from '../../config/theme'
-import Text from '../../components/Text'
-import Img from '../../components/Img'
-import Input from '../../components/Input'
+import Text from '@ui/Text'
+import Img from '@ui/Img'
+import Input from '@ui/Input'
 
 const SettingsGrids = styled.div`
   height: ${sizes.accountHeight};

@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import { colors, sizes } from '../../config/theme'
-import Text from '../../components/Text'
-import Img from '../../components/Img'
-import A from '../../components/A'
+import Text from '@ui/Text'
+import Img from '@ui/Img'
+import A from '@ui/A'
 import Link from 'next/link'
 
 const AccountDiv = styled.div`

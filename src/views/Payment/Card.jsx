@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Span from '../../components/Span'
-import Img from '../../components/Img'
+import Span from '@ui/Span'
+import Img from '@ui/Img'
 import Loading from '../../components/Loading'
-import Text from '../../components/Text'
+import Text from '@ui/Text'
 import { colors } from '../../config/theme'
 import { useAuth } from '../../context/authContext'
 import { buy, deleteCard, getCards } from '../../util/api'
-import Button from '../../components/Button'
+import Button from '@ui/Button'
 import { logEvent } from '../../config/firebase'
 
 const CardDiv = styled.div`

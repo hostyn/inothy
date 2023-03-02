@@ -4,9 +4,9 @@ import { colors } from '../config/theme'
 import { useAuth } from '../context/authContext'
 import mimeTypes from '../util/mimeTypes'
 import { currencyFormatter } from '../util/normailize'
-import Img from './Img'
-import Text from './Text'
-import Span from './Span'
+import Img from '@ui/Img'
+import Text from '@ui/Text'
+import Span from '@ui/Span'
 
 const Card = styled.div`
   aspect-ratio: 1;

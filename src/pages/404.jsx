@@ -1,9 +1,9 @@
-import Img from '../components/Img'
+import Img from '@ui/Img'
 import styled from 'styled-components'
-import Text from '../components/Text'
+import Text from '@ui/Text'
 import App from '../components/App'
 import Link from 'next/link'
-import A from '../components/A'
+import A from '@ui/A'
 import Head from 'next/head'
 
 const NotFoundDiv = styled.div`

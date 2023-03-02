@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Text from '../../../components/Text'
+import Text from '@ui/Text'
 
 const HeaderTitle = styled(Text)`
   font-size: 3rem;

@@ -1,10 +1,10 @@
 import App from '../components/App'
 import styled from 'styled-components'
 import { sizes } from '../config/theme'
-import Img from '../components/Img'
-import Text from '../components/Text'
-import Button from '../components/Button'
-import Span from '../components/Span'
+import Img from '@ui/Img'
+import Text from '@ui/Text'
+import Button from '@ui/Button'
+import Span from '@ui/Span'
 import { useModal } from '../context/modalContext'
 import AuthModal from '../components/Auth/AuthModal'
 import { useAuth } from '../context/authContext'
@@ -14,18 +14,18 @@ import SoonCarousel from '../components/SoonCarousel/SoonCarousel'
 
 const Home = styled.div`
   min-height: inherit;
-  background-image: url("/resources/home/background.svg");
+  background-image: url('/resources/home/background.svg');
   background-repeat: no-repeat;
   background-size: auto;
   background-position: top center;
   margin: 0 5rem;
-  padding: ${(props) =>
+  padding: ${props =>
       props.verified ? sizes.navbar : `calc(${sizes.navbar} + ${sizes.banner})`}
     5rem 0 5rem;
 
   @media (max-width: 1000px) {
     margin: 0 3rem;
-    padding: ${(props) =>
+    padding: ${props =>
         props.verified
           ? sizes.navbar
           : `calc(${sizes.navbar} + ${sizes.banner})`}
@@ -34,7 +34,7 @@ const Home = styled.div`
 
   @media (max-width: 768px) {
     margin: 0;
-    padding: ${(props) =>
+    padding: ${props =>
         props.verified
           ? sizes.navbar
           : `calc(${sizes.navbar} + ${sizes.banner})`}
@@ -43,7 +43,7 @@ const Home = styled.div`
 `
 
 const FirstImageDiv = styled.div`
-  background-image: url("/resources/home/resource1.svg");
+  background-image: url('/resources/home/resource1.svg');
   background-repeat: no-repeat;
   background-size: 100%;
 
@@ -61,7 +61,7 @@ const FirstImageDiv = styled.div`
   }
 
   @media (max-width: 768px) {
-    background-image: url("/resources/home/resource1mobile.svg");
+    background-image: url('/resources/home/resource1mobile.svg');
     height: calc((100vw - 4rem) * 1037 / 1142);
   }
 `
@@ -104,7 +104,7 @@ const IdeaFrameDiv = styled.div`
   align-items: center;
   justify-items: center;
   justify-content: center;
-  margin: ${(props) => props.margin || '10rem 0 0 0'};
+  margin: ${props => props.margin || '10rem 0 0 0'};
 
   @media (max-width: 750px) {
     grid-template-columns: 1fr;
@@ -154,7 +154,7 @@ const UniversidadesDiv = styled.div`
 const UniversidadesGrid = styled.div``
 
 const MejoresText = styled.div`
-  background-image: url("/resources/home/background2.svg");
+  background-image: url('/resources/home/background2.svg');
   background-repeat: no-repeat;
   background-size: auto;
   background-position: top center;
@@ -263,7 +263,7 @@ const StyledButton = styled(Button)`
   }
 `
 
-export default function HomeView () {
+export default function HomeView() {
   const { openModal } = useModal()
   const { user } = useAuth()
   const { width } = useWindowDimensions()

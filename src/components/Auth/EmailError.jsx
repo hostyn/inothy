@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import Img from '../Img'
-import Text from '../Text'
+import Img from '@ui/Img'
+import Text from '@ui/Text'
 
 const EmailErrorDiv = styled.div`
   display: flex;
