@@ -13,6 +13,6 @@ export const storage = getStorage(app)
 export const analytics =
   typeof window !== 'undefined' ? getAnalytics(app) : null
 
-export const logEvent = (event: string, params: any): void => {
+export const logEvent = (event: string, params?: any): void => {
   analytics != null && logEventAnalytics(analytics, event, params)
 }

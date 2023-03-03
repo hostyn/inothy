@@ -9,6 +9,7 @@ export const FIREBASE_ADMIN_CREDENTIALS =
 export const MANGOPAY_CLIENT_ID = process.env.MANGOPAY_CLIENT_ID ?? ''
 export const MANGOPAY_API_KEY = process.env.MANGOPAY_API_KEY ?? ''
 export const MANGOPAY_ENDPOINT = process.env.MANGOPAY_ENDPOINT ?? ''
+export const FRONTEND_URL = process.env.NEXT_PUBLIC_FRONTEND_URL ?? ''
 
 export const BadgesNames = {
   ambassador: 'Embajador',

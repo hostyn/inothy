@@ -1,8 +1,14 @@
+import { type IncomingHttpHeaders } from 'http2'
 import { createGlobalStyle } from 'styled-components'
 import FacebookPixel from '../components/FacebookPixel'
 import TikTokPixel from '../components/TikTokPixel'
 import { AuthProvider } from './authContext'
 import { ModalProvider } from './modalContext'
+
+interface ProvidersProps {
+  children: JSX.Element | JSX.Element[]
+  headers: IncomingHttpHeaders
+}
 
 const GlobalStyle = createGlobalStyle`
   *, *:before, *:after {
@@ -23,7 +29,10 @@ const GlobalStyle = createGlobalStyle`
 
 `
 
-export default function Providers ({ children, headers }) {
+export default function Providers({
+  children,
+  headers,
+}: ProvidersProps): JSX.Element {
   return (
     <>
       <GlobalStyle />

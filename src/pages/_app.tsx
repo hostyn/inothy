@@ -1,11 +1,20 @@
-import App, { type AppProps, type AppContext } from 'next/app'
+import App, {
+  type AppProps,
+  type AppContext,
+  type AppInitialProps,
+} from 'next/app'
 import Cookies from '../components/Cookies'
 import Providers from '../context/Providers'
 import '../styles/global.css'
 import { pdfjs } from 'react-pdf'
 import Head from 'next/head'
+import { type IncomingHttpHeaders } from 'http2'
 
 pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.js'
+
+interface PageProps extends AppInitialProps {
+  headers: IncomingHttpHeaders | null
+}
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
@@ -21,7 +30,9 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   )
 }
 
-MyApp.getInitialProps = async (appContext: AppContext) => {
+MyApp.getInitialProps = async (
+  appContext: AppContext
+): Promise<{ pageProps: PageProps }> => {
   // calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(appContext)
   return {

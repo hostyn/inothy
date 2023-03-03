@@ -3,6 +3,15 @@ import { createContext, useContext, useState } from 'react'
 import styled from 'styled-components'
 import { colors } from '../config/theme'
 
+interface IModalContext {
+  openModal: (modal: JSX.Element) => void
+  closeModal: () => Promise<unknown>
+}
+
+interface ModalProviderProps {
+  children: JSX.Element | JSX.Element[]
+}
+
 const Backdrop = styled(motion.div)`
   position: fixed;
   top: 0;
@@ -18,10 +27,10 @@ const Backdrop = styled(motion.div)`
   backdrop-filter: blur(5px);
 `
 
-const dropIn = {
+const dropInAnimation = {
   hidden: {
     y: '-100vh',
-    opacity: 0
+    opacity: 0,
   },
   visible: {
     y: '0',
@@ -30,36 +39,47 @@ const dropIn = {
       duration: 0.3,
       type: 'spring',
       damping: 100,
-      stiffness: 500
-    }
+      stiffness: 500,
+    },
   },
   exit: {
     y: '100vh',
     opacity: 0,
     transition: {
       duration: 0.3,
-      type: 'tween'
-    }
-  }
+      type: 'tween',
+    },
+  },
 }
 
-const ModalContext = createContext()
+const backdropAnimation = {
+  hidden: { opacity: 0, blur: 0, transition: { duration: 0.3 } },
+  visible: { opacity: 1, blur: 5 },
+  exit: { opacity: 0, blur: 0 },
+}
 
-export const useModal = () => useContext(ModalContext)
+const ModalContext = createContext<IModalContext>({
+  openModal: (modal: JSX.Element) => {},
+  closeModal: async () => {},
+})
 
-export const ModalProvider = ({ children }) => {
-  const [Modal, setModal] = useState(<></>)
-  const [showModal, setShowModal] = useState(false)
-  const openModal = (modal) => {
+export const useModal = (): IModalContext => useContext(ModalContext)
+
+export const ModalProvider = ({
+  children,
+}: ModalProviderProps): JSX.Element => {
+  const [Modal, setModal] = useState<JSX.Element>(<></>)
+  const [showModal, setShowModal] = useState<boolean>(false)
+  const openModal = (modal: JSX.Element): void => {
     window.document.body.classList.add('modal-open')
     setModal(modal)
     setShowModal(true)
   }
 
-  const closeModal = async () => {
+  const closeModal = async (): Promise<unknown> => {
     window.document.body.classList.remove('modal-open')
     setShowModal(false)
-    return new Promise((resolve) => setTimeout(resolve, 330))
+    return await new Promise(resolve => setTimeout(resolve, 330))
   }
 
   return (
@@ -67,15 +87,17 @@ export const ModalProvider = ({ children }) => {
       <AnimatePresence>
         {showModal && (
           <Backdrop
-            initial={{ opacity: 0, blur: 0 }}
-            animate={{ opacity: 1, blur: 5 }}
-            exit={{ opacity: 0, blur: 0 }}
-            transition={{ duration: 0.3 }}
-            onClick={() => closeModal()}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={backdropAnimation}
+            onClick={closeModal}
           >
             <motion.div
-              onClick={(e) => e.stopPropagation()}
-              variants={dropIn}
+              onClick={e => {
+                e.stopPropagation()
+              }}
+              variants={dropInAnimation}
               initial="hidden"
               animate="visible"
               exit="exit"
