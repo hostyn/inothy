@@ -6,27 +6,22 @@ import {
   onAuthStateChanged,
   signOut,
   type UserCredential,
-  type User,
 } from 'firebase/auth'
 import { getUserData } from '../util/api'
 import { useRouter } from 'next/router'
 import LoadingPage from '../components/LoadingPage'
 import { type IncomingHttpHeaders } from 'http2'
-import { type UserData } from 'pages/api/userdata'
+import type { User } from 'types/user'
 
 interface IAuthContext {
   login: (email: string, password: string) => Promise<UserCredential> | null
   register: (email: string, password: string) => Promise<UserCredential> | null
   logout: () => Promise<void>
   updateData: () => Promise<void>
-  user: IUser | null
+  user: User | null
   isUser: boolean
   headers: IncomingHttpHeaders | null
   isLoading: boolean
-}
-
-export interface IUser extends User {
-  data?: UserData
 }
 
 interface AuthProviderProps {
@@ -57,7 +52,7 @@ export function AuthProvider({
     query: { ref },
   } = useRouter()
 
-  const [user, setUser] = useState<IUser | null>(null)
+  const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isUser, setIsUser] = useState(false)
 

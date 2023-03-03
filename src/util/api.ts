@@ -1,7 +1,6 @@
 import { FRONTEND_URL } from 'config/constants'
-import { type IUser } from 'context/authContext'
-import { type UserData } from 'pages/api/userdata'
-import { auth, logEvent } from '../config/firebase'
+import type { User, UserData } from 'types/user'
+import { logEvent } from '../config/firebase'
 
 export async function isUsernameAvailable(username) {
   if (!username) throw new Error('Username is not defined')
@@ -18,10 +17,10 @@ export async function isUsernameAvailable(username) {
   return data.available
 }
 
-export async function getUserData(user: IUser): Promise<UserData> {
+export async function getUserData(user: User): Promise<UserData> {
   if (user == null) throw new Error('User is not defined')
 
-  const accessToken = await auth.currentUser?.getIdToken()
+  const accessToken = await user.getIdToken()
   if (accessToken == null) throw new Error('Invalid access token')
 
   const res = await fetch(`${FRONTEND_URL}/api/userdata`, {

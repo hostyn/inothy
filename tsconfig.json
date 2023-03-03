@@ -17,9 +17,10 @@
     "baseUrl": "src",
     "useUnknownInCatchVariables": false,
     "paths": {
-      "@ui/*": ["components/ui/*"]
+      "@ui/*": ["components/ui/*"],
+      "@middleware/*": ["middleware/*"],
     }
   },
-  "include": ["src"],
+  "include": ["src", "*.d.ts"],
   "exclude": ["node_modules"]
 }
