@@ -1,15 +1,17 @@
+import { type IUser } from 'context/authContext'
 import { logEvent } from '../config/firebase'
 import { completeCardRegistration, createCardRegistration } from './api'
 
-export default async function registerCard (
-  user,
-  cardNumber,
-  expirationDate,
-  cvx
-) {
-  if (!cardNumber) throw new Error('Card Number is required')
-  if (!expirationDate) throw new Error('Expiration Date is required')
-  if (!cvx) throw new Error('CVX is required')
+export default async function registerCard(
+  user: IUser,
+  cardNumber: string,
+  expirationDate: string,
+  cvx: string
+): Promise<void> {
+  if (cardNumber.length === 0) throw new Error('Card Number is required')
+  if (expirationDate.length === 0)
+    throw new Error('Expiration Date is required')
+  if (cvx.length === 0) throw new Error('CVX is required')
 
   try {
     const cardRegistration = await createCardRegistration(user)
@@ -21,8 +23,8 @@ export default async function registerCard (
         accessKeyRef: cardRegistration.AccessKey,
         cardNumber,
         cardExpirationDate: expirationDate,
-        cardCvx: cvx
-      })
+        cardCvx: cvx,
+      }),
     })
 
     const registrationData = await response.text()

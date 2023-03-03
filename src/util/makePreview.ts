@@ -1,10 +1,12 @@
-import { PDFDocument, rgb, StandardFonts } from 'pdf-lib'
+import { PDFDocument, type PDFPage, rgb, StandardFonts } from 'pdf-lib'
 
 const primary = rgb(234 / 255, 0, 41 / 255)
 const secondary = rgb(22 / 255, 61 / 255, 107 / 255)
 
-export default async function makePreview (url) {
-  const arrayBuffer = await fetch(url).then((res) => res.arrayBuffer())
+export default async function makePreview(url: string): Promise<Uint8Array> {
+  const arrayBuffer = await fetch(url).then(
+    async res => await res.arrayBuffer()
+  )
 
   const pdf = await PDFDocument.load(arrayBuffer)
 
@@ -15,19 +17,19 @@ export default async function makePreview (url) {
 
   const shownPages =
     pdf.getPageCount() >= 10
-      ? [...Array(Math.trunc(pdf.getPageCount() * 0.2)).keys()].map(
-          (i) => i * 2
+      ? [...Array(Math.trunc(pdf.getPageCount() * 0.2))].map(
+          (i, index) => index * 2
         )
       : pdf.getPageCount() >= 3
-        ? [0]
-        : []
+      ? [0]
+      : []
 
-  const hiddenPages = [...Array(pdf.getPageCount()).keys()].filter(
-    (i) => !shownPages.includes(i)
-  )
+  const hiddenPages = [...Array(pdf.getPageCount())]
+    .map((i, index) => index)
+    .filter(i => !shownPages.includes(i))
 
   await Promise.all(
-    hiddenPages.map(async (i) => {
+    hiddenPages.map(async i => {
       // Replace page
       const { width, height } = pdf.getPage(i).getSize()
       pdf.removePage(i)
@@ -64,7 +66,7 @@ export default async function makePreview (url) {
           height -
           (height - logoSize - fontSize * 4) / 2 -
           logoSize -
-          fontSize * 3
+          fontSize * 3,
       })
     })
   )
@@ -73,16 +75,16 @@ export default async function makePreview (url) {
   return await pdf.save()
 }
 
-function min (a, b) {
+function min(a: number, b: number): number {
   return a > b ? b : a
 }
 
-function drawLogo (page, x, y, scale) {
+function drawLogo(page: PDFPage, x: number, y: number, scale: number): void {
   const options = {
     x,
     y,
     scale,
-    color: primary
+    color: primary,
   }
 
   page.drawSvgPath(
@@ -105,7 +107,7 @@ function drawLogo (page, x, y, scale) {
     'M46.82,60.37H13.55A13.57,13.57,0,0,1,0,46.82V13.55A13.57,13.57,0,0,1,13.55,0H46.82A13.57,13.57,0,0,1,60.37,13.55V46.82A13.57,13.57,0,0,1,46.82,60.37ZM13.55,5.09a8.46,8.46,0,0,0-8.46,8.46V46.82a8.46,8.46,0,0,0,8.46,8.46H46.82a8.46,8.46,0,0,0,8.46-8.46V13.55a8.46,8.46,0,0,0-8.46-8.46Z',
     {
       ...options,
-      color: secondary
+      color: secondary,
     }
   )
 }

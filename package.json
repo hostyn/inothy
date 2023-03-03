@@ -28,6 +28,7 @@
   "devDependencies": {
     "@firebase/app-types": "^0.8.0",
     "@types/node": "^18.14.4",
+    "@types/nodemailer": "^6.4.7",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.11",
     "@types/react-pdf": "^6.2.0",

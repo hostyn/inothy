@@ -1,16 +1,20 @@
-const nodemailer = require('nodemailer')
+import { NOREPLY_PASS, NOREPLY_USER } from 'config/constants'
+import nodemailer from 'nodemailer'
 
 const transpoerter = nodemailer.createTransport({
   host: 'smtp.privateemail.com',
   port: 465,
   secure: true,
   auth: {
-    user: process.env.NOREPLY_USER,
-    pass: process.env.NOREPLY_PASS
-  }
+    user: NOREPLY_USER,
+    pass: NOREPLY_PASS,
+  },
 })
 
-export async function sendVerificationEmail (email, url) {
+export async function sendVerificationEmail(
+  email: string,
+  url: string
+): Promise<void> {
   const message = {
     from: 'Inothy <noreply@inothy.com>',
     to: email,
@@ -199,17 +203,20 @@ export async function sendVerificationEmail (email, url) {
       </body>
     </html>
     
-    `
+    `,
   }
 
   try {
-    return transpoerter.sendMail(message)
+    await transpoerter.sendMail(message)
   } catch (error) {
     throw new Error('Email not sent')
   }
 }
 
-export async function sendPasswordResetEmail (email, url) {
+export async function sendPasswordResetEmail(
+  email: string,
+  url: string
+): Promise<void> {
   const message = {
     from: 'Inothy <noreply@inothy.com>',
     to: email,
@@ -397,10 +404,10 @@ export async function sendPasswordResetEmail (email, url) {
         </table>
       </body>
     </html>
-    `
+    `,
   }
   try {
-    return transpoerter.sendMail(message)
+    await transpoerter.sendMail(message)
   } catch (error) {
     throw new Error('Email not sent')
   }
