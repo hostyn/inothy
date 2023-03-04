@@ -1,6 +1,16 @@
 import { FRONTEND_URL } from 'config/constants'
+import {
+  DegreeWithDocuments,
+  SchoolWithDegree,
+  University,
+  UniversityWithSchools,
+  UploadData,
+} from 'types/api'
 import type { User, UserData } from 'types/user'
-import { logEvent } from '../config/firebase'
+import { auth, logEvent } from '../config/firebase'
+
+const getIdToken = (user: User): Promise<string> | undefined =>
+  auth.currentUser?.getIdToken()
 
 export async function isUsernameAvailable(username) {
   if (!username) throw new Error('Username is not defined')
@@ -20,7 +30,7 @@ export async function isUsernameAvailable(username) {
 export async function getUserData(user: User): Promise<UserData> {
   if (user == null) throw new Error('User is not defined')
 
-  const accessToken = await user.getIdToken()
+  const accessToken = await getIdToken(user)
   if (accessToken == null) throw new Error('Invalid access token')
 
   const res = await fetch(`${FRONTEND_URL}/api/userdata`, {
@@ -34,7 +44,7 @@ export async function getUserData(user: User): Promise<UserData> {
 
 export async function sendVerificationEmail(user) {
   if (!user) throw new Error('User is not defined')
-  const accessToken = await user.auth.currentUser.getIdToken()
+  const accessToken = await getIdToken(user)
   const res = await fetch(`${FRONTEND_URL}/api/sendverificationemail`, {
     headers: {
       authorization: `Bearer ${accessToken}`,
@@ -47,80 +57,89 @@ export async function sendVerificationEmail(user) {
   throw new Error('Internal Server Error')
 }
 
-export async function getUniversities() {
-  const data = await fetch(`${FRONTEND_URL}/api/universities`, {
+export async function getUniversities(): Promise<University[]> {
+  const response = await fetch(`${FRONTEND_URL}/api/universities`, {
     method: 'GET',
   })
 
-  if (data.status === 200) {
-    return await data.json()
+  if (response.status === 200) {
+    return (await response.json()) as University[]
   }
-  throw new Error('Internal Server Error')
+
+  throw new Error('Internal server error')
 }
 
-export async function getUniversity(universityId) {
-  if (!universityId) throw new Error('University ID Is Required')
-  const data = await fetch(`${FRONTEND_URL}/api/universities/${universityId}`, {
-    method: 'GET',
-  })
+export async function getUniversity(
+  universityId: string
+): Promise<UniversityWithSchools> {
+  if (universityId.length === 0) throw new Error('University ID Is Required')
 
-  if (data.status === 200) {
-    return await data.json()
+  const response = await fetch(
+    `${FRONTEND_URL}/api/universities/${universityId}`,
+    {
+      method: 'GET',
+    }
+  )
+
+  if (response.status === 200) {
+    return (await response.json()) as UniversityWithSchools
   }
 
-  if (data.status === 404) {
+  if (response.status === 404) {
     throw new Error('Not found')
   }
 
-  if (data.status === 500) {
-    throw new Error('Internal Server Error')
-  }
-
   throw new Error('Internal Server Error')
 }
 
-export async function getSchool(universityId, schoolId) {
-  if (!universityId) throw new Error('University ID Is Required')
-  if (!schoolId) throw new Error('School ID Is Required')
+export async function getSchool(
+  universityId: string,
+  schoolId: string
+): Promise<SchoolWithDegree> {
+  if (universityId.length === 0) throw new Error('University ID Is Required')
+  if (schoolId.length === 0) throw new Error('School ID Is Required')
+
   const data = await fetch(
     `${FRONTEND_URL}/api/universities/${universityId}/${schoolId}`,
     { method: 'GET' }
   )
 
   if (data.status === 200) {
-    return await data.json()
+    return (await data.json()) as SchoolWithDegree
   }
 
   if (data.status === 404) {
     throw new Error('Not found')
   }
 
-  if (data.status === 500) {
-    throw new Error('Internal Server Error')
-  }
   throw new Error('Internal Server Error')
 }
 
-export async function getDegree(universityId, schoolId, degreeId) {
-  if (!universityId) throw new Error('University ID Is Required')
-  if (!schoolId) throw new Error('School ID Is Required')
-  if (!degreeId) throw new Error('Degree ID Is Required')
+export async function getDegree(
+  universityId: string,
+  schoolId: string,
+  degreeId: string,
+  year = 1
+): Promise<DegreeWithDocuments> {
+  if (universityId.length === 0) throw new Error('University ID Is Required')
+  if (schoolId.length === 0) throw new Error('School ID Is Required')
+  if (degreeId.length === 0) throw new Error('Degree ID Is Required')
   const data = await fetch(
-    `${FRONTEND_URL}/api/universities/${universityId}/${schoolId}/${degreeId}`,
+    `${FRONTEND_URL}/api/universities/${universityId}/${schoolId}/${degreeId}?` +
+      new URLSearchParams({
+        year: year.toString(),
+      }).toString(),
     { method: 'GET' }
   )
 
   if (data.status === 200) {
-    return await data.json()
+    return (await data.json()) as DegreeWithDocuments
   }
 
   if (data.status === 404) {
     throw new Error('Not found')
   }
 
-  if (data.status === 500) {
-    throw new Error('Internal Server Error')
-  }
   throw new Error('Internal Server Error')
 }
 
@@ -175,7 +194,7 @@ export async function getDocument(subjectId, docId) {
 }
 
 export async function completeProfile(user, userData) {
-  const accessToken = await user.auth.currentUser.getIdToken()
+  const accessToken = await getIdToken(user)
 
   const res = await fetch(`${FRONTEND_URL}/api/completeprofile`, {
     headers: {
@@ -196,8 +215,11 @@ export async function completeProfile(user, userData) {
   throw new Error('Internal server error')
 }
 
-export async function uploadFile(user, docData) {
-  const accessToken = await user.auth.currentUser.getIdToken()
+export async function uploadFile(
+  user: User,
+  docData: UploadData
+): Promise<string> {
+  const accessToken = await getIdToken(user)
 
   // TODO: handle errors
   const res = await fetch(`${FRONTEND_URL}/api/upload`, {
@@ -218,7 +240,7 @@ export async function uploadFile(user, docData) {
 }
 
 export async function completeKYC(user, data) {
-  const accessToken = await user.auth.currentUser.getIdToken()
+  const accessToken = await getIdToken(user)
 
   // TODO: handle errors
   const res = await fetch(`${FRONTEND_URL}/api/kyc`, {
@@ -239,7 +261,7 @@ export async function completeKYC(user, data) {
 }
 
 export async function createCardRegistration(user) {
-  const accessToken = await user.auth.currentUser.getIdToken()
+  const accessToken = await getIdToken(user)
 
   const res = await fetch(`${FRONTEND_URL}/api/createcardregistration`, {
     headers: {
@@ -269,7 +291,7 @@ export async function completeCardRegistration(id, registrationData) {
 }
 
 export async function getCards(user) {
-  const accessToken = await user.auth.currentUser.getIdToken()
+  const accessToken = await getIdToken(user)
 
   const res = await fetch(`${FRONTEND_URL}/api/getcards`, {
     method: 'GET',
@@ -283,7 +305,7 @@ export async function getCards(user) {
 }
 
 export async function buy(user, cardId, documents, headers) {
-  const accessToken = await user.auth.currentUser.getIdToken()
+  const accessToken = await getIdToken(user)
   const products = documents.map(doc => doc.subjectId + '/' + doc.docId)
 
   const res = await fetch(`${FRONTEND_URL}/api/buy`, {
@@ -311,7 +333,7 @@ export async function buy(user, cardId, documents, headers) {
 }
 
 export async function getTransaction(user, transactionId) {
-  const accessToken = await user.auth.currentUser.getIdToken()
+  const accessToken = await getIdToken(user)
 
   const res = await fetch(`${FRONTEND_URL}/api/transaction/${transactionId}`, {
     method: 'GET',
@@ -327,7 +349,7 @@ export async function getTransaction(user, transactionId) {
 }
 
 export async function getDownloadUrl(user, subjectId, docId) {
-  const accessToken = await user.auth.currentUser.getIdToken()
+  const accessToken = await getIdToken(user)
 
   const res = await fetch(
     `${FRONTEND_URL}/api/getdownloadurl/${subjectId}/${docId}`,
@@ -356,7 +378,7 @@ export async function getUser(userId) {
 
 export async function getBalance(user) {
   if (!user) throw new Error('User is required')
-  const accessToken = await user.auth.currentUser.getIdToken()
+  const accessToken = await getIdToken(user)
 
   const res = await fetch(`${FRONTEND_URL}/api/getbalance`, {
     method: 'GET',
@@ -371,7 +393,7 @@ export async function updateBankAccount(user, iban) {
   if (!user) throw new Error('User is required')
   if (!iban) throw new Error('Iban is required')
 
-  const accessToken = await user.auth.currentUser.getIdToken()
+  const accessToken = await getIdToken(user)
 
   const res = await fetch(`${FRONTEND_URL}/api/updatebankaccount`, {
     method: 'POST',
@@ -394,7 +416,7 @@ export async function updateBankAccount(user, iban) {
 export async function getBankAccount(user) {
   if (!user) throw new Error('User is required')
 
-  const accessToken = await user.auth.currentUser.getIdToken()
+  const accessToken = await getIdToken(user)
 
   const res = await fetch(`${FRONTEND_URL}/api/getbankaccount`, {
     method: 'GET',
@@ -414,7 +436,7 @@ export async function getBankAccount(user) {
 }
 
 export async function payout(user) {
-  const accessToken = await user.auth.currentUser.getIdToken()
+  const accessToken = await getIdToken(user)
 
   const res = await fetch(`${FRONTEND_URL}/api/payout`, {
     method: 'POST',
@@ -435,7 +457,7 @@ export async function deleteCard(user, cardId) {
   if (!user) throw new Error('User is required')
   if (!cardId) throw new Error('CardId is required')
 
-  const accessToken = await user.auth.currentUser.getIdToken()
+  const accessToken = await getIdToken(user)
 
   const res = await fetch(`${FRONTEND_URL}/api/deletecard`, {
     method: 'POST',
@@ -465,7 +487,7 @@ export async function addReferral(user, ref) {
   if (!user) throw new Error('User is required')
   if (!ref) throw new Error('Ref is required')
 
-  const accessToken = await user.auth.currentUser.getIdToken()
+  const accessToken = await getIdToken(user)
 
   const res = await fetch(`${FRONTEND_URL}/api/addreferral`, {
     method: 'POST',

@@ -10,7 +10,7 @@ export default function withAuthData(
     async (userUID: string, req: NextApiRequest, res: NextApiResponse) => {
       try {
         const user = await authAdmin.getUser(userUID)
-        handler(user, req, res)
+        await handler(user, req, res)
       } catch {
         res.status(401).json({ success: false, error: 'unauthorized' })
       }

@@ -14,7 +14,7 @@ export default function withAuth(
 
     try {
       const { uid } = await authAdmin.verifyIdToken(authorizationToken)
-      handler(uid, req, res)
+      await handler(uid, req, res)
     } catch {
       res.status(401).json({ success: false, error: 'unauthorized' })
     }

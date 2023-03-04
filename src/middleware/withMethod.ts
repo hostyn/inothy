@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import type { Method } from 'types/api'
 
 export default function withMethod(
-  method: string,
+  method: Method,
   handler: (req: NextApiRequest, res: NextApiResponse) => any
 ) {
   return async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,6 +10,6 @@ export default function withMethod(
       res.status(405).json({ success: false, error: 'method-not-allowed' })
       return
     }
-    handler(req, res)
+    await handler(req, res)
   }
 }

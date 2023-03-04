@@ -15,7 +15,7 @@ export default function withAuthFullData(
       if (doc.exists) {
         const userData = doc.data() as UserData
         const apiUser: ApiUser = { ...user, data: userData }
-        handler(apiUser, req, res)
+        await handler(apiUser, req, res)
         return
       }
       res.status(401).json({ success: false, error: 'unauthorized' })

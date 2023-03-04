@@ -376,7 +376,7 @@ export default function UploadView ({ setState }) {
         subject: docData.subject,
         filePath,
         requestVerification: docData.validate,
-        price: docData.price
+        price: parseFloat(docData.price)
       })
 
       const docId = res.path.split('/')[3]

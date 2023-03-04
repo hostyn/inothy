@@ -8,7 +8,6 @@ async function getUserData(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  console.log(user)
   res.status(200).json(user.data)
 }
 

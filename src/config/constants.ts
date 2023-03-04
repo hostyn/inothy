@@ -12,6 +12,7 @@ export const MANGOPAY_ENDPOINT = process.env.MANGOPAY_ENDPOINT ?? ''
 export const FRONTEND_URL = process.env.NEXT_PUBLIC_FRONTEND_URL ?? ''
 export const NOREPLY_USER = process.env.NOREPLY_USER ?? ''
 export const NOREPLY_PASS = process.env.NOREPLY_PASS ?? ''
+export const MIN_PRICE = process.env.NEXT_PUBLIC_MIN_PRICE ?? ''
 
 export const BadgesNames = {
   ambassador: 'Embajador',
