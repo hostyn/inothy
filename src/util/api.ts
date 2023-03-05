@@ -1,5 +1,6 @@
 import { FRONTEND_URL } from '@config/constants'
 import type {
+  CompleteProfileData,
   DegreeWithDocuments,
   SchoolWithDegree,
   University,
@@ -195,7 +196,10 @@ export async function getDocument(subjectId, docId) {
   throw new Error('Internal Server Error')
 }
 
-export async function completeProfile(user, userData) {
+// TODO
+export async function completeProfile(
+  completeProfileData: CompleteProfileData
+): Promise<void> {
   const accessToken = await getIdToken()
   if (accessToken == null) throw new Error('Unauthenticated')
 
@@ -204,7 +208,7 @@ export async function completeProfile(user, userData) {
       authorization: `Bearer ${accessToken}`,
     },
     method: 'POST',
-    body: JSON.stringify(userData),
+    body: JSON.stringify(completeProfileData),
   })
 
   if (res.status === 200) {

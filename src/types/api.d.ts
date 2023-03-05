@@ -78,3 +78,18 @@ interface UploadData {
   requestVerification: boolean
   price: number
 }
+
+interface CompleteProfileData {
+  name: string
+  surname: string
+  username: string
+  address1: string
+  address2: string
+  city: string
+  region: string
+  postalCode: string
+  university: string
+  school: string
+  degree: string
+  biography: string
+}
