@@ -1,5 +1,5 @@
-import { FRONTEND_URL } from 'config/constants'
-import {
+import { FRONTEND_URL } from '@config/constants'
+import type {
   DegreeWithDocuments,
   SchoolWithDegree,
   University,
@@ -7,31 +7,32 @@ import {
   UploadData,
 } from 'types/api'
 import type { User, UserData } from 'types/user'
-import { auth, logEvent } from '../config/firebase'
+import { auth, logEvent } from '@config/firebase'
 
-const getIdToken = (user: User): Promise<string> | undefined =>
+const getIdToken = (): Promise<string> | undefined =>
   auth.currentUser?.getIdToken()
 
-export async function isUsernameAvailable(username) {
-  if (!username) throw new Error('Username is not defined')
+export async function isUsernameAvailable(username: string): Promise<boolean> {
+  if (username.length === 0) throw new Error('Username is not defined')
   const res = await fetch(
     `${FRONTEND_URL}/api/isusernameavailable?` +
       new URLSearchParams({
         username,
-      }),
+      }).toString(),
     {
       method: 'GET',
     }
   )
-  const data = await res.json()
-  return data.available
+
+  if (res.status !== 200) throw new Error('Unexpected exception')
+
+  const { available } = await res.json()
+  return available as boolean
 }
 
-export async function getUserData(user: User): Promise<UserData> {
-  if (user == null) throw new Error('User is not defined')
-
-  const accessToken = await getIdToken(user)
-  if (accessToken == null) throw new Error('Invalid access token')
+export async function getUserData(): Promise<UserData> {
+  const accessToken = await getIdToken()
+  if (accessToken == null) throw new Error('Unauthenticated')
 
   const res = await fetch(`${FRONTEND_URL}/api/userdata`, {
     headers: {
@@ -42,9 +43,10 @@ export async function getUserData(user: User): Promise<UserData> {
   return data
 }
 
-export async function sendVerificationEmail(user) {
-  if (!user) throw new Error('User is not defined')
-  const accessToken = await getIdToken(user)
+export async function sendVerificationEmail() {
+  const accessToken = await getIdToken()
+  if (accessToken == null) throw new Error('Unauthenticated')
+
   const res = await fetch(`${FRONTEND_URL}/api/sendverificationemail`, {
     headers: {
       authorization: `Bearer ${accessToken}`,
@@ -194,7 +196,8 @@ export async function getDocument(subjectId, docId) {
 }
 
 export async function completeProfile(user, userData) {
-  const accessToken = await getIdToken(user)
+  const accessToken = await getIdToken()
+  if (accessToken == null) throw new Error('Unauthenticated')
 
   const res = await fetch(`${FRONTEND_URL}/api/completeprofile`, {
     headers: {
@@ -219,7 +222,7 @@ export async function uploadFile(
   user: User,
   docData: UploadData
 ): Promise<string> {
-  const accessToken = await getIdToken(user)
+  const accessToken = await getIdToken()
 
   // TODO: handle errors
   const res = await fetch(`${FRONTEND_URL}/api/upload`, {
@@ -240,7 +243,7 @@ export async function uploadFile(
 }
 
 export async function completeKYC(user, data) {
-  const accessToken = await getIdToken(user)
+  const accessToken = await getIdToken()
 
   // TODO: handle errors
   const res = await fetch(`${FRONTEND_URL}/api/kyc`, {
@@ -261,7 +264,7 @@ export async function completeKYC(user, data) {
 }
 
 export async function createCardRegistration(user) {
-  const accessToken = await getIdToken(user)
+  const accessToken = await getIdToken()
 
   const res = await fetch(`${FRONTEND_URL}/api/createcardregistration`, {
     headers: {
@@ -291,7 +294,7 @@ export async function completeCardRegistration(id, registrationData) {
 }
 
 export async function getCards(user) {
-  const accessToken = await getIdToken(user)
+  const accessToken = await getIdToken()
 
   const res = await fetch(`${FRONTEND_URL}/api/getcards`, {
     method: 'GET',
@@ -305,7 +308,7 @@ export async function getCards(user) {
 }
 
 export async function buy(user, cardId, documents, headers) {
-  const accessToken = await getIdToken(user)
+  const accessToken = await getIdToken()
   const products = documents.map(doc => doc.subjectId + '/' + doc.docId)
 
   const res = await fetch(`${FRONTEND_URL}/api/buy`, {
@@ -333,7 +336,7 @@ export async function buy(user, cardId, documents, headers) {
 }
 
 export async function getTransaction(user, transactionId) {
-  const accessToken = await getIdToken(user)
+  const accessToken = await getIdToken()
 
   const res = await fetch(`${FRONTEND_URL}/api/transaction/${transactionId}`, {
     method: 'GET',
@@ -349,7 +352,7 @@ export async function getTransaction(user, transactionId) {
 }
 
 export async function getDownloadUrl(user, subjectId, docId) {
-  const accessToken = await getIdToken(user)
+  const accessToken = await getIdToken()
 
   const res = await fetch(
     `${FRONTEND_URL}/api/getdownloadurl/${subjectId}/${docId}`,
@@ -378,7 +381,7 @@ export async function getUser(userId) {
 
 export async function getBalance(user) {
   if (!user) throw new Error('User is required')
-  const accessToken = await getIdToken(user)
+  const accessToken = await getIdToken()
 
   const res = await fetch(`${FRONTEND_URL}/api/getbalance`, {
     method: 'GET',
@@ -393,7 +396,7 @@ export async function updateBankAccount(user, iban) {
   if (!user) throw new Error('User is required')
   if (!iban) throw new Error('Iban is required')
 
-  const accessToken = await getIdToken(user)
+  const accessToken = await getIdToken()
 
   const res = await fetch(`${FRONTEND_URL}/api/updatebankaccount`, {
     method: 'POST',
@@ -416,7 +419,7 @@ export async function updateBankAccount(user, iban) {
 export async function getBankAccount(user) {
   if (!user) throw new Error('User is required')
 
-  const accessToken = await getIdToken(user)
+  const accessToken = await getIdToken()
 
   const res = await fetch(`${FRONTEND_URL}/api/getbankaccount`, {
     method: 'GET',
@@ -436,7 +439,7 @@ export async function getBankAccount(user) {
 }
 
 export async function payout(user) {
-  const accessToken = await getIdToken(user)
+  const accessToken = await getIdToken()
 
   const res = await fetch(`${FRONTEND_URL}/api/payout`, {
     method: 'POST',
@@ -457,7 +460,7 @@ export async function deleteCard(user, cardId) {
   if (!user) throw new Error('User is required')
   if (!cardId) throw new Error('CardId is required')
 
-  const accessToken = await getIdToken(user)
+  const accessToken = await getIdToken()
 
   const res = await fetch(`${FRONTEND_URL}/api/deletecard`, {
     method: 'POST',
@@ -487,7 +490,7 @@ export async function addReferral(user, ref) {
   if (!user) throw new Error('User is required')
   if (!ref) throw new Error('Ref is required')
 
-  const accessToken = await getIdToken(user)
+  const accessToken = await getIdToken()
 
   const res = await fetch(`${FRONTEND_URL}/api/addreferral`, {
     method: 'POST',

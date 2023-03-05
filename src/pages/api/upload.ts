@@ -48,7 +48,7 @@ async function upload(
 
   // TODO: Env variable for length
   if (body.name.length < 10) {
-    res.status(400).json({ success: false, error: 'name-too-sort' })
+    res.status(400).json({ success: false, error: 'name-too-short' })
     return
   }
 

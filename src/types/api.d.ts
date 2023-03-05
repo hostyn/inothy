@@ -4,7 +4,7 @@ import type { UserData } from './user'
 type Method = 'GET' | 'POST'
 
 interface ApiUser extends Omit<UserRecord, 'toJSON'> {
-  data?: UserData
+  data: UserData
 }
 
 interface University {
