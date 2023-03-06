@@ -2,8 +2,8 @@ import withAuthFullData from '@middleware/withAuthFullData'
 import withMethod from '@middleware/withMethod'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { ApiUser } from 'types/api'
-import { firestoreAdmin } from '../../config/firebaseadmin'
-import mangopay from '../../config/mangopay'
+import { firestoreAdmin } from '@config/firebaseadmin'
+import mangopay from '@config/mangopay'
 
 async function completeprofile(
   user: ApiUser,
@@ -22,7 +22,7 @@ async function completeprofile(
 
   // Ip address
   const forwardedFor = req.headers['x-forwarded-for'] as string | undefined
-  const ipAddress = forwardedFor?.split(',')[0] ?? null
+  const ipAddress = forwardedFor?.split(',')[0] ?? '127.0.0.1'
 
   const body = JSON.parse(req.body)
 
@@ -103,7 +103,7 @@ async function completeprofile(
     .get()
 
   const ref = userReferralSnapshot.exists
-    ? userReferralSnapshot.data()?.ref
+    ? (userReferralSnapshot.data() as FirestoreReferral).ref
     : null
 
   // Create mangopay user
@@ -137,42 +137,36 @@ async function completeprofile(
 
   const mangopayWalletId = createWalletResponse.Id
 
-  const ambassador =
-    new Date(user.data.createdAt ?? '') < new Date('2022-09-01GMT+2')
+  const ambassador = new Date(user.data.createdAt) < new Date('2022-09-01GMT+1')
 
-  try {
-    await firestoreAdmin
-      .collection('users')
-      .doc(user.uid)
-      .update({
-        profileCompleted: true,
-        name: body.name,
-        surname: body.surname,
-        username: body.username,
-        biography: body.biography,
-        address: {
-          address1: body.address1,
-          address2: body.address2,
-          city: body.city,
-          region: body.region,
-          postalCode: body.postalCode,
-          country: 'ES',
-        },
-        mangopayClientId,
-        mangopayWalletId,
-        mangopayKYCStatus: null,
-        university: body.university,
-        school: body.school,
-        degree: body.degree,
-        ref,
-        ipAddress,
-        badge: ambassador ? ['ambassador'] : [],
-      })
-    res.status(200).json({ success: true })
-    return
-  } catch {
-    res.status(500).json({ success: false, error: 'unexpected-exception' })
+  const newUserData: Omit<FirestoreUser, 'createdAt' | 'uid' | 'email'> = {
+    address: {
+      address1: body.address1,
+      address2: typeof body.address2 === 'string' ? body.address2 : null,
+      city: body.city,
+      country: 'ES',
+      postalCode: body.postalCode,
+      region: body.region,
+    },
+    badge: ambassador ? ['ambassador'] : [],
+    biography: body.biography,
+    degree: body.degree,
+    hasUploaded: false,
+    ipAddress,
+    mangopayClientId,
+    mangopayKYCStatus: null,
+    mangopayWalletId,
+    name: body.name,
+    profileCompleted: true,
+    ref,
+    school: body.school,
+    surname: body.surname,
+    university: body.university,
+    username: body.username,
   }
+
+  await firestoreAdmin.collection('users').doc(user.uid).update(newUserData)
+  res.status(200).json({ success: true })
 }
 
 export default withMethod('POST', withAuthFullData(completeprofile))

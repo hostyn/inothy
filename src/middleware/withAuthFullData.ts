@@ -2,7 +2,6 @@ import { firestoreAdmin } from 'config/firebaseadmin'
 import { type UserRecord } from 'firebase-admin/lib/auth/user-record'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { ApiUser } from 'types/api'
-import type { UserData } from 'types/user'
 import withAuthData from './withAuthData'
 
 export default function withAuthFullData(
@@ -13,7 +12,7 @@ export default function withAuthFullData(
       const doc = await firestoreAdmin.collection('users').doc(user.uid).get()
 
       if (doc.exists) {
-        const userData = doc.data() as UserData
+        const userData = doc.data() as FirestoreUser
         const apiUser: ApiUser = { ...user, data: userData }
         await handler(apiUser, req, res)
         return

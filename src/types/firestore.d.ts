@@ -1,25 +1,26 @@
 interface FirestoreUser {
   address?: {
-    address1?: string
-    address2?: string
-    city?: string
-    postalCode?: string
-    region?: string
+    address1: string
+    address2: string | null
+    city: string
+    postalCode: string
+    region: string
+    country: string
   }
   badge?: string[]
   biography?: string
   bought?: string[]
-  createdAt?: string
+  createdAt: number
   degree?: string
-  email?: string
+  email: string
   hasUploaded?: boolean
   ipAddress?: string
   mangopayClientId?: string
   mangopayKYCStatus?: string | null
   mangopayWalletId?: string | null
   name?: string
-  profileCompleted?: boolean
-  ref?: string
+  profileCompleted: boolean
+  ref?: string | null
   school?: string
   surname?: string
   uid: string

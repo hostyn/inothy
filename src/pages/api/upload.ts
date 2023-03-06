@@ -56,14 +56,15 @@ async function upload(
     .collection('subjects')
     .doc(body.subject)
   const subjectSnapshot = await subjectReference.get()
-  const subjectData = subjectSnapshot.data()
 
   if (!subjectSnapshot.exists) {
     res.status(400).json({ success: false, error: 'invalid-subject' })
     return
   }
 
-  if (body.price < MIN_PRICE || body.price > subjectData?.maxPrice) {
+  const subjectData = subjectSnapshot.data() as FirestoreSubject
+
+  if (body.price < MIN_PRICE || body.price > subjectData.maxPrice) {
     res.status(400).json({ success: false, error: 'invalid-price' })
     return
   }
@@ -87,36 +88,41 @@ async function upload(
 
   const docs = subjectReference.collection('docs')
 
-  const documentReference = await docs.add({
+  const documentData: FirestoreDocument = {
     name: body.name,
     description: body.description,
     file: body.filePath,
     fileName: body.filePath.split('/').at(-1),
-    createdAt: new Date(),
+    createdAt: new Date().getTime(),
     createdBy: user.uid,
     price: body.price,
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    verificationStatus: body.requestVerification ? 'pending' : 'not_asked',
+    verificationStatus: body.requestVerification ? 'asked' : 'not_asked',
     rating: null,
     totalRatings: 0,
     contentType: fileMetadata[0].contentType,
     preview: false,
     sales: 0,
-  })
+  }
+
+  const documentReference = await docs.add(documentData)
 
   const userReference = firestoreAdmin.collection('users').doc(user.uid)
 
   await firestoreAdmin.runTransaction(async transaction => {
-    const userData = (await transaction.get(userReference)).data()
+    const userData = (
+      await transaction.get(userReference)
+    ).data() as FirestoreUser
     transaction.update(userReference, {
       uploaded:
-        userData?.uploaded != null
+        userData.uploaded != null && userData.uploaded.length !== 0
           ? [...userData.uploaded, body.subject + '/' + documentReference.id]
           : [body.subject + '/' + documentReference.id],
       hasUploaded: true,
     })
   })
-  res.status(200).json({ status: 'success', path: documentReference.path })
+
+  res.status(201).json({ status: 'success', path: documentReference.path })
 
   if (fileMetadata[0].contentType === 'application/pdf') {
     const url = await file.getSignedUrl({

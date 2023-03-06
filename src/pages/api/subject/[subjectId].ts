@@ -63,10 +63,15 @@ async function getSubject(
     return
   }
 
-  const docsData = docsSnapshot.docs.map(doc => ({
-    ...doc.data(),
-    id: doc.id,
-  }))
+  const docsData = docsSnapshot.docs.map(doc => {
+    const docData = doc.data()
+    return {
+      ...docData,
+      verificationStatus: undefined,
+      verified: docData.verificationStatus === 'verified',
+      id: doc.id,
+    }
+  })
 
   res.status(200).json({
     ...subjectData,

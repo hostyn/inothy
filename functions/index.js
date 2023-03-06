@@ -34,7 +34,7 @@ exports.newUserCreated = functions.auth.user().onCreate(async (user) => {
 
   const userData = {
     uid,
-    createdAt: creationTime,
+    createdAt: new Date(creationTime).getTime(),
     email,
     profileCompleted: false,
   };

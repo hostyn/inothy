@@ -2,6 +2,7 @@ import { FRONTEND_URL } from '@config/constants'
 import type {
   CompleteProfileData,
   DegreeWithDocuments,
+  FullDocumentInfo,
   SchoolWithDegree,
   SubjectWithDocumentsAndUniveristy,
   University,
@@ -175,9 +176,12 @@ export async function getSubject(
   throw new Error('Internal Server Error')
 }
 
-export async function getDocument(subjectId, docId) {
-  if (!subjectId) throw new Error('Subject Id is required')
-  if (!docId) throw new Error('Doc Id is required')
+export async function getDocument(
+  subjectId: string,
+  docId: string
+): Promise<FullDocumentInfo> {
+  if (subjectId.length === 0) throw new Error('Subject Id is required')
+  if (docId.length === 0) throw new Error('Doc Id is required')
 
   const data = await fetch(
     `${FRONTEND_URL}/api/subject/${subjectId}/${docId}`,
@@ -185,16 +189,13 @@ export async function getDocument(subjectId, docId) {
   )
 
   if (data.status === 200) {
-    return await data.json()
+    return (await data.json()) as FullDocumentInfo
   }
 
   if (data.status === 404) {
     throw new Error('Not found')
   }
 
-  if (data.status === 500) {
-    throw new Error('Internal Server Error')
-  }
   throw new Error('Internal Server Error')
 }
 
@@ -224,11 +225,9 @@ export async function completeProfile(
   throw new Error('Internal server error')
 }
 
-export async function uploadFile(
-  user: User,
-  docData: UploadData
-): Promise<string> {
+export async function uploadFile(docData: UploadData): Promise<string> {
   const accessToken = await getIdToken()
+  if (accessToken == null) throw new Error('Unauthenticated')
 
   // TODO: handle errors
   const res = await fetch(`${FRONTEND_URL}/api/upload`, {
@@ -239,7 +238,7 @@ export async function uploadFile(
     body: JSON.stringify(docData),
   })
 
-  if (res.status !== 200) {
+  if (res.status !== 201) {
     throw new Error('Internal server error')
   }
   try {
