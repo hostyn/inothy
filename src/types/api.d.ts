@@ -93,3 +93,11 @@ interface CompleteProfileData {
   degree: string
   biography: string
 }
+
+interface SubjectWithDocumentsAndUniveristy extends Subject {
+  university: University
+  year: undefined
+  maxPrice: number
+  docs: Document[]
+  last: null
+}

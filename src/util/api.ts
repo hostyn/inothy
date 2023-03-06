@@ -3,6 +3,7 @@ import type {
   CompleteProfileData,
   DegreeWithDocuments,
   SchoolWithDegree,
+  SubjectWithDocumentsAndUniveristy,
   University,
   UniversityWithSchools,
   UploadData,
@@ -146,30 +147,31 @@ export async function getDegree(
   throw new Error('Internal Server Error')
 }
 
-export async function getSubject(subjectId, limit = 5, startAfter = '') {
-  if (!subjectId) throw new Error('Subject Id is required')
+export async function getSubject(
+  subjectId: string,
+  limit = 5,
+  startAfter?: string
+): Promise<SubjectWithDocumentsAndUniveristy> {
+  if (subjectId.length === 0) throw new Error('Subject Id is required')
 
   const data = await fetch(
     `${FRONTEND_URL}/api/subject/${subjectId}?${new URLSearchParams({
-      limit,
-      startAfter,
-    })}`,
+      limit: limit.toString(),
+      startAfter: startAfter ?? '',
+    }).toString()}`,
     {
       method: 'GET',
     }
   )
 
   if (data.status === 200) {
-    return await data.json()
+    return (await data.json()) as SubjectWithDocumentsAndUniveristy
   }
 
   if (data.status === 404) {
     throw new Error('Not found')
   }
 
-  if (data.status === 500) {
-    throw new Error('Internal Server Error')
-  }
   throw new Error('Internal Server Error')
 }
 

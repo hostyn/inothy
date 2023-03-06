@@ -101,6 +101,7 @@ async function upload(
     totalRatings: 0,
     contentType: fileMetadata[0].contentType,
     preview: false,
+    sales: 0,
   })
 
   const userReference = firestoreAdmin.collection('users').doc(user.uid)
