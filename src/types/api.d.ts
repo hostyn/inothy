@@ -1,10 +1,9 @@
 import { type UserRecord } from 'firebase-admin/lib/auth/user-record'
-import type { UserData } from './user'
 
 type Method = 'GET' | 'POST'
 
 interface ApiUser extends Omit<UserRecord, 'toJSON'> {
-  data: UserData
+  data: FirestoreUser
 }
 
 interface University {
@@ -12,6 +11,7 @@ interface University {
   logoUrl: string
   symbol: string
   id: string
+  name: string
 }
 
 interface School {
@@ -41,7 +41,6 @@ interface SchoolWithDegree extends School {
   degrees: Degree[]
 }
 
-// TODO: Type of verificationStatus
 interface Document {
   contentType: string
   createdAt: {
@@ -59,7 +58,7 @@ interface Document {
   rating: number | null
   sales: number
   totalRatings: number
-  verificationStatus: string
+  verified: boolean
 }
 
 interface SubjectWithDocuments extends Subject {
@@ -100,4 +99,10 @@ interface SubjectWithDocumentsAndUniveristy extends Subject {
   maxPrice: number
   docs: Document[]
   last: null
+}
+
+interface FullDocumentInfo extends Document {
+  subject: Subject
+  university: University
+  createdById: string
 }
