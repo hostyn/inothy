@@ -1,17 +1,21 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { auth, logEvent } from '../config/firebase'
+import { auth, logEvent } from '@config/firebase'
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
   type UserCredential,
+  type User as FirebaseUser,
 } from 'firebase/auth'
-import { getUserData } from '../util/api'
+import { getUserData } from '@util/api'
 import { useRouter } from 'next/router'
-import LoadingPage from '../components/LoadingPage'
+import LoadingPage from '@components/LoadingPage'
 import { type IncomingHttpHeaders } from 'http2'
-import type { User } from 'types/user'
+
+interface User extends FirebaseUser {
+  data?: FirestoreUser
+}
 
 interface IAuthContext {
   login: (email: string, password: string) => Promise<UserCredential> | null
@@ -89,36 +93,53 @@ export function AuthProvider({
   }
 
   const updateData = async (): Promise<void> => {
-    if (user == null) return
-    if (user.emailVerified) {
-      const data = await getUserData(user)
-      setUser({ ...user, data })
-      if (data.profileCompleted ?? false) setIsUser(true)
-      else setIsUser(false)
+    if (user == null) return // If no user
+
+    if (!user.emailVerified) {
+      // If email not verified
+      setIsUser(false)
+      return
     }
+
+    const data = await getUserData()
+    setUser({ ...user, data })
+    if (data.profileCompleted) setIsUser(true)
   }
 
   useEffect(() => {
-    const unsubscirbe = onAuthStateChanged(auth, currentUser => {
-      if (currentUser !== null) {
-        if (currentUser.emailVerified) {
-          getUserData(currentUser)
-            .then(data => {
-              setUser({ ...currentUser, data })
-              if (data.profileCompleted ?? false) setIsUser(true)
-              else setIsUser(false)
-              setIsLoading(false)
-            })
-            .catch(() => {})
-        } else {
-          setUser(currentUser)
-          setIsUser(false)
-          setIsLoading(false)
-        }
-      } else {
+    const unsubscirbe = onAuthStateChanged(auth, async currentUser => {
+      if (currentUser == null) {
+        // If no user
         setIsLoading(false)
+        setIsUser(false)
+        setUser(null)
+        return
       }
+
+      if (!currentUser.emailVerified) {
+        // If user but email not verified
+        setUser(currentUser)
+        setIsUser(false)
+        setIsLoading(false)
+        return
+      }
+
+      // Get user data
+      const userData = await getUserData()
+      setUser({ ...currentUser, data: userData })
+
+      if (userData.profileCompleted) {
+        // If profile completed
+        setIsUser(true)
+        setIsLoading(false)
+        return
+      }
+
+      // If not completed
+      setIsUser(false)
+      setIsLoading(false)
     })
+
     return () => {
       unsubscirbe()
     }

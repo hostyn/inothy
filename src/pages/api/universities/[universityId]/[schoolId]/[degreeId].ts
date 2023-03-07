@@ -1,84 +1,86 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { firestoreAdmin } from 'config/firebaseadmin'
 import withMethod from '@middleware/withMethod'
-import type { Degree } from 'types/api'
+import type { Degree, DegreeWithDocuments } from 'types/api'
 
 async function getDegree(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  try {
-    const { universityId, schoolId, degreeId, year: queryYear } = req.query
+  const { universityId, schoolId, degreeId, year: queryYear } = req.query
 
-    if (typeof universityId !== 'string') {
-      res.status(400).json({ success: false, error: 'university-id-required' })
-      return
-    }
-
-    if (typeof schoolId !== 'string') {
-      res.status(400).json({ success: false, error: 'school-id-required' })
-      return
-    }
-
-    if (typeof degreeId !== 'string') {
-      res.status(400).json({ success: false, error: 'degree-id-required' })
-      return
-    }
-
-    if (typeof queryYear === 'object') {
-      res.status(400).json({ success: false, error: 'invalid-year' })
-      return
-    }
-
-    const year = typeof queryYear === 'string' ? parseInt(queryYear) : 1
-
-    const degreeSnapshot = await firestoreAdmin
-      .collection('universities')
-      .doc(universityId)
-      .collection('schools')
-      .doc(schoolId)
-      .collection('degrees')
-      .doc(degreeId)
-      .get()
-
-    if (!degreeSnapshot.exists) {
-      res.status(404).json({ success: false, error: 'not-found' })
-      return
-    }
-
-    const degreeData = degreeSnapshot.data() as Degree
-
-    const subjects = await Promise.all(
-      degreeData.subjects
-        .filter(subject => subject.year === year)
-        .map(async subject => {
-          const subjectSnapshot = await firestoreAdmin
-            .collection('subjects')
-            .doc(subject.id)
-            .collection('docs')
-            .limit(5)
-            .get()
-
-          if (subjectSnapshot.empty) return { ...subject, docs: [] }
-          const docs = subjectSnapshot.docs.map(doc => ({
-            ...doc.data(),
-            id: doc.id,
-          }))
-
-          return { ...subject, docs }
-        })
-    )
-
-    res.status(200).json({
-      ...degreeData,
-      id: degreeSnapshot.id,
-      subjects: subjects.filter(subject => subject.docs.length !== 0),
-    })
-
+  if (typeof universityId !== 'string') {
+    res.status(400).json({ success: false, error: 'university-id-required' })
     return
-  } catch {
-    res.status(500).json({ success: false, error: 'unexpected-exception' })
   }
+
+  if (typeof schoolId !== 'string') {
+    res.status(400).json({ success: false, error: 'school-id-required' })
+    return
+  }
+
+  if (typeof degreeId !== 'string') {
+    res.status(400).json({ success: false, error: 'degree-id-required' })
+    return
+  }
+
+  if (typeof queryYear === 'object') {
+    res.status(400).json({ success: false, error: 'invalid-year' })
+    return
+  }
+
+  const year = typeof queryYear === 'string' ? parseInt(queryYear) : 1
+
+  const degreeSnapshot = await firestoreAdmin
+    .collection('universities')
+    .doc(universityId)
+    .collection('schools')
+    .doc(schoolId)
+    .collection('degrees')
+    .doc(degreeId)
+    .get()
+
+  if (!degreeSnapshot.exists) {
+    res.status(404).json({ success: false, error: 'not-found' })
+    return
+  }
+
+  const degreeData = degreeSnapshot.data() as Degree
+
+  const subjects = await Promise.all(
+    degreeData.subjects
+      .filter(subject => subject.year === year)
+      .map(async subject => {
+        const documentsQuerySnapshot = await firestoreAdmin
+          .collection('subjects')
+          .doc(subject.id)
+          .collection('docs')
+          .limit(5)
+          .get()
+
+        if (documentsQuerySnapshot.empty) return { ...subject, docs: [] }
+
+        const docs = documentsQuerySnapshot.docs.map(document => {
+          const documentData = document.data() as FirestoreDocument
+          return {
+            ...documentData,
+            id: document.id,
+            verified: documentData.verificationStatus === 'verificated',
+            verificationStatus: undefined,
+          }
+        })
+
+        return { ...subject, docs }
+      })
+  )
+
+  const degree: DegreeWithDocuments = {
+    ...degreeData,
+    id: degreeSnapshot.id,
+    subjects: subjects.filter(subject => subject.docs.length !== 0),
+  }
+
+  res.status(200).json(degree)
 }
 
 export default withMethod('GET', getDegree)

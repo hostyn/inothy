@@ -1,29 +1,25 @@
 import withMethod from '@middleware/withMethod'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { firestoreAdmin } from '../../../config/firebaseadmin'
+import { firestoreAdmin } from '@config/firebaseadmin'
+import type { University } from 'types/api'
 
 async function getUniversities(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  try {
-    const querySnapshot = await firestoreAdmin
-      .collection('universities')
-      .orderBy('name')
-      .get()
+  const querySnapshot = await firestoreAdmin
+    .collection('universities')
+    .orderBy('name')
+    .get()
 
-    const universities = querySnapshot.docs.map(doc => {
-      return {
-        ...doc.data(),
-        id: doc.id,
-      }
-    })
+  const universities: University[] = querySnapshot.docs.map(doc => {
+    return {
+      ...(doc.data() as FirestoreUniversity),
+      id: doc.id,
+    }
+  })
 
-    res.status(200).json(universities)
-    return
-  } catch {
-    res.status(500).json({ success: false, error: 'unexpected-exception' })
-  }
+  res.status(200).json(universities)
 }
 
 export default withMethod('GET', getUniversities)

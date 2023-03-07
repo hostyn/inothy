@@ -1,6 +1,7 @@
 import withMethod from '@middleware/withMethod'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { firestoreAdmin } from '@config/firebaseadmin'
+import type { FullDocumentInfo } from 'types/api'
 
 async function getDocument(
   req: NextApiRequest,
@@ -30,8 +31,8 @@ async function getDocument(
     return
   }
 
-  const subjectData = subjectSnapshot.data()
-  const documentData = documentSnapshot.data()
+  const subjectData = subjectSnapshot.data() as FirestoreSubject
+  const documentData = documentSnapshot.data() as FirestoreDocument
 
   const universitySnapshot = await firestoreAdmin
     .collection('universities')
@@ -43,29 +44,31 @@ async function getDocument(
     .doc(documentData?.createdBy)
     .get()
 
-  const creatorData = creatorSnapshot.data()
+  const creatorData = creatorSnapshot.data() as FirestoreUser
 
-  const universityData = universitySnapshot.data()
+  const universityData = universitySnapshot.data() as FirestoreUniversity
 
-  res.status(200).json({
-    subject: { ...subjectData, id: subjectId, maxPrice: undefined },
+  const document: FullDocumentInfo = {
+    subject: { ...subjectData, id: subjectId },
     university: { ...universityData, id: universitySnapshot.id },
     id: documentId,
-    createdAt: documentData?.createdAt,
-    createdBy: creatorData?.username,
-    createdById: documentData?.createdBy,
-    description: documentData?.description,
-    file: documentData?.file,
-    fileName: documentData?.fileName,
-    name: documentData?.name,
-    price: documentData?.price,
-    rating: documentData?.rating,
-    totalRatings: documentData?.totalRatings,
-    contentType: documentData?.contentType,
-    preview: documentData?.preview,
-    sales: documentData?.sales,
-    verified: documentData?.verificationStatus === 'verified',
-  })
+    createdAt: documentData.createdAt,
+    createdBy: creatorData.username ?? '',
+    createdById: documentData.createdBy,
+    description: documentData.description,
+    file: documentData.file,
+    fileName: documentData.fileName,
+    name: documentData.name,
+    price: documentData.price,
+    rating: documentData.rating,
+    totalRatings: documentData.totalRatings,
+    contentType: documentData.contentType,
+    preview: documentData.preview,
+    sales: documentData.sales,
+    verified: documentData.verificationStatus === 'verificated',
+  }
+
+  res.status(200).json(document)
 }
 
 export default withMethod('GET', getDocument)

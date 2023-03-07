@@ -43,10 +43,7 @@ interface SchoolWithDegree extends School {
 
 interface Document {
   contentType: string
-  createdAt: {
-    _nanoseconds: number
-    _seconds: number
-  }
+  createdAt: number
   createdBy: string
   description: string
   file: string
@@ -93,16 +90,22 @@ interface CompleteProfileData {
   biography: string
 }
 
-interface SubjectWithDocumentsAndUniveristy extends Subject {
+interface SubjectWithDocumentsAndUniveristy extends Omit<Subject, 'year'> {
   university: University
-  year: undefined
   maxPrice: number
   docs: Document[]
-  last: null
+  last: string | null
 }
 
 interface FullDocumentInfo extends Document {
-  subject: Subject
+  subject: Omit<Subject, 'year'>
   university: University
   createdById: string
+}
+
+interface CreateCardRegistration {
+  Id: string
+  PreregistrationData: string
+  AccessKey: string
+  CardRegistrationUrl: string
 }

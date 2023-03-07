@@ -1,6 +1,7 @@
 import withMethod from '@middleware/withMethod'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { firestoreAdmin } from '@config/firebaseadmin'
+import type { SubjectWithDocumentsAndUniveristy } from 'types/api'
 
 async function getSubject(
   req: NextApiRequest,
@@ -33,16 +34,16 @@ async function getSubject(
     res.status(404).json({ success: false, error: 'subject-not-found' })
   }
 
-  const subjectData = subjectSnapshot.data()
+  const subjectData = subjectSnapshot.data() as FirestoreSubject
 
-  const universityData = (
-    await firestoreAdmin
-      .collection('universities')
-      .doc(subjectData?.university)
-      .get()
-  ).data()
+  const universitySnapshot = await firestoreAdmin
+    .collection('universities')
+    .doc(subjectData.university)
+    .get()
 
-  const docsSnapshot =
+  const universityData = universitySnapshot.data() as FirestoreUniversity
+
+  const documentsSnapshot =
     startAfter != null && startAfter.length > 0
       ? await subjectReference
           .collection('docs')
@@ -53,7 +54,7 @@ async function getSubject(
           .get()
       : await subjectReference.collection('docs').limit(limit).get()
 
-  if (docsSnapshot.empty) {
+  if (documentsSnapshot.empty) {
     res.status(200).json({
       ...subjectData,
       id: subjectId,
@@ -63,23 +64,28 @@ async function getSubject(
     return
   }
 
-  const docsData = docsSnapshot.docs.map(doc => {
-    const docData = doc.data()
+  const documentsData = documentsSnapshot.docs.map(doc => {
+    const documentData = doc.data() as FirestoreDocument
     return {
-      ...docData,
+      ...documentData,
       verificationStatus: undefined,
-      verified: docData.verificationStatus === 'verified',
+      verified: documentData.verificationStatus === 'verificated',
       id: doc.id,
     }
   })
 
-  res.status(200).json({
+  const subject: SubjectWithDocumentsAndUniveristy = {
     ...subjectData,
     id: subjectId,
-    university: universityData,
-    docs: docsData,
-    last: docsSnapshot.docs.length !== limit ? null : docsData.at(-1)?.id,
-  })
+    university: { ...universityData, id: universitySnapshot.id },
+    docs: documentsData,
+    last:
+      documentsSnapshot.docs.length !== limit
+        ? null
+        : documentsData.at(-1)?.id ?? null,
+  }
+
+  res.status(200).json(subject)
 }
 
 export default withMethod('GET', getSubject)
