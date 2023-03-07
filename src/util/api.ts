@@ -1,6 +1,7 @@
 import { FRONTEND_URL } from '@config/constants'
 import type {
   CompleteProfileData,
+  CreateCardRegistration,
   DegreeWithDocuments,
   FullDocumentInfo,
   SchoolWithDegree,
@@ -9,8 +10,8 @@ import type {
   UniversityWithSchools,
   UploadData,
 } from 'types/api'
-import type { User, UserData } from 'types/user'
 import { auth, logEvent } from '@config/firebase'
+import { bankAccount } from 'mangopay2-nodejs-sdk'
 
 const getIdToken = (): Promise<string> | undefined =>
   auth.currentUser?.getIdToken()
@@ -33,7 +34,7 @@ export async function isUsernameAvailable(username: string): Promise<boolean> {
   return available as boolean
 }
 
-export async function getUserData(): Promise<UserData> {
+export async function getUserData(): Promise<FirestoreUser> {
   const accessToken = await getIdToken()
   if (accessToken == null) throw new Error('Unauthenticated')
 
@@ -42,7 +43,7 @@ export async function getUserData(): Promise<UserData> {
       authorization: `Bearer ${accessToken}`,
     },
   })
-  const data = await res.json()
+  const data = (await res.json()) as FirestoreUser
   return data
 }
 
@@ -214,7 +215,7 @@ export async function completeProfile(
     body: JSON.stringify(completeProfileData),
   })
 
-  if (res.status === 200) {
+  if (res.status === 201) {
     try {
       logEvent('complete_profile')
       window.ttq.track('CompleteRegistration')
@@ -222,6 +223,7 @@ export async function completeProfile(
     } catch {}
     return
   }
+
   throw new Error('Internal server error')
 }
 
@@ -268,8 +270,9 @@ export async function completeKYC(user, data) {
   throw new Error('Internal server error')
 }
 
-export async function createCardRegistration(user) {
+export async function createCardRegistration(): Promise<CreateCardRegistration> {
   const accessToken = await getIdToken()
+  if (accessToken == null) throw new Error('Unauthenticated')
 
   const res = await fetch(`${FRONTEND_URL}/api/createcardregistration`, {
     headers: {
@@ -280,13 +283,19 @@ export async function createCardRegistration(user) {
 
   if (res.status !== 200) throw new Error('Internal server error')
 
-  return await res.json()
+  return (await res.json()) as CreateCardRegistration
 }
 
-export async function completeCardRegistration(id, registrationData) {
+export async function completeCardRegistration(
+  id: string,
+  registrationData: string
+): Promise<void> {
+  if (id.length === 0) throw new Error('id-required')
+  if (registrationData.length === 0)
+    throw new Error('registrationData-required')
+
   const res = await fetch(`${FRONTEND_URL}/api/completecardregistration`, {
     method: 'POST',
-
     body: JSON.stringify({
       id,
       registrationData,
@@ -294,8 +303,6 @@ export async function completeCardRegistration(id, registrationData) {
   })
 
   if (res.status !== 200) throw new Error('Internal server error')
-
-  return await res.json()
 }
 
 export async function getCards(user) {
@@ -384,17 +391,20 @@ export async function getUser(userId) {
   throw new Error('Internal server error')
 }
 
-export async function getBalance(user) {
-  if (!user) throw new Error('User is required')
+export async function getBalance(): Promise<number> {
   const accessToken = await getIdToken()
+  if (accessToken == null) throw new Error('Unauthenticated')
 
   const res = await fetch(`${FRONTEND_URL}/api/getbalance`, {
     method: 'GET',
     headers: { authorization: `Bearer ${accessToken}` },
   })
 
-  if (res.status === 200) return (await res.json()).balance
-  throw new Error('Internal server errror')
+  if (res.status === 200) {
+    const { balance } = await res.json()
+    return balance
+  }
+  throw new Error('error')
 }
 
 export async function updateBankAccount(user, iban) {
@@ -421,10 +431,9 @@ export async function updateBankAccount(user, iban) {
   throw new Error('Internal server errror')
 }
 
-export async function getBankAccount(user) {
-  if (!user) throw new Error('User is required')
-
+export async function getBankAccount(): Promise<bankAccount.Data | null> {
   const accessToken = await getIdToken()
+  if (accessToken == null) throw new Error('Unauthenticated')
 
   const res = await fetch(`${FRONTEND_URL}/api/getbankaccount`, {
     method: 'GET',
@@ -433,14 +442,15 @@ export async function getBankAccount(user) {
     },
   })
 
-  if (res.status !== 200) throw new Error('Internal server errror')
-
-  const response = await res.json()
-  if (response.length) {
-    return response[0]
+  if (res.status === 200) {
+    return (await res.json()) as bankAccount.Data
   }
 
-  return null
+  if (res.status === 404) {
+    return null
+  }
+
+  throw new Error('error')
 }
 
 export async function payout(user) {
@@ -461,11 +471,11 @@ export async function payout(user) {
   } else throw new Error('Internal server error')
 }
 
-export async function deleteCard(user, cardId) {
-  if (!user) throw new Error('User is required')
-  if (!cardId) throw new Error('CardId is required')
+export async function deleteCard(cardId: string): Promise<void> {
+  if (cardId.length === 0) throw new Error('CardId is required')
 
   const accessToken = await getIdToken()
+  if (accessToken == null) throw new Error('Unauthenticated')
 
   const res = await fetch(`${FRONTEND_URL}/api/deletecard`, {
     method: 'POST',
@@ -475,8 +485,8 @@ export async function deleteCard(user, cardId) {
     body: JSON.stringify({ cardId }),
   })
 
-  if (res.status === 200) return res.json()
-  throw new Error('Internal server errror')
+  if (res.status === 200) return
+  throw new Error('internal-server-error')
 }
 
 export async function sendResetPasswordEmail(email) {
@@ -491,11 +501,11 @@ export async function sendResetPasswordEmail(email) {
   throw new Error('Internal server errror')
 }
 
-export async function addReferral(user, ref) {
-  if (!user) throw new Error('User is required')
-  if (!ref) throw new Error('Ref is required')
+export async function addReferral(ref: string): Promise<void> {
+  if (ref.length === 0) throw new Error('Ref is required')
 
   const accessToken = await getIdToken()
+  if (accessToken == null) throw new Error('Unauthenticated')
 
   const res = await fetch(`${FRONTEND_URL}/api/addreferral`, {
     method: 'POST',
@@ -505,6 +515,6 @@ export async function addReferral(user, ref) {
     body: JSON.stringify({ ref }),
   })
 
-  if (res.status === 200) return res.json()
+  if (res.status === 200 || res.status === 201) return
   throw new Error('Internal server errror')
 }

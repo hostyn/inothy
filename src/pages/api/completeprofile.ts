@@ -166,7 +166,7 @@ async function completeprofile(
   }
 
   await firestoreAdmin.collection('users').doc(user.uid).update(newUserData)
-  res.status(200).json({ success: true })
+  res.status(201).json({ success: true })
 }
 
 export default withMethod('POST', withAuthFullData(completeprofile))
