@@ -146,7 +146,6 @@ export default function AddCard ({ setState }) {
 
     try {
       await registerCard(
-        user,
         cardData.cardNumber,
         `${('0' + cardData.expirationMonth).slice(-2)}${
           cardData.expirationYear
