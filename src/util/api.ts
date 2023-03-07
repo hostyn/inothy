@@ -11,7 +11,7 @@ import type {
   UploadData,
 } from 'types/api'
 import { auth, logEvent } from '@config/firebase'
-import { bankAccount } from 'mangopay2-nodejs-sdk'
+import type { bankAccount, card } from 'mangopay2-nodejs-sdk'
 
 const getIdToken = (): Promise<string> | undefined =>
   auth.currentUser?.getIdToken()
@@ -305,8 +305,9 @@ export async function completeCardRegistration(
   if (res.status !== 200) throw new Error('Internal server error')
 }
 
-export async function getCards(user) {
+export async function getCards(): Promise<card.CardData[]> {
   const accessToken = await getIdToken()
+  if (accessToken == null) throw new Error('Unauthenticated')
 
   const res = await fetch(`${FRONTEND_URL}/api/getcards`, {
     method: 'GET',
@@ -315,8 +316,11 @@ export async function getCards(user) {
     },
   })
 
-  if (res.status !== 200) throw new Error('Internal server error')
-  return await res.json()
+  if (res.status === 200) {
+    return (await res.json()) as card.CardData[]
+  }
+
+  throw new Error('Internal server error')
 }
 
 export async function buy(user, cardId, documents, headers) {
