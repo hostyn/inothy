@@ -54,7 +54,7 @@ interface FirestoreSubjectInDegree {
   code: string
   id: string
   name: string
-  year: string
+  year: number
 }
 
 interface FirestoreDegree {

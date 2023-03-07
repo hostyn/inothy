@@ -3,6 +3,7 @@ import withAuthFullData from '@middleware/withAuthFullData'
 import withMethod from '@middleware/withMethod'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { ApiUser } from 'types/api'
+import type { FirestoreReferral } from 'types/firestore'
 
 async function addReferral(
   user: ApiUser,

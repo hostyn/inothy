@@ -2,6 +2,7 @@ import withMethod from '@middleware/withMethod'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { UniversityWithSchools } from 'types/api'
 import { firestoreAdmin } from '@config/firebaseadmin'
+import type { FirestoreSchool, FirestoreUniversity } from 'types/firestore'
 
 async function getSchools(
   req: NextApiRequest,
@@ -33,8 +34,9 @@ async function getSchools(
     .get()
 
   const schools = schoolsSnapshot.docs.map(schoolSnapshot => {
+    const schoolData = schoolSnapshot.data() as FirestoreSchool
     const school = {
-      ...(schoolSnapshot.data() as FirestoreSchool),
+      ...schoolData,
       id: schoolSnapshot.id,
     }
     return school

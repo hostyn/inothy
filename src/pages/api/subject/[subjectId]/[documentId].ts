@@ -2,6 +2,12 @@ import withMethod from '@middleware/withMethod'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { firestoreAdmin } from '@config/firebaseadmin'
 import type { FullDocumentInfo } from 'types/api'
+import type {
+  FirestoreDocument,
+  FirestoreSubject,
+  FirestoreUniversity,
+  FirestoreUser,
+} from 'types/firestore'
 
 async function getDocument(
   req: NextApiRequest,

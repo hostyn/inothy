@@ -2,6 +2,11 @@ import withMethod from '@middleware/withMethod'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { firestoreAdmin } from '@config/firebaseadmin'
 import type { SubjectWithDocumentsAndUniveristy } from 'types/api'
+import type {
+  FirestoreDocument,
+  FirestoreSubject,
+  FirestoreUniversity,
+} from 'types/firestore'
 
 async function getSubject(
   req: NextApiRequest,

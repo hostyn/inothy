@@ -1,7 +1,8 @@
 import withMethod from '@middleware/withMethod'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import type { Degree, School, SchoolWithDegree } from 'types/api'
+import type { SchoolWithDegree } from 'types/api'
 import { firestoreAdmin } from '@config/firebaseadmin'
+import type { FirestoreDegree, FirestoreSchool } from 'types/firestore'
 
 async function getDegrees(
   req: NextApiRequest,
@@ -32,16 +33,16 @@ async function getDegrees(
     return
   }
 
-  const schoolData = schoolSnapshot.data() as School
+  const schoolData = schoolSnapshot.data() as FirestoreSchool
 
   const degreesData = await schoolReference
     .collection('degrees')
     .orderBy('name')
     .get()
 
-  const degrees = degreesData.docs.map(doc => {
-    const degree: Degree = { ...(doc.data() as Degree), id: doc.id }
-    return degree
+  const degrees = degreesData.docs.map(degreeSnapshot => {
+    const degreeData = degreeSnapshot.data() as FirestoreDegree
+    return { ...degreeData, id: degreeSnapshot.id }
   })
 
   const school: SchoolWithDegree = { ...schoolData, id: schoolId, degrees }

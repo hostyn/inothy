@@ -6,6 +6,11 @@ import type { ApiUser } from 'types/api'
 import { firestoreAdmin, storageAdmin } from '@config/firebaseadmin'
 import { MIN_PRICE } from '@config/constants'
 import makePreview from '@util/makePreview'
+import type {
+  FirestoreDocument,
+  FirestoreSubject,
+  FirestoreUser,
+} from 'types/firestore'
 
 async function upload(
   user: ApiUser,
