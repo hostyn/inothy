@@ -1,5 +1,6 @@
 import { FRONTEND_URL } from '@config/constants'
 import type {
+  CompleteKYC,
   CompleteProfileData,
   CreateCardRegistration,
   DegreeWithDocuments,
@@ -12,6 +13,7 @@ import type {
 } from 'types/api'
 import { auth, logEvent } from '@config/firebase'
 import type { bankAccount, card } from 'mangopay2-nodejs-sdk'
+import type { FirestoreUser } from 'types/firestore'
 
 const getIdToken = (): Promise<string> | undefined =>
   auth.currentUser?.getIdToken()
@@ -249,25 +251,26 @@ export async function uploadFile(docData: UploadData): Promise<string> {
   return await res.json()
 }
 
-export async function completeKYC(user, data) {
+export async function completeKYC(completeKYCData: CompleteKYC): Promise<void> {
   const accessToken = await getIdToken()
+  if (accessToken == null) throw new Error('Unauthenticated')
 
-  // TODO: handle errors
   const res = await fetch(`${FRONTEND_URL}/api/kyc`, {
     headers: {
       authorization: `Bearer ${accessToken}`,
     },
     method: 'POST',
-    body: JSON.stringify(data),
+    body: JSON.stringify(completeKYCData),
   })
 
   if (res.status === 200) {
     try {
       logEvent('request_kyc')
     } catch {}
-    return res.json()
+    return
   }
-  throw new Error('Internal server error')
+
+  throw new Error('error')
 }
 
 export async function createCardRegistration(): Promise<CreateCardRegistration> {
@@ -457,8 +460,9 @@ export async function getBankAccount(): Promise<bankAccount.Data | null> {
   throw new Error('error')
 }
 
-export async function payout(user) {
+export async function payout(): Promise<void> {
   const accessToken = await getIdToken()
+  if (accessToken == null) throw new Error('Unauthenticated')
 
   const res = await fetch(`${FRONTEND_URL}/api/payout`, {
     method: 'POST',
@@ -471,8 +475,10 @@ export async function payout(user) {
     try {
       logEvent('request_payout')
     } catch {}
-    return res.json()
-  } else throw new Error('Internal server error')
+    return
+  }
+
+  throw new Error('Internal server error')
 }
 
 export async function deleteCard(cardId: string): Promise<void> {
