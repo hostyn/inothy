@@ -1,4 +1,4 @@
-import type { kycDocument, user } from 'mangopay2-nodejs-sdk'
+import type { CountryISO, kycDocument, user } from 'mangopay2-nodejs-sdk'
 
 interface FirestoreUser {
   address?: {
@@ -7,7 +7,7 @@ interface FirestoreUser {
     city: string
     postalCode: string
     region: string
-    country: string
+    country: CountryISO
   }
   badge?: string[]
   biography?: string

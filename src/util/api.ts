@@ -416,11 +416,13 @@ export async function getBalance(): Promise<number> {
   throw new Error('error')
 }
 
-export async function updateBankAccount(user, iban) {
-  if (!user) throw new Error('User is required')
-  if (!iban) throw new Error('Iban is required')
+export async function updateBankAccount(
+  iban: string
+): Promise<bankAccount.IBANData> {
+  if (iban.length === 0) throw new Error('Iban is required')
 
   const accessToken = await getIdToken()
+  if (accessToken == null) throw new Error('Unauthenticated')
 
   const res = await fetch(`${FRONTEND_URL}/api/updatebankaccount`, {
     method: 'POST',
@@ -434,8 +436,9 @@ export async function updateBankAccount(user, iban) {
     try {
       logEvent('update_bank_account')
     } catch {}
-    return res.json()
+    return await res.json()
   }
+
   if (res.status === 400) throw new Error('Bad Request')
   throw new Error('Internal server errror')
 }
