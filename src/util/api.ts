@@ -499,16 +499,14 @@ export async function deleteCard(cardId: string): Promise<void> {
   throw new Error('internal-server-error')
 }
 
-export async function sendResetPasswordEmail(email) {
-  if (!email) throw new Error('Email is required')
-
+export async function sendResetPasswordEmail(email: string): Promise<void> {
   const res = await fetch(`${FRONTEND_URL}/api/resetpassword`, {
     method: 'POST',
     body: JSON.stringify({ email }),
   })
 
-  if (res.status === 200) return res.json()
-  throw new Error('Internal server errror')
+  if (res.status === 200) return
+  throw new Error('error')
 }
 
 export async function addReferral(ref: string): Promise<void> {
@@ -526,5 +524,5 @@ export async function addReferral(ref: string): Promise<void> {
   })
 
   if (res.status === 200 || res.status === 201) return
-  throw new Error('Internal server errror')
+  throw new Error('error')
 }
