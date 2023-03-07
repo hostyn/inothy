@@ -1,9 +1,7 @@
-import { type IUser } from 'context/authContext'
 import { logEvent } from '../config/firebase'
 import { completeCardRegistration, createCardRegistration } from './api'
 
 export default async function registerCard(
-  user: IUser,
   cardNumber: string,
   expirationDate: string,
   cvx: string
@@ -14,7 +12,7 @@ export default async function registerCard(
   if (cvx.length === 0) throw new Error('CVX is required')
 
   try {
-    const cardRegistration = await createCardRegistration(user)
+    const cardRegistration = await createCardRegistration()
 
     const response = await fetch(cardRegistration.CardRegistrationUrl, {
       method: 'POST',
