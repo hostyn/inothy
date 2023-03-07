@@ -1,4 +1,5 @@
 import { type UserRecord } from 'firebase-admin/lib/auth/user-record'
+import type { FirestoreUser } from './firestore'
 
 type Method = 'GET' | 'POST'
 
@@ -108,4 +109,18 @@ interface CreateCardRegistration {
   PreregistrationData: string
   AccessKey: string
   CardRegistrationUrl: string
+}
+
+interface CompleteKYC {
+  name: string
+  surname: string
+  email: string
+  address1: string
+  address2: string
+  city: string
+  region: string
+  postalCode: string
+  birthday: string
+  nationality: string
+  files: string[]
 }

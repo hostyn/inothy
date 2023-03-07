@@ -1,3 +1,5 @@
+import type { kycDocument, user } from 'mangopay2-nodejs-sdk'
+
 interface FirestoreUser {
   address?: {
     address1: string
@@ -9,16 +11,24 @@ interface FirestoreUser {
   }
   badge?: string[]
   biography?: string
+  birthday?: number | null
   bought?: string[]
+  countryOfResidence?: string | null
   createdAt: number
   degree?: string
   email: string
   hasUploaded?: boolean
   ipAddress?: string
   mangopayClientId?: string
-  mangopayKYCStatus?: string | null
+  mangopayKYCId?: string | null
+  mangopayKYCLevel?: user.KYCLevel
+  mangopayKYCRefusedReasonMessage?: string | null
+  mangopayKYCRefusedReasonType?: kycDocument.KYCDocumentRefusedReasonType | null
+  mangopayKYCStatus?: kycDocument.DocumentStatus | null
+  mangopayType?: user.UserCategory
   mangopayWalletId?: string | null
   name?: string
+  nationality?: string | null
   profileCompleted: boolean
   ref?: string | null
   school?: string

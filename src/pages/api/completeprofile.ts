@@ -4,6 +4,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import type { ApiUser } from 'types/api'
 import { firestoreAdmin } from '@config/firebaseadmin'
 import mangopay from '@config/mangopay'
+import type { FirestoreReferral, FirestoreUser } from 'types/firestore'
 
 async function completeprofile(
   user: ApiUser,
@@ -15,7 +16,7 @@ async function completeprofile(
     return
   }
 
-  if (user.data.profileCompleted ?? false) {
+  if (user.data.profileCompleted) {
     res.status(400).json({ success: false, error: 'profile-already-completed' })
     return
   }
@@ -163,6 +164,16 @@ async function completeprofile(
     surname: body.surname,
     university: body.university,
     username: body.username,
+    birthday: null,
+    bought: [],
+    countryOfResidence: null,
+    mangopayKYCId: null,
+    mangopayType: 'OWNER',
+    mangopayKYCLevel: createUserResponse.KYCLevel,
+    mangopayKYCRefusedReasonMessage: null,
+    mangopayKYCRefusedReasonType: null,
+    nationality: null,
+    uploaded: [],
   }
 
   await firestoreAdmin.collection('users').doc(user.uid).update(newUserData)

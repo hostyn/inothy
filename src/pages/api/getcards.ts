@@ -1,4 +1,4 @@
-import mangopay from '../../config/mangopay'
+import mangopay from '@config/mangopay'
 import withMethod from '@middleware/withMethod'
 import withProfileCompleted from '@middleware/withProfileCompleted'
 import type { ApiUser } from 'types/api'
