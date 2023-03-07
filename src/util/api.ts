@@ -49,7 +49,7 @@ export async function getUserData(): Promise<FirestoreUser> {
   return data
 }
 
-export async function sendVerificationEmail() {
+export async function sendVerificationEmail(): Promise<void> {
   const accessToken = await getIdToken()
   if (accessToken == null) throw new Error('Unauthenticated')
 
@@ -57,12 +57,14 @@ export async function sendVerificationEmail() {
     headers: {
       authorization: `Bearer ${accessToken}`,
     },
-    method: 'GET',
+    method: 'POST',
   })
   if (res.status === 200) {
-    return await res.json()
+    return
   }
-  throw new Error('Internal Server Error')
+
+  if (res.status === 429) throw new Error('too-many-requests')
+  throw new Error('error')
 }
 
 export async function getUniversities(): Promise<University[]> {
