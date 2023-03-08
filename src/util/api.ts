@@ -377,20 +377,27 @@ export async function getTransaction(
   throw new Error('error')
 }
 
-export async function getDownloadUrl(user, subjectId, docId) {
+export async function getDownloadUrl(
+  subjectId: string,
+  documentId: string
+): Promise<string> {
   const accessToken = await getIdToken()
+  if (accessToken == null) throw new Error('Unauthenticated')
 
   const res = await fetch(
-    `${FRONTEND_URL}/api/getdownloadurl/${subjectId}/${docId}`,
+    `${FRONTEND_URL}/api/getdownloadurl/${subjectId}/${documentId}`,
     { method: 'GET', headers: { authorization: `Bearer ${accessToken}` } }
   )
 
   if (res.status === 200) {
     try {
-      logEvent('download_document', { document: subjectId + '/' + docId })
+      logEvent('download_document', { document: subjectId + '/' + documentId })
     } catch {}
-    return res.json()
+
+    const { url } = await res.json()
+    return url
   }
+
   throw new Error('error')
 }
 
