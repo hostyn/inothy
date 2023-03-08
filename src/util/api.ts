@@ -15,7 +15,7 @@ import type {
 } from 'types/api'
 import { auth, logEvent } from '@config/firebase'
 import type { bankAccount, card } from 'mangopay2-nodejs-sdk'
-import type { FirestoreUser } from 'types/firestore'
+import type { FirestoreTransaction, FirestoreUser } from 'types/firestore'
 
 const getIdToken = (): Promise<string> | undefined =>
   auth.currentUser?.getIdToken()
@@ -78,7 +78,7 @@ export async function getUniversities(): Promise<University[]> {
     return (await response.json()) as University[]
   }
 
-  throw new Error('Internal server error')
+  throw new Error('error')
 }
 
 export async function getUniversity(
@@ -101,7 +101,7 @@ export async function getUniversity(
     throw new Error('Not found')
   }
 
-  throw new Error('Internal Server Error')
+  throw new Error('error')
 }
 
 export async function getSchool(
@@ -124,7 +124,7 @@ export async function getSchool(
     throw new Error('Not found')
   }
 
-  throw new Error('Internal Server Error')
+  throw new Error('error')
 }
 
 export async function getDegree(
@@ -152,7 +152,7 @@ export async function getDegree(
     throw new Error('Not found')
   }
 
-  throw new Error('Internal Server Error')
+  throw new Error('error')
 }
 
 export async function getSubject(
@@ -180,7 +180,7 @@ export async function getSubject(
     throw new Error('Not found')
   }
 
-  throw new Error('Internal Server Error')
+  throw new Error('error')
 }
 
 export async function getDocument(
@@ -203,7 +203,7 @@ export async function getDocument(
     throw new Error('Not found')
   }
 
-  throw new Error('Internal Server Error')
+  throw new Error('error')
 }
 
 // TODO
@@ -230,7 +230,7 @@ export async function completeProfile(
     return
   }
 
-  throw new Error('Internal server error')
+  throw new Error('error')
 }
 
 export async function uploadFile(docData: UploadData): Promise<string> {
@@ -247,7 +247,7 @@ export async function uploadFile(docData: UploadData): Promise<string> {
   })
 
   if (res.status !== 201) {
-    throw new Error('Internal server error')
+    throw new Error('error')
   }
   try {
     logEvent('upload_document')
@@ -288,7 +288,7 @@ export async function createCardRegistration(): Promise<CreateCardRegistration> 
     method: 'POST',
   })
 
-  if (res.status !== 200) throw new Error('Internal server error')
+  if (res.status !== 200) throw new Error('error')
 
   return (await res.json()) as CreateCardRegistration
 }
@@ -309,7 +309,7 @@ export async function completeCardRegistration(
     }),
   })
 
-  if (res.status !== 200) throw new Error('Internal server error')
+  if (res.status !== 200) throw new Error('error')
 }
 
 export async function getCards(): Promise<card.CardData[]> {
@@ -327,7 +327,7 @@ export async function getCards(): Promise<card.CardData[]> {
     return (await res.json()) as card.CardData[]
   }
 
-  throw new Error('Internal server error')
+  throw new Error('error')
 }
 
 export async function buy(data: BuyParams): Promise<BuyResponse> {
@@ -358,8 +358,11 @@ export async function buy(data: BuyParams): Promise<BuyResponse> {
   throw new Error('error')
 }
 
-export async function getTransaction(user, transactionId) {
+export async function getTransaction(
+  transactionId: string
+): Promise<FirestoreTransaction> {
   const accessToken = await getIdToken()
+  if (accessToken == null) throw new Error('Unauthenticated')
 
   const res = await fetch(`${FRONTEND_URL}/api/transaction/${transactionId}`, {
     method: 'GET',
@@ -370,8 +373,8 @@ export async function getTransaction(user, transactionId) {
 
   if (res.status === 200) return await res.json()
 
-  if (res.status === 404) throw new Error('Not found')
-  throw new Error('Internal server error')
+  if (res.status === 404) throw new Error('not-found')
+  throw new Error('error')
 }
 
 export async function getDownloadUrl(user, subjectId, docId) {
@@ -388,7 +391,7 @@ export async function getDownloadUrl(user, subjectId, docId) {
     } catch {}
     return res.json()
   }
-  throw new Error('Internal server error')
+  throw new Error('error')
 }
 
 export async function getUser(userId) {
@@ -399,7 +402,7 @@ export async function getUser(userId) {
   })
 
   if (res.status === 200) return res.json()
-  throw new Error('Internal server error')
+  throw new Error('error')
 }
 
 export async function getBalance(): Promise<number> {
@@ -485,7 +488,7 @@ export async function payout(): Promise<void> {
     return
   }
 
-  throw new Error('Internal server error')
+  throw new Error('error')
 }
 
 export async function deleteCard(cardId: string): Promise<void> {
