@@ -1,5 +1,7 @@
 import { FRONTEND_URL } from '@config/constants'
 import type {
+  BuyParams,
+  BuyResponse,
   CompleteKYC,
   CompleteProfileData,
   CreateCardRegistration,
@@ -328,9 +330,9 @@ export async function getCards(): Promise<card.CardData[]> {
   throw new Error('Internal server error')
 }
 
-export async function buy(user, cardId, documents, headers) {
+export async function buy(data: BuyParams): Promise<BuyResponse> {
   const accessToken = await getIdToken()
-  const products = documents.map(doc => doc.subjectId + '/' + doc.docId)
+  if (accessToken == null) throw new Error('Unauthenticated')
 
   const res = await fetch(`${FRONTEND_URL}/api/buy`, {
     method: 'POST',
@@ -338,8 +340,8 @@ export async function buy(user, cardId, documents, headers) {
       authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({
-      cardId,
-      products,
+      cardId: data.cardId,
+      products: data.productsPaths,
       screenHeight: screen.height,
       screenWidth: screen.width,
       colorDepth: screen.colorDepth,
@@ -347,13 +349,13 @@ export async function buy(user, cardId, documents, headers) {
       javaEnabled: navigator.javaEnabled(),
       timezoneOffset: new Date().getTimezoneOffset(),
       userAgent: navigator.userAgent,
-      acceptHeaders: headers.accept,
+      acceptHeader: data.headers.accept,
     }),
   })
 
   if (res.status === 200) return await res.json()
-  if (res.status === 400) throw new Error('Bad Request')
-  throw new Error('Internal server error')
+  if (res.status === 400) throw new Error('bad-request')
+  throw new Error('error')
 }
 
 export async function getTransaction(user, transactionId) {

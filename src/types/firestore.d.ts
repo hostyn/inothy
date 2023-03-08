@@ -1,4 +1,4 @@
-import type { CountryISO, kycDocument, user } from 'mangopay2-nodejs-sdk'
+import type { CountryISO, kycDocument, payIn, user } from 'mangopay2-nodejs-sdk'
 
 interface FirestoreUser {
   address?: {
@@ -31,6 +31,7 @@ interface FirestoreUser {
   nationality?: string | null
   profileCompleted: boolean
   ref?: string | null
+  sales?: number
   school?: string
   surname?: string
   uid: string
@@ -88,26 +89,26 @@ interface FirestoreDocument {
   verificationStatus: VerificationStatus
 }
 
-// interface Recipt {
-//   createdBy: string
-//   creationDate: number
-//   fees: number
-//   path: string
-//   price: number
-//   transactionId: string
-// }
+interface FirestoreRecipt {
+  createdBy: string
+  creationDate?: number
+  fee: number
+  path: string
+  price: number
+  transactionId?: string
+}
 
-// interface FirestoreTransaction {
-//   amount: number
-//   author: string
-//   authorId: string
-//   authorWalletId: string
-//   cardId: string
-//   creationDate: number
-//   payInId: string
-//   recipts: Recipt[]
-//   status: string
-// }
+interface FirestoreTransaction {
+  amount: number
+  author: string
+  authorId: string
+  authorWalletId: string
+  cardId: string
+  creationDate: number
+  payInId: string
+  recipts: FirestoreRecipt[]
+  status: payIn.BasePayInData.Status
+}
 
 interface FirestoreReferral {
   ref: string

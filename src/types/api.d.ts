@@ -1,4 +1,5 @@
 import { type UserRecord } from 'firebase-admin/lib/auth/user-record'
+import type { IncomingHttpHeaders } from 'http2'
 import type { FirestoreUser } from './firestore'
 
 type Method = 'GET' | 'POST'
@@ -123,4 +124,16 @@ interface CompleteKYC {
   birthday: string
   nationality: string
   files: string[]
+}
+
+interface BuyParams {
+  cardId: string
+  headers: IncomingHttpHeaders
+  productsPaths: string[]
+}
+
+interface BuyResponse {
+  success: boolean
+  status: 'SUCCEEDED' | 'CREATED'
+  redirectUrl?: string
 }
