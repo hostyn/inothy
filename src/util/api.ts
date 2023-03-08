@@ -207,7 +207,9 @@ export async function getDocument(
   throw new Error('error')
 }
 
-// TODO
+// Fix "Property 'fbq' does not exist on type 'Window & typeof globalThis'."
+declare const window: any
+
 export async function completeProfile(
   completeProfileData: CompleteProfileData
 ): Promise<void> {
