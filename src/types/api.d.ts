@@ -137,3 +137,12 @@ interface BuyResponse {
   status: 'SUCCEEDED' | 'CREATED'
   redirectUrl?: string
 }
+
+interface GetUserResponse {
+  username: string
+  uploaded: string[]
+  university: University
+  school: School
+  degree: Degree
+  biography: string
+}

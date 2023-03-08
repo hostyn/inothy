@@ -7,6 +7,7 @@ import type {
   CreateCardRegistration,
   DegreeWithDocuments,
   FullDocumentInfo,
+  GetUserResponse,
   SchoolWithDegree,
   SubjectWithDocumentsAndUniveristy,
   University,
@@ -401,14 +402,14 @@ export async function getDownloadUrl(
   throw new Error('error')
 }
 
-export async function getUser(userId) {
-  if (!userId) throw new Error('UserId is required')
+export async function getUser(userId: string): Promise<GetUserResponse> {
+  if (userId.length === 0) throw new Error('UserId is required')
 
   const res = await fetch(`${FRONTEND_URL}/api/user/${userId}`, {
     method: 'GET',
   })
 
-  if (res.status === 200) return res.json()
+  if (res.status === 200) return await res.json()
   throw new Error('error')
 }
 
