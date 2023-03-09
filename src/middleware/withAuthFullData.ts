@@ -2,6 +2,7 @@ import { firestoreAdmin } from 'config/firebaseadmin'
 import { type UserRecord } from 'firebase-admin/lib/auth/user-record'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { ApiUser } from 'types/api'
+import type { FirestoreUser } from 'types/firestore'
 import withAuthData from './withAuthData'
 
 export default function withAuthFullData(
