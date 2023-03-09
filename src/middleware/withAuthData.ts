@@ -1,4 +1,4 @@
-import { authAdmin } from 'config/firebaseadmin'
+import { authAdmin } from '@config/firebaseadmin'
 import { type UserRecord } from 'firebase-admin/lib/auth/user-record'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import withAuth from './withAuth'

@@ -1,4 +1,4 @@
-import { authAdmin } from 'config/firebaseadmin'
+import { authAdmin } from '@config/firebaseadmin'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default function withAuth(
