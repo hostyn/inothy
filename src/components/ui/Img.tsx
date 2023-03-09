@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import styled from 'styled-components'
 
-interface IImgDiv {
+interface ImageDivProps {
   width?: string
   height?: string
   aspectRatio?: string
@@ -10,7 +10,7 @@ interface IImgDiv {
   alignSelf?: string
 }
 
-interface IImg extends IImgDiv {
+interface ImgProps extends ImageDivProps {
   src: string
   alt?: string
   onClick?: () => unknown
@@ -19,7 +19,7 @@ interface IImg extends IImgDiv {
   title?: string
 }
 
-const ImageDiv = styled.div<IImgDiv>`
+const ImageDiv = styled.div<ImageDivProps>`
   position: relative;
   width: ${props => props.width ?? '100%'};
   height: ${props => props.height ?? '100%'};
@@ -43,7 +43,7 @@ export default function Img({
   priority,
   alignSelf,
   title,
-}: IImg): JSX.Element {
+}: ImgProps): JSX.Element {
   return (
     <ImageDiv
       className={className}

@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import styled from 'styled-components'
-import { colors } from '../../config/theme'
+import { colors } from '@config/theme'
 import Img from '@ui/Img'
 
-interface IForm {
-  border: keyof typeof colors
+interface FormProps {
+  border?: keyof typeof colors
   borderRadius?: string
   width?: string
   maxWidth?: string
@@ -14,7 +14,7 @@ interface IForm {
   noHide?: boolean
 }
 
-const InputDiv = styled.form<IForm>`
+const InputDiv = styled.form<FormProps>`
   border: 2px solid ${props => colors[props.border ?? 'primary']};
   border-radius: ${props => props.borderRadius ?? '999999px'};
   width: ${props => props.width ?? 'auto'};
@@ -50,7 +50,7 @@ const StyledInput = styled.input`
   }
 `
 
-export default function SearchBox({ ...props }: IForm): JSX.Element {
+export default function SearchBox({ ...props }: FormProps): JSX.Element {
   const [q, setQ] = useState('')
   const { push } = useRouter()
 

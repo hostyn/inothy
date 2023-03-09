@@ -1,14 +1,14 @@
 import styled from 'styled-components'
-import { colors } from '../../config/theme'
+import { colors } from '@config/theme'
 import { v4 } from 'uuid'
 
-interface ILabel {
+interface LabelProps {
   fontSize?: string
   border?: string
   margin?: string
 }
 
-interface IFileInput extends ILabel {
+interface FileInputProps extends LabelProps {
   children?: JSX.Element | JSX.Element[]
   multiple?: boolean
   onChange?: () => unknown
@@ -17,7 +17,7 @@ interface IFileInput extends ILabel {
   name?: string
 }
 
-const Label = styled.label<ILabel>`
+const Label = styled.label<LabelProps>`
   font-family: VarelaRound;
   font-size: ${props => props.fontSize ?? '1.5rem'};
   color: ${colors.primary};
@@ -51,7 +51,7 @@ export default function Fileinput({
   accept,
   name,
   border,
-}: IFileInput): JSX.Element {
+}: FileInputProps): JSX.Element {
   const id = v4()
   return (
     <>

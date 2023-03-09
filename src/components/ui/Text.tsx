@@ -1,7 +1,7 @@
-import { colors } from '../../config/theme'
+import { colors } from '@config/theme'
 import styled from 'styled-components'
 
-interface IText {
+interface TextProps {
   fontFamily?: string
   fontSize?: string
   color?: keyof typeof colors
@@ -19,7 +19,7 @@ interface IText {
   lineBreak?: string
 }
 
-const Text = styled.p<IText>`
+const Text = styled.p<TextProps>`
   display: ${props => props.display ?? 'initial'};
   align-items: ${props => props.alignItems ?? 'inital'};
   font-family: ${props => props.fontFamily ?? 'VarelaRound'};

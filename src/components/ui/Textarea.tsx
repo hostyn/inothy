@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { colors } from '../../config/theme'
+import { colors } from '@config/theme'
 
-interface ITextarea {
+interface TextareaProps {
   border?: string
   borderRadius?: string
   fontFamily?: string
@@ -11,7 +11,7 @@ interface ITextarea {
   margin?: string
 }
 
-const Textarea = styled.textarea<ITextarea>`
+const Textarea = styled.textarea<TextareaProps>`
   border: ${props => props.border ?? `2px solid ${colors.primary}`};
   border-radius: ${props => props.borderRadius ?? '10px'};
   font-family: ${props => props.fontFamily ?? 'VarelaRound'};

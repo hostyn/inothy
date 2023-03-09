@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { colors } from '../../config/theme'
+import { colors } from '@config/theme'
 
-interface IInput {
+interface InputProps {
   fontFamily?: string
   fontSize?: string
   textAlign?: string
@@ -13,7 +13,7 @@ interface IInput {
   width?: string
 }
 
-const Input = styled.input<IInput>`
+const Input = styled.input<InputProps>`
   font-family: ${props => props.fontFamily ?? 'VarelaRound'};
   font-size: ${props => props.fontSize ?? '1rem'};
   text-align: ${props => props.textAlign ?? 'left'};

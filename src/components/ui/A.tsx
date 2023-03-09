@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors, sizes } from '../../config/theme'
+import { colors, sizes } from '@config/theme'
 
 interface AProps {
   fontWeight?: string

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { colors, sizes } from '../../config/theme'
+import { colors, sizes } from '@config/theme'
 
-interface IButton {
+interface ButtonProps {
   fontFamily?: string
   fontSize?: string
   color?: keyof typeof colors
@@ -15,7 +15,7 @@ interface IButton {
   gridColumn?: string
 }
 
-const Button = styled.button<IButton>`
+const Button = styled.button<ButtonProps>`
   font-family: ${props => props.fontFamily ?? 'VarelaRound'};
   font-size: ${props => props.fontSize ?? sizes.buttonText};
   background: ${props => colors[props.background ?? 'primary']};

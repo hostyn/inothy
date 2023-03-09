@@ -1,13 +1,13 @@
 import styled from 'styled-components'
-import { colors } from '../../config/theme'
+import { colors } from '@config/theme'
 
-interface ISelect {
+interface SelectProps {
   border?: string
   margin?: string
   maxWidth?: string
 }
 
-const Select = styled.select<ISelect>`
+const Select = styled.select<SelectProps>`
   padding: 10px;
   border-radius: 10px;
   border: ${props => props.border ?? `2px solid ${colors.primary}`};

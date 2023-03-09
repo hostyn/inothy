@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { colors } from '../../config/theme'
+import { colors } from '@config/theme'
 
-interface ISpan {
+interface SpanProps {
   color?: keyof typeof colors
   fontSize?: string
   fontWeight?: string
@@ -9,7 +9,7 @@ interface ISpan {
   textDecoration?: string
 }
 
-const Span = styled.span<ISpan>`
+const Span = styled.span<SpanProps>`
   color: ${props => (props.color != null ? colors[props.color] : 'inherit')};
   font-size: ${props => props.fontSize ?? 'inherit'};
   font-weight: ${props => props.fontWeight ?? 'inherit'};
