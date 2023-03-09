@@ -1,9 +1,14 @@
 import Link from 'next/link'
 import styled from 'styled-components'
-import { colors, sizes } from '../../config/theme'
+import { colors, sizes } from '@config/theme'
 import A from '@ui/A'
 import Img from '@ui/Img'
 import Text from '@ui/Text'
+import Flex from '@components/ui/Flex'
+
+interface RRSButtonProps {
+  background?: keyof typeof colors
+}
 
 const FooterDiv = styled.footer`
   min-width: 100vw;
@@ -28,7 +33,7 @@ const FooterDiv = styled.footer`
 `
 
 const Contacto = styled.div`
-  background-image: url("/resources/footer/background.svg");
+  background-image: url('/resources/footer/background.svg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top center;
@@ -62,15 +67,9 @@ const TextDiv = styled.div`
   }
 `
 
-const RRSS = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 1vw 0 0 0;
-`
-
-const RRSSButton = styled.a`
+const RRSSButton = styled.a<RRSButtonProps>`
   aspect-ratio: 1;
-  background-color: ${(props) => colors[props.background] || colors.primary};
+  background-color: ${props => colors[props.background ?? 'primary']};
   padding: 1.7vw;
   border-radius: 99999px;
   margin: 0 2vw;
@@ -97,7 +96,7 @@ const HiddenImg = styled(Img)`
   }
 `
 
-export default function Footer () {
+export default function Footer(): JSX.Element {
   return (
     <>
       <Contacto>
@@ -111,7 +110,7 @@ export default function Footer () {
           <Text fontFamily="HelveticaRounded" fontSize="4vw" textAlign="center">
             Únete a la comunidad
           </Text>
-          <RRSS>
+          <Flex justifyContent="center" flexDirection="row" margin="1vw 0 0 0">
             <RRSSButton
               target="_blank"
               href="https://www.instagram.com/_inothy/"
@@ -125,7 +124,7 @@ export default function Footer () {
             >
               <Img src="/icons/twitter.svg" aspectRatio="1" />
             </RRSSButton>
-          </RRSS>
+          </Flex>
         </TextDiv>
       </Contacto>
       <FooterDiv>
