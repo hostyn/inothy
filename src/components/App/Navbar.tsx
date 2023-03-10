@@ -12,6 +12,8 @@ import { sendVerificationEmail } from '@util/api'
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import NavbarMenu from './components/NavbarMenu'
+import { toast } from 'sonner'
+import UserCard from './components/UserCard'
 
 interface NavbarProps {
   transparent: boolean
@@ -24,10 +26,6 @@ interface NavbarContainerProps {
 interface NavbarDivProps {
   transparent: boolean
   logged: boolean
-}
-
-interface UserPrps {
-  hover: boolean
 }
 
 const NavbarContainer = styled.nav<NavbarContainerProps>`
@@ -135,32 +133,6 @@ const NavbarDiv = styled.div<NavbarDivProps>`
   }
 `
 
-const User = styled.div<UserPrps>`
-  display: flex;
-  min-height: 100%;
-  max-height: 100%;
-  min-width: 100%;
-  max-width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  margin: 0 auto;
-  border-radius: 15px;
-  padding: 0 1rem;
-  transition: 0.2s;
-
-  &:hover {
-    background-color: ${colors.hover};
-  }
-
-  background-color: ${props =>
-    props.hover ? colors.hover : colors.userEmphasis};
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-`
-
 const HiddenElement = styled.div`
   width: 100%;
   height: 100%;
@@ -233,14 +205,12 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
   const buttonRef = useRef<HTMLDivElement>(null)
 
   const handleClick = async (): Promise<void> => {
-    try {
-      await sendVerificationEmail()
-      // TODO: HACER BONITO ESTO
-      openModal(<Text>Reenviado email de verificación</Text>)
-    } catch {
-      // TODO: HACER BONITO ESTO
-      openModal(<Text>No hemos podido reenviar el email</Text>)
-    }
+    toast.promise(sendVerificationEmail(), {
+      loading: 'Estamos enviandote el email...',
+      success: '!Enviado! Revisa tu bandeja de entrada.',
+      error:
+        'Parece que te acabamos de enviar uno... Revisa tu bandeja de entrada o vuelve a intentarlo en unos minutos.',
+    })
   }
 
   useEffect(() => {
@@ -256,6 +226,7 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
@@ -331,57 +302,13 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
           </Link>
         </HiddenElement>
 
-        {/* <HiddenButton
-          ref={buttonRef}
-          logged={isUser}
-          onClick={() => setShowMenu((state) => !state)}
-        >
-          <Img
-            src="/resources/navbar/menu.svg"
-            alt="Menú"
-            aspectRatio="1"
-            height="2rem"
-            width="2rem"
-          />
-        </HiddenButton> */}
         {isUser ? (
           <>
-            <User
+            <UserCard
+              showMenu={showMenu}
+              setShowMenu={setShowMenu}
               ref={userRef}
-              hover={showMenu}
-              onClick={() => {
-                setShowMenu(state => !state)
-              }}
-            >
-              <Img
-                src="/resources/navbar/menu.svg"
-                alt="Menú"
-                aspectRatio="1"
-                height="1.5rem"
-                width="auto"
-              />
-              <Text
-                fontFamily="HelveticaRounded"
-                fontWeight="bold"
-                fontSize="1.5rem"
-                margin="0 1rem 0 1rem"
-                userSelect="none"
-              >
-                {user?.data.username.length > 15
-                  ? // TODO: Cambiar esta chapuza
-                    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                    `${user?.data.username.substr(0, 12)}...`
-                  : user?.data.username}
-              </Text>
-              <Img
-                src="/icons/profile.svg"
-                alt="Profile"
-                aspectRatio="1"
-                height="2.5rem"
-                width="auto"
-                cursor="pointer"
-              />
-            </User>
+            />
             <HiddenElement>
               <Link href="/upload" passHref>
                 <Button margin="0" width="100%">
