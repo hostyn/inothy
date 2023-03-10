@@ -17,12 +17,12 @@
     "baseUrl": "src",
     "useUnknownInCatchVariables": false,
     "paths": {
+      "@ui": ["components/ui"],
       "@components/*": ["components/*"],
       "@config/*": ["config/*"],
       "@context/*": ["context/*"],
       "@hooks/*": ["hooks/*"],
       "@middleware/*": ["middleware/*"],
-      "@ui/*": ["components/ui/*"],
       "@util/*": ["util/*"],
       "@views/*": ["views/*"],
     }
