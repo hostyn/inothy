@@ -1,12 +1,12 @@
 import { useState } from 'react'
+import MotionDiv from '@components/MotionDiv'
+import { useModal } from '@context/modalContext'
+import { Img, Text } from '@ui'
 import styled from 'styled-components'
-import Img from '@ui/Img'
-import { colors } from '../../config/theme'
+import { colors } from '@config/theme'
 import { motion } from 'framer-motion'
-import Text from '@ui/Text'
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
-import { useModal } from '../../context/modalContext'
 import ForgetPassword from './ForgetPassword'
 import EmailError from './EmailError'
 import EmailSent from './EmailSent'
@@ -46,7 +46,7 @@ const SelectionDiv = styled.div`
   text-align: center;
 `
 
-const MotionDiv = styled(motion.div)`
+const StyledMotionDiv = styled(MotionDiv)`
   display: grid;
   align-content: center;
   width: 100%;
@@ -63,16 +63,28 @@ const Underline = styled(motion.div)`
   background: ${colors.secondary};
 `
 
-const Option = styled.div`
+const Option = styled.div<{ selected: boolean }>`
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  background-color: ${(props) => (props.selected ? '#eee' : 'transparent')};
+  background-color: ${props => (props.selected ? '#eee' : 'transparent')};
   border-radius: 10px 10px 0 0;
 `
+type ModalState =
+  | 'login'
+  | 'register'
+  | 'forgetPassword'
+  | 'emailerror'
+  | 'emailsent'
 
-export default function AuthModal ({ selected = 'login' }) {
-  const [selectedState, setSelectedState] = useState(selected)
+interface AuthModalProps {
+  selected: ModalState
+}
+
+export default function AuthModal({
+  selected = 'login',
+}: AuthModalProps): JSX.Element {
+  const [selectedState, setSelectedState] = useState<ModalState>(selected)
   const { closeModal } = useModal()
 
   return (
@@ -88,7 +100,9 @@ export default function AuthModal ({ selected = 'login' }) {
         <SelectionDiv>
           <div>
             <Option
-              onClick={() => setSelectedState('login')}
+              onClick={() => {
+                setSelectedState('login')
+              }}
               selected={selectedState === 'login'}
             >
               <Text
@@ -106,7 +120,9 @@ export default function AuthModal ({ selected = 'login' }) {
           </div>
           <div>
             <Option
-              onClick={() => setSelectedState('register')}
+              onClick={() => {
+                setSelectedState('register')
+              }}
               selected={selectedState === 'register'}
             >
               <Text
@@ -123,13 +139,7 @@ export default function AuthModal ({ selected = 'login' }) {
             {selectedState === 'register' && <Underline layoutId="underline" />}
           </div>
         </SelectionDiv>
-        <MotionDiv
-          key={selectedState}
-          animate={{ opacity: 1, x: 0 }}
-          initial={{ opacity: 0, x: 20 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.15 }}
-        >
+        <StyledMotionDiv state={selectedState}>
           {selectedState === 'login' && (
             <LoginForm setState={setSelectedState} />
           )}
@@ -139,7 +149,7 @@ export default function AuthModal ({ selected = 'login' }) {
           )}
           {selectedState === 'emailerror' && <EmailError />}
           {selectedState === 'emailsent' && <EmailSent />}
-        </MotionDiv>
+        </StyledMotionDiv>
       </AuthForm>
     </AuthDiv>
   )
