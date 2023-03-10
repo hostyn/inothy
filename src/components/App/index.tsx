@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import Footer from './Footer'
 import Nav from './Navbar'
 import { sizes } from '@config/theme'
-import { useAuth } from '@context/authContext'
+import useBanner, { BannerProvider } from '@context/bannerContext'
 
 interface AppProps {
   children: JSX.Element | JSX.Element[]
@@ -11,7 +11,7 @@ interface AppProps {
 
 interface AppBodyProps {
   transparent: boolean
-  notVerified: boolean
+  isBanner: boolean
 }
 
 const AppDiv = styled.div`
@@ -24,30 +24,25 @@ const AppDiv = styled.div`
 const AppBody = styled.main<AppBodyProps>`
   min-width: 100vw;
   max-width: 100vw;
-  min-height: 100vh;
-  ${props =>
-    props.transparent
-      ? 'padding: 0'
-      : props.notVerified
-      ? `padding: calc(${sizes.navbar} + ${sizes.banner}) 0 0 0`
-      : `padding: ${sizes.navbar} 0 0 0`};
+  min-height: ${props =>
+    props.isBanner ? `calc(100vh - ${sizes.banner})` : '100vh'};
+  padding: ${props => (props.transparent ? '0' : `${sizes.navbar} 0 0 0`)};
 `
 
 export default function App({
   children,
   transparent = false,
 }: AppProps): JSX.Element {
-  const { user } = useAuth()
+  const { isBanner } = useBanner()
   return (
     <AppDiv>
-      <Nav transparent={transparent} />
-      <AppBody
-        transparent={transparent}
-        notVerified={user != null && !user.emailVerified}
-      >
-        {children}
-      </AppBody>
-      <Footer />
+      <BannerProvider>
+        <Nav transparent={transparent} />
+        <AppBody transparent={transparent} isBanner={isBanner}>
+          {children}
+        </AppBody>
+        <Footer />
+      </BannerProvider>
     </AppDiv>
   )
 }

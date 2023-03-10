@@ -1,26 +1,21 @@
 import styled from 'styled-components'
-import { sizes, colors } from '@config/theme'
-import Button from '@ui/Button'
-import A from '@ui/A'
-import Img from '@ui/Img'
-import SearchBox from '@ui/SearchBox'
+import { sizes } from '@config/theme'
 import { useModal } from '@context/modalContext'
-import AuthModal from '../Auth/AuthModal'
 import { useAuth } from '@context/authContext'
-import Text from '@ui/Text'
-import { sendVerificationEmail } from '@util/api'
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import NavbarMenu from './components/NavbarMenu'
-import { toast } from 'sonner'
 import UserCard from './components/UserCard'
+import useBanner from '@context/bannerContext'
+import AuthModal from '@components/Auth/AuthModal'
+import { A, Button, Img, SearchBox } from '@ui'
 
 interface NavbarProps {
   transparent: boolean
 }
 
 interface NavbarContainerProps {
-  notVerified: boolean
+  isBanner: boolean
 }
 
 interface NavbarDivProps {
@@ -31,19 +26,13 @@ interface NavbarDivProps {
 const NavbarContainer = styled.nav<NavbarContainerProps>`
   min-width: 100vw;
   max-width: 100vw;
-  min-height: ${props =>
-    props.notVerified
-      ? `calc(${sizes.navbar} + ${sizes.banner})`
-      : sizes.navbar};
-  max-height: ${props =>
-    props.notVerified
-      ? `calc(${sizes.navbar} + ${sizes.banner})`
-      : sizes.navbar};
+  min-height: ${sizes.navbar};
+  max-height: ${sizes.navbar};
 
   padding: 0 5rem;
 
   position: absolute;
-  top: 0;
+  top: ${props => (props.isBanner ? sizes.banner : '0')};
 
   display: flex;
   flex-direction: column;
@@ -56,37 +45,6 @@ const NavbarContainer = styled.nav<NavbarContainerProps>`
 
   @media (max-width: 768px) {
     padding: 0;
-  }
-`
-
-const VerifyEmailBanner = styled.div`
-  min-width: 100vw;
-  max-width: 100vw;
-  min-height: ${sizes.banner};
-  max-height: ${sizes.banner};
-
-  background-color: ${colors.primary};
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 0 ${sizes.inlineMargin};
-
-  @media (max-width: 1000px) {
-    padding: 0 3rem;
-  }
-
-  @media (max-width: 650px) {
-    padding: 0 1rem;
-
-    & p {
-      font-size: 1rem;
-    }
-
-    & button {
-      min-width: max-content;
-    }
   }
 `
 
@@ -133,8 +91,7 @@ const NavbarDiv = styled.div<NavbarDivProps>`
   }
 `
 
-const HiddenElement = styled.div`
-  width: 100%;
+const HiddenElement1500 = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
@@ -145,21 +102,38 @@ const HiddenElement = styled.div`
   }
 `
 
-const HiddenLogo = styled.div<{ inverted?: boolean }>`
-  display: ${props => (props.inverted ?? false ? 'none' : 'grid')};
+const FullLogo = styled.div`
+  display: grid;
   width: 100%;
   height: 100%;
 
   @media (max-width: 1000px) {
-    display: ${props => (props.inverted ?? false ? 'grid' : 'none')};
+    display: none;
   }
 
   @media (max-width: 768px) {
-    display: ${props => (props.inverted ?? false ? 'none' : 'grid')};
+    display: grid;
   }
 `
 
-const HiddenButton = styled.div<{ logged: boolean; emailVerified: boolean }>`
+const SmallLogo = styled.div`
+  display: none;
+  width: 100%;
+  height: 100%;
+
+  @media (max-width: 1000px) {
+    display: grid;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`
+
+const MobileBurgerMenuIcon = styled.div<{
+  logged: boolean
+  isBanner: boolean
+}>`
   display: none;
   justify-content: center;
   cursor: pointer;
@@ -176,7 +150,7 @@ const HiddenButton = styled.div<{ logged: boolean; emailVerified: boolean }>`
     min-height: 2rem;
     min-width: 2rem;
     ${props =>
-      props.emailVerified
+      props.isBanner
         ? `top: calc((${sizes.navbar} - 2rem) / 2);`
         : `top: calc(((${sizes.navbar} - 2rem) / 2) + ${sizes.banner});`};
 
@@ -198,20 +172,13 @@ const HiddenRegister = styled(Button)`
 
 export default function Navbar({ transparent }: NavbarProps): JSX.Element {
   const { openModal } = useModal()
-  const { user, isUser } = useAuth()
+  const { isUser } = useAuth()
+  const { isBanner } = useBanner()
+
   const [showMenu, setShowMenu] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const userRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLDivElement>(null)
-
-  const handleClick = async (): Promise<void> => {
-    toast.promise(sendVerificationEmail(), {
-      loading: 'Estamos enviandote el email...',
-      success: '!Enviado! Revisa tu bandeja de entrada.',
-      error:
-        'Parece que te acabamos de enviar uno... Revisa tu bandeja de entrada o vuelve a intentarlo en unos minutos.',
-    })
-  }
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent): void {
@@ -233,25 +200,9 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
   }, [menuRef])
 
   return (
-    <NavbarContainer notVerified={user != null && !user.emailVerified}>
-      {user != null && !user.emailVerified && (
-        <VerifyEmailBanner>
-          <Text fontSize="1.2rem" color="white">
-            Verifica tu email para completar el registro
-          </Text>
-          <Button
-            background="secondary"
-            margin="0"
-            padding="5px 10px"
-            fontSize="1rem"
-            onClick={handleClick}
-          >
-            Reenviar email
-          </Button>
-        </VerifyEmailBanner>
-      )}
+    <NavbarContainer isBanner={isBanner}>
       <NavbarDiv logged={isUser} transparent={transparent}>
-        <HiddenLogo>
+        <FullLogo>
           <Link href="/" passHref>
             <a
               style={{
@@ -268,9 +219,9 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
               />
             </a>
           </Link>
-        </HiddenLogo>
+        </FullLogo>
 
-        <HiddenLogo inverted>
+        <SmallLogo>
           <Link href="/" passHref>
             <a
               style={{
@@ -288,19 +239,19 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
               />
             </a>
           </Link>
-        </HiddenLogo>
+        </SmallLogo>
 
         <SearchBox />
-        <HiddenElement>
+        <HiddenElement1500>
           <Link href="/universities" passHref>
             <A textAlign="center">Universidades</A>
           </Link>
-        </HiddenElement>
-        <HiddenElement>
+        </HiddenElement1500>
+        <HiddenElement1500>
           <Link href="/info" passHref>
             <A textAlign="center">Información</A>
           </Link>
-        </HiddenElement>
+        </HiddenElement1500>
 
         {isUser ? (
           <>
@@ -309,13 +260,13 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
               setShowMenu={setShowMenu}
               ref={userRef}
             />
-            <HiddenElement>
+            <HiddenElement1500>
               <Link href="/upload" passHref>
                 <Button margin="0" width="100%">
                   Subir
                 </Button>
               </Link>
-            </HiddenElement>
+            </HiddenElement1500>
           </>
         ) : (
           <>
@@ -338,10 +289,10 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
             </HiddenRegister>
           </>
         )}
-        <HiddenButton
+        <MobileBurgerMenuIcon
           ref={buttonRef}
           logged={isUser}
-          emailVerified={user != null ? user.emailVerified : true}
+          isBanner={isBanner}
           onClick={() => {
             setShowMenu(state => !state)
           }}
@@ -353,7 +304,7 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
             height="2rem"
             width="2rem"
           />
-        </HiddenButton>
+        </MobileBurgerMenuIcon>
         <NavbarMenu
           showMenu={showMenu}
           setShowMenu={setShowMenu}

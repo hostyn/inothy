@@ -1,7 +1,6 @@
-import Img from '@ui/Img'
-import Text from '@ui/Text'
 import { colors } from '@config/theme'
 import { useAuth } from '@context/authContext'
+import { Img, Text } from '@ui'
 import type { Dispatch, ForwardedRef, SetStateAction } from 'react'
 import { forwardRef } from 'react'
 import styled from 'styled-components'

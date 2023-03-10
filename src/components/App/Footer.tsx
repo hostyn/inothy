@@ -1,10 +1,7 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 import { colors, sizes } from '@config/theme'
-import A from '@ui/A'
-import Img from '@ui/Img'
-import Text from '@ui/Text'
-import Flex from '@components/ui/Flex'
+import { A, Flex, Img, Text } from '@ui'
 
 interface RRSButtonProps {
   background?: keyof typeof colors
