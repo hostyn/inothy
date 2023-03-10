@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { type ForwardedRef, forwardRef } from 'react'
 import styled from 'styled-components'
 
 interface ImageDivProps {
@@ -30,20 +31,23 @@ const ImageDiv = styled.div<ImageDivProps>`
   user-select: none;
 `
 
-export default function Img({
-  src,
-  alt,
-  width,
-  height,
-  aspectRatio,
-  margin,
-  onClick,
-  cursor,
-  className,
-  priority,
-  alignSelf,
-  title,
-}: ImgProps): JSX.Element {
+function Img(
+  {
+    src,
+    alt,
+    width,
+    height,
+    aspectRatio,
+    margin,
+    onClick,
+    cursor,
+    className,
+    priority,
+    alignSelf,
+    title,
+  }: ImgProps,
+  ref: ForwardedRef<HTMLDivElement>
+): JSX.Element {
   return (
     <ImageDiv
       className={className}
@@ -55,6 +59,7 @@ export default function Img({
       cursor={cursor}
       alignSelf={alignSelf}
       title={title}
+      ref={ref}
     >
       <Image
         src={src}
@@ -66,3 +71,5 @@ export default function Img({
     </ImageDiv>
   )
 }
+
+export default forwardRef(Img)

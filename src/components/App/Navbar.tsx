@@ -91,7 +91,7 @@ const NavbarDiv = styled.div<NavbarDivProps>`
   }
 `
 
-const HiddenElement1500 = styled.div`
+const HiddenNavbarAnchor = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
@@ -106,6 +106,8 @@ const FullLogo = styled.div`
   display: grid;
   width: 100%;
   height: 100%;
+
+  align-items: center;
 
   @media (max-width: 1000px) {
     display: none;
@@ -202,56 +204,46 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
   return (
     <NavbarContainer isBanner={isBanner}>
       <NavbarDiv logged={isUser} transparent={transparent}>
+        {/* LOGOS */}
         <FullLogo>
           <Link href="/" passHref>
-            <a
-              style={{
-                height: '100%',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              <Img
-                src="/imagotipo-beta.svg"
-                alt="Logo"
-                height="150%"
-                cursor="pointer"
-              />
-            </a>
+            <Img
+              src="/imagotipo-beta.svg"
+              alt="Logo"
+              height="150%"
+              cursor="pointer"
+            />
           </Link>
         </FullLogo>
 
         <SmallLogo>
           <Link href="/" passHref>
-            <a
-              style={{
-                height: '100%',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              <Img
-                src="/logo.svg"
-                alt="Logo"
-                height="150%"
-                cursor="pointer"
-                priority
-              />
-            </a>
+            <Img
+              src="/logo.svg"
+              alt="Logo"
+              height="150%"
+              cursor="pointer"
+              priority
+            />
           </Link>
         </SmallLogo>
 
+        {/* SEARCH BOX */}
         <SearchBox />
-        <HiddenElement1500>
+
+        {/* UNIVERSIDADES LINK */}
+        <HiddenNavbarAnchor>
           <Link href="/universities" passHref>
             <A textAlign="center">Universidades</A>
           </Link>
-        </HiddenElement1500>
-        <HiddenElement1500>
+        </HiddenNavbarAnchor>
+
+        {/* INFORMACIÓN LINK */}
+        <HiddenNavbarAnchor>
           <Link href="/info" passHref>
             <A textAlign="center">Información</A>
           </Link>
-        </HiddenElement1500>
+        </HiddenNavbarAnchor>
 
         {isUser ? (
           <>
@@ -260,13 +252,13 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
               setShowMenu={setShowMenu}
               ref={userRef}
             />
-            <HiddenElement1500>
+            <HiddenNavbarAnchor>
               <Link href="/upload" passHref>
                 <Button margin="0" width="100%">
                   Subir
                 </Button>
               </Link>
-            </HiddenElement1500>
+            </HiddenNavbarAnchor>
           </>
         ) : (
           <>
@@ -289,6 +281,8 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
             </HiddenRegister>
           </>
         )}
+
+        {/* BURGER BUTTON IN MOBILE */}
         <MobileBurgerMenuIcon
           ref={buttonRef}
           logged={isUser}
@@ -305,6 +299,8 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
             width="2rem"
           />
         </MobileBurgerMenuIcon>
+
+        {/* NAVBAR MENU */}
         <NavbarMenu
           showMenu={showMenu}
           setShowMenu={setShowMenu}
