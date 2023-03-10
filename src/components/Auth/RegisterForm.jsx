@@ -1,13 +1,11 @@
 import styled from 'styled-components'
-import Input from '@ui/Input'
-import Text from '@ui/Text'
-import Button from '@ui/Button'
 import { useState } from 'react'
-import { useAuth } from '../../context/authContext'
-import { useModal } from '../../context/modalContext'
 import Welcome from './Welcome'
-import { addReferral, sendVerificationEmail } from '../../util/api'
-import { colors } from '../../config/theme'
+import { colors } from '@config/theme'
+import { useAuth } from '@context/authContext'
+import { useModal } from '@context/modalContext'
+import { addReferral, sendVerificationEmail } from '@util/api'
+import { Button, Input, Text } from '@ui'
 
 const Form = styled.form`
   text-align: center;

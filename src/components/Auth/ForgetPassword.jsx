@@ -1,10 +1,8 @@
+import { Button, Input, Text } from '@ui'
+import { sendResetPasswordEmail } from '@util/api'
 import { useState } from 'react'
 import styled from 'styled-components'
 import { colors } from '../../config/theme'
-import { sendResetPasswordEmail } from '../../util/api'
-import Button from '@ui/Button'
-import Input from '@ui/Input'
-import Text from '@ui/Text'
 
 const ForgetPasswordDiv = styled.div`
   display: flex;

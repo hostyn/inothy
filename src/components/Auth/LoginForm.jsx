@@ -1,11 +1,8 @@
 import styled from 'styled-components'
-import Input from '@ui/Input'
-import Text from '@ui/Text'
-import A from '@ui/A'
-import Button from '@ui/Button'
 import { useState } from 'react'
-import { useModal } from '../../context/modalContext'
-import { useAuth } from '../../context/authContext'
+import { useAuth } from '@context/authContext'
+import { useModal } from '@context/modalContext'
+import { A, Button, Input, Text } from '@ui'
 
 const Form = styled.form`
   display: flex;

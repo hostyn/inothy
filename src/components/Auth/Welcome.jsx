@@ -1,8 +1,6 @@
-import Img from '@ui/Img'
+import { useModal } from '@context/modalContext'
+import { Img, Span, Text } from '@ui'
 import styled from 'styled-components'
-import Text from '@ui/Text'
-import Span from '@ui/Span'
-import { useModal } from '../../context/modalContext'
 
 const WelcomeDiv = styled.div`
   max-width: 100%;

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { colors } from '../../config/theme'
-import { getUniversities } from '../../util/api'
-import Img from '@ui/Img'
 import Loading from '../Loading'
-import { VirtualizedPage } from '../Carousel/VirtualizedPage'
+import { colors } from '@config/theme'
+import { getUniversities } from '@util/api'
+import { VirtualizedPage } from '@components/Carousel/VirtualizedPage'
+import { Img } from '@ui'
 
 const CarouselDiv = styled.div`
   width: 100%;

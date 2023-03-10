@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import styled from 'styled-components'
 import { colors } from '@config/theme'
-import Img from '@ui/Img'
+import Img from './Img'
 
 interface FormProps {
   border?: keyof typeof colors

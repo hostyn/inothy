@@ -1,6 +1,5 @@
+import { Img, Text } from '@ui'
 import styled from 'styled-components'
-import Img from '@ui/Img'
-import Text from '@ui/Text'
 
 const EmailSentDiv = styled.div`
   display: flex;
