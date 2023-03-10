@@ -39,7 +39,7 @@ const dropInAnimation = {
       duration: 0.3,
       type: 'spring',
       damping: 100,
-      stiffness: 500,
+      stiffness: 700,
     },
   },
   exit: {
