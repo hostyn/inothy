@@ -1,4 +1,5 @@
 import { type IncomingHttpHeaders } from 'http2'
+import { Toaster } from 'sonner'
 import { createGlobalStyle } from 'styled-components'
 import FacebookPixel from '../components/FacebookPixel'
 import TikTokPixel from '../components/TikTokPixel'
@@ -38,6 +39,14 @@ export default function Providers({
       <GlobalStyle />
       <TikTokPixel />
       <FacebookPixel />
+      <Toaster
+        position="top-right"
+        expand
+        richColors
+        visibleToasts={4}
+        closeButton
+        style={{ fontFamily: 'VarelaRound' }}
+      />
       <AuthProvider headers={headers}>
         <ModalProvider>{children}</ModalProvider>
       </AuthProvider>
