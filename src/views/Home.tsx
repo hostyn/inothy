@@ -1,16 +1,13 @@
 import App from '../components/App'
 import styled from 'styled-components'
 import { sizes } from '../config/theme'
-import Img from '@ui/Img'
-import Text from '@ui/Text'
-import Button from '@ui/Button'
-import Span from '@ui/Span'
 import { useModal } from '../context/modalContext'
 import AuthModal from '../components/Auth/AuthModal'
 import { useAuth } from '../context/authContext'
 import UniversitiesCarousel from '../components/UniversitiesCarousel/UniversitiesCarousel'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import SoonCarousel from '../components/SoonCarousel/SoonCarousel'
+import { Button, Img, Span, Text } from '@ui'
 
 const Home = styled.div`
   min-height: inherit;
