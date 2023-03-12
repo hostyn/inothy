@@ -4,6 +4,7 @@ interface FlexDivProps {
   flexDirection?: string
   margin?: string
   justifyContent?: string
+  alignItems?: string
 }
 
 interface FlexProps extends FlexDivProps {
@@ -15,6 +16,7 @@ const FlexDiv = styled.div<FlexDivProps>`
   flex-direction: ${props => props.flexDirection ?? 'column'};
   margin: ${props => props.margin ?? '0'};
   justify-content: ${props => props.justifyContent ?? 'flex-start'};
+  align-items: ${props => props.alignItems ?? 'flex-start'};
 `
 
 export default function Flex({ children, ...props }: FlexProps): JSX.Element {
