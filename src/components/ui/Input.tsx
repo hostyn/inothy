@@ -1,36 +1,104 @@
 import styled from 'styled-components'
 import { colors } from '@config/theme'
+import { type ChangeEvent, forwardRef } from 'react'
+import type {
+  FieldError,
+  FieldErrorsImpl,
+  Merge,
+  ChangeHandler,
+} from 'react-hook-form'
+import Text from './Text'
+import Img from './Img'
 
-interface InputProps {
-  fontFamily?: string
-  fontSize?: string
-  textAlign?: string
-  color?: string
-  padding?: string
-  margin?: string
-  border?: string
-  borderRadius?: string
-  width?: string
-}
+const InputDiv = styled.div`
+  position: relative;
+  margin: 10px 0;
+`
 
-const Input = styled.input<InputProps>`
-  font-family: ${props => props.fontFamily ?? 'VarelaRound'};
-  font-size: ${props => props.fontSize ?? '1rem'};
-  text-align: ${props => props.textAlign ?? 'left'};
-  color: ${props => props.color ?? 'initial'};
-  padding: ${props => props.padding ?? '10px'};
-  margin: ${props => props.margin ?? '0'};
-  border: ${props => props.border ?? `2px solid ${colors.primary}`};
-  border-radius: ${props => props.borderRadius ?? '10px'};
-  width: ${props => props.width ?? '100%'};
-  max-width: 100%;
-  outline: none;
+const Label = styled.label`
+  position: absolute;
+  bottom: 11px;
+  left: 10px;
+  transition: all 0.2s ease;
+  background-color: white;
+  pointer-events: none;
+  font-size: 1rem;
+  color: #8e8e8e;
+`
 
-  &:disabled {
-    opacity: 1;
-    color: ${colors.disabledColor};
-    background-color: ${colors.disabledBackground};
+const StyledInput = styled.input<{ error: boolean }>`
+  color: ${colors.primary};
+  border: ${props =>
+    props.error
+      ? `2px solid ${colors.secondary}`
+      : `2px solid ${colors.primary}`};
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+  font-family: VarelaRound;
+  font-size: 1rem;
+
+  :focus {
+    outline: none;
+  }
+
+  :focus + ${Label}, :not(:placeholder-shown) + ${Label} {
+    transform: translateY(-140%);
+    font-size: 0.9rem;
+    padding: 0 3px;
+    color: ${props => (props.error ? colors.secondary : colors.primary)};
   }
 `
 
-export default Input
+const ErrorDiv = styled.div`
+  width: 100%;
+  height: 0.9rem;
+  display: flex;
+  margin: 0 0 5px 0;
+`
+
+interface InputProps {
+  placeholder: string
+  onChange: (e: ChangeEvent<HTMLInputElement>) => any
+  onBlur: ChangeHandler
+  type: string
+  name: string
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
+}
+
+function Input(
+  { placeholder, error, ...props }: InputProps,
+  ref: React.Ref<any>
+): JSX.Element {
+  return (
+    <>
+      <InputDiv>
+        <StyledInput
+          {...props}
+          ref={ref}
+          title=""
+          placeholder=" "
+          error={error != null}
+        />
+        <Label>{placeholder}</Label>
+      </InputDiv>
+      <ErrorDiv>
+        {error != null && (
+          <>
+            <Img
+              src="/icons/info-error.svg"
+              width="1.1rem"
+              height="1.1rem"
+              margin="0 5px"
+            />
+            <Text margin="0 auto 0 0" color="secondary" fontSize="0.9rem">
+              {error?.message?.toString()}
+            </Text>
+          </>
+        )}
+      </ErrorDiv>
+    </>
+  )
+}
+
+export default forwardRef(Input)
