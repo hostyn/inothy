@@ -1,10 +1,8 @@
-import Img from '@ui/Img'
 import styled from 'styled-components'
-import Text from '@ui/Text'
-import App from '../components/App'
+import App from '@components/App'
 import Link from 'next/link'
-import A from '@ui/A'
 import Head from 'next/head'
+import { A, Img, Text } from '@ui'
 
 const NotFoundDiv = styled.div`
   display: flex;
