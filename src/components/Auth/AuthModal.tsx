@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import MotionDiv from '@components/MotionDiv'
 import { useModal } from '@context/modalContext'
-import { Img, Text } from '@ui'
+import { Flex, Img, Text } from '@ui'
 import styled from 'styled-components'
 import { colors } from '@config/theme'
 import { motion } from 'framer-motion'
@@ -11,14 +11,25 @@ import ForgetPassword from './ForgetPassword'
 import EmailError from './EmailError'
 import EmailSent from './EmailSent'
 
-const AuthDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+export type ModalState =
+  | 'login'
+  | 'register'
+  | 'forgetPassword'
+  | 'emailError'
+  | 'emailSent'
+
+interface AuthModalProps {
+  selected: ModalState
+}
+
+const Logo = styled(Img)`
+  @media (max-height: 750px) {
+    height: 15vh;
+    margin: 0 0 3vh 0;
+  }
 `
 
-const AuthForm = styled.div`
+const AuthDiv = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -32,16 +43,9 @@ const AuthForm = styled.div`
   }
 `
 
-const Logo = styled(Img)`
-  @media (max-height: 750px) {
-    height: 15vh;
-    margin: 0 0 3vh 0;
-  }
-`
-
-const SelectionDiv = styled.div`
+const TabsDiv = styled.div`
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: repeat(2, 1fr);
   border-bottom: 2px solid #dcdcdc;
   text-align: center;
 `
@@ -63,23 +67,13 @@ const Underline = styled(motion.div)`
   background: ${colors.secondary};
 `
 
-const Option = styled.div<{ selected: boolean }>`
+const Tab = styled.div<{ selected: boolean }>`
   cursor: pointer;
   display: flex;
   flex-direction: column;
   background-color: ${props => (props.selected ? '#eee' : 'transparent')};
   border-radius: 10px 10px 0 0;
 `
-type ModalState =
-  | 'login'
-  | 'register'
-  | 'forgetPassword'
-  | 'emailerror'
-  | 'emailsent'
-
-interface AuthModalProps {
-  selected: ModalState
-}
 
 export default function AuthModal({
   selected = 'login',
@@ -88,7 +82,7 @@ export default function AuthModal({
   const { closeModal } = useModal()
 
   return (
-    <AuthDiv>
+    <Flex justifyContent="center" alignItems="center">
       <Logo
         src="/imagotipo2.svg"
         width="100%"
@@ -96,10 +90,10 @@ export default function AuthModal({
         margin="0 0 3rem 0"
         onClick={closeModal}
       />
-      <AuthForm>
-        <SelectionDiv>
+      <AuthDiv>
+        <TabsDiv>
           <div>
-            <Option
+            <Tab
               onClick={() => {
                 setSelectedState('login')
               }}
@@ -108,18 +102,18 @@ export default function AuthModal({
               <Text
                 color="secondary"
                 textAlign="center"
-                fontSize="1.5rem"
+                fontSize="1.4rem"
                 margin="0.5rem 0 0.5rem 0"
                 userSelect="none"
                 cursor="pointer"
               >
-                Login
+                Iniciar Sesión
               </Text>
-            </Option>
+            </Tab>
             {selectedState === 'login' && <Underline layoutId="underline" />}
           </div>
           <div>
-            <Option
+            <Tab
               onClick={() => {
                 setSelectedState('register')
               }}
@@ -128,17 +122,17 @@ export default function AuthModal({
               <Text
                 color="secondary"
                 textAlign="center"
-                fontSize="1.5rem"
+                fontSize="1.4rem"
                 margin="0.5rem 0 0.5rem 0"
                 userSelect="none"
                 cursor="pointer"
               >
-                Register
+                Registrarse
               </Text>
-            </Option>
+            </Tab>
             {selectedState === 'register' && <Underline layoutId="underline" />}
           </div>
-        </SelectionDiv>
+        </TabsDiv>
         <StyledMotionDiv state={selectedState}>
           {selectedState === 'login' && (
             <LoginForm setState={setSelectedState} />
@@ -147,10 +141,10 @@ export default function AuthModal({
           {selectedState === 'forgetPassword' && (
             <ForgetPassword setState={setSelectedState} />
           )}
-          {selectedState === 'emailerror' && <EmailError />}
-          {selectedState === 'emailsent' && <EmailSent />}
+          {selectedState === 'emailError' && <EmailError />}
+          {selectedState === 'emailSent' && <EmailSent />}
         </StyledMotionDiv>
-      </AuthForm>
-    </AuthDiv>
+      </AuthDiv>
+    </Flex>
   )
 }
