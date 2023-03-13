@@ -79,7 +79,7 @@ export const ModalProvider = ({
   const closeModal = async (): Promise<unknown> => {
     window.document.body.classList.remove('modal-open')
     setShowModal(false)
-    return await new Promise(resolve => setTimeout(resolve, 330))
+    return await new Promise(resolve => setTimeout(resolve, 350))
   }
 
   return (
