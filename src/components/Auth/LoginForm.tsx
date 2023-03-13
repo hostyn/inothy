@@ -37,7 +37,7 @@ export default function LoginForm({ setState }: LoginFormProps): JSX.Element {
     formState: { errors },
     clearErrors,
     setError,
-  } = useForm<FormValues>({ mode: 'onSubmit' })
+  } = useForm<FormValues>({ mode: 'onBlur', reValidateMode: 'onBlur' })
 
   const handleForgetPassword = (): void => {
     setState('forgetPassword')
@@ -48,7 +48,6 @@ export default function LoginForm({ setState }: LoginFormProps): JSX.Element {
       await login(email, password)
       await closeModal()
     } catch (error) {
-      console.log(error.code)
       if (error.code === 'auth/wrong-password') {
         setError(
           'password',
@@ -64,7 +63,7 @@ export default function LoginForm({ setState }: LoginFormProps): JSX.Element {
         setError(
           'email',
           {
-            message: 'No hay ningun usuario registrado con este email.',
+            message: 'Usuario no encontrado.',
           },
           { shouldFocus: true }
         )
@@ -75,8 +74,7 @@ export default function LoginForm({ setState }: LoginFormProps): JSX.Element {
         setError(
           'email',
           {
-            message:
-              'Demasiados intentos, vuelve a intentarlo en unos segundos.',
+            message: 'Demasiados intentos, espera unos segundos.',
           },
           { shouldFocus: true }
         )
@@ -86,8 +84,7 @@ export default function LoginForm({ setState }: LoginFormProps): JSX.Element {
       setError(
         'email',
         {
-          message:
-            'Error, vuelve a intentalo mas tarde o contacta con el soporte.',
+          message: 'Error, vuelve a intentalo mas tarde.',
         },
         { shouldFocus: true }
       )
