@@ -19,7 +19,7 @@ export type ModalState =
   | 'emailSent'
 
 interface AuthModalProps {
-  selected: ModalState
+  selected?: ModalState
 }
 
 const Logo = styled(Img)`
@@ -73,6 +73,7 @@ const Tab = styled.div<{ selected: boolean }>`
   flex-direction: column;
   background-color: ${props => (props.selected ? '#eee' : 'transparent')};
   border-radius: 10px 10px 0 0;
+  transition: 0.1s;
 `
 
 export default function AuthModal({
