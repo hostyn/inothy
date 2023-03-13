@@ -134,7 +134,6 @@ const SmallLogo = styled.div`
 
 const MobileBurgerMenuIcon = styled.div<{
   logged: boolean
-  isBanner: boolean
 }>`
   display: none;
   justify-content: center;
@@ -151,11 +150,6 @@ const MobileBurgerMenuIcon = styled.div<{
     right: 5vw;
     min-height: 2rem;
     min-width: 2rem;
-    ${props =>
-      props.isBanner
-        ? `top: calc((${sizes.navbar} - 2rem) / 2);`
-        : `top: calc(((${sizes.navbar} - 2rem) / 2) + ${sizes.banner});`};
-
     display: flex;
   }
 `
@@ -286,7 +280,6 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
         <MobileBurgerMenuIcon
           ref={buttonRef}
           logged={isUser}
-          isBanner={isBanner}
           onClick={() => {
             setShowMenu(state => !state)
           }}
@@ -294,7 +287,6 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
           <Img
             src="/resources/navbar/menu.svg"
             alt="Menú"
-            aspectRatio="1"
             height="2rem"
             width="2rem"
           />
