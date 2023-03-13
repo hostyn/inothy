@@ -8,10 +8,11 @@ import {
   type UserCredential,
   type User as FirebaseUser,
 } from 'firebase/auth'
-import { getUserData } from '@util/api'
+import { getUserData, sendVerificationEmail } from '@util/api'
 import { useRouter } from 'next/router'
 import LoadingPage from '@components/LoadingPage'
 import { type IncomingHttpHeaders } from 'http2'
+import type { FirestoreUser } from 'types/firestore'
 
 interface User extends FirebaseUser {
   data?: FirestoreUser
@@ -76,7 +77,14 @@ export function AuthProvider({
     email: string,
     password: string
   ): Promise<UserCredential> => {
+    // Register referral if exists
+    // const ref = localStorage.getItem('ref')
+    // if (ref != null) await addReferral(ref)
+
+    // Regsiter user and send verification email
     const user = await createUserWithEmailAndPassword(auth, email, password)
+    void sendVerificationEmail()
+
     try {
       logEvent('sign_up')
     } catch {}
