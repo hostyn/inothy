@@ -6,7 +6,7 @@ import { A, Button, Img, Text } from '@ui'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import type { Dispatch, ForwardedRef, SetStateAction } from 'react'
-import { forwardRef } from 'react'
+import { forwardRef, useEffect } from 'react'
 import styled from 'styled-components'
 
 interface NavbarMenuProps {
@@ -91,6 +91,14 @@ function NavbarMenu(
 ): JSX.Element {
   const { isUser, logout } = useAuth()
   const { openModal } = useModal()
+
+  useEffect(() => {
+    if (showMenu) {
+      window.document.body.classList.add('modal-open')
+    } else {
+      window.document.body.classList.remove('modal-open')
+    }
+  }, [showMenu])
 
   return (
     <AnimatePresence>

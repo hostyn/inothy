@@ -12,7 +12,7 @@ import Img from './Img'
 
 const InputDiv = styled.div`
   position: relative;
-  margin: 10px 0;
+  margin: 10px 0 5px 0;
 `
 
 const Label = styled.label`
@@ -52,7 +52,7 @@ const StyledInput = styled.input<{ error: boolean }>`
 
 const ErrorDiv = styled.div`
   width: 100%;
-  height: calc(0.9rem + 5px);
+  height: calc(0.8rem + 5px);
   display: flex;
   padding: 0 0 5px 0;
 `
@@ -87,11 +87,11 @@ function Input(
           <>
             <Img
               src="/icons/info-error.svg"
-              width="1.1rem"
-              height="1.1rem"
+              width="1rem"
+              height="1rem"
               margin="0 5px"
             />
-            <Text margin="0 auto 0 0" color="secondary" fontSize="0.9rem">
+            <Text margin="0 auto 0 0" color="secondary" fontSize="0.8rem">
               {error?.message?.toString()}
             </Text>
           </>

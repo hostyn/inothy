@@ -1,19 +1,9 @@
-import styled from 'styled-components'
 import Welcome from './Welcome'
 import { useAuth } from '@context/authContext'
 import { useModal } from '@context/modalContext'
 import { Button, Input } from '@ui'
 import { useForm } from 'react-hook-form'
-
-const Form = styled.form`
-  text-align: center;
-  width: 100%;
-  padding: 0 5rem;
-
-  @media (max-width: 600px) {
-    padding: 0 10vw;
-  }
-`
+import Form from './components/Form'
 
 interface FormValues {
   email: string
@@ -100,10 +90,10 @@ export default function RegisterForm(): JSX.Element {
       />
 
       <Button
-        height="2.5rem"
-        padding="0 2rem"
+        height="auto"
+        padding="0.5rem 2rem"
         background="secondary"
-        margin="10px 0 0 0"
+        margin="10px auto 0 auto"
       >
         Registrarse
       </Button>

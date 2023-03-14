@@ -2,21 +2,8 @@ import { A, Button, Input } from '@ui'
 import { useAuth } from '@context/authContext'
 import { useModal } from '@context/modalContext'
 import { type ModalState } from './AuthModal'
-import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-
-  text-align: center;
-  width: 100%;
-  padding: 0 5rem;
-
-  @media (max-width: 600px) {
-    padding: 0 10vw;
-  }
-`
+import Form from './components/Form'
 
 interface LoginFormProps {
   setState: (state: ModalState) => any
