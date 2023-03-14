@@ -5,6 +5,7 @@ import { colors } from '@config/theme'
 import { getUniversities } from '@util/api'
 import { VirtualizedPage } from '@components/Carousel/VirtualizedPage'
 import { Img } from '@ui'
+import type { University } from 'types/api'
 
 const CarouselDiv = styled.div`
   width: 100%;
@@ -33,7 +34,6 @@ const Image = styled(Img)`
   border-radius: 99999px;
   border: 3px solid ${colors.primary};
   overflow: hidden;
-  cursor: pointer;
   transition: 0.2s;
 
   @media (max-width: 1280px) {
@@ -45,26 +45,30 @@ const Image = styled(Img)`
     height: 5rem;
     width: 5rem;
   }
-
-  :hover {
-    scale: 1.1;
-  }
 `
 
-export default function UniversitiesCarousel ({
+interface UniversitiesCarouselProps {
+  visualizedItems: number
+  paddingItems: number
+}
+
+export default function UniversitiesCarousel({
   visualizedItems = 2,
-  paddingItems = 2
-}) {
-  const [universities, setUniversities] = useState(null)
+  paddingItems = 2,
+}: UniversitiesCarouselProps): JSX.Element {
+  const [universities, setUniversities] = useState<University[] | null>(null)
 
   useEffect(() => {
-    getUniversities().then((universities) => setUniversities(universities))
+    getUniversities()
+      .then(universities => {
+        setUniversities(universities)
+      })
+      .catch(() => {})
   }, [])
 
   return (
     <CarouselDiv>
-      {universities
-        ? (
+      {universities != null ? (
         <VirtualizedPage
           visualizedItems={visualizedItems}
           paddingItems={paddingItems}
@@ -76,7 +80,6 @@ export default function UniversitiesCarousel ({
             return (
               <ImageDiv>
                 <Image
-                  draggable={false}
                   alt={universities[imageIndex].name}
                   title={universities[imageIndex].name}
                   src={universities[imageIndex].logoUrl}
@@ -85,10 +88,9 @@ export default function UniversitiesCarousel ({
             )
           }}
         </VirtualizedPage>
-          )
-        : (
+      ) : (
         <Loading />
-          )}
+      )}
     </CarouselDiv>
   )
 }
