@@ -264,6 +264,7 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
           <>
             <HiddenLogin
               margin="0"
+              background="primary"
               onClick={() => {
                 openModal(<AuthModal />)
               }}

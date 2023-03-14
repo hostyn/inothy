@@ -524,7 +524,11 @@ export async function sendResetPasswordEmail(email: string): Promise<void> {
     body: JSON.stringify({ email }),
   })
 
-  if (res.status === 200) return
+  if (res.status === 200) {
+    const json = (await res.json()) as { success: boolean; error: string }
+    if (json.success) return
+    throw new Error(json.error)
+  }
   throw new Error('error')
 }
 

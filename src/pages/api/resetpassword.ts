@@ -25,10 +25,11 @@ async function resetPassword(
       actionCodeSettings
     )
     await sendPasswordResetEmail(email, url)
-    res.status(200).json({ status: 'success' })
+    res.status(200).json({ success: true })
     return
-  } catch {
-    res.status(400).json({ success: false, error: 'error' })
+  } catch (e) {
+    console.log(e.code)
+    res.status(200).json({ success: false, error: e.code })
   }
 }
 

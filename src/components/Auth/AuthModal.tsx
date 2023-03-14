@@ -8,15 +8,9 @@ import { motion } from 'framer-motion'
 import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm'
 import ForgetPassword from './ForgetPassword'
-import EmailError from './EmailError'
 import EmailSent from './EmailSent'
 
-export type ModalState =
-  | 'login'
-  | 'register'
-  | 'forgetPassword'
-  | 'emailError'
-  | 'emailSent'
+export type ModalState = 'login' | 'register' | 'forgetPassword' | 'emailSent'
 
 interface AuthModalProps {
   selected?: ModalState
@@ -142,7 +136,6 @@ export default function AuthModal({
           {selectedState === 'forgetPassword' && (
             <ForgetPassword setState={setSelectedState} />
           )}
-          {selectedState === 'emailError' && <EmailError />}
           {selectedState === 'emailSent' && <EmailSent />}
         </StyledMotionDiv>
       </AuthDiv>
