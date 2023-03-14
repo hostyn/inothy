@@ -52,9 +52,9 @@ const StyledInput = styled.input<{ error: boolean }>`
 
 const ErrorDiv = styled.div`
   width: 100%;
-  height: 0.9rem;
+  height: calc(0.9rem + 5px);
   display: flex;
-  margin: 0 0 5px 0;
+  padding: 0 0 5px 0;
 `
 
 interface InputProps {
