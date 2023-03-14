@@ -14,7 +14,7 @@ const transition: AnimationOptions<number> = {
 }
 
 interface VisualizedPageCarousel {
-  children: JSX.Element[]
+  children: ({ index }: { index: number }) => JSX.Element
   visualizedItems: number
   paddingItems: number
 }

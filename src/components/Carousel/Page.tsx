@@ -5,7 +5,7 @@ interface PageProps {
   index: number
   x: MotionValue<number>
   visualizedItems: number
-  renderPage: any
+  renderPage: ({ index }: { index: number }) => JSX.Element
   onDragStart: (
     event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo

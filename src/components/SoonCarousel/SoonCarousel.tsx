@@ -72,30 +72,35 @@ const CardText = styled(Text)`
 const items = [
   {
     logo: '/resources/home/ratings.svg',
-    text: 'Valoraciones'
+    text: 'Valoraciones',
   },
   {
     logo: '/resources/home/comments.svg',
-    text: 'Comentarios'
+    text: 'Comentarios',
   },
   {
     logo: '/resources/home/maxprice.svg',
-    text: 'Cambio de precios tope'
+    text: 'Cambio de precios tope',
   },
   {
     logo: '/resources/home/report.svg',
-    text: 'Sistema de reportes'
+    text: 'Sistema de reportes',
   },
   {
     logo: '/resources/home/statistics.svg',
-    text: 'Estadísticas'
-  }
+    text: 'Estadísticas',
+  },
 ]
 
-export default function SoonCarousel ({
+interface SoonCarouselProps {
+  visualizedItems: number
+  paddingItems: number
+}
+
+export default function SoonCarousel({
   visualizedItems = 2,
-  paddingItems = 2
-}) {
+  paddingItems = 2,
+}: SoonCarouselProps): JSX.Element {
   return (
     <SoonCarouselDiv>
       <Title fontSize="3rem" color="white" fontFamily="HelveticaRounded">
