@@ -116,14 +116,7 @@ export default function LoginForm({ setState }: LoginFormProps): JSX.Element {
       >
         ¿Has olvidado tu contraseña?
       </A>
-      <Button
-        height="auto"
-        padding="0.5rem 2rem"
-        background="secondary"
-        margin="10px auto 0 auto"
-      >
-        Iniciar sesión
-      </Button>
+      <Button margin="10px auto 0 auto">Iniciar sesión</Button>
     </Form>
   )
 }

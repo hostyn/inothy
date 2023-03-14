@@ -89,14 +89,7 @@ export default function RegisterForm(): JSX.Element {
         placeholder="Repetir contraseña"
       />
 
-      <Button
-        height="auto"
-        padding="0.5rem 2rem"
-        background="secondary"
-        margin="10px auto 0 auto"
-      >
-        Registrarse
-      </Button>
+      <Button margin="10px auto 0 auto">Registrarse</Button>
     </Form>
   )
 }

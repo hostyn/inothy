@@ -248,7 +248,13 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
             />
             <HiddenNavbarAnchor>
               <Link href="/upload" passHref>
-                <Button margin="0" width="100%">
+                <Button
+                  margin="0"
+                  width="100%"
+                  height="100%"
+                  padding="auto"
+                  background="primary"
+                >
                   Subir
                 </Button>
               </Link>
