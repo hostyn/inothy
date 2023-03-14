@@ -1,45 +1,61 @@
-import { animate, motion, useMotionValue } from 'framer-motion'
+import {
+  type PanInfo,
+  type AnimationOptions,
+  animate,
+  motion,
+  useMotionValue,
+} from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { Page } from './Page'
 
-const transition = {
+const transition: AnimationOptions<number> = {
   type: 'spring',
-  bounce: 0
+  bounce: 0,
+}
+
+interface VisualizedPageCarousel {
+  children: JSX.Element[]
+  visualizedItems: number
+  paddingItems: number
 }
 
 export const VirtualizedPage = ({
   children,
   visualizedItems,
-  paddingItems
-}) => {
+  paddingItems,
+}: VisualizedPageCarousel): JSX.Element => {
   const range = [
-    ...[...Array(paddingItems).keys()].map((i) => i - paddingItems),
-    ...Array(visualizedItems).keys(),
-    ...[...Array(paddingItems).keys()].map((i) => i + visualizedItems)
+    ...[...Array(paddingItems)].map((i, index) => index - paddingItems),
+    ...[...Array(visualizedItems)].map((i, index) => index),
+    ...[...Array(paddingItems)].map((i, index) => index + visualizedItems),
   ]
 
   const x = useMotionValue(0)
-  const containerRef = useRef()
+  const containerRef = useRef<HTMLDivElement>(null)
   const [index, setIndex] = useState(0)
   const [dragging, setDragging] = useState(false)
 
-  const calculateNewX = () =>
+  const calculateNewX = (): number =>
     -index *
-    (containerRef.current?.clientWidth
+    (containerRef.current?.clientWidth != null
       ? containerRef.current?.clientWidth / visualizedItems
       : 0)
 
-  const handleDragStart = () => {
+  const handleDragStart = (): void => {
     setDragging(true)
   }
 
-  const handleEndDrag = (e, dragProps) => {
+  const handleEndDrag = (
+    event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo
+  ): void => {
     setDragging(false)
-    const clientWidth = containerRef.current?.clientWidth
-      ? containerRef.current?.clientWidth / visualizedItems
-      : 0
+    const clientWidth =
+      containerRef.current?.clientWidth != null
+        ? containerRef.current?.clientWidth / visualizedItems
+        : 0
 
-    const { offset, velocity } = dragProps
+    const { offset, velocity } = info
 
     if (Math.abs(velocity.y) > Math.abs(velocity.x)) {
       animate(x, calculateNewX(), transition)
@@ -55,7 +71,7 @@ export const VirtualizedPage = ({
       return
     }
 
-    setIndex((index) => (offset.x < 0 ? index + shift : index - shift))
+    setIndex(index => (offset.x < 0 ? index + shift : index - shift))
   }
 
   useEffect(() => {
@@ -66,8 +82,13 @@ export const VirtualizedPage = ({
   useEffect(() => {
     const interval = dragging
       ? null
-      : setInterval(() => setIndex((index) => index + 1), 5000)
-    return () => clearInterval(interval)
+      : setInterval(() => {
+          setIndex(index => index + 1)
+        }, 5000)
+
+    return () => {
+      if (interval != null) clearInterval(interval)
+    }
   }, [dragging])
 
   return (
@@ -77,10 +98,10 @@ export const VirtualizedPage = ({
         position: 'relative',
         width: '100%',
         height: '100%',
-        overflowX: 'hidden'
+        overflowX: 'hidden',
       }}
     >
-      {range.map((rangeValue) => {
+      {range.map(rangeValue => {
         return (
           <Page
             key={rangeValue + index}

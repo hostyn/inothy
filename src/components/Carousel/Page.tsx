@@ -1,5 +1,20 @@
-import { motion } from 'framer-motion'
+import { motion, type MotionValue, type PanInfo } from 'framer-motion'
 import { useMemo } from 'react'
+
+interface PageProps {
+  index: number
+  x: MotionValue<number>
+  visualizedItems: number
+  renderPage: any
+  onDragStart: (
+    event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo
+  ) => void
+  onDragEnd: (
+    event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo
+  ) => void
+}
 
 export const Page = ({
   index,
@@ -7,8 +22,8 @@ export const Page = ({
   x,
   onDragEnd,
   visualizedItems,
-  onDragStart
-}) => {
+  onDragStart,
+}: PageProps): JSX.Element => {
   const child = useMemo(() => renderPage({ index }), [index, renderPage])
 
   return (
@@ -19,7 +34,7 @@ export const Page = ({
         height: '100%',
         x,
         left: `${(index * 100) / visualizedItems}%`,
-        right: `${(index * 100) / visualizedItems}%`
+        right: `${(index * 100) / visualizedItems}%`,
       }}
       draggable
       drag="x"
