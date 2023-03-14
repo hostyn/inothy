@@ -28,7 +28,11 @@ const LoadingDiv = styled.div`
   }
 `
 
-export default function Loading ({ className }) {
+export default function Loading({
+  className,
+}: {
+  className?: string
+}): JSX.Element {
   return (
     <LoadingDiv className={className}>
       {/* <Logo src="/logo.svg" /> */}
