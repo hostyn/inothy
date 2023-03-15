@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import ProtectedContent from '../../components/ProtectedContent'
-import BalanceView from '../../views/Account/Balance'
+import ProtectedContent from '@components/ProtectedContent'
+import BalanceView from '@views/Account/Balance'
 
-export default function Balance () {
+export default function Balance(): JSX.Element {
   return (
     <>
       <Head>

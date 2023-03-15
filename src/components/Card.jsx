@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import styled from 'styled-components'
-import { colors } from '../config/theme'
-import Img from '@ui/Img'
-import Text from '@ui/Text'
+import { colors } from '@config/theme'
+import {Img} from '@ui'
 
 const CardDiv = styled.div`
   display: grid;

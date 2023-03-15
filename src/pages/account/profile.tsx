@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import ProtectedContent from '../../components/ProtectedContent'
-import ProfileView from '../../views/Account/Profile'
+import ProtectedContent from '@components/ProtectedContent'
+import ProfileView from '@views/Account/Profile'
 
-export default function Profile () {
+export default function Profile(): JSX.Element {
   return (
     <>
       <Head>

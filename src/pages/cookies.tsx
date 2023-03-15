@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import CookiesView from '../views/CookiesView'
+import CookiesView from '@views/CookiesView'
 
-export default function Cookies () {
+export default function Cookies(): JSX.Element {
   return (
     <>
       <Head>

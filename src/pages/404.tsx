@@ -13,7 +13,7 @@ const NotFoundDiv = styled.div`
   min-width: 100vw;
 `
 
-export default function notFound () {
+export default function notFound(): JSX.Element {
   return (
     <>
       <Head>

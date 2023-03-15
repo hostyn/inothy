@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import ProtectedContent from '../../components/ProtectedContent'
-import DownloadsView from '../../views/Account/Downloads'
+import ProtectedContent from '@components/ProtectedContent'
+import DownloadsView from '@views/Account/Downloads'
 
-export default function Downloads () {
+export default function Downloads(): JSX.Element {
   return (
     <>
       <Head>

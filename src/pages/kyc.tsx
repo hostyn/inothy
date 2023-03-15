@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import ProtectedContent from '../components/ProtectedContent'
-import KYCView from '../views/KYC/KYCView'
+import ProtectedContent from '@components/ProtectedContent'
+import KYCView from '@views/KYC/KYCView'
 
-export default function KYC () {
+export default function KYC(): JSX.Element {
   return (
     <>
       <Head>

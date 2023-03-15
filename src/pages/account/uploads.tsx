@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import ProtectedContent from '../../components/ProtectedContent'
-import UploadsView from '../../views/Account/Uploads'
+import ProtectedContent from '@components/ProtectedContent'
+import UploadsView from '@views/Account/Uploads'
 
-export default function Uploads () {
+export default function Uploads(): JSX.Element {
   return (
     <>
       <Head>

@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import HomeView from '../views/Home'
+import HomeView from '@views/Home'
 
-export default function Home () {
+export default function Home(): JSX.Element {
   return (
     <>
       <Head>

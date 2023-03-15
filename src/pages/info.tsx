@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import InfoView from '../views/Info'
+import InfoView from '@views/Info'
 
-export default function Info () {
+export default function Info(): JSX.Element {
   return (
     <>
       <Head>

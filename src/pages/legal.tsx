@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import LegalView from '../views/LegalView'
+import LegalView from '@views/LegalView'
 
-export default function Legal () {
+export default function Legal(): JSX.Element {
   return (
     <>
       <Head>

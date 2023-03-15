@@ -1,10 +1,23 @@
 import { applyActionCode, verifyPasswordResetCode } from 'firebase/auth'
+import { type GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { auth } from '../config/firebase'
-import ResetPassword from '../views/ResetPassword'
-import VerifyEmail from '../views/VerifyEmail'
+import { auth } from '@config/firebase'
+import ResetPassword from '@views/ResetPassword'
+import VerifyEmail from '@views/VerifyEmail'
 
-export default function VerifyEmailPage ({ mode, verified, oobCode, email }) {
+interface VerifyEmailPageProps {
+  mode: 'verifyEmail' | 'resetPassword'
+  verified: boolean
+  oobCode: string
+  email: string
+}
+
+export default function VerifyEmailPage({
+  mode,
+  verified,
+  oobCode,
+  email,
+}: VerifyEmailPageProps): JSX.Element {
   switch (mode) {
     case 'verifyEmail':
       return (
@@ -29,10 +42,15 @@ export default function VerifyEmailPage ({ mode, verified, oobCode, email }) {
   }
 }
 
-export async function getServerSideProps (context) {
+export const getServerSideProps: GetServerSideProps = async context => {
   const {
-    query: { oobCode, mode }
+    query: { oobCode, mode },
   } = context
+
+  if (typeof oobCode !== 'string') {
+    return { redirect: { permanent: false, destination: '/' } }
+  }
+
   switch (mode) {
     case 'verifyEmail':
       try {
