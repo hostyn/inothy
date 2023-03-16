@@ -1,16 +1,19 @@
-import App from '../components/App'
+import App from '@components/App'
 import styled from 'styled-components'
-import { colors, sizes } from '../config/theme'
-import Text from '@ui/Text'
-import Img from '@ui/Img'
+import { colors, sizes } from '@config/theme'
 import { useState } from 'react'
 import Link from 'next/link'
-import Loading from '../components/Loading'
-import { getSubject } from '../util/api'
-import Button from '@ui/Button'
-import { useAuth } from '../context/authContext'
-import A from '@ui/A'
-import DocumentGridCard from '../components/DocumentGridCard'
+import Loading from '@components/Loading'
+import { getSubject } from '@util/api'
+import { useAuth } from '@context/authContext'
+import DocumentGridCard from '@components/DocumentGridCard'
+import { A, Button, Img, Text } from '@ui'
+import type {
+  DegreeWithDocuments,
+  SubjectWithDocuments,
+  SubjectWithDocumentsAndUniveristy,
+  University,
+} from 'types/api'
 
 const DegreeDiv = styled.div`
   display: flex;
@@ -91,20 +94,20 @@ const FlexColumn = styled.div`
   justify-content: center;
 `
 
-const YearSelector = styled.div`
+const YearSelector = styled.div<{ years: number }>`
   display: grid;
   border-radius: 9999999px;
   background-color: ${colors.disabledBackground};
   margin: 1rem auto;
   gap: 0.5rem;
 
-  ${(props) => `
+  ${props => `
   grid-template-columns: repeat(${props.years}, 2.5rem);
 
   `};
 `
 
-const YearButton = styled.p`
+const YearButton = styled.p<{ selected: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,8 +115,8 @@ const YearButton = styled.p`
   width: 2.5rem;
   height: 2.5rem;
   font-size: 1.5rem;
-  color: ${(props) => (props.selected ? colors.white : 'inherit')};
-  background-color: ${(props) =>
+  color: ${props => (props.selected ? colors.white : colors.primary)};
+  background-color: ${props =>
     props.selected ? colors.primary : 'transparent'};
   border-radius: 999999px;
   cursor: pointer;
@@ -121,7 +124,7 @@ const YearButton = styled.p`
   transition: 0.2s;
 
   :hover {
-    ${(props) =>
+    ${props =>
       props.selected ? 'initial' : `background-color: ${colors.hover}`};
   }
 `
@@ -149,21 +152,32 @@ const SubjectTitle = styled(A)`
   }
 `
 
-export default function DegreePage ({ degree }) {
+interface DegreeProps extends DegreeWithDocuments {
+  school: { id: string; name: string }
+  university: University
+}
+
+export default function DegreePage({
+  degree,
+}: {
+  degree: DegreeProps
+}): JSX.Element {
   const { user } = useAuth()
   const [yearSelected, setYearSelected] = useState(1)
-  const [yearPage, setYearPage] = useState({
-    1: loadDocs(degree.subjects.filter((subject) => subject.year === 1))
+  const [yearPage, setYearPage] = useState<any>({
+    1: loadDocs(degree.subjects.filter(subject => subject.year === 1)),
   })
 
-  function loadDocs (subjects) {
+  function loadDocs(
+    subjects: SubjectWithDocumentsAndUniveristy[] | SubjectWithDocuments[]
+  ): JSX.Element[] {
     return subjects
-      .map((subject) => ({
+      .map(subject => ({
         ...subject,
-        docs: subject.docs.filter((doc) => doc.createdBy !== user?.uid)
+        docs: subject.docs.filter(doc => doc.createdBy !== user?.uid),
       }))
-      .filter((subject) => subject.docs.length)
-      .map((subject) => (
+      .filter(subject => subject.docs.length)
+      .map(subject => (
         <div
           key={subject.id}
           style={{ display: 'flex', flexDirection: 'column' }}
@@ -176,11 +190,11 @@ export default function DegreePage ({ degree }) {
               color="primary"
               width="fit-content"
             >
-              {subject.name} {subject.code && `(${subject.code})`}
+              {subject.name} {subject.code.length > 0 && `(${subject.code})`}
             </SubjectTitle>
           </Link>
           <CardGrid>
-            {subject.docs.map((doc) => (
+            {subject.docs.map(doc => (
               <DocumentGridCard
                 key={doc.id}
                 href={`/subject/${subject.id}/${doc.id}`}
@@ -192,22 +206,21 @@ export default function DegreePage ({ degree }) {
       ))
   }
 
-  const handleClick = async (year) => {
+  const handleClick = async (year: number): Promise<void> => {
     setYearSelected(year)
-    if (
-      !(
-        yearPage[year] == null
-      )
-    ) { return }
+    if (!(yearPage[year] == null)) {
+      return
+    }
 
-    const subjectsPromises = degree.subjects
-      .filter((subject) => subject.year === year)
-      .map((subject) => getSubject(subject.id))
+    const subjectsData = await Promise.all(
+      degree.subjects
+        .filter(subject => subject.year === year)
+        .map(async subject => await getSubject(subject.id))
+    )
 
-    const subjectsData = await Promise.all(subjectsPromises)
-    setYearPage((yearPage) => ({
+    setYearPage((yearPage: any) => ({
       ...yearPage,
-      [year]: loadDocs(subjectsData)
+      [year]: loadDocs(subjectsData),
     }))
   }
 
@@ -233,25 +246,23 @@ export default function DegreePage ({ degree }) {
           </FlexColumn>
         </Title>
         <YearSelector years={degree.years}>
-          {[...Array(degree.years).keys()].map((year) => (
+          {[...Array(degree.years)].map((i, index) => (
             <YearButton
-              key={year + 1}
-              selected={year + 1 === yearSelected}
-              value={year + 1}
-              onClick={() => handleClick(year + 1)}
+              key={index + 1}
+              selected={index + 1 === yearSelected}
+              onClick={async () => {
+                await handleClick(index + 1)
+              }}
             >
-              {year + 1}º
+              {index + 1}º
             </YearButton>
           ))}
         </YearSelector>
-        {!yearPage[yearSelected]
-          ? (
+        {yearPage[yearSelected] == null ? (
           <LoadingDiv>
             <Loading />
           </LoadingDiv>
-            )
-          : !yearPage[yearSelected].length
-              ? (
+        ) : yearPage[yearSelected].length === 0 ? (
           <>
             <Text textAlign="center" fontSize="1.5rem" margin="2rem 0 1rem 0">
               Todavía no se han subido documentos de este curso.
@@ -270,10 +281,9 @@ export default function DegreePage ({ degree }) {
               </Button>
             </Link>
           </>
-                )
-              : (
-                  yearPage[yearSelected]
-                )}
+        ) : (
+          yearPage[yearSelected]
+        )}
       </DegreeDiv>
     </App>
   )
