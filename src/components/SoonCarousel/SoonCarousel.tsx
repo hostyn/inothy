@@ -93,8 +93,8 @@ const items = [
 ]
 
 interface SoonCarouselProps {
-  visualizedItems: number
-  paddingItems: number
+  visualizedItems?: number
+  paddingItems?: number
 }
 
 export default function SoonCarousel({
