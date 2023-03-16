@@ -1,22 +1,15 @@
-import { getDownloadURL, ref } from 'firebase/storage'
-import { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import A from '@ui/A'
-import App from '../components/App'
-import AuthModal from '../components/Auth/AuthModal'
-import Button from '@ui/Button'
-import Img from '@ui/Img'
-import Pdf from '../components/Pdf'
-import Span from '@ui/Span'
-import Text from '@ui/Text'
-import { logEvent, storage } from '../config/firebase'
-import { colors, sizes } from '../config/theme'
-import { useAuth } from '../context/authContext'
-import { useModal } from '../context/modalContext'
-import { getDownloadUrl } from '../util/api'
-import mimeTypes from '../util/mimeTypes'
-import { currencyFormatter } from '../util/normailize'
-import Payment from './Payment/Payment'
+import App from '@components/App'
+import AuthModal from '@components/Auth/AuthModal'
+import { colors, sizes } from '@config/theme'
+import { useAuth } from '@context/authContext'
+import { useModal } from '@context/modalContext'
+import { getDownloadUrl } from '@util/api'
+import { currencyFormatter } from '@util/normailize'
+import Payment from '../Payment/Payment'
+import { A, Button, Flex, Img, Span, Text, Title } from '@ui'
+import type { FullDocumentInfo } from 'types/api'
+import Preview from './components/Preview'
 
 const DocumentDiv = styled.div`
   display: flex;
@@ -29,19 +22,6 @@ const DocumentDiv = styled.div`
 
   @media (max-width: 1000px) {
     margin: 2rem;
-  }
-`
-
-const Title = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 0 1rem 0;
-`
-
-const TitleText = styled(Text)`
-  @media (max-width: 768px) {
-    font-size: 2rem;
   }
 `
 
@@ -111,7 +91,7 @@ const CloseButton = styled.button`
   font-weight: bold;
   background-color: transparent;
   border: none;
-  font-family: "VarelaRound";
+  font-family: 'VarelaRound';
   color: ${colors.primary};
   position: absolute;
   top: 1.5rem;
@@ -120,33 +100,6 @@ const CloseButton = styled.button`
 
   @media (max-width: 768px) {
     display: flex;
-  }
-`
-
-const StyledPdf = styled(Pdf)`
-  width: 100%;
-
-  @media (max-width: 768px) {
-    width: calc(100vw - 4rem);
-  }
-`
-
-const NoPreviewDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid ${colors.primary};
-  width: 25vw;
-  height: calc(25vw * 25 / 19);
-
-  @media (max-width: 1200px) {
-    width: 40vw;
-    height: calc(40vw * 25 / 19);
-  }
-
-  @media (max-width: 768px) {
-    width: calc(100vw - 4rem);
-    height: calc((100vw - 4rem) * 25 / 19);
   }
 `
 
@@ -168,43 +121,31 @@ const StyledDescription = styled(Text)`
   white-space: pre-line;
 `
 
-const NoPreview = ({ mimeType }) => {
-  return (
-    <NoPreviewDiv>
-      <Img
-        src={`/icons/files/${mimeTypes[mimeType] || 'file.svg'}`}
-        width="50%"
-        height="100%"
-      />
-    </NoPreviewDiv>
-  )
+interface DocumentPageProps {
+  documentData: FullDocumentInfo
 }
 
-export default function DocumentPage ({ documentData }) {
+export default function DocumentPage({
+  documentData,
+}: DocumentPageProps): JSX.Element {
   const { openModal, closeModal } = useModal()
   const { user } = useAuth()
 
   const isDiscountActive = new Date() < new Date('07-01-2023')
 
-  const [previewUrl, setPreviewUrl] = useState(null)
-
-  const handleBuy = async () => {
-    user
+  const handleBuy = async (): Promise<void> => {
+    user != null
       ? openModal(
           <PaymentModal>
             <CloseButton onClick={closeModal}>X</CloseButton>
             <Payment documents={[documentData]} onSuccess={closeModal} />
           </PaymentModal>
-      )
+        )
       : openModal(<AuthModal />)
   }
 
-  const handleDownload = async () => {
-    const { url } = await getDownloadUrl(
-      user,
-      documentData.subjectId,
-      documentData.docId
-    )
+  const handleDownload = async (): Promise<void> => {
+    const url = await getDownloadUrl(documentData.subject.id, documentData.id)
 
     const response = await fetch(url)
     const blob = await response.blob()
@@ -217,50 +158,27 @@ export default function DocumentPage ({ documentData }) {
     URL.revokeObjectURL(href)
   }
 
-  useEffect(() => {
-    if (documentData.preview) {
-      const fileRef = ref(
-        storage,
-        `previews/${documentData.subjectId}/${documentData.docId}.pdf`
-      )
-      getDownloadURL(fileRef).then((url) => {
-        setPreviewUrl(url)
-      })
-    }
-  }, [documentData])
-
-  useEffect(() => {
-    try {
-      logEvent('view_item', {
-        item: documentData.subjectId + '/' + documentData.docId
-      })
-    } catch {}
-  }, [documentData])
-
   return (
     <App>
       <DocumentDiv>
-        <Title>
-          <TitleText
-            fontSize="4vw"
+        <Flex
+          justifyContent="space-between"
+          flexDirection="row"
+          alignItems="center"
+          margin="0 0 1rem 0"
+        >
+          <Title
+            fontSize="max(2rem, 4vw)"
             fontWeight="bold"
             fontFamily="HelveticaRounded"
             color="secondary"
           >
             Documento
-          </TitleText>
+          </Title>
           <TitleImg src="/icons/document.svg" />
-        </Title>
+        </Flex>
         <DocumentBody>
-          {documentData.preview && previewUrl
-            ? (
-            <StyledPdf
-              file={previewUrl}
-              loading={<NoPreview mimeType={documentData.contentType} />}
-            />
-              )
-            : <NoPreview mimeType={documentData.contentType} />
-            }
+          <Preview documentData={documentData} />
           <DataGrid>
             <VerticalAlign>
               <Text color="secondary" fontSize="1.2rem" fontWeight="bold">
@@ -295,15 +213,17 @@ export default function DocumentPage ({ documentData }) {
                 fontSize="4rem"
                 margin="0.5rem 0 2rem 0"
                 title={
-                  user?.data?.badge.includes('ambassador')
+                  user?.data?.badge?.includes('ambassador') != null
                     ? 'Descuento embajador'
                     : 'Precio'
                 }
               >
                 {currencyFormatter.format(
-                  user?.data?.badge.includes('ambassador')
+                  user?.data?.badge?.includes('ambassador') != null
                     ? documentData.price * 0.8
-                    : isDiscountActive ? documentData.price * 0.9 : documentData.price
+                    : isDiscountActive
+                    ? documentData.price * 0.9
+                    : documentData.price
                 )}
                 <Span
                   fontSize="2rem"
@@ -312,14 +232,14 @@ export default function DocumentPage ({ documentData }) {
                   textDecoration="line-through"
                   title="Descuento de embajador"
                 >
-                  {user?.data?.badge.includes('ambassador') | isDiscountActive &&
-                    currencyFormatter.format(documentData.price)}
+                  {user?.data?.badge?.includes('ambassador') != null ||
+                    (isDiscountActive &&
+                      currencyFormatter.format(documentData.price))}
                 </Span>
               </Text>
               {user?.data?.bought?.includes(
-                documentData.subjectId + '/' + documentData.docId
-              )
-                ? (
+                documentData.subject.id + '/' + documentData.id
+              ) != null ? (
                 <Button
                   margin="0"
                   height="auto"
@@ -329,8 +249,7 @@ export default function DocumentPage ({ documentData }) {
                 >
                   Descargar
                 </Button>
-                  )
-                : (
+              ) : (
                 <Button
                   margin="0"
                   height="auto"
@@ -341,7 +260,7 @@ export default function DocumentPage ({ documentData }) {
                 >
                   Comprar
                 </Button>
-                  )}
+              )}
             </VerticalAlign>
           </DataGrid>
         </DocumentBody>

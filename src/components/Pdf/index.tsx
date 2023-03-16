@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { Document, Page } from 'react-pdf'
 import styled from 'styled-components'
-import { colors } from '../config/theme'
-import Loading from './Loading'
-import Text from '@ui/Text'
+import { colors } from '@config/theme'
+import Loading from '@components/Loading'
+import { Flex, Text } from '@ui'
 
-const StyledLoading = styled(Loading)`
-  height: ${(props) => `${props.height}px`};
+const StyledLoading = styled(Loading)<{ height: string }>`
+  height: ${props => `${props.height}px`};
 `
 
 const Button = styled.button`
@@ -24,25 +24,38 @@ const Button = styled.button`
   }
 `
 
-export default function Pdf ({ file, className, loading }) {
+interface PDFProps {
+  file: string
+  className?: string
+  loading: JSX.Element
+}
+
+export default function Pdf({
+  file,
+  className,
+  loading,
+}: PDFProps): JSX.Element {
   const [page, setPage] = useState(1)
   const [numPages, setNumPages] = useState(null)
-  const documentRef = useRef(null)
-  const [width, setWidth] = useState(null)
+  const documentRef = useRef<HTMLDivElement>(null)
+  const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(183)
   const [isLoading, setIsLoading] = useState(true)
 
-  const handleDocumentLoad = (pdf) => {
+  const handleDocumentLoad = (pdf: any): void => {
     setIsLoading(false)
     setNumPages(pdf.numPages)
   }
 
-  const handlePageLoad = (page) => {
+  const handlePageLoad = (page: any): void => {
     setHeight(page.height)
   }
 
-  const setDocumentWidth = () => {
-    const width = documentRef.current.clientWidth - 6
+  const setDocumentWidth = (): number => {
+    const width =
+      documentRef.current?.clientWidth != null
+        ? documentRef.current?.clientWidth - 6
+        : 0
     setWidth(width)
     return width
   }
@@ -55,7 +68,9 @@ export default function Pdf ({ file, className, loading }) {
   useEffect(() => {
     window.addEventListener('resize', setDocumentWidth)
 
-    return () => window.removeEventListener('resize', setDocumentWidth)
+    return () => {
+      window.removeEventListener('resize', setDocumentWidth)
+    }
   }, [])
 
   return (
@@ -74,21 +89,17 @@ export default function Pdf ({ file, className, loading }) {
             renderAnnotationLayer={true}
             renderTextLayer={false}
             width={width}
-            loading={<StyledLoading height={height} />}
+            loading={<StyledLoading height={height.toString()} />}
           />
         </Document>
       </div>
       {!isLoading && (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            margin: '1rem 0 0 0'
-          }}
-        >
+        <Flex flexDirection="row" justifyContent="center" margin="1rem 0 0 0">
           <Button
             disabled={page <= 1}
-            onClick={() => setPage((page) => page - 1)}
+            onClick={() => {
+              setPage(page => page - 1)
+            }}
           >
             {'<'}
           </Button>
@@ -102,12 +113,14 @@ export default function Pdf ({ file, className, loading }) {
             {page} / {numPages}
           </Text>
           <Button
-            disabled={page >= numPages}
-            onClick={() => setPage((page) => page + 1)}
+            disabled={numPages == null || page >= numPages}
+            onClick={() => {
+              setPage(page => page + 1)
+            }}
           >
             {'>'}
           </Button>
-        </div>
+        </Flex>
       )}
     </div>
   )
