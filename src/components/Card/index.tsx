@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 import { colors } from '@config/theme'
-import {Img} from '@ui'
+import { Img, Text } from '@ui'
 
 const CardDiv = styled.div`
   display: grid;
@@ -51,7 +51,13 @@ const CardText = styled(Text)`
   }
 `
 
-export default function Card ({ img, text, href }) {
+interface CardProps {
+  img: string
+  text: string
+  href: string
+}
+
+export default function Card({ img, text, href }: CardProps): JSX.Element {
   return (
     <Link href={href} passHref>
       <CardDiv>

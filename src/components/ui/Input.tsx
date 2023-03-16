@@ -58,11 +58,11 @@ const ErrorDiv = styled.div`
 `
 
 interface InputProps {
-  placeholder: string
-  onChange: (e: ChangeEvent<HTMLInputElement>) => any
-  onBlur: ChangeHandler
-  type: string
-  name: string
+  placeholder?: string
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => any
+  onBlur?: ChangeHandler
+  type?: string
+  name?: string
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
 }
 

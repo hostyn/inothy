@@ -19,7 +19,7 @@ interface TitleProps {
   lineBreak?: string
 }
 
-const Title = styled.p<TitleProps>`
+const Title = styled.h1<TitleProps>`
   display: ${props => props.display ?? 'initial'};
   align-items: ${props => props.alignItems ?? 'inital'};
   font-family: ${props => props.fontFamily ?? 'VarelaRound'};
