@@ -37,20 +37,6 @@ const CardImg = styled(Img)`
   }
 `
 
-const CardText = styled(Text)`
-  @media (max-width: 1500px) {
-    font-size: 2rem;
-  }
-
-  @media (max-width: 1000px) {
-    font-size: 1.5rem;
-  }
-
-  @media (max-width: 500px) {
-    font-size: 1.2rem;
-  }
-`
-
 interface CardProps {
   img: string
   text: string
@@ -62,9 +48,9 @@ export default function Card({ img, text, href }: CardProps): JSX.Element {
     <Link href={href} passHref>
       <CardDiv>
         <CardImg src={img} />
-        <CardText fontSize="2vw" userSelect="none">
+        <Text fontSize="max(2vw, 1.2rem)" userSelect="none">
           {text}
-        </CardText>
+        </Text>
       </CardDiv>
     </Link>
   )
