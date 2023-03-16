@@ -21,7 +21,7 @@ interface TitleProps {
 
 const Title = styled.h1<TitleProps>`
   display: ${props => props.display ?? 'initial'};
-  align-items: ${props => props.alignItems ?? 'inital'};
+  align-items: ${props => props.alignItems ?? 'initial'};
   font-family: ${props => props.fontFamily ?? 'VarelaRound'};
   font-size: ${props => props.fontSize ?? '2rem'};
   font-weight: ${props => props.fontWeight ?? 'normal'};

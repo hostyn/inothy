@@ -21,7 +21,7 @@ interface TextProps {
 
 const Text = styled.p<TextProps>`
   display: ${props => props.display ?? 'initial'};
-  align-items: ${props => props.alignItems ?? 'inital'};
+  align-items: ${props => props.alignItems ?? 'initial'};
   font-family: ${props => props.fontFamily ?? 'VarelaRound'};
   font-size: ${props => props.fontSize ?? '1rem'};
   font-weight: ${props => props.fontWeight ?? 'normal'};
