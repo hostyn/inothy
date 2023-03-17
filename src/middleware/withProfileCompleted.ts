@@ -9,8 +9,9 @@ export default function withProfileCompleted(
     async (user: ApiUser, req: NextApiRequest, res: NextApiResponse) => {
       if (!user.data.profileCompleted) {
         res.status(401).json({ success: false, error: 'incompleted-profile' })
-        await handler(user, req, res)
+        return
       }
+      await handler(user, req, res)
     }
   )
 }
