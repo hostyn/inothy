@@ -1,14 +1,13 @@
 import Link from 'next/link'
 import { useCallback, useRef, useState } from 'react'
 import styled from 'styled-components'
-import App from '../components/App'
-import Button from '@ui/Button'
-import DocumentGridCard from '../components/DocumentGridCard'
-import Img from '@ui/Img'
-import Loading from '../components/Loading'
-import Text from '@ui/Text'
-import { sizes } from '../config/theme'
-import { getSubject } from '../util/api'
+import App from '@components/App'
+import DocumentGridCard from '@components/DocumentGridCard'
+import Loading from '@components/Loading'
+import { sizes } from '@config/theme'
+import { getSubject } from '@util/api'
+import { Button, Flex, Img, Text, Title } from '@ui'
+import { type SubjectWithDocumentsAndUniveristy } from 'types/api'
 
 const SubjectDiv = styled.div`
   margin: 2rem calc(${sizes.inlineMargin} * 2);
@@ -22,65 +21,30 @@ const SubjectDiv = styled.div`
   }
 `
 
-const NoDocumentsDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`
-
-const Logo = styled(Img)`
-  aspect-ratio: 1;
-  width: 10vw;
-  height: 10vw;
-
-  @media (max-width: 1000px) {
-    width: 5rem;
-    height: 5rem;
-  }
-`
-
-const Title = styled.div`
+const TitleDiv = styled.div`
   display: grid;
-  grid-template-columns: 10vw auto;
+  grid-template-columns: max(10vw, 5rem) auto;
   align-items: center;
   gap: 2rem;
   margin: 0 0 2rem 0;
 
   @media (max-width: 1000px) {
-    grid-template-columns: 5rem 1fr;
-    grid-template-rows: 5rem;
+    grid-template-columns: max(10vw, 5rem) 1fr;
+    grid-template-rows: max(10vw, 5rem);
   }
 
   @media (max-width: 500px) {
     grid-template-columns: 1fr;
-    grid-template-rows: 5rem auto;
+    grid-template-rows: max(10vw, 5rem) auto;
     justify-items: center;
   }
 `
 
-const TitleText = styled(Text)`
-  @media (max-width: 1000px) {
-    font-size: 1.7rem;
-  }
-
+const StyledFlex = styled(Flex)`
   @media (max-width: 500px) {
+    align-items: center;
     text-align: center;
   }
-`
-
-const TitleSubtext = styled(Text)`
-  @media (max-width: 1000px) {
-    font-size: 1.2rem;
-  }
-
-  @media (max-width: 500px) {
-    text-align: center;
-  }
-`
-
-const VerticalText = styled.div`
-  display: flex;
-  flex-direction: column;
 `
 
 const CardGrid = styled.div`
@@ -92,35 +56,41 @@ const CardGrid = styled.div`
   margin: 0 0 1rem 0;
 `
 
-export default function SubjectView ({ subjectData: initialSubjectData }) {
+interface SubjectViewProps {
+  subjectData: SubjectWithDocumentsAndUniveristy
+}
+
+export default function SubjectView({
+  subjectData: initialSubjectData,
+}: SubjectViewProps): JSX.Element {
   const [subjectData, setSubjectData] = useState(initialSubjectData)
   const [loading, setLoading] = useState(false)
 
-  const observer = useRef()
+  const observer = useRef<IntersectionObserver>()
   const lastElementRef = useCallback(
-    (node) => {
+    (node: any) => {
       if (loading) return
-      if (observer.current) observer.current.disconnect()
-      observer.current = new IntersectionObserver(async (entries) => {
-        if (entries[0].isIntersecting && subjectData.last) {
+      if (observer.current != null) observer.current.disconnect()
+      observer.current = new IntersectionObserver(async entries => {
+        if (entries[0].isIntersecting && subjectData.last != null) {
           setLoading(true)
           const data = await getSubject(subjectData.id, 25, subjectData.last)
 
-          if (!data.docs) {
-            setSubjectData((subjectData) => ({ ...subjectData, last: false }))
+          if (data.docs.length === 0) {
+            setSubjectData(subjectData => ({ ...subjectData, last: null }))
             setLoading(false)
             return
           }
 
-          setSubjectData((subjectData) => ({
+          setSubjectData(subjectData => ({
             ...subjectData,
             last: data.last,
-            docs: [...subjectData.docs, ...data.docs]
+            docs: [...subjectData.docs, ...data.docs],
           }))
           setLoading(false)
         }
       })
-      if (node) observer.current.observe(node)
+      if (node != null) observer.current.observe(node)
     },
     [loading, subjectData.id, subjectData.last]
   )
@@ -128,33 +98,37 @@ export default function SubjectView ({ subjectData: initialSubjectData }) {
   return (
     <App>
       <SubjectDiv>
-        <Title>
-          <Logo src={subjectData.university.logoUrl} />
-          <VerticalText>
-            <TitleText
-              fontSize="3vw"
+        <TitleDiv>
+          <Img
+            src={subjectData.university.logoUrl}
+            height="max(10vw, 5rem)"
+            width="max(10vw, 5rem)"
+          />
+          <StyledFlex>
+            <Title
+              fontSize="max(3vw, 1.7rem)"
               fontWeight="bold"
               fontFamily="HelveticaRounded"
             >
-              {subjectData.name} {subjectData.code && `(${subjectData.code})`}
-            </TitleText>
-            <TitleSubtext
-              fontSize="2vw"
+              {subjectData.name}{' '}
+              {subjectData.code != null && `(${subjectData.code})`}
+            </Title>
+            <Title
+              fontSize="max(2vw, 1.2rem)"
               fontWeight="bold"
               fontFamily="HelveticaRounded"
             >
               {subjectData.university.name}
-            </TitleSubtext>
-          </VerticalText>
-        </Title>
-        {subjectData.docs.length
-          ? (
+            </Title>
+          </StyledFlex>
+        </TitleDiv>
+        {subjectData.docs.length !== 0 ? (
           <CardGrid>
             {subjectData.docs.map((doc, index) => {
               if (subjectData.docs.length === index + 1) {
                 return (
                   <DocumentGridCard
-                    reference={lastElementRef}
+                    ref={lastElementRef}
                     key={doc.id}
                     documentData={doc}
                     href={`/subject/${subjectData.id}/${doc.id}`}
@@ -171,9 +145,8 @@ export default function SubjectView ({ subjectData: initialSubjectData }) {
               )
             })}
           </CardGrid>
-            )
-          : (
-          <NoDocumentsDiv>
+        ) : (
+          <Flex justify-content="center">
             <Text textAlign="center" fontSize="1.5rem" margin="2rem 0 1rem 0">
               Todavía no se han subido documentos a esta asignatura.
             </Text>
@@ -190,8 +163,8 @@ export default function SubjectView ({ subjectData: initialSubjectData }) {
                 Subir documentos
               </Button>
             </Link>
-          </NoDocumentsDiv>
-            )}
+          </Flex>
+        )}
         {loading && <Loading />}
       </SubjectDiv>
     </App>

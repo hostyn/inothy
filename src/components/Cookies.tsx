@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { colors } from '@config/theme'
 import { useRouter } from 'next/router'
+import { A, Button, Text } from '@ui'
 
 const Backdrop = styled.div`
   background-color: ${colors.backdrop};
@@ -39,11 +40,11 @@ const InlineText = styled.div`
   }
 `
 
-export default function Cookies () {
+export default function Cookies(): JSX.Element {
   const [cookiesAccepted, setCookiesAccepted] = useState(true)
   const { pathname } = useRouter()
 
-  const handleAccept = () => {
+  const handleAccept = (): void => {
     localStorage.setItem('cookiesAccepted', 'true')
     setCookiesAccepted(true)
   }
@@ -72,9 +73,11 @@ export default function Cookies () {
               <Button
                 margin="0"
                 padding="0.5rem 1rem"
-                background="secondary"
                 height="auto"
-                onClick={() => history.back()}
+                background="disabledColor"
+                onClick={() => {
+                  history.back()
+                }}
               >
                 Rechazar cookies
               </Button>
@@ -83,6 +86,7 @@ export default function Cookies () {
                 onClick={handleAccept}
                 margin="0"
                 height="auto"
+                background="primary"
               >
                 Aceptar cookies
               </Button>

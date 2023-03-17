@@ -70,22 +70,21 @@ function DocumentGridCard(
         />
         <CardTitle>
           <CardName width="95%" textAlign="center">
-            {documentData.name}a sdf asdf asdf asdfasdfas dfasdf asfaskldfas
-            dfasdfasd fasñldkf jasñldf jasñdfkl
+            {documentData.name}
           </CardName>
           <Text fontWeight="bold" fontSize="1.2rem">
-            {user?.data?.badge?.includes('ambassador') != null ||
-              (isDiscountActive && (
-                <Span
-                  fontSize="1rem"
-                  color="secondary"
-                  textDecoration="line-through"
-                  margin="0 0.5rem 0 0"
-                  fontWeight="normal"
-                >
-                  {currencyFormatter.format(documentData.price)}
-                </Span>
-              ))}
+            {(user?.data?.badge?.includes('ambassador') != null ||
+              isDiscountActive) && (
+              <Span
+                fontSize="1rem"
+                color="secondary"
+                textDecoration="line-through"
+                margin="0 0.5rem 0 0"
+                fontWeight="normal"
+              >
+                {currencyFormatter.format(documentData.price)}
+              </Span>
+            )}
             {currencyFormatter.format(
               user?.data?.badge?.includes('ambassador') != null
                 ? documentData.price * 0.8
