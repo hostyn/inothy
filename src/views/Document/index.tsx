@@ -6,7 +6,7 @@ import { useAuth } from '@context/authContext'
 import { useModal } from '@context/modalContext'
 import { getDownloadUrl } from '@util/api'
 import { currencyFormatter } from '@util/normailize'
-import Payment from '../Payment/Payment'
+import Payment from '../Payment'
 import { A, Button, Flex, Img, Span, Text, Title } from '@ui'
 import type { FullDocumentInfo } from 'types/api'
 import Preview from './components/Preview'
@@ -215,6 +215,8 @@ export default function DocumentPage({
                 title={
                   user?.data?.badge?.includes('ambassador') != null
                     ? 'Descuento embajador'
+                    : isDiscountActive
+                    ? 'Descuento'
                     : 'Precio'
                 }
               >
@@ -225,17 +227,24 @@ export default function DocumentPage({
                     ? documentData.price * 0.9
                     : documentData.price
                 )}
-                <Span
-                  fontSize="2rem"
-                  margin="0 0 0 1rem"
-                  color="secondary"
-                  textDecoration="line-through"
-                  title="Descuento de embajador"
-                >
-                  {user?.data?.badge?.includes('ambassador') != null ||
-                    (isDiscountActive &&
-                      currencyFormatter.format(documentData.price))}
-                </Span>
+                {(user?.data?.badge?.includes('ambassador') != null ||
+                  isDiscountActive) && (
+                  <Span
+                    fontSize="2rem"
+                    margin="0 0 0 1rem"
+                    color="secondary"
+                    textDecoration="line-through"
+                    title={
+                      user?.data?.badge?.includes('ambassador') != null
+                        ? 'Descuento embajador'
+                        : isDiscountActive
+                        ? 'Descuento'
+                        : 'Precio'
+                    }
+                  >
+                    {currencyFormatter.format(documentData.price)}
+                  </Span>
+                )}
               </Text>
               {user?.data?.bought?.includes(
                 documentData.subject.id + '/' + documentData.id
