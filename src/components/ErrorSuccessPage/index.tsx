@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import Img from '@ui/Img'
-import Text from '@ui/Text'
+import { Img, Text } from '@ui'
 
-const CardErrorDiv = styled.div`
+const ErrorSuccessDiv = styled.div`
   display: flex;
   height: 100%;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -22,10 +22,24 @@ const Subtitle = styled(Text)`
   }
 `
 
-export default function CardError () {
+interface ErrorSuccessProps {
+  type: 'error' | 'success'
+  title: string
+  subtitle: string
+}
+
+export default function ErrorSuccess({
+  type,
+  title,
+  subtitle,
+}: ErrorSuccessProps): JSX.Element {
   return (
-    <CardErrorDiv>
-      <Img src="/error.svg" width="6rem" height="6rem" priority />
+    <ErrorSuccessDiv>
+      <Img
+        src={type === 'error' ? '/error.svg' : '/check.svg'}
+        width="6rem"
+        height="6rem"
+      />
       <Title
         fontSize="3rem"
         fontWeight="bold"
@@ -33,11 +47,11 @@ export default function CardError () {
         textAlign="center"
         margin="1rem 0 0 0"
       >
-        Ha habido un problema
+        {title}
       </Title>
       <Subtitle fontSize="1.5rem" textAlign="center">
-        Intentalo mas tarde o contacta con el soporte
+        {subtitle}
       </Subtitle>
-    </CardErrorDiv>
+    </ErrorSuccessDiv>
   )
 }
