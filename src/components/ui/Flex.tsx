@@ -5,6 +5,8 @@ interface FlexDivProps {
   margin?: string
   justifyContent?: string
   alignItems?: string
+  height?: string
+  width?: string
 }
 
 interface FlexProps extends FlexDivProps {
@@ -15,8 +17,10 @@ const FlexDiv = styled.div<FlexDivProps>`
   display: flex;
   flex-direction: ${props => props.flexDirection ?? 'column'};
   margin: ${props => props.margin ?? '0'};
-  justify-content: ${props => props.justifyContent ?? 'flex-start'};
-  align-items: ${props => props.alignItems ?? 'flex-start'};
+  justify-content: ${props => props.justifyContent ?? 'initial'};
+  align-items: ${props => props.alignItems ?? 'initial'};
+  height: ${props => props.height ?? 'initial'};
+  width: ${props => props.width ?? 'initial'};
 `
 
 export default function Flex({ children, ...props }: FlexProps): JSX.Element {
