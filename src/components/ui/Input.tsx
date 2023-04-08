@@ -57,6 +57,7 @@ const StyledInput = styled.input<{ error: boolean }>`
   }
 
   &[type='number'] {
+    appearance: textfield;
     -moz-appearance: textfield;
   }
 `
