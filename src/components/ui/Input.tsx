@@ -9,6 +9,7 @@ import type {
 } from 'react-hook-form'
 import Text from './Text'
 import Img from './Img'
+import Flex from './Flex'
 
 const InputDiv = styled.div`
   position: relative;
@@ -48,6 +49,16 @@ const StyledInput = styled.input<{ error: boolean }>`
     padding: 0 3px;
     color: ${props => (props.error ? colors.secondary : colors.primary)};
   }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
 `
 
 const ErrorDiv = styled.div`
@@ -64,6 +75,7 @@ interface InputProps {
   type?: string
   name?: string
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
+  autoComplete?: string
 }
 
 function Input(
@@ -71,7 +83,7 @@ function Input(
   ref: React.Ref<any>
 ): JSX.Element {
   return (
-    <>
+    <Flex>
       <InputDiv>
         <StyledInput
           {...props}
@@ -97,7 +109,7 @@ function Input(
           </>
         )}
       </ErrorDiv>
-    </>
+    </Flex>
   )
 }
 
