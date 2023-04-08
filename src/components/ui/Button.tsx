@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import { colors, sizes } from '@config/theme'
+import LoadingRing from '@components/LoadingRing'
 
-interface ButtonProps {
+interface StyledButtonProps {
   fontFamily?: string
   fontSize?: string
   color?: keyof typeof colors
@@ -15,7 +16,7 @@ interface ButtonProps {
   gridColumn?: string
 }
 
-const Button = styled.button<ButtonProps>`
+const StyledButton = styled.button<StyledButtonProps>`
   font-family: ${props => props.fontFamily ?? 'VarelaRound'};
   font-size: ${props => props.fontSize ?? sizes.buttonText};
   background: ${props => colors[props.background ?? 'secondary']};
@@ -38,5 +39,31 @@ const Button = styled.button<ButtonProps>`
     background-color: ${colors.disabledButton};
   }
 `
+
+interface ButtonProps extends StyledButtonProps {
+  children?: any
+  loading?: boolean
+  type?: 'button' | 'submit' | 'reset'
+  onClick?: () => any
+}
+
+function Button({
+  children,
+  loading,
+  color,
+  ...props
+}: ButtonProps): JSX.Element {
+  return (
+    <StyledButton {...props} color={color}>
+      {loading == null ? (
+        children
+      ) : loading ? (
+        <LoadingRing color={color ?? 'white'} />
+      ) : (
+        children
+      )}
+    </StyledButton>
+  )
+}
 
 export default Button
