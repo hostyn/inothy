@@ -43,6 +43,7 @@ const StyledButton = styled.button<StyledButtonProps>`
 interface ButtonProps extends StyledButtonProps {
   children?: any
   loading?: boolean
+  disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
   onClick?: () => any
 }
