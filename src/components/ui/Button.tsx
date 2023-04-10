@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { colors, sizes } from '@config/theme'
 import LoadingRing from '@components/LoadingRing'
+import { type ForwardedRef, forwardRef } from 'react'
 
 interface StyledButtonProps {
   fontFamily?: string
@@ -48,14 +49,12 @@ interface ButtonProps extends StyledButtonProps {
   onClick?: () => any
 }
 
-function Button({
-  children,
-  loading,
-  color,
-  ...props
-}: ButtonProps): JSX.Element {
+function Button(
+  { children, loading, color, ...props }: ButtonProps,
+  ref: ForwardedRef<HTMLButtonElement>
+): JSX.Element {
   return (
-    <StyledButton {...props} color={color}>
+    <StyledButton {...props} color={color} ref={ref}>
       {loading == null ? (
         children
       ) : loading ? (
@@ -67,4 +66,4 @@ function Button({
   )
 }
 
-export default Button
+export default forwardRef(Button)
