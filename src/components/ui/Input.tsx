@@ -25,6 +25,7 @@ const Label = styled.label`
   pointer-events: none;
   font-size: 1rem;
   color: #8e8e8e;
+  user-select: none;
 `
 
 const StyledInput = styled.input<{ error: boolean }>`

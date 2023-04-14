@@ -5,6 +5,10 @@ import {
   type ComponentPropsWithoutRef,
   type ForwardedRef,
 } from 'react'
+import Flex from './Flex'
+import Text from './Text'
+import Img from './Img'
+import type { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 
 const SelectDiv = styled.div`
   position: relative;
@@ -12,30 +16,35 @@ const SelectDiv = styled.div`
   width: 100%;
 `
 
-const Label = styled.label`
+const Label = styled.label<{ error: boolean }>`
   position: absolute;
   display: flex;
   bottom: 11px;
   left: 10px;
   background-color: white;
   pointer-events: none;
+  user-select: none;
 
   transform: translateY(-140%);
   font-size: 0.9rem;
   padding: 0 3px;
-  color: ${colors.primary};
+  color: ${props => (props.error ? colors.secondary : colors.primary)};
 `
 
 interface StyledSelectProps {
   border?: string
   margin?: string
   maxWidth?: string
+  error: boolean
 }
 
 const StyledSelect = styled.select<StyledSelectProps>`
   padding: 10px;
   border-radius: 10px;
-  border: ${props => props.border ?? `2px solid ${colors.primary}`};
+  border: ${props =>
+    props.error
+      ? `2px solid ${colors.secondary}`
+      : `2px solid ${colors.primary}`};
   font-family: inherit;
   color: ${colors.primary};
   background-color: transparent;
@@ -63,21 +72,47 @@ const StyledSelect = styled.select<StyledSelectProps>`
   }
 `
 
+const ErrorDiv = styled.div`
+  width: 100%;
+  height: calc(0.8rem + 5px);
+  display: flex;
+  padding: 0 0 5px 0;
+`
+
 interface SelectProps
-  extends StyledSelectProps,
-    ComponentPropsWithoutRef<'select'> {}
+  extends Omit<StyledSelectProps, 'error'>,
+    ComponentPropsWithoutRef<'select'> {
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
+}
 
 function Select(
-  { children, placeholder, ...props }: SelectProps,
+  { children, placeholder, error, ...props }: SelectProps,
   ref: ForwardedRef<HTMLSelectElement>
 ): JSX.Element {
   return (
-    <SelectDiv>
-      <StyledSelect {...props} ref={ref}>
-        {children}
-      </StyledSelect>
-      <Label>{placeholder}</Label>
-    </SelectDiv>
+    <Flex>
+      <SelectDiv>
+        <StyledSelect {...props} error={error != null} ref={ref}>
+          {children}
+        </StyledSelect>
+        <Label error={error != null}>{placeholder}</Label>
+      </SelectDiv>
+      <ErrorDiv>
+        {error != null && (
+          <>
+            <Img
+              src="/icons/info-error.svg"
+              width="1rem"
+              height="1rem"
+              margin="0 5px"
+            />
+            <Text margin="0 auto 0 0" color="secondary" fontSize="0.8rem">
+              {error?.message?.toString()}
+            </Text>
+          </>
+        )}
+      </ErrorDiv>
+    </Flex>
   )
 }
 
