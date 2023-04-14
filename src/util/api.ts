@@ -132,16 +132,22 @@ export async function getDegree(
   universityId: string,
   schoolId: string,
   degreeId: string,
-  year = 1
+  year?: number
 ): Promise<DegreeWithDocuments> {
   if (universityId.length === 0) throw new Error('university-id-required')
   if (schoolId.length === 0) throw new Error('school-id-required')
   if (degreeId.length === 0) throw new Error('degree-id-required')
+
+  const params =
+    year == null
+      ? ''
+      : new URLSearchParams({
+          year: year.toString(),
+        }).toString()
+
   const data = await fetch(
     `${FRONTEND_URL}/api/universities/${universityId}/${schoolId}/${degreeId}?` +
-      new URLSearchParams({
-        year: year.toString(),
-      }).toString(),
+      params,
     { method: 'GET' }
   )
 

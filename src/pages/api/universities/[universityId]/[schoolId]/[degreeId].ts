@@ -30,7 +30,7 @@ async function getDegree(
     return
   }
 
-  const year = typeof queryYear === 'string' ? parseInt(queryYear) : 1
+  const year = typeof queryYear === 'string' ? parseInt(queryYear) : null
 
   const degreeSnapshot = await firestoreAdmin
     .collection('universities')
@@ -50,7 +50,7 @@ async function getDegree(
 
   const subjects = await Promise.all(
     degreeData.subjects
-      .filter(subject => subject.year === year)
+      .filter(subject => year == null || subject.year === year)
       .map(async subject => {
         const documentsQuerySnapshot = await firestoreAdmin
           .collection('subjects')
