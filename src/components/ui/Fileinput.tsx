@@ -1,13 +1,8 @@
 import styled from 'styled-components'
 import { colors } from '@config/theme'
 import { v4 } from 'uuid'
-import { forwardRef, type ChangeEvent } from 'react'
-import type {
-  FieldError,
-  ChangeHandler,
-  Merge,
-  FieldErrorsImpl,
-} from 'react-hook-form'
+import { forwardRef } from 'react'
+import type { FieldError, ChangeHandler } from 'react-hook-form'
 import Text from './Text'
 import Img from './Img'
 import Flex from './Flex'
@@ -61,14 +56,14 @@ const FileName = styled(Text)`
 `
 
 interface FileInputProps extends Omit<LabelProps, 'error'> {
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => any
+  onChange?: ChangeHandler
   onBlur?: ChangeHandler
   placeholder?: string
   multiple?: boolean
   key?: string
   accept?: string
   name?: string
-  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
+  error?: FieldError
   margin?: string
   file?: FileList
 }

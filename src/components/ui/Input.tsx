@@ -1,12 +1,7 @@
 import styled from 'styled-components'
 import { colors } from '@config/theme'
-import { type ChangeEvent, forwardRef } from 'react'
-import type {
-  FieldError,
-  FieldErrorsImpl,
-  Merge,
-  ChangeHandler,
-} from 'react-hook-form'
+import { forwardRef } from 'react'
+import type { FieldError, ChangeHandler } from 'react-hook-form'
 import Text from './Text'
 import Img from './Img'
 import Flex from './Flex'
@@ -72,11 +67,11 @@ const ErrorDiv = styled.div`
 
 interface InputProps {
   placeholder?: string
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => any
+  onChange?: ChangeHandler
   onBlur?: ChangeHandler
   type?: string
   name?: string
-  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
+  error?: FieldError
   autoComplete?: string
 }
 
