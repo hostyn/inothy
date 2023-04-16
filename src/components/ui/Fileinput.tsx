@@ -1,30 +1,34 @@
 import styled from 'styled-components'
 import { colors } from '@config/theme'
 import { v4 } from 'uuid'
+import { forwardRef, type ChangeEvent } from 'react'
+import type {
+  FieldError,
+  ChangeHandler,
+  Merge,
+  FieldErrorsImpl,
+} from 'react-hook-form'
+import Text from './Text'
+import Img from './Img'
+import Flex from './Flex'
 
 interface LabelProps {
+  error: boolean
   fontSize?: string
   border?: string
-  margin?: string
-}
-
-interface FileInputProps extends LabelProps {
-  children?: JSX.Element | JSX.Element[]
-  multiple?: boolean
-  onChange?: () => unknown
-  key?: string
-  accept?: string
-  name?: string
 }
 
 const Label = styled.label<LabelProps>`
   font-family: VarelaRound;
-  font-size: ${props => props.fontSize ?? '1.5rem'};
-  color: ${colors.primary};
+  font-size: ${props => props.fontSize ?? '1.3rem'};
+  color: ${props => (props.error ? colors.secondary : colors.primary)};
   padding: 5px 1rem;
-  margin: ${props => props.margin ?? '0'};
+  margin: 0 0 5px 0;
   border-radius: 999999px;
-  border: ${props => props.border ?? `2px solid ${colors.primary}`};
+  border: ${props =>
+    props.error
+      ? `2px solid ${colors.secondary}`
+      : `2px solid ${colors.primary}`};
   width: fit-content;
   cursor: pointer;
   transition: 0.2s;
@@ -42,31 +46,76 @@ const Input = styled.input`
   display: none;
 `
 
-export default function Fileinput({
-  margin,
-  children,
-  multiple,
-  onChange,
-  key,
-  accept,
-  name,
-  border,
-}: FileInputProps): JSX.Element {
+const ErrorDiv = styled.div`
+  width: 100%;
+  max-width: 100%;
+  height: calc(0.8rem + 5px);
+  display: flex;
+  padding: 0 0 5px 0;
+`
+const FileName = styled(Text)`
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+`
+
+interface FileInputProps extends Omit<LabelProps, 'error'> {
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => any
+  onBlur?: ChangeHandler
+  placeholder?: string
+  multiple?: boolean
+  key?: string
+  accept?: string
+  name?: string
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
+  margin?: string
+  file?: FileList
+}
+
+function Fileinput(
+  { margin, placeholder, border, error, file, ...props }: FileInputProps,
+  ref: React.Ref<any>
+): JSX.Element {
   const id = v4()
   return (
-    <>
-      <Label htmlFor={id} margin={margin} border={border}>
-        {children ?? 'Adjuntar archivo'}
+    <Flex margin={margin}>
+      <Label htmlFor={id} border={border} error={error != null}>
+        {placeholder ?? 'Adjuntar archivo'}
       </Label>
-      <Input
-        id={id}
-        name={name}
-        type="file"
-        accept={accept}
-        multiple={multiple}
-        onChange={onChange}
-        key={key}
-      />
-    </>
+      <Input id={id} type="file" ref={ref} {...props} />
+      <ErrorDiv>
+        {error != null ? (
+          <>
+            <Img
+              src="/icons/info-error.svg"
+              width="1rem"
+              height="1rem"
+              margin="0 5px"
+            />
+            <Text margin="0 auto 0 0" color="secondary" fontSize="0.8rem">
+              {error?.message?.toString()}
+            </Text>
+          </>
+        ) : (
+          file != null &&
+          file.length > 0 && (
+            <>
+              <Img
+                src="/icons/file.svg"
+                width="1rem"
+                height="1rem"
+                margin="0 5px"
+              />
+              <FileName margin="0 auto 0 0" fontSize="0.8rem">
+                {file[0].name}
+              </FileName>
+            </>
+          )
+        )}
+      </ErrorDiv>
+    </Flex>
   )
 }
+
+export default forwardRef(Fileinput)
