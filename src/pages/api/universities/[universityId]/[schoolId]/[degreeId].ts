@@ -75,10 +75,12 @@ async function getDegree(
       })
   )
 
+  console.log(subjects)
+
   const degree: DegreeWithDocuments = {
     ...degreeData,
     id: degreeSnapshot.id,
-    subjects: subjects.filter(subject => subject.docs.length !== 0),
+    subjects,
   }
 
   res.status(200).json(degree)
