@@ -7,6 +7,7 @@ interface FlexDivProps {
   alignItems?: string
   height?: string
   width?: string
+  overflow?: string
 }
 
 interface FlexProps extends FlexDivProps {
@@ -21,6 +22,7 @@ const FlexDiv = styled.div<FlexDivProps>`
   align-items: ${props => props.alignItems ?? 'initial'};
   height: ${props => props.height ?? 'initial'};
   width: ${props => props.width ?? 'initial'};
+  overflow: ${props => props.overflow ?? 'initial'};
 `
 
 export default function Flex({ children, ...props }: FlexProps): JSX.Element {
