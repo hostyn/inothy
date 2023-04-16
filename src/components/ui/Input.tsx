@@ -18,7 +18,7 @@ const InputDiv = styled.div`
 
 const Label = styled.label`
   position: absolute;
-  bottom: 11px;
+  top: 11px;
   left: 10px;
   transition: all 0.2s ease;
   background-color: white;
@@ -45,7 +45,7 @@ const StyledInput = styled.input<{ error: boolean }>`
   }
 
   :focus + ${Label}, :not(:placeholder-shown) + ${Label} {
-    transform: translateY(-140%);
+    transform: translateY(-100%);
     font-size: 0.9rem;
     padding: 0 3px;
     color: ${props => (props.error ? colors.secondary : colors.primary)};
