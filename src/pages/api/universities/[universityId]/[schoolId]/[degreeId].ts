@@ -75,8 +75,6 @@ async function getDegree(
       })
   )
 
-  console.log(subjects)
-
   const degree: DegreeWithDocuments = {
     ...degreeData,
     id: degreeSnapshot.id,
