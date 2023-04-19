@@ -19,7 +19,6 @@ import {
   Img,
   Input,
   Select,
-  Text,
   Textarea,
   Title,
 } from '@ui'
@@ -41,22 +40,6 @@ const TitleImg = styled(Img)`
   }
 `
 
-const TitleText = styled(Text)`
-  @media (max-width: 1200px) {
-    font-size: 3rem;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 1.7rem;
-  }
-`
-
-const InputHeader = styled(Text)`
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-  }
-`
-
 const UploadForm = styled.form`
   margin: 1rem 0 0 0;
   display: grid;
@@ -65,35 +48,6 @@ const UploadForm = styled.form`
 
   @media (max-width: 1000px) {
     grid-template-columns: 1fr;
-  }
-`
-
-const UploadBox = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  @media (max-width: 1300px) {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  @media (max-width: 1000px) {
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  @media (max-width: 500px) {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  & p {
-    max-width: 100%;
-    flex: 1;
   }
 `
 
@@ -108,7 +62,11 @@ interface FormValues {
   price: string
 }
 
-export default function UploadView({ setState }): JSX.Element {
+export default function UploadView({
+  setState,
+}: {
+  setState: (state: string) => any
+}): JSX.Element {
   const { user } = useAuth()
   const { push } = useRouter()
   const {
