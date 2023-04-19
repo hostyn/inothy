@@ -260,7 +260,7 @@ export async function uploadFile(docData: UploadData): Promise<string> {
   try {
     logEvent('upload_document')
   } catch {}
-  return await res.json()
+  return (await res.json()).path
 }
 
 export async function completeKYC(completeKYCData: CompleteKYC): Promise<void> {
