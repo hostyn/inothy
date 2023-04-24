@@ -89,7 +89,7 @@ export default function LegalView(): JSX.Element {
         </P>
         <P>
           <Span fontWeight="bold">INOTHY OÜ</Span> se guarda el derecho a
-          cambiar los presentes
+          cambiar los presentes{' '}
           <Span fontWeight="bold">Términos y Condiciones</Span> en cualquier
           momento. Dichos cambios serán siempre notificados a todos los usuarios
           vía correo electrónico, o a través de la propia página web o la
