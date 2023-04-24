@@ -125,6 +125,7 @@ const SmallLogo = styled.div`
 
   @media (max-width: 1000px) {
     display: grid;
+    align-items: center;
   }
 
   @media (max-width: 768px) {
