@@ -11,7 +11,7 @@ const UploadDiv = styled.div`
   display: flex;
   flex-direction: column;
   margin: 3rem ${sizes.inlineMargin};
-  padding: 0 3rem;
+  padding: 3rem;
 
   border: 3px solid ${colors.primary};
   border-radius: 20px;
@@ -26,6 +26,7 @@ const UploadDiv = styled.div`
 
   @media (max-width: 768px) {
     margin: 1rem;
+    padding: 2rem;
     min-height: calc(100vh - ${sizes.navbar} - 2rem);
   }
 `

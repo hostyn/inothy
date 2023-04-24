@@ -48,6 +48,7 @@ const UploadForm = styled.form`
 
   @media (max-width: 1000px) {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
 `
 
@@ -183,7 +184,7 @@ export default function UploadView({
   useEffect(() => {
     if (user == null) return
     setValue('university', user.data?.university ?? '')
-    setValue('price', '1.00€')
+    setValue('price', '1,00€')
   }, [user])
 
   const onSubmit = async (values: FormValues): Promise<void> => {
@@ -226,23 +227,19 @@ export default function UploadView({
 
   return (
     <Flex>
-      <Flex flexDirection="row">
-        <TitleImg src="/icons/upload.svg" width="5rem" aspectRatio="1" />
-        <Title>Subir archivo</Title>
+      <Flex flexDirection="row" alignItems="center" gap="1rem">
+        <TitleImg src="/icons/upload.svg" width="4rem" aspectRatio="1" />
+        <Title fontWeight="bold">Subir archivo</Title>
       </Flex>
       <UploadForm onSubmit={handleSubmit(onSubmit)}>
-        <Flex overflow="hidden">
+        <Flex minWidth="0">
           <Input
             placeholder="Nombre del documento"
             autoComplete="off"
             {...register('name', {
               required: 'El nombre del documento es obligatorio.',
-              maxLength: {
-                value: 18,
-                message: 'El nombre es demasiado largo.',
-              },
               minLength: {
-                value: 5,
+                value: 10,
                 message: 'El nombre es demasiado corto.',
               },
             })}
@@ -255,10 +252,6 @@ export default function UploadView({
             rows={9}
             {...register('description', {
               required: 'La descripción es obligatoria.',
-              maxLength: {
-                value: 50,
-                message: 'La descripción es demasiado larga.',
-              },
               minLength: {
                 value: 10,
                 message: 'La descripción es demasiado corta.',
@@ -286,7 +279,7 @@ export default function UploadView({
           />
         </Flex>
 
-        <Flex overflow="hidden">
+        <Flex minWidth="0">
           <Select
             placeholder="Universidad"
             value={watch('university')}

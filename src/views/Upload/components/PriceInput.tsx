@@ -36,7 +36,11 @@ function PriceInput(
 ): JSX.Element {
   const onBlur = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const value = parseFloat(e.target.value.replace('€', '').replace(',', '.'))
-    setValue(`${value.toFixed(2)}€`)
+    if (Number.isNaN(value)) {
+      setValue('0,00€')
+      return
+    }
+    setValue(`${value.toFixed(2)}€`.replace('.', ','))
   }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -49,18 +53,18 @@ function PriceInput(
   const handleDownPrice = (): void => {
     const valueNumber = parseFloat(value.replace('€', '').replace(',', '.'))
     if (valueNumber - 1 < MIN_PRICE) {
-      setValue(`${MIN_PRICE.toFixed(2)}€`)
+      setValue(`${MIN_PRICE.toFixed(2)}€`.replace('.', ','))
     } else {
-      setValue(`${(valueNumber - 1).toFixed(2)}€`)
+      setValue(`${(valueNumber - 1).toFixed(2)}€`.replace('.', ','))
     }
   }
 
   const handleUpPrice = (): void => {
     const valueNumber = parseFloat(value.replace('€', '').replace(',', '.'))
     if (valueNumber + 1 > maxPrice) {
-      setValue(`${maxPrice.toFixed(2)}€`)
+      setValue(`${maxPrice.toFixed(2)}€`.replace('.', ','))
     } else {
-      setValue(`${(valueNumber + 1).toFixed(2)}€`)
+      setValue(`${(valueNumber + 1).toFixed(2)}€`.replace('.', ','))
     }
   }
 
@@ -68,7 +72,7 @@ function PriceInput(
     if (value == null) return
     const valueNumber = parseFloat(value.replace('€', '').replace(',', '.'))
     if (valueNumber > maxPrice) {
-      setValue(`${maxPrice.toFixed(2)}€`)
+      setValue(`${maxPrice.toFixed(2)}€`.replace('.', ','))
     }
   }, [maxPrice])
 
