@@ -51,8 +51,7 @@ const ErrorDiv = styled.div`
 const FileName = styled(Text)`
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
-  max-width: 100%;
+  overflow-x: clip;
 `
 
 interface FileInputProps extends Omit<LabelProps, 'error'> {
