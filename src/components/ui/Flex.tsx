@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-interface FlexDivProps {
+interface FlexProps {
   flexDirection?: string
   margin?: string
   justifyContent?: string
@@ -9,13 +9,10 @@ interface FlexDivProps {
   width?: string
   minWidth?: string
   gap?: string
+  padding?: string
 }
 
-interface FlexProps extends FlexDivProps {
-  children: JSX.Element | JSX.Element[]
-}
-
-const FlexDiv = styled.div<FlexDivProps>`
+const Flex = styled.div<FlexProps>`
   display: flex;
   flex-direction: ${props => props.flexDirection ?? 'column'};
   margin: ${props => props.margin ?? '0'};
@@ -25,8 +22,7 @@ const FlexDiv = styled.div<FlexDivProps>`
   width: ${props => props.width ?? 'initial'};
   min-width: ${props => props.minWidth ?? 'initial'};
   gap: ${props => props.gap ?? 'initial'};
+  padding: ${props => props.padding ?? 'initial'};
 `
 
-export default function Flex({ children, ...props }: FlexProps): JSX.Element {
-  return <FlexDiv {...props}>{children}</FlexDiv>
-}
+export default Flex
