@@ -3,7 +3,7 @@ import { type GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { auth } from '@config/firebase'
 import ResetPassword from '@views/ResetPassword'
-import VerifyEmail from '@views/VerifyEmail'
+import VerifyEmail from '@views/VerfiyEmail'
 
 interface VerifyEmailPageProps {
   mode: 'verifyEmail' | 'resetPassword'
