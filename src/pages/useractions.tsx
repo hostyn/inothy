@@ -2,8 +2,8 @@ import { applyActionCode, verifyPasswordResetCode } from 'firebase/auth'
 import { type GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { auth } from '@config/firebase'
-import ResetPassword from '@views/ResetPassword'
 import VerifyEmail from '@views/VerfiyEmail'
+import ResetPassword from '@views/ResetPassword'
 
 interface VerifyEmailPageProps {
   mode: 'verifyEmail' | 'resetPassword'
