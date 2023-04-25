@@ -370,7 +370,7 @@ export default function LegalView(): JSX.Element {
         <Title>Facturas</Title>
         <P>
           Debido a la naturaleza de la operación de venta de nuestra{' '}
-          <Span fontWeight="bold">Plataforma</Span>,
+          <Span fontWeight="bold">Plataforma</Span>,{' '}
           <Span fontWeight="bold">Inothy</Span> no remitirá factura al{' '}
           <Span fontWeight="bold">Usuario</Span> que use sus{' '}
           <Span fontWeight="bold">Servicios</Span>, a no ser que este así lo
@@ -431,7 +431,7 @@ export default function LegalView(): JSX.Element {
           impuestos aplicables que correspondan. El{' '}
           <Span fontWeight="bold">Vendedor</Span> receptor de cualquier pago se
           compromete igualmente a satisfacer los impuestos correspondientes por
-          los ingresos que reciba por sus ventas en la
+          los ingresos que reciba por sus ventas en la{' '}
           <Span fontWeight="bold">Plataforma</Span>. Esta última premisa no
           será, en ningún caso, responsabilidad de la{' '}
           <Span fontWeight="bold">Plataforma</Span>.
@@ -494,7 +494,7 @@ export default function LegalView(): JSX.Element {
           <Span fontWeight="bold">INOTHY</Span> se reserva el derecho a
           modificar total o parcialmente algunas o todas las características de
           la <Span fontWeight="bold">Plataforma</Span>, siempre que se
-          consideren necesarias, de las cuales, previamente, se notificará a los
+          consideren necesarias, de las cuales, previamente, se notificará a los{' '}
           <Span fontWeight="bold">Usuarios</Span>, incluso por medios de correo
           electrónico, publicaciones en las redes sociales y notificaciones en
           la propia página web y aplicación.

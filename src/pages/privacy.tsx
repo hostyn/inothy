@@ -1,5 +1,5 @@
+import PrivacyView from '@views/Privacy'
 import Head from 'next/head'
-import PrivacyView from '@views/PrivaciyView'
 
 export default function Privacy(): JSX.Element {
   return (
