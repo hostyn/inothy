@@ -1,5 +1,5 @@
-import Head from 'next/head'
 import InfoView from '@views/Info'
+import Head from 'next/head'
 
 export default function Info(): JSX.Element {
   return (
