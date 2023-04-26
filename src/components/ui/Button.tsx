@@ -29,7 +29,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   margin: ${props => props.margin ?? '0 1em'};
   padding: ${props => props.padding ?? '0.5rem 2rem'};
   grid-column: ${props => props.gridColumn ?? 'initial'};
-  cursor: pointer;
+  cursor: ${props => (props.disabled ?? false ? 'default' : 'pointer')};
   transition: 0.2s;
 
   :hover:enabled {
