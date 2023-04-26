@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import algoliaIndex from '@config/algolia'
-import SearchView from '@views/Search'
 import { type GetServerSideProps } from 'next'
+import SearchView from '@views/Search'
+import type { Record, SearchResults } from 'types/algolia'
 
 interface SearchProps {
-  q: any
+  q: SearchResults
 }
 
 export default function Search({ q }: SearchProps): JSX.Element {
@@ -26,7 +27,9 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   const parsedPage = typeof page === 'string' ? parseInt(page) : 0
 
-  const searchResult = await algoliaIndex.search(q, { page: parsedPage })
+  const searchResult = await algoliaIndex.search<Record>(q, {
+    page: parsedPage,
+  })
 
   return { props: { q: searchResult } }
 }
