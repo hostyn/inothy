@@ -1,12 +1,10 @@
 import Link from 'next/link'
 import styled from 'styled-components'
-import { colors } from '../config/theme'
-import { useAuth } from '../context/authContext'
-import { getDownloadUrl } from '../util/api'
-import mimeTypes from '../util/mimeTypes'
-import A from '@ui/A'
-import Button from '@ui/Button'
-import Img from '@ui/Img'
+import { colors } from '@config/theme'
+import { getDownloadUrl } from '@util/api'
+import mimeTypes from '@util/mimeTypes'
+import { A, Button, Img } from '@ui'
+import { type FullDocumentInfo } from 'types/api'
 
 const Card = styled.div`
   display: grid;
@@ -28,22 +26,22 @@ const StyledA = styled(A)`
   }
 `
 
-export default function DocumentCard ({ docuemntData }) {
-  const { user } = useAuth()
+interface DocumentCardProps {
+  documentData: FullDocumentInfo
+}
 
-  const handleDownload = async () => {
-    const { url } = await getDownloadUrl(
-      user,
-      docuemntData.subjectId,
-      docuemntData.docId
-    )
+export default function DocumentCard({
+  documentData,
+}: DocumentCardProps): JSX.Element {
+  const handleDownload = async (): Promise<void> => {
+    const url = await getDownloadUrl(documentData.subject.id, documentData.id)
 
     const response = await fetch(url)
     const blob = await response.blob()
     const href = URL.createObjectURL(blob)
     const element = document.createElement('a')
     element.href = href
-    element.download = docuemntData.fileName
+    element.download = documentData.fileName
     element.click()
     element.remove()
     URL.revokeObjectURL(href)
@@ -53,18 +51,19 @@ export default function DocumentCard ({ docuemntData }) {
     <Card>
       <Img
         src={`/icons/files/${
-          mimeTypes[docuemntData.contentType] || 'file.svg'
+          mimeTypes[documentData.contentType as keyof typeof mimeTypes] ??
+          'file.svg'
         }`}
         aspectRatio="61/75"
         height="3rem"
         width="auto"
       />
       <Link
-        href={`/subject/${docuemntData.subjectId}/${docuemntData.docId}`}
+        href={`/subject/${documentData.subject.id}/${documentData.id}`}
         passHref
       >
         <StyledA color="primary" fontSize="1.5rem">
-          {docuemntData.name}
+          {documentData.name}
         </StyledA>
       </Link>
       <Button padding="1rem" height="auto" margin="0" onClick={handleDownload}>
