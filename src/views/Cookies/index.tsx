@@ -1,8 +1,7 @@
 import styled from 'styled-components'
-import A from '@ui/A'
-import App from '../components/App'
-import Text from '@ui/Text'
-import { sizes } from '../config/theme'
+import App from '@components/App'
+import { sizes } from '@config/theme'
+import { A, Text } from '@ui'
 
 const CookiesDiv = styled.div`
   display: flex;
@@ -34,7 +33,7 @@ const StyledA = styled(A)`
   word-break: break-all;
 `
 
-export default function CookiesView () {
+export default function CookiesView(): JSX.Element {
   return (
     <App>
       <CookiesDiv>
@@ -157,87 +156,6 @@ export default function CookiesView () {
           La(s) entidad(es) encargada(s) del suministro de cookies podrá(n)
           ceder esta información a terceros, siempre y cuando lo exija la ley o
           sea un tercero el que procese esta información para dichas entidades.
-        </P>
-
-        <Title>Cookies de redes sociales</Title>
-        <P>
-          Inothy incorpora plugins de redes sociales, que permiten acceder a las
-          mismas a partir del Sitio Web. Por esta razón, las cookies de redes
-          sociales pueden almacenarse en el navegador del Usuario. Los titulares
-          de dichas redes sociales disponen de sus propias políticas de
-          protección de datos y de cookies, siendo ellos mismos, en cada caso,
-          responsables de sus propios ficheros y de sus propias prácticas de
-          privacidad. El Usuario debe referirse a las mismas para informarse
-          acerca de dichas cookies y, en su caso, del tratamiento de sus datos
-          personales. Únicamente a título informativo se indican a continuación
-          los enlaces en los que se pueden consultar dichas políticas de
-          privacidad y/o de cookies:
-        </P>
-        <P>
-          Facebook:{' '}
-          <StyledA
-            userSelect="auto"
-            href="https://www.facebook.com/policies/cookies/"
-            target="_blank"
-            fontSize="1rem"
-          >
-            https://www.facebook.com/policies/cookies/
-          </StyledA>
-        </P>
-        <P>
-          Twitter:{' '}
-          <StyledA
-            userSelect="auto"
-            href="https://twitter.com/es/privacy"
-            target="_blank"
-            fontSize="1rem"
-          >
-            https://twitter.com/es/privacy
-          </StyledA>
-        </P>
-        <P>
-          Instagram:{' '}
-          <StyledA
-            userSelect="auto"
-            href="https://help.instagram.com/1896641480634370?ref=ig"
-            target="_blank"
-            fontSize="1rem"
-          >
-            https://help.instagram.com/1896641480634370?ref=ig
-          </StyledA>
-        </P>
-        <P>
-          YouTube:{' '}
-          <StyledA
-            userSelect="auto"
-            href="https://policies.google.com/privacy?hl=es-419&gl=mx"
-            target="_blank"
-            fontSize="1rem"
-          >
-            https://policies.google.com/privacy?hl=es-419&gl=mx
-          </StyledA>
-        </P>
-        <P>
-          Pinterest:{' '}
-          <StyledA
-            userSelect="auto"
-            href="https://policy.pinterest.com/es/privacy-policy"
-            target="_blank"
-            fontSize="1rem"
-          >
-            https://policy.pinterest.com/es/privacy-policy
-          </StyledA>
-        </P>
-        <P>
-          LinkedIn:{' '}
-          <StyledA
-            userSelect="auto"
-            href="https://www.linkedin.com/legal/cookie-policy?trk=hp-cookies"
-            target="_blank"
-            fontSize="1rem"
-          >
-            https://www.linkedin.com/legal/cookie-policy?trk=hp-cookies
-          </StyledA>
         </P>
 
         <Title>Deshabilitar, rechazar y eliminar cookies</Title>

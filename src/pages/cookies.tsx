@@ -1,5 +1,5 @@
+import CookiesView from '@views/Cookies'
 import Head from 'next/head'
-import CookiesView from '@views/CookiesView'
 
 export default function Cookies(): JSX.Element {
   return (
