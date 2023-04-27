@@ -1,5 +1,5 @@
+import Loading from '@components/Loading'
 import styled from 'styled-components'
-import Loading from '../Loading'
 
 const LoadingDiv = styled.div`
   min-height: 100vh;

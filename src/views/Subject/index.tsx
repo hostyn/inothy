@@ -3,11 +3,11 @@ import { useCallback, useRef, useState } from 'react'
 import styled from 'styled-components'
 import App from '@components/App'
 import DocumentGridCard from '@components/DocumentGridCard'
-import Loading from '@components/Loading/Loading'
 import { sizes } from '@config/theme'
 import { getSubject } from '@util/api'
 import { Button, Flex, Img, Text, Title } from '@ui'
 import { type SubjectWithDocumentsAndUniveristy } from 'types/api'
+import Loading from '@components/Loading'
 
 const SubjectDiv = styled.div`
   margin: 2rem calc(${sizes.inlineMargin} * 2);

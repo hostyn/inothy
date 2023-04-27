@@ -3,12 +3,12 @@ import App, {
   type AppContext,
   type AppInitialProps,
 } from 'next/app'
-import Cookies from '../components/Cookies'
 import Providers from '../context/Providers'
 import '../styles/global.css'
 import { pdfjs } from 'react-pdf'
 import Head from 'next/head'
 import { type IncomingHttpHeaders } from 'http2'
+import Cookies from '@components/Cookies'
 
 pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.js'
 

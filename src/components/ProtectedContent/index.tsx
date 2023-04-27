@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { useAuth } from '../../context/authContext'
-import LoadingPage from '../LoadingPage'
+import { useAuth } from '@context/authContext'
+import LoadingPage from '@components/LoadingPage'
 
 export default function ProtectedContent({
   children,
