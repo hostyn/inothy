@@ -15,6 +15,9 @@ export const NOREPLY_PASS = process.env.NOREPLY_PASS as string
 export const MIN_PRICE = parseFloat(process.env.NEXT_PUBLIC_MIN_PRICE as string)
 export const MAX_PRICE = parseFloat(process.env.NEXT_PUBLIC_MAX_PRICE as string)
 
+export const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID as string
+export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID as string
+
 export const BadgesNames = {
   ambassador: 'Embajador',
   bronze: 'Bronze',

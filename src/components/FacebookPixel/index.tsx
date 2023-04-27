@@ -1,14 +1,15 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
+import { FB_PIXEL_ID } from '@config/constants'
 
-const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID
+declare const window: any
 
-const pageview = () => {
+const pageview = (): void => {
   window.fbq('track', 'PageView')
 }
 
-export default function FacebookPixel () {
+export default function FacebookPixel(): JSX.Element {
   const router = useRouter()
 
   useEffect(() => {

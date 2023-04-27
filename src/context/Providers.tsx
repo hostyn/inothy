@@ -1,8 +1,8 @@
+import FacebookPixel from '@components/FacebookPixel'
+import TikTokPixel from '@components/TikTokPixel'
 import { type IncomingHttpHeaders } from 'http2'
 import { Toaster } from 'sonner'
 import { createGlobalStyle } from 'styled-components'
-import FacebookPixel from '../components/FacebookPixel'
-import TikTokPixel from '../components/TikTokPixel'
 import { AuthProvider } from './authContext'
 import { ModalProvider } from './modalContext'
 

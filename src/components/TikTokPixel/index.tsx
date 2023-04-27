@@ -1,14 +1,15 @@
+import { TIKTOK_PIXEL_ID } from '@config/constants'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
 import { useEffect } from 'react'
 
-const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID
+declare const window: any
 
-const pageview = () => {
+const pageview = (): void => {
   window.ttq.page()
 }
 
-export default function TikTokPixel () {
+export default function TikTokPixel(): JSX.Element {
   const router = useRouter()
 
   useEffect(() => {
