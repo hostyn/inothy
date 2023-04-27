@@ -1,5 +1,5 @@
-import { type GetServerSideProps } from 'next'
 import LoadingPage from '@components/LoadingPage'
+import { type GetServerSideProps } from 'next'
 
 export default function Account(): JSX.Element {
   return <LoadingPage />

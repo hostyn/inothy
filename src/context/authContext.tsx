@@ -10,9 +10,9 @@ import {
 } from 'firebase/auth'
 import { getUserData, sendVerificationEmail } from '@util/api'
 import { useRouter } from 'next/router'
-import LoadingPage from '@components/LoadingPage'
 import { type IncomingHttpHeaders } from 'http2'
 import type { FirestoreUser } from 'types/firestore'
+import LoadingPage from '@components/LoadingPage'
 
 interface User extends FirebaseUser {
   data?: FirestoreUser

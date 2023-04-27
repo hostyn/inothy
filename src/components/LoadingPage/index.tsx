@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Loading from './Loading'
+import Loading from '../Loading'
 
 const LoadingDiv = styled.div`
   min-height: 100vh;
@@ -11,7 +11,7 @@ const LoadingDiv = styled.div`
   align-items: center;
 `
 
-export default function LoadingPage () {
+export default function LoadingPage(): JSX.Element {
   return (
     <LoadingDiv>
       <Loading />

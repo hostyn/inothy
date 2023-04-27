@@ -1,7 +1,7 @@
 import CompletePayPage from '@views/CompletePay'
-import ProtectedContent from '@components/ProtectedContent'
 import Head from 'next/head'
 import { type GetServerSideProps } from 'next'
+import ProtectedContent from '@components/ProtectedContent'
 
 interface CompletePayProps {
   transactionId: string
