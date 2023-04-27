@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { Document, Page } from 'react-pdf'
 import styled from 'styled-components'
 import { colors } from '@config/theme'
-import Loading from '@components/Loading/Loading'
 import { Flex, Text } from '@ui'
+import Loading from '@components/Loading'
 
 const StyledLoading = styled(Loading)<{ height: string }>`
   height: ${props => `${props.height}px`};

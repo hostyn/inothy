@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { colors, sizes } from '@config/theme'
 import { useState } from 'react'
 import Link from 'next/link'
-import Loading from '@components/Loading/Loading'
 import { getSubject } from '@util/api'
 import { useAuth } from '@context/authContext'
 import DocumentGridCard from '@components/DocumentGridCard'
@@ -14,6 +13,7 @@ import type {
   SubjectWithDocumentsAndUniveristy,
   University,
 } from 'types/api'
+import Loading from '@components/Loading'
 
 const DegreeDiv = styled.div`
   display: flex;

@@ -2,10 +2,10 @@ import { useState } from 'react'
 import Resume from './Resume'
 import Card from './Card'
 import AddCard from './AddCard'
-import Loading from '../../components/Loading'
 import MotionDiv from '@components/MotionDiv'
 import { type FullDocumentInfo } from 'types/api'
 import ErrorSuccess from '@components/ErrorSuccessPage'
+import Loading from '@components/Loading'
 
 export interface PaymentDetails {
   cardId: null | string

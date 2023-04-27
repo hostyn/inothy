@@ -2,10 +2,10 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import App from '@components/App'
 import { colors, sizes } from '@config/theme'
-import Loading from '@components/Loading/Loading'
 import ErrorSuccess from '@components/ErrorSuccessPage'
 import Upload from './Upload'
 import MotionDiv from '@components/MotionDiv'
+import Loading from '@components/Loading'
 
 const UploadDiv = styled.div`
   display: flex;

@@ -1,6 +1,5 @@
 import { type Dispatch, type SetStateAction, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import Loading from '@components/Loading/Loading'
 import { useAuth } from '@context/authContext'
 import { buy, getCards } from '@util/api'
 import { logEvent } from '@config/firebase'
@@ -9,6 +8,7 @@ import type { PaymentDetails, PaymentState } from '.'
 import { type card } from 'mangopay2-nodejs-sdk'
 import CardCard from './components/CardCard'
 import AddCardCard from './components/AddCardCard'
+import Loading from '@components/Loading'
 
 // Fix fqb not defined
 declare const window: any
