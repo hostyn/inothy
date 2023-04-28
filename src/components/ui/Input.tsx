@@ -81,6 +81,8 @@ interface InputProps {
   name?: string
   error?: FieldError
   autoComplete?: string
+  value?: string
+  disabled?: boolean
 }
 
 function Input(
