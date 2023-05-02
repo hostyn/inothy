@@ -1,7 +1,5 @@
+import { Button, Img, Text } from '@ui'
 import styled from 'styled-components'
-import Button from '@ui/Button'
-import Img from '@ui/Img'
-import Text from '@ui/Text'
 
 const ErrorDiv = styled.div`
   min-height: 100%;
@@ -27,7 +25,7 @@ const StyledButton = styled(Button)`
   }
 `
 
-export default function State6Error ({ setState }) {
+export default function Error({ setState }): JSX.Element {
   return (
     <ErrorDiv>
       <Img src="/error.svg" width="20vw" height="20vw" />

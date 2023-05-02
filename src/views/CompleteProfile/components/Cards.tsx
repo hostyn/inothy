@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../../config/theme'
+import { colors } from '@config/theme'
 
 const Cards = styled.div`
   display: flex;
@@ -7,9 +7,10 @@ const Cards = styled.div`
   gap: 5px;
   max-height: 100%;
   min-width: 100%;
-  overflow-y: auto;
-  margin: 1rem 0;
-  padding: 0 5px 0 0;
+  padding: 1px;
+  height: 100%;
+  overflow: auto;
+  margin: 0 0 1rem 0;
 
   &::-webkit-scrollbar {
     width: 7px;

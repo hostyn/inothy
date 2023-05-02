@@ -1,8 +1,7 @@
+import { Img, Text } from '@ui'
 import styled from 'styled-components'
-import Img from '@ui/Img'
-import Text from '@ui/Text'
 
-const Success = styled.div`
+const SuccessDiv = styled.div`
   min-width: 100%;
   max-width: 100%;
   min-height: 100%;
@@ -19,13 +18,13 @@ const Success = styled.div`
   }
 `
 
-export default function State5Success () {
+export default function Success(): JSX.Element {
   return (
-    <Success>
+    <SuccessDiv>
       <Img src="/check.svg" width="8rem" height="8rem" />
       <Text color="secondary" fontSize="4rem" fontWeight="bold">
         Bienvenid@
       </Text>
-    </Success>
+    </SuccessDiv>
   )
 }

@@ -69,6 +69,11 @@ async function completeprofile(
     return
   }
 
+  if (body.biography.length > 500) {
+    res.status(400).json({ success: false, error: 'biography-too-long' })
+    return
+  }
+
   // Check if username is valid
   if (user.data.username !== body.username) {
     const usernameQuerySnapshot = await firestoreAdmin

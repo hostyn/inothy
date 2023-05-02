@@ -1,9 +1,8 @@
 import styled from 'styled-components'
-import Img from '@ui/Img'
-import Text from '@ui/Text'
-import { colors } from '../../../config/theme'
+import { colors } from '@config/theme'
+import { Img, Text } from '@ui'
 
-const Card = styled.div`
+const Card = styled.div<{ selected: boolean }>`
   border-radius: 10px;
   display: grid;
   grid-template-columns: 3rem 1fr;
@@ -17,10 +16,10 @@ const Card = styled.div`
   padding: 5px 1rem;
   transition: background-color 0.2s;
 
-  background-color: ${(props) =>
+  background-color: ${props =>
     props.selected ? colors.disabledBackground : 'transparent'};
 
-  border: ${(props) =>
+  outline: ${props =>
     props.selected ? `1px solid ${colors.secondary}` : 'initial'};
 
   &:hover {
