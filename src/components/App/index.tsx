@@ -27,6 +27,7 @@ const AppBody = styled.main<AppBodyProps>`
   min-height: ${props =>
     props.isBanner ? `calc(100vh - ${sizes.banner})` : '100vh'};
   padding: ${props => (props.transparent ? '0' : `${sizes.navbar} 0 0 0`)};
+  display: flex;
 `
 
 export default function App({
