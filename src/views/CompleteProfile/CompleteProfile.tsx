@@ -4,7 +4,7 @@ import { useAuth } from '@context/authContext'
 import { isUsernameAvailable } from '@util/api'
 import { Input } from '@ui'
 import { useForm } from 'react-hook-form'
-import FormBody from './components/FormBody'
+import FormBody from '@components/FormBody'
 import type { CompleteProfileBaseProps } from '.'
 
 interface FormValues {

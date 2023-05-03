@@ -1,5 +1,5 @@
 import { Input } from '@ui'
-import FormBody from './components/FormBody'
+import FormBody from '@components/FormBody'
 import type { CompleteProfileBaseProps } from '.'
 import { useForm } from 'react-hook-form'
 import { useEffect } from 'react'

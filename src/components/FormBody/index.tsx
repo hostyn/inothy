@@ -41,6 +41,7 @@ export const StyledButton = styled(Button)<{ back?: boolean }>`
 interface FormBodyProps {
   children: JSX.Element | JSX.Element[]
   title: string
+  subtitle?: string
   handleSubmit: (...props: any[]) => unknown
   onBack?: () => unknown
   last?: boolean
@@ -49,6 +50,7 @@ interface FormBodyProps {
 export default function FormBody({
   children,
   title,
+  subtitle,
   handleSubmit,
   onBack,
   last,
@@ -58,6 +60,11 @@ export default function FormBody({
       <Title textAlign="center" fontWeight="bold" fontSize="max(2rem, 2.5vw)">
         {title}
       </Title>
+      {subtitle != null && (
+        <Title textAlign="center" fontSize="1rem">
+          {subtitle}
+        </Title>
+      )}
       <FormBodyDiv>{children}</FormBodyDiv>
       <ButtonGrid>
         {onBack != null && (
