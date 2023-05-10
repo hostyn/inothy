@@ -1,10 +1,9 @@
+import { Button, Flex, Text } from '@ui'
 import Link from 'next/link'
-import Button from '@ui/Button'
-import Text from '@ui/Text'
 
-export default function Pending () {
+export default function Pending() {
   return (
-    <>
+    <Flex justifyContent="center" minHeight="100%">
       <Text
         textAlign="center"
         fontSize="2rem"
@@ -23,6 +22,6 @@ export default function Pending () {
           Subir apuntes
         </Button>
       </Link>
-    </>
+    </Flex>
   )
 }

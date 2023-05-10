@@ -1,34 +1,7 @@
 import styled from 'styled-components'
-import Button from '@ui/Button'
-import Img from '@ui/Img'
-import Text from '@ui/Text'
-import { colors } from '../../config/theme'
-
-const UploadInfoDiv = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`
-
-const InlineText = styled.div`
-  display: grid;
-  align-items: center;
-  grid-template-columns: 1fr 7.5rem;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr 5rem;
-
-    & p {
-      font-size: 1.5rem;
-    }
-
-    & div {
-      width: 5rem;
-      height: calc(5rem * 3 / 4);
-    }
-  }
-`
+import { Img, Text } from '@ui'
+import FormBody from '@components/FormBody'
+import type { KYCBaseProps } from '.'
 
 const TextWithCheck = styled.div`
   display: grid;
@@ -65,25 +38,23 @@ const StyledText = styled(Text)`
   }
 `
 
-const ButtonsDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
+export default function UploadAccepted({
+  setState,
+}: Omit<KYCBaseProps, 'userData' | 'setUserData'>): JSX.Element {
+  const onSubmit = (e: React.ChangeEvent): void => {
+    e.preventDefault()
+    setState('uploadrejected')
+  }
+  const onBack = (): void => {
+    setState('completeProfileInfo')
+  }
 
-export default function UploadAccepted ({ setState }) {
   return (
-    <UploadInfoDiv>
-      <InlineText>
-        <Text
-          margin="0 auto 0 0"
-          fontSize="2rem"
-          color="secondary"
-          fontWeight="bold"
-        >
-          Verificación de identidad
-        </Text>
-        <Img src="/resources/kyc/icon.svg" width="7.5rem" height="5.625rem" />
-      </InlineText>
+    <FormBody
+      title="Verficicación de identidad"
+      handleSubmit={onSubmit}
+      onBack={onBack}
+    >
       <StyledText fontSize="1.5rem" fontWeight="bold" margin="1rem 0 0 0">
         Solo se aceptarán:
       </StyledText>
@@ -122,27 +93,6 @@ export default function UploadAccepted ({ setState }) {
         </Rules>
         <StyledImg src="/resources/kyc/good.svg" width="70%" margin="auto" />
       </Columns>
-      <ButtonsDiv>
-        <Button
-          margin="0 auto 0 0"
-          height="auto"
-          padding="0.5rem 1rem"
-          background="white"
-          color="primary"
-          border={`2px solid ${colors.primary}`}
-          onClick={() => setState('completeProfileInfo')}
-        >
-          Atrás
-        </Button>
-        <Button
-          margin="0"
-          height="auto"
-          padding="0.5rem 1rem"
-          onClick={() => setState('uploadrejected')}
-        >
-          Siguiente
-        </Button>
-      </ButtonsDiv>
-    </UploadInfoDiv>
+    </FormBody>
   )
 }

@@ -1,16 +1,8 @@
 import styled from 'styled-components'
-import Button from '@ui/Button'
-import Img from '@ui/Img'
-import Text from '@ui/Text'
-import { colors } from '../../config/theme'
-
-const DocumentSelectionDiv = styled.div`
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-`
+import { colors } from '@config/theme'
+import { Button, Img, Text } from '@ui'
+import { type KYCBaseProps } from '.'
+import FormBody from '@components/FormBody'
 
 const DocumentsGrid = styled.div`
   display: grid;
@@ -54,18 +46,15 @@ const Card = styled.div`
   }
 `
 
-export default function DocumentSelection ({ setState }) {
+export default function DocumentSelection({
+  setState,
+}: Omit<KYCBaseProps, 'userData' | 'setUserData'>): JSX.Element {
+  const onBack = (): void => {
+    setState('completeProfileInfo')
+  }
+
   return (
-    <DocumentSelectionDiv>
-      <Text
-        margin="0 auto 0 0"
-        fontSize="2rem"
-        color="secondary"
-        fontWeight="bold"
-        fontFamily="HelveticaRounded"
-      >
-        Tipo de documento
-      </Text>
+    <FormBody title="Selecciona un documento" onBack={onBack}>
       <DocumentsGrid>
         <Card onClick={() => setState('dni')}>
           <Img src="/resources/kyc/dni.svg" width="80%" height="23%" />
@@ -90,17 +79,6 @@ export default function DocumentSelection ({ setState }) {
           </Text>
         </Card>
       </DocumentsGrid>
-      <Button
-        margin="0 auto 0 0"
-        height="auto"
-        padding="0.5rem 1rem"
-        background="white"
-        color="primary"
-        border={`2px solid ${colors.primary}`}
-        onClick={() => setState('uploadrejected')}
-      >
-        Atrás
-      </Button>
-    </DocumentSelectionDiv>
+    </FormBody>
   )
 }

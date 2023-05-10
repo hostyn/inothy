@@ -1,6 +1,6 @@
+import { Button, Img, Text } from '@ui'
+import Link from 'next/link'
 import styled from 'styled-components'
-import Img from '@ui/Img'
-import Text from '@ui/Text'
 
 const KYCCOmpletedDiv = styled.div`
   display: flex;
@@ -9,11 +9,11 @@ const KYCCOmpletedDiv = styled.div`
   align-items: center;
 `
 
-export default function Error () {
+export default function Success() {
   return (
     <KYCCOmpletedDiv>
       <Img
-        src="/error.svg"
+        src="/check.svg"
         aspectRatio="1"
         width="8rem"
         height="auto"
@@ -23,14 +23,20 @@ export default function Error () {
         fontSize="2rem"
         fontWeight="bold"
         color="secondary"
-        textAlign="center"
         margin="1rem 0 0 0"
+        textAlign="center"
       >
-        Ha habido un problema
+        ¡Completado!
       </Text>
       <Text textAlign="center">
-        Intentalo mas tarde o contacta con el soporte
+        Estamos revisando tu información, esto puede tardar un poco.
       </Text>
+      <Text textAlign="center">Mientras tanto, ¡puedes subir tus apuntes!</Text>
+      <Link href="/upload" passHref>
+        <Button margin="1rem auto 0 auto" height="auto" padding="0.5rem 1rem">
+          Subir apuntes
+        </Button>
+      </Link>
     </KYCCOmpletedDiv>
   )
 }

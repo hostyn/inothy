@@ -1,34 +1,7 @@
 import styled from 'styled-components'
-import Button from '@ui/Button'
-import Img from '@ui/Img'
-import Text from '@ui/Text'
-import { colors } from '../../config/theme'
-
-const UploadInfoDiv = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`
-
-const InlineText = styled.div`
-  display: grid;
-  align-items: center;
-  grid-template-columns: 1fr 7.5rem;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr 5rem;
-
-    & p {
-      font-size: 1.5rem;
-    }
-
-    & div {
-      width: 5rem;
-      height: calc(5rem * 3 / 4);
-    }
-  }
-`
+import { Img, Text } from '@ui'
+import type { KYCBaseProps } from '.'
+import FormBody from '@components/FormBody'
 
 const Columns = styled.div`
   margin: 0 0 1rem 0;
@@ -66,26 +39,23 @@ const StyledText = styled(Text)`
   }
 `
 
-const ButtonsDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
-
-export default function UploadRejected ({ setState }) {
+export default function UploadRejected({
+  setState,
+}: Omit<KYCBaseProps, 'userData' | 'setUserData'>): JSX.Element {
+  const onSubmit = (e: React.ChangeEvent): void => {
+    e.preventDefault()
+    setState('documentselection')
+  }
+  const onBack = (): void => {
+    setState('uploadaccepted')
+  }
   return (
-    <UploadInfoDiv>
-      <InlineText>
-        <Text
-          margin="0 auto 0 0"
-          fontSize="2rem"
-          color="secondary"
-          fontWeight="bold"
-        >
-          Verificación de identidad
-        </Text>
-        <Img src="/resources/kyc/icon.svg" width="7.5rem" height="5.625rem" />
-      </InlineText>
-      <StyledText fontSize="1.5rem" fontWeight="bold" margin="1rem 0 0 0">
+    <FormBody
+      title="Verficicación de identidad"
+      handleSubmit={onSubmit}
+      onBack={onBack}
+    >
+      <StyledText fontSize="1.5rem" fontWeight="bold" margin="0 0 1rem 0">
         No se aceptarán:
       </StyledText>
 
@@ -125,27 +95,6 @@ export default function UploadRejected ({ setState }) {
           </StyledText>
         </Card>
       </Columns>
-      <ButtonsDiv>
-        <Button
-          margin="0 auto 0 0"
-          height="auto"
-          padding="0.5rem 1rem"
-          background="white"
-          color="primary"
-          border={`2px solid ${colors.primary}`}
-          onClick={() => setState('uploadaccepted')}
-        >
-          Atrás
-        </Button>
-        <Button
-          margin="0"
-          height="auto"
-          padding="0.5rem 1rem"
-          onClick={() => setState('documentselection')}
-        >
-          Siguiente
-        </Button>
-      </ButtonsDiv>
-    </UploadInfoDiv>
+    </FormBody>
   )
 }

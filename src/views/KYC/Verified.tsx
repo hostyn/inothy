@@ -1,10 +1,9 @@
+import { Button, Flex, Text } from '@ui'
 import Link from 'next/link'
-import Button from '@ui/Button'
-import Text from '@ui/Text'
 
-export default function Verified () {
+export default function Verified() {
   return (
-    <>
+    <Flex justifyContent="center" minHeight="100%">
       <Text
         textAlign="center"
         fontSize="2rem"
@@ -21,6 +20,6 @@ export default function Verified () {
           Retirar
         </Button>
       </Link>
-    </>
+    </Flex>
   )
 }

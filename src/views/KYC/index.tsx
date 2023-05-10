@@ -1,21 +1,22 @@
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { useAuth } from '../../context/authContext'
-import App from '../../components/App'
+import { useAuth } from '@context/authContext'
+import App from '@components/App'
 import CompleteProfileInfo from './CompleteProfileInfo'
-import Loading from '../../components/Loading'
+import Loading from '@components/Loading'
 import Success from './Success'
 import Error from './Error'
 import Verified from './Verified'
 import Pending from './Pending'
-import { completeKYC } from '../../util/api'
-import { colors, sizes } from '../../config/theme'
+import { completeKYC } from '@util/api'
+import { colors, sizes } from '@config/theme'
 import UploadAccepted from './UploadAccepted'
 import UploadRejected from './UploadRejected'
 import DocumentSelection from './DocumentSelection'
 import Dni from './Dni'
 import Passport from './Passport'
+import MotionDiv from '@components/MotionDiv'
+import type { CountryISO } from 'mangopay2-nodejs-sdk'
 
 const UploadDiv = styled.div`
   display: flex;
@@ -26,6 +27,8 @@ const UploadDiv = styled.div`
   border-radius: 20px;
   min-height: calc(100vh - ${sizes.navbar} - 6rem);
   justify-content: center;
+
+  width: 100%;
 
   @media (max-width: 1000px) {
     margin: 2rem;
@@ -38,10 +41,9 @@ const UploadDiv = styled.div`
   }
 `
 
-const MotionDiv = styled(motion.div)`
+const StyledMotionDiv = styled(MotionDiv)`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding: 3rem 5rem;
   min-height: inherit;
   min-width: 100%;
@@ -55,56 +57,73 @@ const MotionDiv = styled(motion.div)`
   }
 `
 
-export default function KYCView () {
+interface IUserData {
+  name?: string
+  surname?: string
+  year?: number
+  month?: number
+  day?: number
+  email?: string
+  address1?: string
+  address2?: string
+  city?: string
+  region?: string
+  postalCode?: string
+  country: 'ES'
+  nationality: CountryISO
+  countryOfResidence: 'ES'
+}
+
+type State =
+  | 'verified'
+  | 'pending'
+  | 'completeProfileInfo'
+  | 'uploadaccepted'
+  | 'uploadrejected'
+  | 'documentselection'
+  | 'dni'
+  | 'passport'
+  | 'success'
+  | 'error'
+  | 'loading'
+
+export interface KYCBaseProps {
+  userData: IUserData
+  setUserData: React.Dispatch<React.SetStateAction<IUserData>>
+  setState: React.Dispatch<React.SetStateAction<State>>
+}
+
+export default function KYCView(): JSX.Element {
   const { user } = useAuth()
-  const [state, setState] = useState(
-    user.data.mangopayKYCStatus === 'VALIDATED'
+  const [state, setState] = useState<State>(
+    user?.data?.mangopayKYCStatus === 'VALIDATED'
       ? 'verified'
-      : user.data.mangopayKYCStatus === 'VALIDATION_ASKED'
-        ? 'pending'
-        : 'completeProfileInfo'
+      : user?.data?.mangopayKYCStatus === 'VALIDATION_ASKED'
+      ? 'pending'
+      : 'completeProfileInfo'
   )
 
-  const [userData, setUserData] = useState({
-    name: user.data.name,
-    surname: user.data.surname,
-    email: user.email,
-    address1: user.data.address.address1,
-    address2: user.data.address.address2,
-    city: user.data.address.city,
-    region: user.data.address.region,
-    postalCode: user.data.address.postalCode,
-    country: user.data.address.country,
-    birthday: parseInt(new Date().getTime() / 1000),
+  const [userData, setUserData] = useState<IUserData>({
+    name: user?.data?.name,
+    surname: user?.data?.surname,
+    email: user?.email as string,
+    address1: user?.data?.address?.address1,
+    address2: user?.data?.address?.address2,
+    city: user?.data?.address?.city,
+    region: user?.data?.address?.region,
+    postalCode: user?.data?.address?.postalCode,
+    country: 'ES',
     nationality: 'ES',
-    countryOfResidence: 'ES'
+    countryOfResidence: 'ES',
+    year: new Date().getFullYear(),
+    month: new Date().getMonth(),
+    day: new Date().getDay(),
   })
-
-  const handleKYCSubmit = async (files) => {
-    try {
-      setState('loading')
-      await completeKYC(user, {
-        ...userData,
-        files
-      })
-
-      setState('success')
-    } catch (e) {
-      console.log(e)
-      setState('error')
-    }
-  }
 
   return (
     <App>
       <UploadDiv>
-        <MotionDiv
-          key={state}
-          animate={{ opacity: 1, x: 0 }}
-          initial={{ opacity: 0, x: 20 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.15 }}
-        >
+        <StyledMotionDiv state={state}>
           {state === 'completeProfileInfo' && (
             <CompleteProfileInfo
               setUserData={setUserData}
@@ -117,18 +136,16 @@ export default function KYCView () {
           {state === 'documentselection' && (
             <DocumentSelection setState={setState} />
           )}
-          {state === 'dni' && (
-            <Dni setState={setState} handleKYCSubmit={handleKYCSubmit} />
-          )}
+          {state === 'dni' && <Dni setState={setState} userData={userData} />}
           {state === 'passport' && (
-            <Passport setState={setState} handleKYCSubmit={handleKYCSubmit} />
+            <Passport setState={setState} userData={userData} />
           )}
           {state === 'success' && <Success />}
           {state === 'error' && <Error />}
           {state === 'verified' && <Verified />}
           {state === 'pending' && <Pending />}
           {state === 'loading' && <Loading />}
-        </MotionDiv>
+        </StyledMotionDiv>
       </UploadDiv>
     </App>
   )
