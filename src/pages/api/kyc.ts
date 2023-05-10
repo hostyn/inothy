@@ -33,7 +33,7 @@ async function kyc(
     typeof body.city !== 'string' ||
     typeof body.region !== 'string' ||
     typeof body.postalCode !== 'string' ||
-    typeof body.birthday !== 'string' ||
+    typeof body.birthday !== 'number' ||
     typeof body.nationality !== 'string' ||
     typeof body.files !== 'object' ||
     body.files.length === 0

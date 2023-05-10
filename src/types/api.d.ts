@@ -121,7 +121,7 @@ interface CompleteKYC {
   city: string
   region: string
   postalCode: string
-  birthday: string
+  birthday: number
   nationality: string
   files: string[]
 }

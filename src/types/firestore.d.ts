@@ -3,7 +3,7 @@ import type { CountryISO, kycDocument, payIn, user } from 'mangopay2-nodejs-sdk'
 interface FirestoreUser {
   address?: {
     address1: string
-    address2: string | null
+    address2?: string
     city: string
     postalCode: string
     region: string
