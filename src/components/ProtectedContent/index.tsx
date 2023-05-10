@@ -19,7 +19,7 @@ export default function ProtectedContent({
     } else {
       setRedirect(false)
     }
-  }, [isUser, push, isLoading])
+  }, [isUser, isLoading])
 
   if (isLoading) return <LoadingPage />
 

@@ -42,7 +42,7 @@ interface FormBodyProps {
   children: JSX.Element | JSX.Element[]
   title: string
   subtitle?: string
-  handleSubmit: (...props: any[]) => unknown
+  handleSubmit?: (...props: any[]) => unknown
   onBack?: () => unknown
   last?: boolean
 }
@@ -72,9 +72,11 @@ export default function FormBody({
             Atrás
           </StyledButton>
         )}
-        <StyledButton gridColumn="2">
-          {last ?? false ? 'Terminar' : 'Continuar'}
-        </StyledButton>
+        {handleSubmit != null && (
+          <StyledButton gridColumn="2">
+            {last ?? false ? 'Terminar' : 'Continuar'}
+          </StyledButton>
+        )}
       </ButtonGrid>
     </Form>
   )

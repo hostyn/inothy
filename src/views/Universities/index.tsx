@@ -8,6 +8,7 @@ import type { University } from 'types/api'
 import useSearchQuery from '@hooks/useSearchQuery'
 
 const UniversitiesDiv = styled.div`
+  width: 100%;
   margin: 2rem calc(${sizes.inlineMargin} * 2);
 
   @media (max-width: 1500px) {
@@ -40,7 +41,7 @@ const UniversitiesMap = styled.div`
   flex-direction: column;
   margin: 2rem 0;
 
-  @media (max-width: 1500px) {
+  @media (max-width: 1000px) {
     grid-template-columns: 1fr;
   }
 `

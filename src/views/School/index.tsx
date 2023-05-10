@@ -9,6 +9,7 @@ import type { SchoolWithDegree, UniversityWithSchools } from 'types/api'
 import useSearchQuery from '@hooks/useSearchQuery'
 
 const SchoolDiv = styled.div`
+  width: 100%;
   margin: 2rem calc(${sizes.inlineMargin} * 2);
 
   @media (max-width: 1500px) {
@@ -21,6 +22,7 @@ const SchoolDiv = styled.div`
 `
 
 const TitleDiv = styled.div`
+  width: 100%;
   display: grid;
   grid-template-columns: max(10vw, 5rem) auto auto;
   align-items: center;
