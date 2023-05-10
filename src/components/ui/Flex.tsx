@@ -10,6 +10,8 @@ interface FlexProps {
   minWidth?: string
   gap?: string
   padding?: string
+  maxWidth?: string
+  minHeight?: string
 }
 
 const Flex = styled.div<FlexProps>`
@@ -23,6 +25,8 @@ const Flex = styled.div<FlexProps>`
   min-width: ${props => props.minWidth ?? 'initial'};
   gap: ${props => props.gap ?? 'initial'};
   padding: ${props => props.padding ?? 'initial'};
+  max-width: ${props => props.maxWidth ?? 'initial'};
+  min-height: ${props => props.minHeight ?? 'initial'};
 `
 
 export default Flex

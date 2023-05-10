@@ -4,8 +4,8 @@ import { v4 } from 'uuid'
 import { forwardRef } from 'react'
 import type { FieldError, ChangeHandler } from 'react-hook-form'
 import Text from './Text'
-import Img from './Img'
 import Flex from './Flex'
+import Img from './Img'
 
 interface LabelProps {
   error: boolean
@@ -41,12 +41,13 @@ const Input = styled.input`
   display: none;
 `
 
-const ErrorDiv = styled.div`
+const ErrorDiv = styled.div<{ centered?: boolean }>`
   width: 100%;
   max-width: 100%;
   height: calc(0.8rem + 5px);
   display: flex;
   padding: 0 0 5px 0;
+  justify-content: ${props => (props.centered ? 'center' : 'initial')};
 `
 const FileName = styled(Text)`
   text-overflow: ellipsis;
@@ -65,29 +66,46 @@ interface FileInputProps extends Omit<LabelProps, 'error'> {
   error?: FieldError
   margin?: string
   file?: FileList
+  maxWidth?: string
+  centered?: boolean
 }
 
 function Fileinput(
-  { margin, placeholder, border, error, file, ...props }: FileInputProps,
+  {
+    margin,
+    placeholder,
+    border,
+    error,
+    file,
+    maxWidth,
+    centered,
+    ...props
+  }: FileInputProps,
   ref: React.Ref<any>
 ): JSX.Element {
   const id = v4()
   return (
-    <Flex margin={margin}>
+    <Flex margin={margin} alignItems="center" maxWidth={maxWidth}>
       <Label htmlFor={id} border={border} error={error != null}>
         {placeholder ?? 'Adjuntar archivo'}
       </Label>
       <Input id={id} type="file" ref={ref} {...props} />
-      <ErrorDiv>
+      <ErrorDiv centered={centered}>
         {error != null ? (
           <>
             <Img
               src="/icons/info-error.svg"
               width="1rem"
               height="1rem"
+              minWidth="1rem"
+              minHeight="1rem"
               margin="0 5px"
             />
-            <Text margin="0 auto 0 0" color="secondary" fontSize="0.8rem">
+            <Text
+              margin={centered ?? false ? '0' : '0 auto 0 0'}
+              color="secondary"
+              fontSize="0.8rem"
+            >
               {error?.message?.toString()}
             </Text>
           </>
@@ -99,6 +117,8 @@ function Fileinput(
                 src="/icons/file.svg"
                 width="1rem"
                 height="1rem"
+                minWidth="1rem"
+                minHeight="1rem"
                 margin="0 5px"
               />
               <FileName margin="0 auto 0 0" fontSize="0.8rem">

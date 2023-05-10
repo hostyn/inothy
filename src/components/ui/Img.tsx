@@ -9,6 +9,8 @@ interface ImageDivProps {
   margin?: string
   cursor?: string
   alignSelf?: string
+  minHeight?: string
+  minWidth?: string
 }
 
 interface ImgProps extends ImageDivProps {
@@ -29,38 +31,16 @@ const ImageDiv = styled.div<ImageDivProps>`
   cursor: ${props => props.cursor ?? 'inherit'};
   align-self: ${props => props.alignSelf ?? 'initial'};
   user-select: none;
+  min-height: ${props => props.minHeight ?? 'initial'};
+  min-width: ${props => props.minWidth ?? 'initial'};
 `
 
 function Img(
-  {
-    src,
-    alt,
-    width,
-    height,
-    aspectRatio,
-    margin,
-    onClick,
-    cursor,
-    className,
-    priority,
-    alignSelf,
-    title,
-  }: ImgProps,
+  { src, alt, priority, ...props }: ImgProps,
   ref: ForwardedRef<HTMLDivElement>
 ): JSX.Element {
   return (
-    <ImageDiv
-      className={className}
-      width={width}
-      height={height}
-      aspectRatio={aspectRatio}
-      margin={margin}
-      onClick={onClick}
-      cursor={cursor}
-      alignSelf={alignSelf}
-      title={title}
-      ref={ref}
-    >
+    <ImageDiv {...props} ref={ref}>
       <Image
         src={src}
         layout="fill"

@@ -75,7 +75,7 @@ const ErrorDiv = styled.div`
 
 interface InputProps {
   placeholder?: string
-  onChange?: ChangeHandler
+  onChange?: ChangeHandler | ((e: any) => void)
   onBlur?: ChangeHandler
   type?: string
   name?: string
