@@ -1,16 +1,8 @@
-import { Img, Text } from '@ui'
-import styled from 'styled-components'
-
-const KYCCOmpletedDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
+import { Flex, Img, Text } from '@ui'
 
 export default function Error() {
   return (
-    <KYCCOmpletedDiv>
+    <Flex justifyContent="center" alignItems="center" minHeight="100%">
       <Img
         src="/error.svg"
         aspectRatio="1"
@@ -30,6 +22,6 @@ export default function Error() {
       <Text textAlign="center">
         Intentalo mas tarde o contacta con el soporte
       </Text>
-    </KYCCOmpletedDiv>
+    </Flex>
   )
 }

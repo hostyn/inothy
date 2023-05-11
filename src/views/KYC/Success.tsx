@@ -1,17 +1,9 @@
-import { Button, Img, Text } from '@ui'
+import { Button, Flex, Img, Text } from '@ui'
 import Link from 'next/link'
-import styled from 'styled-components'
-
-const KYCCOmpletedDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
 
 export default function Success() {
   return (
-    <KYCCOmpletedDiv>
+    <Flex justifyContent="center" alignItems="center" minHeight="100%">
       <Img
         src="/check.svg"
         aspectRatio="1"
@@ -37,6 +29,6 @@ export default function Success() {
           Subir apuntes
         </Button>
       </Link>
-    </KYCCOmpletedDiv>
+    </Flex>
   )
 }

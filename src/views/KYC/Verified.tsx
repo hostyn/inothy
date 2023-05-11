@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Verified() {
   return (
-    <Flex justifyContent="center" minHeight="100%">
+    <Flex justifyContent="center" alignItems="center" minHeight="100%">
       <Text
         textAlign="center"
         fontSize="2rem"
