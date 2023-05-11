@@ -64,32 +64,38 @@ export default function Dni({
   }
 
   const onSubmit = async (values: FormValues) => {
-    const files = await Promise.all([
-      blobToBase64(values.front[0]),
-      blobToBase64(values.back[0]),
-    ])
+    setState('loading')
+    try {
+      const files = await Promise.all([
+        blobToBase64(values.front[0]),
+        blobToBase64(values.back[0]),
+      ])
 
-    await completeKYC({
-      name: userData.name as string,
-      surname: userData.surname as string,
-      email: userData.email as string,
-      address1: userData.address1 as string,
-      address2: userData.address2 as string,
-      city: userData.city as string,
-      region: userData.region as string,
-      postalCode: userData.postalCode as string,
-      birthday: parseInt(
-        (
-          new Date(
-            userData.year as number,
-            userData.month as number,
-            userData.day as number
-          ).getTime() / 1000
-        ).toString()
-      ),
-      nationality: userData.nationality as string,
-      files: files as string[],
-    })
+      await completeKYC({
+        name: userData.name as string,
+        surname: userData.surname as string,
+        email: userData.email as string,
+        address1: userData.address1 as string,
+        address2: userData.address2 as string,
+        city: userData.city as string,
+        region: userData.region as string,
+        postalCode: userData.postalCode as string,
+        birthday: parseInt(
+          (
+            new Date(
+              userData.year as number,
+              userData.month as number,
+              userData.day as number
+            ).getTime() / 1000
+          ).toString()
+        ),
+        nationality: userData.nationality as string,
+        files: files as string[],
+      })
+      setState('success')
+    } catch {
+      setState('error')
+    }
   }
 
   const onBack = () => setState('documentselection')
