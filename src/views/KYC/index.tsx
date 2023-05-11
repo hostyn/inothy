@@ -17,6 +17,7 @@ import Dni from './Dni'
 import Passport from './Passport'
 import MotionDiv from '@components/MotionDiv'
 import type { CountryISO } from 'mangopay2-nodejs-sdk'
+import Refused from './Refused'
 
 const UploadDiv = styled.div`
   display: flex;
@@ -84,6 +85,7 @@ type State =
   | 'dni'
   | 'passport'
   | 'success'
+  | 'refused'
   | 'error'
   | 'loading'
 
@@ -98,6 +100,8 @@ export default function KYCView(): JSX.Element {
   const [state, setState] = useState<State>(
     user?.data?.mangopayKYCStatus === 'VALIDATED'
       ? 'verified'
+      : user?.data?.mangopayKYCStatus === 'REFUSED'
+      ? 'refused'
       : user?.data?.mangopayKYCStatus === 'VALIDATION_ASKED'
       ? 'pending'
       : 'completeProfileInfo'
@@ -142,6 +146,7 @@ export default function KYCView(): JSX.Element {
           )}
           {state === 'success' && <Success />}
           {state === 'error' && <Error />}
+          {state === 'refused' && <Refused setState={setState} />}
           {state === 'verified' && <Verified />}
           {state === 'pending' && <Pending />}
           {state === 'loading' && <Loading />}
