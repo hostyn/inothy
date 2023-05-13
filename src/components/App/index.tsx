@@ -28,6 +28,7 @@ const AppBody = styled.main<AppBodyProps>`
     props.isBanner ? `calc(100vh - ${sizes.banner})` : '100vh'};
   padding: ${props => (props.transparent ? '0' : `${sizes.navbar} 0 0 0`)};
   display: flex;
+  flex-direction: column;
 `
 
 export default function App({
