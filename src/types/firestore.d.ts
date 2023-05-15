@@ -1,5 +1,7 @@
 import type { CountryISO, kycDocument, payIn, user } from 'mangopay2-nodejs-sdk'
 
+type Badge = 'gold' | 'silver' | 'bronze' | 'ambassador'
+
 interface FirestoreUser {
   address?: {
     address1: string
@@ -9,7 +11,7 @@ interface FirestoreUser {
     region: string
     country: CountryISO
   }
-  badge?: string[]
+  badge?: Badge[]
   biography?: string
   birthday?: number | null
   bought?: string[]
