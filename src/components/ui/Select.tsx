@@ -65,10 +65,13 @@ const StyledSelect = styled.select<StyledSelectProps>`
 
   overflow: hidden;
 
-  &:disabled {
+  :disabled {
     opacity: 1;
-    color: ${colors.disabledColor};
-    background-color: ${colors.disabledBackground};
+    background-color: #efefef;
+  }
+
+  :disabled + ${Label} {
+    background: linear-gradient(#ffffff 20%, #efefef);
   }
 `
 

@@ -57,6 +57,14 @@ const StyledTextarea = styled.textarea<{ error: boolean }>`
     appearance: textfield;
     -moz-appearance: textfield;
   }
+
+  :disabled {
+    background-color: #efefef;
+  }
+
+  :disabled + ${Label} {
+    background: linear-gradient(#ffffff 20%, #efefef);
+  }
 `
 
 const ErrorDiv = styled.div`
@@ -75,6 +83,8 @@ interface TextareaProps {
   error?: FieldError
   autoComplete?: string
   rows?: number
+  disabled?: boolean
+  value?: string
 }
 
 function Textarea(
