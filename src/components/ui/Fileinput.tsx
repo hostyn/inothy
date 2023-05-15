@@ -85,7 +85,11 @@ function Fileinput(
 ): JSX.Element {
   const id = v4()
   return (
-    <Flex margin={margin} alignItems="center" maxWidth={maxWidth}>
+    <Flex
+      margin={margin}
+      alignItems={centered ? 'center' : 'flex-start'}
+      maxWidth={maxWidth}
+    >
       <Label htmlFor={id} border={border} error={error != null}>
         {placeholder ?? 'Adjuntar archivo'}
       </Label>
