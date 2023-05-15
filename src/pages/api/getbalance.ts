@@ -16,9 +16,9 @@ async function getBalance(
 
   try {
     const response = await mangopay.Wallets.get(user.data.mangopayWalletId)
-    res.status(200).json({ balance: response.Balance.Amount / 100 })
+    res.status(200).json({ success: true, balance: response.Balance.Amount / 100 })
   } catch {
-    res.status(500).json({ error: '' })
+    res.status(500).json({ success: false, error: 'unexpected-error' })
   }
 }
 
