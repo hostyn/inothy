@@ -1,5 +1,5 @@
 import admin from 'firebase-admin'
-import { FIREBASE_ADMIN_CREDENTIALS, FIREBASE_PUBLIC } from './constants'
+import { FIREBASE_ADMIN_CREDENTIALS, FIREBASE_PUBLIC } from '@config/constants'
 
 try {
   admin.initializeApp({

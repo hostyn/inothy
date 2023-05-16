@@ -3,7 +3,7 @@ import {
   MANGOPAY_API_KEY,
   MANGOPAY_CLIENT_ID,
   MANGOPAY_ENDPOINT,
-} from './constants'
+} from '@config/constants'
 
 const mangopay = new MangoPay({
   clientId: MANGOPAY_CLIENT_ID,

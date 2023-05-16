@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app'
 import { getAnalytics, logEvent as logEventAnalytics } from 'firebase/analytics'
 import { getAuth } from 'firebase/auth'
 import { getStorage } from 'firebase/storage'
-import { FIREBASE_PUBLIC } from './constants'
+import { FIREBASE_PUBLIC } from '@config/constants'
 
 const firebaseConfig = JSON.parse(FIREBASE_PUBLIC)
 
