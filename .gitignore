@@ -35,3 +35,5 @@ yarn-error.log*
 firebase_debug.log
 
 package-lock.json
+
+tsconfig.tsbuildinfo
