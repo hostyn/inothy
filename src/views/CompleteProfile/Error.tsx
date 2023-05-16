@@ -1,5 +1,6 @@
 import { Button, Img, Text } from '@ui'
 import styled from 'styled-components'
+import { type CompleteProfileBaseProps } from '.'
 
 const ErrorDiv = styled.div`
   min-height: 100%;
@@ -25,7 +26,9 @@ const StyledButton = styled(Button)`
   }
 `
 
-export default function Error({ setState }): JSX.Element {
+export default function Error({
+  setState,
+}: Omit<CompleteProfileBaseProps, 'setUserData' | 'userData'>): JSX.Element {
   return (
     <ErrorDiv>
       <Img src="/error.svg" width="20vw" height="20vw" />
@@ -46,7 +49,9 @@ export default function Error({ setState }): JSX.Element {
         height="auto"
         padding="10px 2rem"
         margin="1rem 0 0 0"
-        onClick={() => setState('completeProfile')}
+        onClick={() => {
+          setState('completeProfile')
+        }}
       >
         Revisar información
       </StyledButton>
