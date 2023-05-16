@@ -143,7 +143,7 @@ async function completeprofile(
 
   const mangopayWalletId = createWalletResponse.Id
 
-  const ambassador = new Date(user.data.createdAt) < new Date('2022-09-01GMT+1')
+  const ambassador = user.data.createdAt.toDate() < new Date('2022-09-01GMT+1')
 
   const newUserData: Omit<FirestoreUser, 'createdAt' | 'uid' | 'email'> = {
     address: {

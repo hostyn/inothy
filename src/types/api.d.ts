@@ -45,7 +45,7 @@ interface SchoolWithDegree extends School {
 
 interface Document {
   contentType: string
-  createdAt: number
+  createdAt: Timestamp
   createdBy: string
   description: string
   file: string

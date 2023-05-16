@@ -17,7 +17,7 @@ interface FirestoreUser {
   birthday?: number | null
   bought?: string[]
   countryOfResidence?: string | null
-  createdAt: number
+  createdAt: Timestamp
   degree?: string
   email: string
   hasUploaded?: boolean
