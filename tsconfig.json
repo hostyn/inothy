@@ -27,6 +27,6 @@
       "@views/*": ["views/*"],
     }
   },
-  "include": ["src", "*.d.ts"],
+  "include": ["src", "*.d.ts", "scripts"],
   "exclude": ["node_modules"]
 }
