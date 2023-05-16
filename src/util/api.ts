@@ -463,7 +463,7 @@ export async function updateBankAccount(
   throw new Error('error')
 }
 
-export async function getBankAccount(): Promise<bankAccount.Data | null> {
+export async function getBankAccount(): Promise<bankAccount.IBANData | null> {
   const accessToken = await getIdToken()
   if (accessToken == null) throw new Error('unauthenticated')
 
@@ -475,7 +475,7 @@ export async function getBankAccount(): Promise<bankAccount.Data | null> {
   })
 
   if (res.status === 200) {
-    return (await res.json()) as bankAccount.Data
+    return (await res.json()) as bankAccount.IBANData
   }
 
   if (res.status === 404) {
