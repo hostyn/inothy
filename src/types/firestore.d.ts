@@ -1,4 +1,5 @@
 import type { CountryISO, kycDocument, payIn, user } from 'mangopay2-nodejs-sdk'
+import { type Timestamp } from 'firebase-admin/firestore'
 
 type Badge = 'gold' | 'silver' | 'bronze' | 'ambassador'
 
@@ -77,7 +78,7 @@ type VerificationStatus = 'not_asked' | 'asked' | 'verificated' | 'denied'
 
 interface FirestoreDocument {
   contentType: string
-  createdAt: number
+  createdAt: Timestamp
   createdBy: string
   description: string
   file: string

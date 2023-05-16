@@ -5,6 +5,7 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const MangoPay = require("mangopay2-nodejs-sdk");
 const { default: algoliasearch } = require("algoliasearch");
+const { Timestamp } = require("firebase-admin/firestore");
 
 const MANGOPAY_CLIENT_ID = functions.config().mangopay.id;
 const MANGOPAY_API_KEY = functions.config().mangopay.key;
@@ -34,7 +35,7 @@ exports.newUserCreated = functions.auth.user().onCreate(async (user) => {
 
   const userData = {
     uid,
-    createdAt: new Date(creationTime).getTime(),
+    createdAt: Timestamp.fromDate(new Date(creationTime)),
     email,
     profileCompleted: false,
   };

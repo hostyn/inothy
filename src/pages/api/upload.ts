@@ -11,6 +11,7 @@ import type {
   FirestoreSubject,
   FirestoreUser,
 } from 'types/firestore'
+import { Timestamp } from 'firebase-admin/firestore'
 
 async function upload(
   user: ApiUser,
@@ -92,13 +93,12 @@ async function upload(
   })
 
   const docs = subjectReference.collection('docs')
-
   const documentData: FirestoreDocument = {
     name: body.name,
     description: body.description,
     file: body.filePath,
     fileName: body.filePath.split('/').at(-1),
-    createdAt: new Date().getTime(),
+    createdAt: Timestamp.fromDate(new Date()),
     createdBy: user.uid,
     price: body.price,
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
