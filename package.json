@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src --fix"
+    "lint": "eslint src --fix",
+    "deploy:functions": "firebase deploy --only functions"
   },
   "dependencies": {
     "algoliasearch": "^4.14.3",
