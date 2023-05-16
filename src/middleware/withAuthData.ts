@@ -11,8 +11,13 @@ export default function withAuthData(
       try {
         const user = await authAdmin.getUser(userUID)
         await handler(user, req, res)
-      } catch {
-        res.status(401).json({ success: false, error: 'unauthorized' })
+      } catch (error) {
+        if ((error.code as string).startsWith('auth')) {
+          res.status(401).json({ success: false, error: 'unauthorized' })
+          return
+        }
+        console.log(error)
+        res.status(500).json({ success: false, error: 'unexpected-error' })
       }
     }
   )
