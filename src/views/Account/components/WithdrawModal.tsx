@@ -1,14 +1,13 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import styled from 'styled-components'
-import Button from '@ui/Button'
-import Loading from '../../../components/Loading'
-import Text from '@ui/Text'
-import { colors } from '../../../config/theme'
-import { useAuth } from '../../../context/authContext'
-import { useModal } from '../../../context/modalContext'
-import { payout } from '../../../util/api'
-import { currencyFormatter } from '../../../util/normailize'
+import Loading from '@components/Loading'
+import { colors } from '@config/theme'
+import { useModal } from '@context/modalContext'
+import { payout } from '@util/api'
+import { currencyFormatter } from '@util/normailize'
+import { Button, Text } from '@ui'
+import type { bankAccount } from 'mangopay2-nodejs-sdk'
 
 const MotionDiv = styled(motion.div)`
   display: flex;
@@ -44,16 +43,22 @@ const Body = styled(Text)`
     font-size: 1rem;
   }
 `
+interface WithdrawModalProps {
+  balance: number
+  bank: bankAccount.IBANData
+}
 
-export default function WithdrawModal ({ balance, bank }) {
-  const { user } = useAuth()
+export default function WithdrawModal({
+  balance,
+  bank,
+}: WithdrawModalProps): JSX.Element {
   const [state, setState] = useState('withdraw')
   const { closeModal } = useModal()
 
-  const handleWithdraw = async () => {
+  const handleWithdraw = async (): Promise<void> => {
     setState('loading')
     try {
-      await payout(user)
+      await payout()
       setState('success')
     } catch {
       setState('error')
@@ -111,7 +116,7 @@ export default function WithdrawModal ({ balance, bank }) {
               margin="0 auto"
               padding="0.5rem 1rem"
               width="auto"
-              onClick={() => closeModal()}
+              onClick={async () => await closeModal()}
             >
               Aceptar
             </Button>
@@ -131,7 +136,7 @@ export default function WithdrawModal ({ balance, bank }) {
               margin="0 auto"
               padding="0.5rem 1rem"
               width="auto"
-              onClick={() => closeModal()}
+              onClick={async () => await closeModal()}
             >
               Aceptar
             </Button>

@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
-import Menu from '../../components/Account/Menu'
-import App from '../../components/App'
+import Menu from './components/Menu'
+import App from '@components/App'
 import styled from 'styled-components'
-import DocumentCard from '../../components/DocumentCard'
-import { useAuth } from '../../context/authContext'
-import { getDocument } from '../../util/api'
-import Loading from '../../components/Loading'
-import Text from '@ui/Text'
+import DocumentCard from '@components/DocumentCard'
+import { useAuth } from '@context/authContext'
+import { getDocument } from '@util/api'
+import Loading from '@components/Loading'
 import Link from 'next/link'
-import Button from '@ui/Button'
+import { Button, Text } from '@ui'
+import type { FullDocumentInfo } from 'types/api'
 
 const UploadesDiv = styled.div`
   display: flex;
@@ -25,42 +25,42 @@ const NothingUploaded = styled.div`
   justify-content: center;
 `
 
-export default function UploadsView () {
+export default function UploadsView(): JSX.Element {
   const [loading, setLoading] = useState(true)
   const { user } = useAuth()
-  const [uploadsData, setUploadsData] = useState(null)
+  const [uploadsData, setUploadsData] = useState<FullDocumentInfo[] | null>(
+    null
+  )
 
   useEffect(() => {
-    if (!user?.data?.uploaded) {
+    if (user?.data?.uploaded == null) {
       setLoading(false)
       return
     }
     Promise.all(
-      user.data.uploaded.map(async (doc) => {
+      user.data.uploaded.map(async doc => {
         const [subjectId, docId] = doc.split('/')
-        return getDocument(subjectId, docId)
+        return await getDocument(subjectId, docId)
       })
-    ).then((data) => {
-      setUploadsData(data)
-      setLoading(false)
-    })
+    )
+      .then(data => {
+        setUploadsData(data)
+        setLoading(false)
+      })
+      .catch(() => {})
   }, [user?.data?.uploaded])
 
   return (
     <App>
-      <Menu uploads>
+      <Menu selected="uploads">
         <UploadesDiv>
-          {loading
-            ? (
+          {loading ? (
             <Loading />
-              )
-            : uploadsData
-              ? (
-                  uploadsData.map((data) => (
-              <DocumentCard key={data.docId} docuemntData={data}></DocumentCard>
-                  ))
-                )
-              : (
+          ) : uploadsData != null && uploadsData.length !== 0 ? (
+            uploadsData.map(document => (
+              <DocumentCard key={document.id} documentData={document} />
+            ))
+          ) : (
             <NothingUploaded>
               <Text textAlign="center" fontSize="3rem" color="secondary">
                 Aún no has subido nada
@@ -79,7 +79,7 @@ export default function UploadsView () {
                 </Button>
               </Link>
             </NothingUploaded>
-                )}
+          )}
         </UploadesDiv>
       </Menu>
     </App>

@@ -1,9 +1,7 @@
 import styled from 'styled-components'
-import { colors, sizes } from '../../config/theme'
-import Text from '@ui/Text'
-import Img from '@ui/Img'
-import A from '@ui/A'
+import { colors, sizes } from '@config/theme'
 import Link from 'next/link'
+import { A, Img, Text } from '@ui'
 
 const AccountDiv = styled.div`
   margin: 0 ${sizes.inlineMargin};
@@ -28,7 +26,7 @@ const Grid = styled.div`
 `
 
 const MenuBackground = styled.div`
-  background-image: url("/resources/account/menu.svg");
+  background-image: url('/resources/account/menu.svg');
   background-repeat: no-repeat;
   background-size: auto;
   background-position: top center;
@@ -50,7 +48,7 @@ const MenuDiv = styled.div`
   border: 3px solid ${colors.primary};
 `
 
-const Item = styled.div`
+const Item = styled.div<{ active: boolean }>`
   min-width: 100%;
   height: 3rem;
   display: grid;
@@ -62,11 +60,10 @@ const Item = styled.div`
   border-radius: 20px;
   padding: 0.2rem 1rem;
   transition: 0.2s;
-  background-color: ${(props) =>
-    props.active ? colors.primary : 'transparent'};
+  background-color: ${props => (props.active ? colors.primary : 'transparent')};
 
   &:hover {
-    ${(props) => !props.active && `background-color: ${colors.hover}`};
+    ${props => !props.active && `background-color: ${colors.hover}`};
   }
 `
 
@@ -77,24 +74,24 @@ const Separator = styled.div`
   background-color: ${colors.secondary};
 `
 
-export default function Menu ({
-  children,
-  downloads = false,
-  profile = false,
-  balance = false,
-  uploads = false,
-  settings = false
-}) {
+type Selected = 'downloads' | 'profile' | 'balance' | 'uploads'
+
+interface MenuProps {
+  children: JSX.Element
+  selected: Selected
+}
+
+export default function Menu({ children, selected }: MenuProps): JSX.Element {
   return (
     <AccountDiv>
       <Grid>
         <MenuBackground>
           <MenuDiv>
             <Link href="/account/downloads" passHref>
-              <Item active={downloads}>
+              <Item active={selected === 'downloads'}>
                 <Img
                   src={
-                    downloads
+                    selected === 'downloads'
                       ? '/icons/downloads_inverted.svg'
                       : '/icons/downloads.svg'
                   }
@@ -104,17 +101,17 @@ export default function Menu ({
                   cursor="inherit"
                   fontSize="1.5rem"
                   fontWeight="bold"
-                  color={downloads ? 'white' : 'secondary'}
+                  color={selected === 'downloads' ? 'white' : 'secondary'}
                 >
                   Descargas
                 </Text>
               </Item>
             </Link>
             <Link href="/account/profile" passHref>
-              <Item active={profile}>
+              <Item active={selected === 'profile'}>
                 <Img
                   src={
-                    profile
+                    selected === 'profile'
                       ? '/icons/profile_inverted.svg'
                       : '/icons/profile.svg'
                   }
@@ -124,17 +121,17 @@ export default function Menu ({
                   cursor="inherit"
                   fontSize="1.5rem"
                   fontWeight="bold"
-                  color={profile ? 'white' : 'secondary'}
+                  color={selected === 'profile' ? 'white' : 'secondary'}
                 >
                   Cuenta
                 </Text>
               </Item>
             </Link>
             <Link href="/account/balance" passHref>
-              <Item active={balance}>
+              <Item active={selected === 'balance'}>
                 <Img
                   src={
-                    balance
+                    selected === 'balance'
                       ? '/icons/balance_inverted.svg'
                       : '/icons/balance.svg'
                   }
@@ -144,17 +141,17 @@ export default function Menu ({
                   cursor="inherit"
                   fontSize="1.5rem"
                   fontWeight="bold"
-                  color={balance ? 'white' : 'secondary'}
+                  color={selected === 'balance' ? 'white' : 'secondary'}
                 >
                   Saldo
                 </Text>
               </Item>
             </Link>
             <Link href="/account/uploads" passHref>
-              <Item active={uploads}>
+              <Item active={selected === 'uploads'}>
                 <Img
                   src={
-                    uploads
+                    selected === 'uploads'
                       ? '/icons/uploads_inverted.svg'
                       : '/icons/uploads.svg'
                   }
@@ -164,32 +161,12 @@ export default function Menu ({
                   cursor="inherit"
                   fontSize="1.5rem"
                   fontWeight="bold"
-                  color={uploads ? 'white' : 'secondary'}
+                  color={selected === 'uploads' ? 'white' : 'secondary'}
                 >
                   Subido
                 </Text>
               </Item>
             </Link>
-            {/* <Link href="/account/settings" passHref>
-              <Item active={settings}>
-                <Img
-                  src={
-                    settings
-                      ? "/icons/settings_inverted.svg"
-                      : "/icons/settings.svg"
-                  }
-                  aspectRatio="83/50"
-                />
-                <Text
-                  cursor="inherit"
-                  fontSize="1.5rem"
-                  fontWeight="bold"
-                  color={settings ? "white" : "secondary"}
-                >
-                  Seguridad
-                </Text>
-              </Item>
-            </Link> */}
             <Separator />
             <Link href="/universities" passHref>
               <A

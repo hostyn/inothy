@@ -1,19 +1,17 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import A from '@ui/A'
-import Menu from '../../components/Account/Menu'
-import App from '../../components/App'
-import Button from '@ui/Button'
-import Img from '@ui/Img'
-import Input from '@ui/Input'
-import Text from '@ui/Text'
-import { colors } from '../../config/theme'
-import { useAuth } from '../../context/authContext'
-import { useModal } from '../../context/modalContext'
-import { getBalance, getBankAccount, updateBankAccount } from '../../util/api'
-import { currencyFormatter } from '../../util/normailize'
+import Menu from './components/Menu'
+import App from '@components/App'
+import { colors } from '@config/theme'
+import { useAuth } from '@context/authContext'
+import { useModal } from '@context/modalContext'
+import { getBalance, getBankAccount, updateBankAccount } from '@util/api'
+import { currencyFormatter } from '@util/normailize'
 import WithdrawModal from './components/WithdrawModal'
+import { A, Button, Img, Input, Text } from '@ui'
+import { REFUSE_REASONS } from '@config/constants'
+import type { bankAccount } from 'mangopay2-nodejs-sdk'
 
 const BalanceDiv = styled.div`
   display: flex;
@@ -112,53 +110,35 @@ const StyledButton = styled(Button)`
   }
 `
 
-const refuseReasons = {
-  DOCUMENT_UNREADABLE:
-    'El documento ha sido rechazado porque no se puede leer.',
-  DOCUMENT_NOT_ACCEPTED:
-    'El documento ha sido rechazado porque no se acepta ese tipo de documento.',
-  DOCUMENT_HAS_EXPIRED:
-    'El documento ha sido rechazado porque estaba expirado.',
-  DOCUMENT_INCOMPLETE:
-    'El documento ha sido rechazado porque estaba incompleto.',
-  DOCUMENT_MISSING:
-    'El documento ha sido rechazado porque no aparecia en los archivos enviados.',
-  DOCUMENT_DO_NOT_MATCH_USER_DATA:
-    'El documento ha sido rechazado porque la información no concuerda con la del usuario.',
-  DOCUMENT_DO_NOT_MATCH_ACCOUNT_DATA:
-    'El documento ha sido rechazado porque la información no concuerda con la del usuario.',
-  DOCUMENT_FALSIFIED:
-    'El documento ha sido rechazado porque se sospecha que ha sido falsificado.',
-  UNDERAGE_PERSON:
-    'El documento ha sido rechazado porque es necesario ser mayor de edad.',
-  SPECIFIC_CASE: 'El documento ha sido rechazado por un caso específico.'
-}
-
-export default function BalanceView () {
+export default function BalanceView(): JSX.Element {
   const { user } = useAuth()
   const { openModal, closeModal } = useModal()
 
-  const [balance, setBalance] = useState(null)
+  const [balance, setBalance] = useState<number | null>(null)
   const [formIban, setFormIban] = useState('')
-  const [bankAccount, setBankAccount] = useState(null)
+  const [bankAccount, setBankAccount] = useState<bankAccount.IBANData | null>(
+    null
+  )
   const [edit, setEdit] = useState(false)
 
-  const handleChange = ({ target }) => {
+  const handleChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>): void => {
     if (target.value === '') {
       setFormIban('')
       return
     }
 
     const iban = target.value.replaceAll(' ', '')
-    if (iban.match(/((^[A-Z]{2})|(^[A-Z]$))\d{0,30}$/)) {
+    if (iban.match(/((^[A-Z]{2})|(^[A-Z]$))\d{0,30}$/) != null) {
       setFormIban(target.value)
     }
   }
 
-  const handleBankAccountUpdate = async () => {
+  const handleBankAccountUpdate = async (): Promise<void> => {
     const iban = formIban.replaceAll(' ', '')
     try {
-      await updateBankAccount(user, iban)
+      await updateBankAccount(iban)
     } catch {
       openModal(
         <MessageDiv>
@@ -176,13 +156,13 @@ export default function BalanceView () {
         </MessageDiv>
       )
 
-      await new Promise((resolve) => setTimeout(resolve, 2000))
-      closeModal()
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      await closeModal()
 
       return
     }
 
-    const bankAccount = await getBankAccount(user)
+    const bankAccount = await getBankAccount()
 
     if (bankAccount !== null) {
       setBankAccount(bankAccount)
@@ -193,25 +173,33 @@ export default function BalanceView () {
     setEdit(false)
   }
 
-  const openWithdrawModal = async () => {
+  const openWithdrawModal = async (): Promise<void> => {
+    if (balance == null || bankAccount == null) return
     openModal(<WithdrawModal balance={balance} bank={bankAccount} />)
   }
 
   useEffect(() => {
-    getBalance(user).then((balance) => setBalance(balance))
-    getBankAccount(user).then((res) => {
-      if (res !== null) {
-        setBankAccount(res)
-        setFormIban(res.IBAN)
-      } else {
-        setBankAccount(null)
-      }
-    })
-  }, [user])
+    getBalance()
+      .then(balance => {
+        setBalance(balance)
+      })
+      .catch(() => {})
+
+    getBankAccount()
+      .then(res => {
+        if (res !== null) {
+          setBankAccount(res)
+          setFormIban(res.IBAN)
+        } else {
+          setBankAccount(null)
+        }
+      })
+      .catch(() => {})
+  }, [])
 
   return (
     <App>
-      <Menu balance>
+      <Menu selected="balance">
         <BalanceDiv>
           <BalanceGrid>
             <BalanceTitle
@@ -222,8 +210,7 @@ export default function BalanceView () {
             >
               Balance
             </BalanceTitle>
-            {balance !== null
-              ? (
+            {balance !== null ? (
               <BalanceText
                 fontSize="4rem"
                 fontFamily="HelveticaRounded"
@@ -232,8 +219,7 @@ export default function BalanceView () {
               >
                 {currencyFormatter.format(balance)}
               </BalanceText>
-                )
-              : (
+            ) : (
               <BalanceText
                 fontSize="4rem"
                 fontFamily="HelveticaRounded"
@@ -242,7 +228,7 @@ export default function BalanceView () {
               >
                 - €
               </BalanceText>
-                )}
+            )}
             <BalanceImg
               src="/icons/pig.svg"
               height="4rem"
@@ -250,8 +236,7 @@ export default function BalanceView () {
               aspectRatio="199/150"
             />
           </BalanceGrid>
-          {user.data.mangopayKYCStatus === 'VALIDATED'
-            ? (
+          {user?.data?.mangopayKYCStatus === 'VALIDATED' ? (
             <BankAccountDiv>
               <Text fontSize="1.5rem" color="secondary" fontWeight="bold">
                 Cuenta bancaria
@@ -259,7 +244,9 @@ export default function BalanceView () {
               <Text margin="1rem 0 0 0">Nombre y Apellidos</Text>
 
               <Input
-                value={user.data.name + ' ' + user.data.surname}
+                value={`${user.data.name as string} ${
+                  user.data.surname as string
+                }`}
                 disabled
               />
               <Text margin="1rem 0 0 0">IBAN</Text>
@@ -270,10 +257,8 @@ export default function BalanceView () {
                 onChange={handleChange}
               />
               <ButtonsDiv>
-                {bankAccount !== null
-                  ? (
-                      edit
-                        ? (
+                {bankAccount !== null ? (
+                  edit ? (
                     <>
                       <StyledButton
                         padding="0.5rem 1rem"
@@ -294,14 +279,13 @@ export default function BalanceView () {
                         Cancelar
                       </StyledButton>
                     </>
-                          )
-                        : (
+                  ) : (
                     <>
                       <StyledButton
                         padding="0.5rem 1rem"
                         margin="0"
                         background="secondary"
-                        disabled={!balance}
+                        disabled={balance == null}
                         onClick={openWithdrawModal}
                       >
                         Retirar
@@ -309,14 +293,15 @@ export default function BalanceView () {
                       <StyledButton
                         padding="0.5rem 1rem"
                         margin="0"
-                        onClick={() => setEdit(true)}
+                        onClick={() => {
+                          setEdit(true)
+                        }}
                       >
                         Editar
                       </StyledButton>
                     </>
-                          )
-                    )
-                  : (
+                  )
+                ) : (
                   <StyledButton
                     padding="0.5rem 1rem"
                     margin="0"
@@ -324,11 +309,10 @@ export default function BalanceView () {
                   >
                     Añadir
                   </StyledButton>
-                    )}
+                )}
               </ButtonsDiv>
             </BankAccountDiv>
-              )
-            : (
+          ) : (
             <BankAccountDiv>
               <Title fontSize="2rem" fontWeight="bold" color="secondary">
                 Verifica tu identidad
@@ -342,8 +326,7 @@ export default function BalanceView () {
                   </A>
                 </Link>
               </Text>
-              {user.data.mangopayKYCStatus === 'VALIDATION_ASKED'
-                ? (
+              {user?.data?.mangopayKYCStatus === 'VALIDATION_ASKED' ? (
                 <>
                   <Text
                     fontSize="1.5rem"
@@ -358,10 +341,9 @@ export default function BalanceView () {
                     breve podrás retirar tu saldo.
                   </Text>
                 </>
-                  )
-                : (
+              ) : (
                 <>
-                  {user.data.mangopayKYCStatus === 'REFUSED' && (
+                  {user?.data?.mangopayKYCStatus === 'REFUSED' && (
                     <>
                       <Text
                         fontSize="1.5rem"
@@ -372,27 +354,16 @@ export default function BalanceView () {
                         Tus documentos han sido rechazados
                       </Text>
                       <Text margin="1rem 0 0 0">
-                        {refuseReasons[user.data.mangopayKYCRefusedReasonType]}
+                        {
+                          REFUSE_REASONS[
+                            user?.data?.mangopayKYCRefusedReasonType ??
+                              'SPECIFIC_CASE'
+                          ]
+                        }
                       </Text>
                       <Text margin="1rem 0 0 0">
                         Por favor ten en cuenta el motivo del rechazo y lee los
                         requisitos antes de volver a solicitar una verificación.
-                      </Text>
-                    </>
-                  )}
-                  {user.data.mangopayKYCStatus === 'OUT_OF_DATE' && (
-                    <>
-                      <Text
-                        fontSize="1.5rem"
-                        color="secondary"
-                        margin="2rem 0 0 0"
-                        fontWeight="bold"
-                      >
-                        Tus documentos han caducado
-                      </Text>
-                      <Text margin="1rem 0 0 0">
-                        Necesitamos que vuelvas a verificar tu identidad antes
-                        de retirar.
                       </Text>
                     </>
                   )}
@@ -402,9 +373,9 @@ export default function BalanceView () {
                     </Button>
                   </Link>
                 </>
-                  )}
-            </BankAccountDiv>
               )}
+            </BankAccountDiv>
+          )}
         </BalanceDiv>
       </Menu>
     </App>
