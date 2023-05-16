@@ -1,0 +1,30 @@
+import { Img, Text } from '@ui'
+import styled from 'styled-components'
+
+const SuccessDiv = styled.div`
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    & p {
+      font-size: 2rem;
+    }
+  }
+`
+
+export default function Success(): JSX.Element {
+  return (
+    <SuccessDiv>
+      <Img src="/check.svg" width="8rem" height="8rem" />
+      <Text color="secondary" fontSize="4rem" fontWeight="bold">
+        Bienvenid@
+      </Text>
+    </SuccessDiv>
+  )
+}
