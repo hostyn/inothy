@@ -3,22 +3,10 @@ import blobToBase64 from '@util/blobToB64'
 import { Fileinput, Flex, Img } from '@ui'
 import FormBody from '@components/FormBody'
 import { useForm } from 'react-hook-form'
-import { KYCBaseProps } from '.'
+import { type KYCBaseProps } from '.'
 import { completeKYC } from '@util/api'
 
 const acceptedMimes = ['application/pdf', 'image/jpeg', 'image/png']
-
-const PassportGrid = styled.div`
-  margin: 1rem 0;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  justify-items: center;
-  gap: 1rem;
-
-  @media (max-width: 650px) {
-    grid-template-columns: 1fr;
-  }
-`
 
 const StyledImg = styled(Img)`
   height: calc(16rem * 75 / 122);
@@ -41,7 +29,7 @@ interface FormValues {
 export default function Passport({
   setState,
   userData,
-}: Omit<KYCBaseProps, 'setUserData'>) {
+}: Omit<KYCBaseProps, 'setUserData'>): JSX.Element {
   const {
     register,
     handleSubmit,
@@ -54,7 +42,7 @@ export default function Passport({
     defaultValues: {},
   })
 
-  const validateFile = (files: FileList) => {
+  const validateFile = (files: FileList): string | undefined => {
     const file = files[0]
     if (!acceptedMimes.includes(file.type)) return 'Formato no válido.'
 
@@ -62,7 +50,7 @@ export default function Passport({
     if (file.size > 10485760) return 'El archivo es demasiado grande.'
   }
 
-  const onSubmit = async (values: FormValues) => {
+  const onSubmit = async (values: FormValues): Promise<void> => {
     setState('loading')
     try {
       const files = await Promise.all([blobToBase64(values.passport[0])])
@@ -94,7 +82,9 @@ export default function Passport({
     }
   }
 
-  const onBack = () => setState('documentselection')
+  const onBack = (): void => {
+    setState('documentselection')
+  }
 
   return (
     <FormBody
@@ -112,7 +102,9 @@ export default function Passport({
             accept={acceptedMimes.join(',')}
             {...register('passport', {
               required: 'Debes subir una foto del pasaporte.',
-              onChange: () => clearErrors('passport'),
+              onChange: () => {
+                clearErrors('passport')
+              },
               validate: validateFile,
             })}
             error={errors.passport}

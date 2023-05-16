@@ -1,6 +1,6 @@
 import { Flex, Img, Text } from '@ui'
 
-export default function Error() {
+export default function Error(): JSX.Element {
   return (
     <Flex justifyContent="center" alignItems="center" minHeight="100%">
       <Img

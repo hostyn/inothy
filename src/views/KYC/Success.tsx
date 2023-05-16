@@ -1,7 +1,7 @@
 import { Button, Flex, Img, Text } from '@ui'
 import Link from 'next/link'
 
-export default function Success() {
+export default function Success(): JSX.Element {
   return (
     <Flex justifyContent="center" alignItems="center" minHeight="100%">
       <Img

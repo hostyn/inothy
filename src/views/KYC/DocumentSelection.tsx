@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { colors } from '@config/theme'
-import { Button, Img, Text } from '@ui'
+import { Img, Text } from '@ui'
 import { type KYCBaseProps } from '.'
 import FormBody from '@components/FormBody'
 
@@ -56,7 +56,11 @@ export default function DocumentSelection({
   return (
     <FormBody title="Selecciona un documento" onBack={onBack}>
       <DocumentsGrid>
-        <Card onClick={() => setState('dni')}>
+        <Card
+          onClick={() => {
+            setState('dni')
+          }}
+        >
           <Img src="/resources/kyc/dni.svg" width="80%" height="23%" />
           <Text
             fontWeight="bold"
@@ -67,7 +71,11 @@ export default function DocumentSelection({
             DNI O CARNET DE CONDUCIR
           </Text>
         </Card>
-        <Card onClick={() => setState('passport')}>
+        <Card
+          onClick={() => {
+            setState('passport')
+          }}
+        >
           <Img src="/resources/kyc/passport.svg" width="100%" height="40%" />
           <Text
             fontWeight="bold"

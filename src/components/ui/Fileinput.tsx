@@ -47,7 +47,7 @@ const ErrorDiv = styled.div<{ centered?: boolean }>`
   height: calc(0.8rem + 5px);
   display: flex;
   padding: 0 0 5px 0;
-  justify-content: ${props => (props.centered ? 'center' : 'initial')};
+  justify-content: ${props => (props.centered ?? false ? 'center' : 'initial')};
 `
 const FileName = styled(Text)`
   text-overflow: ellipsis;
@@ -87,7 +87,7 @@ function Fileinput(
   return (
     <Flex
       margin={margin}
-      alignItems={centered ? 'center' : 'flex-start'}
+      alignItems={centered ?? false ? 'center' : 'flex-start'}
       maxWidth={maxWidth}
     >
       <Label htmlFor={id} border={border} error={error != null}>

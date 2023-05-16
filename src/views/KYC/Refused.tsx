@@ -1,13 +1,12 @@
 import { REFUSE_REASONS } from '@config/constants'
 import { useAuth } from '@context/authContext'
 import { Button, Flex, Text } from '@ui'
-import { kycDocument } from 'mangopay2-nodejs-sdk'
-import Link from 'next/link'
-import { KYCBaseProps } from '.'
+import { type kycDocument } from 'mangopay2-nodejs-sdk'
+import { type KYCBaseProps } from '.'
 
 export default function Refused({
   setState,
-}: Omit<KYCBaseProps, 'setUserData' | 'userData'>) {
+}: Omit<KYCBaseProps, 'setUserData' | 'userData'>): JSX.Element {
   const { user } = useAuth()
   return (
     <Flex justifyContent="center" alignItems="center" minHeight="100%">
@@ -34,7 +33,9 @@ export default function Refused({
         margin="1rem auto 0 auto"
         height="auto"
         padding="0.5rem 1rem"
-        onClick={() => setState('completeProfileInfo')}
+        onClick={() => {
+          setState('completeProfileInfo')
+        }}
       >
         Verificar identidad
       </Button>

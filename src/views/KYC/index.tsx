@@ -8,7 +8,6 @@ import Success from './Success'
 import Error from './Error'
 import Verified from './Verified'
 import Pending from './Pending'
-import { completeKYC } from '@util/api'
 import { colors, sizes } from '@config/theme'
 import UploadAccepted from './UploadAccepted'
 import UploadRejected from './UploadRejected'
@@ -28,8 +27,7 @@ const UploadDiv = styled.div`
   border-radius: 20px;
   min-height: calc(100vh - ${sizes.navbar} - 6rem);
   justify-content: center;
-
-  width: 100%;
+  height: 100%;
 
   @media (max-width: 1000px) {
     margin: 2rem;
@@ -43,11 +41,13 @@ const UploadDiv = styled.div`
 `
 
 const StyledMotionDiv = styled(MotionDiv)`
-  display: flex;
+  display: grid;
   flex-direction: column;
+  justify-content: center;
   padding: 3rem 5rem;
   min-height: inherit;
   min-width: 100%;
+  grid-template-columns: 1fr;
 
   @media (max-width: 1200px) {
     padding: 2rem 3rem;

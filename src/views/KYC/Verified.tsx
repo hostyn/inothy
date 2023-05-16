@@ -1,7 +1,7 @@
 import { Button, Flex, Text } from '@ui'
 import Link from 'next/link'
 
-export default function Verified() {
+export default function Verified(): JSX.Element {
   return (
     <Flex justifyContent="center" alignItems="center" minHeight="100%">
       <Text

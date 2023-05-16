@@ -3,7 +3,7 @@ import blobToBase64 from '@util/blobToB64'
 import { Fileinput, Flex, Img } from '@ui'
 import FormBody from '@components/FormBody'
 import { useForm } from 'react-hook-form'
-import { KYCBaseProps } from '.'
+import { type KYCBaseProps } from '.'
 import { completeKYC } from '@util/api'
 
 const acceptedMimes = ['application/pdf', 'image/jpeg', 'image/png']
@@ -42,7 +42,7 @@ interface FormValues {
 export default function Dni({
   setState,
   userData,
-}: Omit<KYCBaseProps, 'setUserData'>) {
+}: Omit<KYCBaseProps, 'setUserData'>): JSX.Element {
   const {
     register,
     handleSubmit,
@@ -55,7 +55,7 @@ export default function Dni({
     defaultValues: {},
   })
 
-  const validateFile = (files: FileList) => {
+  const validateFile = (files: FileList): string | undefined => {
     const file = files[0]
     if (!acceptedMimes.includes(file.type)) return 'Formato no válido.'
 
@@ -63,7 +63,7 @@ export default function Dni({
     if (file.size > 10485760) return 'El archivo es demasiado grande.'
   }
 
-  const onSubmit = async (values: FormValues) => {
+  const onSubmit = async (values: FormValues): Promise<void> => {
     setState('loading')
     try {
       const files = await Promise.all([
@@ -98,7 +98,9 @@ export default function Dni({
     }
   }
 
-  const onBack = () => setState('documentselection')
+  const onBack = (): void => {
+    setState('documentselection')
+  }
 
   return (
     <FormBody
@@ -116,7 +118,9 @@ export default function Dni({
             accept={acceptedMimes.join(',')}
             {...register('front', {
               required: 'Debes subir el anverso del documento.',
-              onChange: () => clearErrors('front'),
+              onChange: () => {
+                clearErrors('front')
+              },
               validate: validateFile,
             })}
             error={errors.front}
@@ -133,7 +137,9 @@ export default function Dni({
             accept={acceptedMimes.join(',')}
             {...register('back', {
               required: 'Debes subir el reverso del documento.',
-              onChange: () => clearErrors('back'),
+              onChange: () => {
+                clearErrors('back')
+              },
             })}
             error={errors.back}
             file={watch('back')}
