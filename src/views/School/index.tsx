@@ -9,7 +9,7 @@ import type { SchoolWithDegree, UniversityWithSchools } from 'types/api'
 import useSearchQuery from '@hooks/useSearchQuery'
 
 const SchoolDiv = styled.div`
-  width: 100%;
+  width: inherit;
   margin: 2rem calc(${sizes.inlineMargin} * 2);
 
   @media (max-width: 1500px) {
