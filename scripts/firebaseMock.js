@@ -31,23 +31,27 @@ async function main() {
 
   // Delete all user documents
   console.log('[#] Deleting all documents')
-  firestoreAdmin.recursiveDelete(firestoreAdmin.collection('users'))
+  await firestoreAdmin.recursiveDelete(firestoreAdmin.collection('users'))
 
   // Delete all referrals
   console.log('[#] Deleting all referrals')
-  firestoreAdmin.recursiveDelete(firestoreAdmin.collection('referrals'))
+  await firestoreAdmin.recursiveDelete(firestoreAdmin.collection('referrals'))
 
   // Delete all transactions
   console.log('[#] Deleting all transactions')
-  firestoreAdmin.recursiveDelete(firestoreAdmin.collection('transactions'))
+  await firestoreAdmin.recursiveDelete(
+    firestoreAdmin.collection('transactions')
+  )
 
   // Delete all universities
   console.log('[#] Deleting all universities')
-  firestoreAdmin.recursiveDelete(firestoreAdmin.collection('universities'))
+  await firestoreAdmin.recursiveDelete(
+    firestoreAdmin.collection('universities')
+  )
 
   // Delete all subjects
   console.log('[#] Deleting all subjects')
-  firestoreAdmin.recursiveDelete(firestoreAdmin.collection('subjects'))
+  await firestoreAdmin.recursiveDelete(firestoreAdmin.collection('subjects'))
 
   // Delete all files
   console.log('[#] Deleting all files')
@@ -62,7 +66,7 @@ async function main() {
   await storageAdmin.deleteFiles({ prefix: 'university_logos' })
 
   // Write new database
-  console.log('[#] Writing new database')
+  console.log('[#] Creating new database')
   const universities = JSON.parse(
     fs.readFileSync('scripts/resources/universities.json')
   )
@@ -70,7 +74,7 @@ async function main() {
     fs.readFileSync('scripts/resources/subjects.json')
   )
 
-  console.log('[#] Writing universities')
+  console.log('[#] Creating universities')
   const bulk = firestoreAdmin.bulkWriter()
   universities.forEach(univeristy => {
     const logoBuffer = fs.readFileSync(
@@ -109,7 +113,7 @@ async function main() {
     })
   })
 
-  console.log('[#] Writing subjects')
+  console.log('[#] Creating subjects')
   subjects.forEach(subject => {
     const { uid, ...subjectData } = subject
     bulk.create(firestoreAdmin.collection('subjects').doc(uid), subjectData)
