@@ -132,6 +132,48 @@ async function main() {
     password,
     emailVerified: true,
   })
+
+  await firestoreAdmin
+    .collection('users')
+    .doc(user.uid)
+    .update({
+      address: {
+        address1: 'Calle Prueba',
+        address2: '',
+        city: 'Alicante City',
+        country: 'ES',
+        postalCode: '11111',
+        region: 'Alicante',
+      },
+      badge: ['ambassador'],
+      biography: 'Esta es una biografía de prueba',
+      birthday: null,
+      bought: [],
+      countryOfResidence: null,
+      degree: 'M4fK3BjLRvVNuQzHInxaVSkSFEbd',
+      email,
+      hasUploaded: false,
+      ipAddress: '127.0.0.1',
+      mangopayClientId: null, // Pending
+      mangopayKYCId: null,
+      mangopayKYCLevel: 'LIGHT',
+      mangopayKYCRefusedReasonMessage: null,
+      mangopayKYCRefusedReasonType: null,
+      mangopayKYCStatus: null,
+      mangopayType: 'OWNER',
+      mangopayWalletId: null, // Pending
+      name: 'Prueba',
+      nationality: null,
+      profileCompleted: true,
+      ref: null,
+      sales: 0,
+      school: 'Uf7TTkC2djY5CHppwn0LSukRjgv8',
+      surname: 'Apellido de Prueba',
+      uid: user.uid,
+      univeristy: 'k33ySKE8wS28bp33OrCUzZflrXrI',
+      uploaded: [],
+      username: 'prueba1',
+    })
   console.log(`[#] User ${email} - ${password} created`)
 }
 
