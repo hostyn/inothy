@@ -87,7 +87,9 @@ async function main() {
 
     const logoUrl = universityLogoRef.publicUrl()
 
-    universityLogoRef.save(logoBuffer, { contentType: 'image/png' })
+    universityLogoRef
+      .save(logoBuffer)
+      .then(() => universityLogoRef.makePublic())
 
     const { uid: univeristyUid, schools, ...universityData } = univeristy
 
