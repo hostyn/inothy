@@ -1,5 +1,3 @@
-/* eslint-disable comma-dangle */
-/* eslint-disable indent */
 /* eslint-disable object-curly-spacing */
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
@@ -26,414 +24,428 @@ const algoliaIndex = algolia.initIndex(ALGOLIA_INDEX);
 
 admin.initializeApp();
 
-exports.newUserCreated = functions.auth.user().onCreate(async (user) => {
-  const {
-    uid,
-    email,
-    metadata: { creationTime },
-  } = user;
+exports.newUserCreated = functions
+    .region("europe-west1")
+    .auth.user()
+    .onCreate(async (user) => {
+      const {
+        uid,
+        email,
+        metadata: { creationTime },
+      } = user;
 
-  const userData = {
-    uid,
-    createdAt: Timestamp.fromDate(new Date(creationTime)),
-    email,
-    profileCompleted: false,
-  };
-
-  await admin.firestore().doc(`users/${uid}`).set(userData);
-  functions.logger.info("New user created", userData);
-});
-
-exports.mangopayKycCallback = functions.https.onRequest(async (req, res) => {
-  const { originalUrl } = req;
-  const urlParams = new URLSearchParams(originalUrl.substring(1));
-  // const eventType = urlParams.get("EventType");
-  const id = urlParams.get("RessourceId");
-
-  const userDataSnapshot = (
-    await admin
-      .firestore()
-      .collection("users")
-      .where("mangopayKYCId", "==", id)
-      .get()
-  ).docs[0];
-
-  const userData = userDataSnapshot.data();
-
-  const kycResponse = await mangopay.Users.getKycDocument(
-    userData.mangopayClientId,
-    id
-  );
-
-  const userResponse = await mangopay.Users.get(userData.mangopayClientId);
-
-  userDataSnapshot.ref.update({
-    mangopayKYCStatus: kycResponse.Status,
-    mangopayKYCLevel: userResponse.KYCLevel,
-    mangopayKYCRefusedReasonType: kycResponse.RefusedReasonType,
-    mangopayKYCRefusedReasonMessage: kycResponse.RefusedReasonMessage,
-  });
-
-  res.status(200).json({ status: "done" });
-  return;
-});
-
-exports.mangopayPayinCallback = functions.https.onRequest(async (req, res) => {
-  const { originalUrl } = req;
-  const urlParams = new URLSearchParams(originalUrl.substring(1));
-  const id = urlParams.get("RessourceId");
-
-  const response = await mangopay.PayIns.get(id);
-
-  const transactionSnapshot = admin
-    .firestore()
-    .collection("transactions")
-    .doc(id);
-
-  if (response.Status !== "SUCCEEDED") {
-    transactionSnapshot.update({
-      status: response.Status,
-    });
-    res.status(200).json({ status: "ok" });
-    return;
-  }
-
-  const transaction = (await transactionSnapshot.get()).data();
-
-  const recipts = await Promise.all(
-    transaction.recipts.map(async (doc) => {
-      const [subjectId, docId] = doc.path.split("/");
-
-      const ownerData = (
-        await admin.firestore().collection("users").doc(doc.createdBy).get()
-      ).data();
-
-      const recipt = await mangopay.Transfers.create({
-        AuthorId: transaction.authorId,
-        DebitedWalletId: transaction.authorWalletId,
-        CreditedWalletId: ownerData.mangopayWalletId,
-        DebitedFunds: {
-          Currency: "EUR",
-          Amount: doc.price * 100,
-        },
-        Fees: {
-          Currency: "EUR",
-          Amount: doc.fee * 100,
-        },
-      });
-
-      // /////////////////////////
-
-      const documentRef = admin
-        .firestore()
-        .collection("subjects")
-        .doc(subjectId)
-        .collection("docs")
-        .doc(docId);
-
-      admin.firestore().runTransaction(async (transaction) => {
-        const document = await transaction.get(documentRef);
-        transaction.update(documentRef, {
-          sales: document.data().sales ? document.data().sales + 1 : 1,
-        });
-      });
-
-      const ownerRef = admin.firestore().collection("users").doc(doc.createdBy);
-
-      admin.firestore().runTransaction(async (transaction) => {
-        const user = await transaction.get(ownerRef);
-        transaction.update(ownerRef, {
-          sales: user.data().sales ? user.data().sales + 1 : 1,
-          badge:
-            user.data().sales + 1 == 500 ?
-              [...user.data().badge, "gold"] :
-              user.data().sales + 1 == 200 ?
-              [...user.data().badge, "silver"] :
-              user.data().sales + 1 == 50 ?
-              [...user.data().badge, "bronze"] :
-              user.data().badge,
-        });
-      });
-
-      // ///////////////////////////
-
-      return {
-        path: doc.path,
-        price: doc.price,
-        createdBy: doc.createdBy,
-        transactionId: recipt.Id,
-        creationDate: recipt.CreationDate,
-        fees: recipt.Fees.Amount / 100,
+      const userData = {
+        uid,
+        createdAt: Timestamp.fromDate(new Date(creationTime)),
+        email,
+        profileCompleted: false,
       };
-    })
-  );
 
-  await admin
-    .firestore()
-    .collection("users")
-    .doc(transaction.author)
-    .update({
-      bought: admin.firestore.FieldValue.arrayUnion(
-        ...recipts.map((doc) => doc.path)
-      ),
+      await admin.firestore().doc(`users/${uid}`).set(userData);
+      functions.logger.info("New user created", userData);
     });
 
-  await transactionSnapshot.update({
-    status: response.Status,
-    recipts: recipts,
-  });
+exports.mangopayKycCallback = functions
+    .region("europe-west1")
+    .https.onRequest(async (req, res) => {
+      const { originalUrl } = req;
+      const urlParams = new URLSearchParams(originalUrl.substring(1));
+      // const eventType = urlParams.get("EventType");
+      const id = urlParams.get("RessourceId");
 
-  res.status(200).json({ status: "ok" });
-});
+      const userDataSnapshot = (
+        await admin
+            .firestore()
+            .collection("users")
+            .where("mangopayKYCId", "==", id)
+            .get()
+      ).docs[0];
 
+      const userData = userDataSnapshot.data();
+
+      const kycResponse = await mangopay.Users.getKycDocument(
+          userData.mangopayClientId,
+          id,
+      );
+
+      const userResponse = await mangopay.Users.get(userData.mangopayClientId);
+
+      userDataSnapshot.ref.update({
+        mangopayKYCStatus: kycResponse.Status,
+        mangopayKYCLevel: userResponse.KYCLevel,
+        mangopayKYCRefusedReasonType: kycResponse.RefusedReasonType,
+        mangopayKYCRefusedReasonMessage: kycResponse.RefusedReasonMessage,
+      });
+
+      res.status(200).json({ status: "done" });
+      return;
+    });
+
+exports.mangopayPayinCallback = functions
+    .region("europe-west1")
+    .https.onRequest(async (req, res) => {
+      const { originalUrl } = req;
+      const urlParams = new URLSearchParams(originalUrl.substring(1));
+      const id = urlParams.get("RessourceId");
+
+      const response = await mangopay.PayIns.get(id);
+
+      const transactionSnapshot = admin
+          .firestore()
+          .collection("transactions")
+          .doc(id);
+
+      if (response.Status !== "SUCCEEDED") {
+        transactionSnapshot.update({
+          status: response.Status,
+        });
+        res.status(200).json({ status: "ok" });
+        return;
+      }
+
+      const transaction = (await transactionSnapshot.get()).data();
+
+      const recipts = await Promise.all(
+          transaction.recipts.map(async (doc) => {
+            const [subjectId, docId] = doc.path.split("/");
+
+            const ownerData = (
+              await admin
+                  .firestore()
+                  .collection("users")
+                  .doc(doc.createdBy)
+                  .get()
+            ).data();
+
+            const recipt = await mangopay.Transfers.create({
+              AuthorId: transaction.authorId,
+              DebitedWalletId: transaction.authorWalletId,
+              CreditedWalletId: ownerData.mangopayWalletId,
+              DebitedFunds: {
+                Currency: "EUR",
+                Amount: doc.price * 100,
+              },
+              Fees: {
+                Currency: "EUR",
+                Amount: doc.fee * 100,
+              },
+            });
+
+            // /////////////////////////
+
+            const documentRef = admin
+                .firestore()
+                .collection("subjects")
+                .doc(subjectId)
+                .collection("docs")
+                .doc(docId);
+
+            admin.firestore().runTransaction(async (transaction) => {
+              const document = await transaction.get(documentRef);
+              transaction.update(documentRef, {
+                sales: document.data().sales ? document.data().sales + 1 : 1,
+              });
+            });
+
+            const ownerRef = admin
+                .firestore()
+                .collection("users")
+                .doc(doc.createdBy);
+
+            admin.firestore().runTransaction(async (transaction) => {
+              const user = await transaction.get(ownerRef);
+              transaction.update(ownerRef, {
+                sales: user.data().sales ? user.data().sales + 1 : 1,
+                badge:
+              user.data().sales + 1 == 500 ?
+                [...user.data().badge, "gold"] :
+                user.data().sales + 1 == 200 ?
+                [...user.data().badge, "silver"] :
+                user.data().sales + 1 == 50 ?
+                [...user.data().badge, "bronze"] :
+                user.data().badge,
+              });
+            });
+
+            // ///////////////////////////
+
+            return {
+              path: doc.path,
+              price: doc.price,
+              createdBy: doc.createdBy,
+              transactionId: recipt.Id,
+              creationDate: recipt.CreationDate,
+              fees: recipt.Fees.Amount / 100,
+            };
+          }),
+      );
+
+      await admin
+          .firestore()
+          .collection("users")
+          .doc(transaction.author)
+          .update({
+            bought: admin.firestore.FieldValue.arrayUnion(
+                ...recipts.map((doc) => doc.path),
+            ),
+          });
+
+      await transactionSnapshot.update({
+        status: response.Status,
+        recipts: recipts,
+      });
+
+      res.status(200).json({ status: "ok" });
+    });
 
 // UNIVERSITY //
 
 exports.addUniversityToIndex = functions
-  .firestore
-  .document("universities/{universityId}")
-  .onCreate((snapshot, context) => {
-    const data = snapshot.data();
-    const {universityId} = context.params;
-    return algoliaIndex.saveObject({
-      ...data,
-      objectID: universityId,
-      type: "university",
+    .region("europe-west1")
+    .firestore.document("universities/{universityId}")
+    .onCreate((snapshot, context) => {
+      const data = snapshot.data();
+      const { universityId } = context.params;
+      return algoliaIndex.saveObject({
+        ...data,
+        objectID: universityId,
+        type: "university",
+      });
     });
-  });
 
 exports.updateUniversityToIndex = functions
-  .firestore
-  .document("universities/{universityId}")
-  .onUpdate((change, context) => {
-    const data = change.after.data();
-    const {universityId} = context.params;
-    return algoliaIndex.saveObject({
-      ...data,
-      objectID: universityId,
-      type: "university",
+    .region("europe-west1")
+    .firestore.document("universities/{universityId}")
+    .onUpdate((change, context) => {
+      const data = change.after.data();
+      const { universityId } = context.params;
+      return algoliaIndex.saveObject({
+        ...data,
+        objectID: universityId,
+        type: "university",
+      });
     });
-  });
-
 
 exports.deleteUniversityFromIndex = functions
-  .firestore
-  .document("universities/{universityId}")
-  .onDelete((snapshot, context) => {
-    const {universityId} = context.params;
-    return algoliaIndex.deleteObject(universityId);
-  });
-
+    .region("europe-west1")
+    .firestore.document("universities/{universityId}")
+    .onDelete((snapshot, context) => {
+      const { universityId } = context.params;
+      return algoliaIndex.deleteObject(universityId);
+    });
 
 // SCHOOL //
 
 exports.addSchoolToIndex = functions
-  .firestore
-  .document("universities/{universityId}/schools/{schoolId}")
-  .onCreate(async (snapshot, context) => {
-    const {universityId, schoolId} = context.params;
-    const objectID = universityId + "/" + schoolId;
+    .region("europe-west1")
+    .firestore.document("universities/{universityId}/schools/{schoolId}")
+    .onCreate(async (snapshot, context) => {
+      const { universityId, schoolId } = context.params;
+      const objectID = universityId + "/" + schoolId;
 
-    const data = snapshot.data();
+      const data = snapshot.data();
 
-    const universityData = (
-      await admin
-      .firestore()
-      .collection("universities")
-      .doc(universityId)
-      .get()
+      const universityData = (
+        await admin
+            .firestore()
+            .collection("universities")
+            .doc(universityId)
+            .get()
       ).data();
 
-    return algoliaIndex.saveObject({
-      ...data,
-      objectID,
-      type: "school",
-      universityName: universityData.name,
-      logoUrl: universityData.logoUrl,
+      return algoliaIndex.saveObject({
+        ...data,
+        objectID,
+        type: "school",
+        universityName: universityData.name,
+        logoUrl: universityData.logoUrl,
+      });
     });
-  });
 
 exports.updateSchoolToIndex = functions
-  .firestore
-  .document("universities/{universityId}/schools/{schoolId}")
-  .onUpdate(async (change, context) => {
-    const {universityId, schoolId} = context.params;
-    const objectID = universityId + "/" + schoolId;
+    .region("europe-west1")
+    .firestore.document("universities/{universityId}/schools/{schoolId}")
+    .onUpdate(async (change, context) => {
+      const { universityId, schoolId } = context.params;
+      const objectID = universityId + "/" + schoolId;
 
-    const data = change.after.data();
+      const data = change.after.data();
 
-    const universityData = (
-      await admin
-      .firestore()
-      .collection("universities")
-      .doc(universityId)
-      .get()
+      const universityData = (
+        await admin
+            .firestore()
+            .collection("universities")
+            .doc(universityId)
+            .get()
       ).data();
 
-    return algoliaIndex.saveObject({
-      ...data,
-      objectID,
-      type: "school",
-      universityName: universityData.name,
-      logoUrl: universityData.logoUrl,
+      return algoliaIndex.saveObject({
+        ...data,
+        objectID,
+        type: "school",
+        universityName: universityData.name,
+        logoUrl: universityData.logoUrl,
+      });
     });
-  });
 
 exports.deleteSchoolFromIndex = functions
-  .firestore
-  .document("universities/{universityId}/schools/{schoolId}")
-  .onDelete((snapshot, context) => {
-    const {universityId, schoolId} = context.params;
-    const objectID = universityId + "/" + schoolId;
-    return algoliaIndex.deleteObject(objectID);
-  });
-
+    .region("europe-west1")
+    .firestore.document("universities/{universityId}/schools/{schoolId}")
+    .onDelete((snapshot, context) => {
+      const { universityId, schoolId } = context.params;
+      const objectID = universityId + "/" + schoolId;
+      return algoliaIndex.deleteObject(objectID);
+    });
 
 // DEGREE //
 
 exports.addDegreeToIndex = functions
-  .firestore
-  .document("universities/{universityId}/schools/{schoolId}/degrees/{degreeId}")
-  .onCreate(async (snapshot, context) => {
-    const {universityId, schoolId, degreeId} = context.params;
-    const objectID = universityId + "/" + schoolId + "/" + degreeId;
+    .region("europe-west1")
+    .firestore.document(
+        "universities/{universityId}/schools/{schoolId}/degrees/{degreeId}",
+    )
+    .onCreate(async (snapshot, context) => {
+      const { universityId, schoolId, degreeId } = context.params;
+      const objectID = universityId + "/" + schoolId + "/" + degreeId;
 
-    const data = snapshot.data();
+      const data = snapshot.data();
 
-    const universityData = (
-      await admin
-      .firestore()
-      .collection("universities")
-      .doc(universityId)
-      .get()
+      const universityData = (
+        await admin
+            .firestore()
+            .collection("universities")
+            .doc(universityId)
+            .get()
       ).data();
 
-    const degreeData = (
-      await admin
-      .firestore()
-      .collection("universities")
-      .doc(universityId)
-      .collection("schools")
-      .doc(schoolId)
-      .get()
+      const degreeData = (
+        await admin
+            .firestore()
+            .collection("universities")
+            .doc(universityId)
+            .collection("schools")
+            .doc(schoolId)
+            .get()
       ).data();
 
-    return algoliaIndex.saveObject({
-      objectID,
-      name: data.name,
-      type: "degree",
-      universityName: universityData.name,
-      logoUrl: universityData.logoUrl,
-      schoolName: degreeData.name,
+      return algoliaIndex.saveObject({
+        objectID,
+        name: data.name,
+        type: "degree",
+        universityName: universityData.name,
+        logoUrl: universityData.logoUrl,
+        schoolName: degreeData.name,
+      });
     });
-});
 
 exports.updateDegreeToIndex = functions
-  .firestore
-  .document("universities/{universityId}/schools/{schoolId}/degrees/{degreeId}")
-  .onUpdate(async (change, context) => {
-    const {universityId, schoolId, degreeId} = context.params;
-    const objectID = universityId + "/" + schoolId + "/" + degreeId;
+    .region("europe-west1")
+    .firestore.document(
+        "universities/{universityId}/schools/{schoolId}/degrees/{degreeId}",
+    )
+    .onUpdate(async (change, context) => {
+      const { universityId, schoolId, degreeId } = context.params;
+      const objectID = universityId + "/" + schoolId + "/" + degreeId;
 
-    const data = change.after.data();
+      const data = change.after.data();
 
-    const universityData = (
-      await admin
-      .firestore()
-      .collection("universities")
-      .doc(universityId)
-      .get()
+      const universityData = (
+        await admin
+            .firestore()
+            .collection("universities")
+            .doc(universityId)
+            .get()
       ).data();
 
-    const degreeData = (
-      await admin
-      .firestore()
-      .collection("universities")
-      .doc(universityId)
-      .collection("schools")
-      .doc(schoolId)
-      .get()
+      const degreeData = (
+        await admin
+            .firestore()
+            .collection("universities")
+            .doc(universityId)
+            .collection("schools")
+            .doc(schoolId)
+            .get()
       ).data();
 
-    return algoliaIndex.saveObject({
-      objectID,
-      name: data.name,
-      type: "degree",
-      universityName: universityData.name,
-      logoUrl: universityData.logoUrl,
-      schoolName: degreeData.name,
+      return algoliaIndex.saveObject({
+        objectID,
+        name: data.name,
+        type: "degree",
+        universityName: universityData.name,
+        logoUrl: universityData.logoUrl,
+        schoolName: degreeData.name,
+      });
     });
-});
 
 exports.deleteDegreeFromIndex = functions
-  .firestore
-  .document("universities/{universityId}/schools/{schoolId}/degrees/{degreeId}")
-  .onDelete((snapshot, context) => {
-    const {universityId, schoolId, degreeId} = context.params;
-    const objectID = universityId + "/" + schoolId + "/" + degreeId;
-    return algoliaIndex.deleteObject(objectID);
-});
-
+    .region("europe-west1")
+    .firestore.document(
+        "universities/{universityId}/schools/{schoolId}/degrees/{degreeId}",
+    )
+    .onDelete((snapshot, context) => {
+      const { universityId, schoolId, degreeId } = context.params;
+      const objectID = universityId + "/" + schoolId + "/" + degreeId;
+      return algoliaIndex.deleteObject(objectID);
+    });
 
 // SUBJECT //
 
 exports.addSubjectToIndex = functions
-  .firestore
-  .document("subjects/{subjectId}")
-  .onCreate(async (snapshot, context) => {
-    const {subjectId} = context.params;
+    .region("europe-west1")
+    .firestore.document("subjects/{subjectId}")
+    .onCreate(async (snapshot, context) => {
+      const { subjectId } = context.params;
 
-    const data = snapshot.data();
+      const data = snapshot.data();
 
-    const universityData = (
-      await admin
-      .firestore()
-      .collection("universities")
-      .doc(data.university)
-      .get()
+      const universityData = (
+        await admin
+            .firestore()
+            .collection("universities")
+            .doc(data.university)
+            .get()
       ).data();
 
-    return algoliaIndex.saveObject({
-      objectID: subjectId,
-      code: data.code,
-      name: data.name,
-      type: "subject",
-      universityName: universityData.name,
-      logoUrl: universityData.logoUrl,
+      return algoliaIndex.saveObject({
+        objectID: subjectId,
+        code: data.code,
+        name: data.name,
+        type: "subject",
+        universityName: universityData.name,
+        logoUrl: universityData.logoUrl,
+      });
     });
-  });
 
 exports.updateSubejctToIndex = functions
-  .firestore
-  .document("subjects/{subjectId}")
-  .onUpdate(async (change, context) => {
-    const {subjectId} = context.params;
+    .region("europe-west1")
+    .firestore.document("subjects/{subjectId}")
+    .onUpdate(async (change, context) => {
+      const { subjectId } = context.params;
 
-    const data = change.after.data();
+      const data = change.after.data();
 
-    const universityData = (
-      await admin
-      .firestore()
-      .collection("universities")
-      .doc(data.university)
-      .get()
+      const universityData = (
+        await admin
+            .firestore()
+            .collection("universities")
+            .doc(data.university)
+            .get()
       ).data();
 
-    return algoliaIndex.saveObject({
-      objectID: subjectId,
-      code: data.code,
-      name: data.name,
-      type: "subject",
-      universityName: universityData.name,
-      logoUrl: universityData.logoUrl,
+      return algoliaIndex.saveObject({
+        objectID: subjectId,
+        code: data.code,
+        name: data.name,
+        type: "subject",
+        universityName: universityData.name,
+        logoUrl: universityData.logoUrl,
+      });
     });
-  });
 
 exports.deleteSubjectFromIndex = functions
-  .firestore
-  .document("subjects/{subjectId}")
-  .onDelete((snapshot, context) => {
-    const {subjectId} = context.params;
-    return algoliaIndex.deleteObject(subjectId);
-  });
-
+    .region("europe-west1")
+    .firestore.document("subjects/{subjectId}")
+    .onDelete((snapshot, context) => {
+      const { subjectId } = context.params;
+      return algoliaIndex.deleteObject(subjectId);
+    });
