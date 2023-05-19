@@ -15,7 +15,7 @@ steps:
     args: ['run', 'lint:tsc']
 
   - id: 'Install functions dependencies'
-    name: node:18
+    name: node:16
     dir: 'functions'
     entrypoint: npm
     args: ['install']
