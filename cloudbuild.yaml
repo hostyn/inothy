@@ -1,10 +1,19 @@
 steps:
-  - name: node:18
+  - id: 'Install dependencies'
+    name: node:18
     entrypoint: npm
     args: ['install']
-  - name: node:18
+
+  - id: 'Lint'
+    name: node:18
     entrypoint: npm
     args: ['run', 'lint']
-  - name: node:18
+
+  - id: 'Check typescript'
+    name: node:18
     entrypoint: npm
     args: ['run', 'lint:tsc']
+
+  - id: 'Deploy firebase functions'
+    name: gcr.io/inothy-firebase/firebase
+    args: ['deploy', '--project=inothy-firebase', '--only=functions']
