@@ -4,7 +4,7 @@ steps:
     args: ['install']
   - name: node:18
     entrypoint: npm
-    args: ['lint']
+    args: ['run lint']
   - name: node:18
     entrypoint: npm
-    args: ['lint:tsc']
+    args: ['run lint:tsc']
