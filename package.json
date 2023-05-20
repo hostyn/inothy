@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src --fix",
+    "lint": "eslint src",
     "lint:tsc": "tsc --noEmit",
     "deploy:functions": "firebase deploy --only functions",
     "reset:firebase": "node scripts/firebaseMock.js"
