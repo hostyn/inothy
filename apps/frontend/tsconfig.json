@@ -1,0 +1,19 @@
+{
+  "extends": "tsconfig/nextjs.json",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "strict": true,
+    "paths": {
+      "@ui": ["components/ui"],
+      "@components/*": ["components/*"],
+      "@config/*": ["config/*"],
+      "@context/*": ["context/*"],
+      "@hooks/*": ["hooks/*"],
+      "@middleware/*": ["middleware/*"],
+      "@util/*": ["util/*"],
+      "@views/*": ["views/*"],
+    },
+  },
+  "include": ["src", "*.d.ts", "scripts"],
+  "exclude": ["node_modules"]
+}
