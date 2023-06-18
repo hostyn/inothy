@@ -1,22 +1,22 @@
-export const ALGOLIA_APP_ID = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID 
+export const ALGOLIA_APP_ID = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID as string
 export const ALGOLIA_SEARCH_KEY = process.env
-  .NEXT_PUBLIC_ALGOLIA_SEARCH_KEY 
-export const ALGOLIA_INDEX = process.env.NEXT_PUBLIC_ALGOLIA_INDEX 
-export const FIREBASE_PUBLIC = process.env.NEXT_PUBLIC_FIREBASE 
+  .NEXT_PUBLIC_ALGOLIA_SEARCH_KEY as string
+export const ALGOLIA_INDEX = process.env.NEXT_PUBLIC_ALGOLIA_INDEX as string
+export const FIREBASE_PUBLIC = process.env.NEXT_PUBLIC_FIREBASE as string
 export const FIREBASE_ADMIN_CREDENTIALS = process.env
-  .FIREBASE_ADMIN_CREDENTIALS 
+  .FIREBASE_ADMIN_CREDENTIALS as string
 
-export const MANGOPAY_CLIENT_ID = process.env.MANGOPAY_CLIENT_ID 
-export const MANGOPAY_API_KEY = process.env.MANGOPAY_API_KEY 
-export const MANGOPAY_ENDPOINT = process.env.MANGOPAY_ENDPOINT 
-export const FRONTEND_URL = process.env.NEXT_PUBLIC_FRONTEND_URL 
-export const NOREPLY_USER = process.env.NOREPLY_USER 
-export const NOREPLY_PASS = process.env.NOREPLY_PASS 
-export const MIN_PRICE = parseFloat(process.env.NEXT_PUBLIC_MIN_PRICE )
-export const MAX_PRICE = parseFloat(process.env.NEXT_PUBLIC_MAX_PRICE )
+export const MANGOPAY_CLIENT_ID = process.env.MANGOPAY_CLIENT_ID as string
+export const MANGOPAY_API_KEY = process.env.MANGOPAY_API_KEY as string
+export const MANGOPAY_ENDPOINT = process.env.MANGOPAY_ENDPOINT as string
+export const FRONTEND_URL = process.env.NEXT_PUBLIC_FRONTEND_URL as string
+export const NOREPLY_USER = process.env.NOREPLY_USER as string
+export const NOREPLY_PASS = process.env.NOREPLY_PASS as string
+export const MIN_PRICE = parseFloat(process.env.NEXT_PUBLIC_MIN_PRICE as string)
+export const MAX_PRICE = parseFloat(process.env.NEXT_PUBLIC_MAX_PRICE as string)
 
-export const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID 
-export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID 
+export const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID as string
+export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID as string
 
 export const BADGE_NAMES = {
   ambassador: 'Embajador',
@@ -24,7 +24,6 @@ export const BADGE_NAMES = {
   silver: 'Plata',
   gold: 'Oro',
 }
-
 
 export const REFUSE_REASONS = {
   DOCUMENT_UNREADABLE:
@@ -45,5 +44,5 @@ export const REFUSE_REASONS = {
     'El documento ha sido rechazado porque se sospecha que ha sido falsificado.',
   UNDERAGE_PERSON:
     'El documento ha sido rechazado porque es necesario ser mayor de edad.',
-  SPECIFIC_CASE: 'El documento ha sido rechazado por un caso específico.'
+  SPECIFIC_CASE: 'El documento ha sido rechazado por un caso específico.',
 }
