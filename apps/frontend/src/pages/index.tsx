@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import HomeView from '@views/Home'
-import { trpc } from '@services/trpc'
+import { useAuthUser, withAuthUser } from 'next-firebase-auth'
 
-export default function Home(): JSX.Element {
-  const test = trpc.auth.test.useQuery()
+function Home(): JSX.Element {
+  const user = useAuthUser()
+  console.log(user)
 
-  console.log(test.data)
   return (
     <>
       <Head>
@@ -16,3 +16,5 @@ export default function Home(): JSX.Element {
     </>
   )
 }
+
+export default withAuthUser()(Home)

@@ -10,8 +10,11 @@ import Head from 'next/head'
 import { type IncomingHttpHeaders } from 'http2'
 import Cookies from '@components/Cookies'
 import { trpc } from '@services/trpc'
+import initAuth from '@config/initAuth'
 
 pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.js'
+
+initAuth()
 
 interface PageProps extends AppInitialProps {
   headers: IncomingHttpHeaders | null
