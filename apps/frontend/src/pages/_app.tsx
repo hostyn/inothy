@@ -9,6 +9,7 @@ import { pdfjs } from 'react-pdf'
 import Head from 'next/head'
 import { type IncomingHttpHeaders } from 'http2'
 import Cookies from '@components/Cookies'
+import { trpc } from '@services/trpc'
 
 pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.js'
 
@@ -16,7 +17,7 @@ interface PageProps extends AppInitialProps {
   headers: IncomingHttpHeaders | null
 }
 
-export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
       <Head>
@@ -42,3 +43,5 @@ MyApp.getInitialProps = async (
     },
   }
 }
+
+export default trpc.withTRPC(MyApp)

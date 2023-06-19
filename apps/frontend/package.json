@@ -12,7 +12,13 @@
     "reset:firebase": "node scripts/firebaseMock.js"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.29.12",
+    "@trpc/client": "^10.29.1",
+    "@trpc/next": "^10.29.1",
+    "@trpc/react-query": "^10.29.1",
+    "@trpc/server": "^10.29.1",
     "algoliasearch": "^4.14.3",
+    "backend": "workspace:*",
     "firebase": "^9.9.2",
     "firebase-admin": "^11.0.1",
     "framer-motion": "^7.0.0",
@@ -28,6 +34,7 @@
     "sharp": "^0.31.3",
     "sonner": "^0.2.0",
     "styled-components": "5.3.5",
+    "superjson": "^1.12.3",
     "uuidv4": "^6.2.13",
     "webpack": "^5.75.0"
   },
@@ -43,6 +50,7 @@
     "dotenv": "^16.0.3",
     "eslint": "^8.42.0",
     "eslint-config-custom": "workspace:*",
+    "next-transpile-modules": "^10.0.0",
     "tsconfig": "workspace:*",
     "typescript": "^4.8.4"
   }

@@ -1,0 +1,35 @@
+{
+  "name": "prisma",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/node": "^17.0.12",
+    "bcryptjs": "^2.4.3",
+    "prisma": "^4.14.1",
+    "ts-node": "^10.9.1",
+    "tsconfig": "workspace:*",
+    "eslint-config-custom": "workspace:*",
+    "typescript": "^4.5.3"
+  },
+  "dependencies": {
+    "@prisma/client": "4.14.1"
+  },
+  "scripts": {
+    "db:generate": "prisma db generate",
+    "db:push": "prisma db push --skip-generate",
+    "db:studio": "prisma studio --browser none",
+    "db:seed": "prisma db push --force-reset && prisma db seed",
+    "lint": "eslint \"**/*.ts*\"",
+    "dev": "pnpm run db:seed && pnpm run db:studio"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  }
+}

@@ -12,6 +12,7 @@
       "@middleware/*": ["middleware/*"],
       "@util/*": ["util/*"],
       "@views/*": ["views/*"],
+      "@services/*": ["services/*"],
     },
   },
   "include": ["src", "*.d.ts", "scripts"],
