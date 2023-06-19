@@ -1,5 +1,6 @@
 import { initTRPC } from '@trpc/server'
 import { type CreateNextContextOptions } from '@trpc/server/adapters/next'
+import { prisma } from 'prisma'
 import superjson from 'superjson'
 import { ZodError } from 'zod'
 
@@ -7,7 +8,9 @@ type CreateContextOptions = {
   user: undefined
 }
 
-export const createInnerTRPCContext = ({}: CreateContextOptions) => ({})
+export const createInnerTRPCContext = ({}: CreateContextOptions) => ({
+  prisma,
+})
 
 export const createTRPCContext = async ({
   req,
