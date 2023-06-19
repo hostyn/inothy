@@ -201,7 +201,7 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
       <NavbarDiv logged={isUser} transparent={transparent}>
         {/* LOGOS */}
         <FullLogo>
-          <Link href="/" passHref>
+          <Link href="/" legacyBehavior>
             <Img
               src="/imagotipo-beta.svg"
               alt="Logo"
@@ -212,7 +212,7 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
         </FullLogo>
 
         <SmallLogo>
-          <Link href="/" passHref>
+          <Link href="/" legacyBehavior>
             <Img
               src="/logo.svg"
               alt="Logo"
@@ -228,14 +228,14 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
 
         {/* UNIVERSIDADES LINK */}
         <HiddenNavbarAnchor>
-          <Link href="/universities" passHref>
+          <Link href="/universities" legacyBehavior>
             <A textAlign="center">Universidades</A>
           </Link>
         </HiddenNavbarAnchor>
 
         {/* INFORMACIÓN LINK */}
         <HiddenNavbarAnchor>
-          <Link href="/info" passHref>
+          <Link href="/info" legacyBehavior>
             <A textAlign="center">Información</A>
           </Link>
         </HiddenNavbarAnchor>
@@ -248,7 +248,7 @@ export default function Navbar({ transparent }: NavbarProps): JSX.Element {
               ref={userRef}
             />
             <HiddenNavbarAnchor>
-              <Link href="/upload" passHref>
+              <Link href="/upload" legacyBehavior>
                 <Button
                   margin="0"
                   width="100%"

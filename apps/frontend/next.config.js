@@ -1,13 +1,13 @@
 // next.config.js
-const withTM = require('next-transpile-modules')(['backend']);
 /** @type {import('next').NextConfig} */
-module.exports = withTM({
+module.exports = {
   output: 'standalone',
   reactStrictMode: true,
+  transpilePackages: ['backend'],
   compiler: {
     styledComponents: true
   },
   images: {
     domains: ['storage.googleapis.com']
   },
-})
+}

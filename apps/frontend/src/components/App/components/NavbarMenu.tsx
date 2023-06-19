@@ -105,7 +105,7 @@ function NavbarMenu(
           {isUser ? (
             <>
               <MenuHiddenButtons>
-                <Link href="/upload" passHref>
+                <Link href="/upload" legacyBehavior>
                   <Item>
                     <Img
                       src="/icons/uploads.svg"
@@ -123,7 +123,7 @@ function NavbarMenu(
                   </Item>
                 </Link>
 
-                <Link href="/universities" passHref>
+                <Link href="/universities" legacyBehavior>
                   <Item>
                     <Img
                       src="/icons/universities.svg"
@@ -141,7 +141,7 @@ function NavbarMenu(
                   </Item>
                 </Link>
 
-                <Link href="/info" passHref>
+                <Link href="/info" legacyBehavior>
                   <Item>
                     <Img
                       src="/icons/info.svg"
@@ -161,7 +161,7 @@ function NavbarMenu(
 
                 <Separator />
               </MenuHiddenButtons>
-              <Link href="/account/downloads" passHref>
+              <Link href="/account/downloads" legacyBehavior>
                 <Item>
                   <Img
                     src="/icons/downloads.svg"
@@ -178,7 +178,7 @@ function NavbarMenu(
                   </Text>
                 </Item>
               </Link>
-              <Link href="/account/profile" passHref>
+              <Link href="/account/profile" legacyBehavior>
                 <Item>
                   <Img src="/icons/profile.svg" aspectRatio="1" width="2rem" />
                   <Text
@@ -191,7 +191,7 @@ function NavbarMenu(
                   </Text>
                 </Item>
               </Link>
-              <Link href="/account/balance" passHref>
+              <Link href="/account/balance" legacyBehavior>
                 <Item>
                   <Img
                     src="/icons/balance.svg"
@@ -208,7 +208,7 @@ function NavbarMenu(
                   </Text>
                 </Item>
               </Link>
-              <Link href="/account/uploads" passHref>
+              <Link href="/account/uploads" legacyBehavior>
                 <Item>
                   <Img
                     src="/icons/uploads.svg"
@@ -226,7 +226,7 @@ function NavbarMenu(
                 </Item>
               </Link>
               <Separator />
-              <Link href="/universities" passHref>
+              <Link href="/universities" legacyBehavior>
                 <A
                   textAlign="left"
                   color="primary"
@@ -237,7 +237,7 @@ function NavbarMenu(
                   Universidades
                 </A>
               </Link>
-              <Link href="/info" passHref>
+              <Link href="/info" legacyBehavior>
                 <A
                   textAlign="left"
                   color="primary"
@@ -248,7 +248,7 @@ function NavbarMenu(
                   Información
                 </A>
               </Link>
-              <Link href="/legal" passHref>
+              <Link href="/legal" legacyBehavior>
                 <A
                   textAlign="left"
                   color="primary"
@@ -259,7 +259,7 @@ function NavbarMenu(
                   Términos y condiciones
                 </A>
               </Link>
-              <Link href="/privacy" passHref>
+              <Link href="/privacy" legacyBehavior>
                 <A
                   textAlign="left"
                   color="primary"
@@ -270,7 +270,7 @@ function NavbarMenu(
                   Política de privacidad
                 </A>
               </Link>
-              <Link href="/cookies" passHref>
+              <Link href="/cookies" legacyBehavior>
                 <A
                   textAlign="left"
                   color="primary"
@@ -321,7 +321,7 @@ function NavbarMenu(
 
               <MenuHiddenButtons>
                 <Separator />
-                <Link href="/search" passHref>
+                <Link href="/search" legacyBehavior>
                   <Item>
                     <Img
                       src="/icons/search.svg"
@@ -339,7 +339,7 @@ function NavbarMenu(
                   </Item>
                 </Link>
 
-                <Link href="/universities" passHref>
+                <Link href="/universities" legacyBehavior>
                   <Item>
                     <Img
                       src="/icons/universities.svg"
@@ -357,7 +357,7 @@ function NavbarMenu(
                   </Item>
                 </Link>
 
-                <Link href="/info" passHref>
+                <Link href="/info" legacyBehavior>
                   <Item>
                     <Img
                       src="/icons/info.svg"
@@ -377,7 +377,7 @@ function NavbarMenu(
               </MenuHiddenButtons>
 
               <Separator />
-              <Link href="/universities" passHref>
+              <Link href="/universities" legacyBehavior>
                 <A
                   textAlign="left"
                   color="primary"
@@ -388,7 +388,7 @@ function NavbarMenu(
                   Universidades
                 </A>
               </Link>
-              <Link href="/info" passHref>
+              <Link href="/info" legacyBehavior>
                 <A
                   textAlign="left"
                   color="primary"
@@ -399,7 +399,7 @@ function NavbarMenu(
                   Información
                 </A>
               </Link>
-              <Link href="/legal" passHref>
+              <Link href="/legal" legacyBehavior>
                 <A
                   textAlign="left"
                   color="primary"
@@ -410,7 +410,7 @@ function NavbarMenu(
                   Términos y condiciones
                 </A>
               </Link>
-              <Link href="privacy" passHref>
+              <Link href="privacy" legacyBehavior>
                 <A
                   textAlign="left"
                   color="primary"
@@ -421,7 +421,7 @@ function NavbarMenu(
                   Política de privacidad
                 </A>
               </Link>
-              <Link href="/cookies" passHref>
+              <Link href="/cookies" legacyBehavior>
                 <A
                   textAlign="left"
                   color="primary"

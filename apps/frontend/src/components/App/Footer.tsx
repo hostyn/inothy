@@ -126,7 +126,7 @@ export default function Footer(): JSX.Element {
       </Contacto>
       <FooterDiv>
         <HiddenLink>
-          <Link href="/info" passHref>
+          <Link href="/info" legacyBehavior>
             <A
               color="white"
               fontWeight="regular"
@@ -139,7 +139,7 @@ export default function Footer(): JSX.Element {
         </HiddenLink>
 
         <HiddenLink>
-          <Link href="/legal" passHref>
+          <Link href="/legal" legacyBehavior>
             <A
               color="white"
               fontWeight="regular"
@@ -150,13 +150,13 @@ export default function Footer(): JSX.Element {
             </A>
           </Link>
         </HiddenLink>
-        <Link href="/" passHref>
+        <Link href="/" legacyBehavior>
           <a style={{ height: '100%' }}>
             <Img src="/isologo.svg" priority />
           </a>
         </Link>
         <HiddenLink>
-          <Link href="/privacy" passHref>
+          <Link href="/privacy" legacyBehavior>
             <A
               color="white"
               fontWeight="regular"
@@ -168,7 +168,7 @@ export default function Footer(): JSX.Element {
           </Link>
         </HiddenLink>
         <HiddenLink>
-          <Link href="/cookies" passHref>
+          <Link href="/cookies" legacyBehavior>
             <A
               color="white"
               fontWeight="regular"
