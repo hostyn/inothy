@@ -1,8 +1,24 @@
-import { createNextApiHandler } from '@trpc/server/adapters/next'
+import initAuth from '@config/initAuth'
+import {
+  type CreateNextContextOptions,
+  createNextApiHandler,
+} from '@trpc/server/adapters/next'
 
 import { appRouter } from 'backend'
+import { createInnerTRPCContext } from 'backend/src/trpc'
+import { getUserFromCookies } from 'next-firebase-auth'
+
+initAuth()
+
+const createTRPCContext = async ({
+  req,
+  res,
+}: CreateNextContextOptions): Promise<any> => {
+  const user = await getUserFromCookies({ req })
+  return createInnerTRPCContext({ user })
+}
 
 export default createNextApiHandler({
   router: appRouter,
-  createContext: () => ({}),
+  createContext: createTRPCContext,
 })

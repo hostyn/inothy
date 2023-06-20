@@ -16,6 +16,7 @@
   "dependencies": {
     "@trpc/client": "^10.29.1",
     "@trpc/server": "^10.29.1",
+    "next-firebase-auth": "1.0.0-canary.22",
     "prisma": "workspace:*",
     "superjson": "^1.12.3",
     "zod": "^3.21.4"

@@ -19,6 +19,7 @@ importers:
       '@types/bcryptjs': ^2.4.2
       eslint: ^7.32.0
       eslint-config-custom: workspace:*
+      next-firebase-auth: 1.0.0-canary.22
       prisma: workspace:*
       superjson: ^1.12.3
       tsconfig: workspace:*
@@ -27,6 +28,7 @@ importers:
     dependencies:
       '@trpc/client': 10.31.0_@trpc+server@10.31.0
       '@trpc/server': 10.31.0
+      next-firebase-auth: 1.0.0-canary.22
       prisma: link:../../packages/prisma
       superjson: 1.12.3
       zod: 3.21.4
@@ -5128,6 +5130,30 @@ packages:
 
   /neo-async/2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
+
+  /next-firebase-auth/1.0.0-canary.22:
+    resolution: {integrity: sha512-1CAKh0+w7VnBDz5jUnpj6GS1uzJdvNaXr4QSzocsUv5I1HXt3v03dzOHKlswgJifNHRDOUDUJV2SFcOKqYV8xA==}
+    hasBin: true
+    peerDependencies:
+      firebase: ^9.0.0
+      firebase-admin: '>=10.0.0 <12'
+      next: '>=9.5.0 <14'
+      react: '>=16.8.0 <19'
+      react-dom: '>=16.8.0 <19'
+    peerDependenciesMeta:
+      firebase:
+        optional: true
+      next:
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.22.5
+      cookies: 0.8.0
+      hoist-non-react-statics: 3.3.2
+    dev: false
 
   /next-firebase-auth/1.0.0-canary.22_dvax5yjkpfmiexi76dlmep5k3u:
     resolution: {integrity: sha512-1CAKh0+w7VnBDz5jUnpj6GS1uzJdvNaXr4QSzocsUv5I1HXt3v03dzOHKlswgJifNHRDOUDUJV2SFcOKqYV8xA==}

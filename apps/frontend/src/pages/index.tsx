@@ -1,10 +1,12 @@
 import Head from 'next/head'
 import HomeView from '@views/Home'
-import { useAuthUser, withAuthUser } from 'next-firebase-auth'
+import { withAuthUser } from 'next-firebase-auth'
+import { trpc } from '@services/trpc'
 
 function Home(): JSX.Element {
-  const user = useAuthUser()
-  console.log(user)
+  const test = trpc.auth.test.useQuery()
+
+  console.log(test.data)
 
   return (
     <>
