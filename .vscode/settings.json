@@ -2,6 +2,7 @@
   "conventionalCommits.scopes": [
     "repo",
     "frontend",
-    "backend"
+    "backend",
+    "database"
   ]
 }

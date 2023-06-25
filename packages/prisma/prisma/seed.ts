@@ -1,24 +1,16 @@
-import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
+import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
-async function main() {
-  const salt = bcrypt.genSaltSync();
-  const encryptedPassword = bcrypt.hashSync("testtest", salt);
-
-  await prisma.user.create({
-    data: { email: "test@test.com", password: encryptedPassword },
-  });
-}
+async function main() {}
 
 main()
   .then(async () => {
-    await prisma.$disconnect();
-    process.exit(0);
+    await prisma.$disconnect()
+    process.exit(0)
   })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
+  .catch(async e => {
+    console.error(e)
+    await prisma.$disconnect()
+    process.exit(1)
+  })
