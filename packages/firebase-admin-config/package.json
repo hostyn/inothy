@@ -1,0 +1,14 @@
+{
+  "name": "firebase-admin-config",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^6.11.0",
+    "firebase-admin": "^11.9.0",
+    "tsconfig": "workspace:*"
+  }
+}
