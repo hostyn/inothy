@@ -1,9 +1,10 @@
 import Head from 'next/head'
-import HomeView from '@views/Home'
-import { withAuthUser } from 'next-firebase-auth'
 import { trpc } from '@services/trpc'
+import publicContentSSR from '@middleware/publicContentSSR'
+import publicContent from '@middleware/publicContent'
+import { type NextPage } from 'next'
 
-function Home(): JSX.Element {
+const Home: NextPage = () => {
   const test = trpc.auth.test.useQuery()
 
   console.log(test.data)
@@ -14,9 +15,17 @@ function Home(): JSX.Element {
         <title>Inothy: Prepárate para aprobar</title>
         <meta name="robots" content="index,follow" />
       </Head>
-      <HomeView />
+      <h1>home</h1>
+      {/* <HomeView /> */}
     </>
   )
 }
 
-export default withAuthUser()(Home)
+export default publicContent(Home)
+export const getServerSideProps = publicContentSSR(
+  async ({ AuthUser, helper }) => {
+    return {
+      props: {},
+    }
+  }
+)

@@ -3,6 +3,6 @@ import { createTRPCRouter } from '../trpc'
 
 export const authRouter = createTRPCRouter({
   test: publicProcedure.query(async ({ ctx }) => {
-    return ctx.user
+    return { message: 'Hello world!' }
   }),
 })
