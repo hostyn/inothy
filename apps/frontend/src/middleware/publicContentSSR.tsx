@@ -17,7 +17,7 @@ const publicContentSSR = <Type,>(
   return withAuthUserTokenSSR()(async ctx => {
     const helper = useServerSideHelper(ctx.AuthUser)
 
-    await helper.auth.test.prefetch()
+    await helper.auth.getUserData.prefetch()
 
     if (getServerSideProps == null) {
       return {

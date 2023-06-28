@@ -3,7 +3,6 @@ import TikTokPixel from '@components/TikTokPixel'
 import { type IncomingHttpHeaders } from 'http2'
 import { Toaster } from 'sonner'
 import { createGlobalStyle } from 'styled-components'
-import { AuthProvider } from './authContext'
 import { ModalProvider } from './modalContext'
 
 interface ProvidersProps {
@@ -47,9 +46,9 @@ export default function Providers({
         closeButton
         style={{ fontFamily: 'VarelaRound' }}
       />
-      <AuthProvider headers={headers}>
-        <ModalProvider>{children}</ModalProvider>
-      </AuthProvider>
+      {/* <AuthProvider headers={headers}> */}
+      <ModalProvider>{children}</ModalProvider>
+      {/* </AuthProvider> */}
     </>
   )
 }
