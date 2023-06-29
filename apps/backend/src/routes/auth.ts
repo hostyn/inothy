@@ -21,8 +21,4 @@ export const authRouter = createTRPCRouter({
     })
     return userData
   }),
-
-  test: publicProcedure.query(async ({ ctx }) => {
-    return { message: 'Hello world!' }
-  }),
 })
