@@ -1,185 +1,68 @@
-import Link from 'next/link'
-import styled from 'styled-components'
-import { colors, sizes } from '@config/theme'
-import { A, Flex, Img, Text } from '@ui'
+import Logo from '@components/Logo'
+import { css } from '@styled-system/css'
+import { Link } from '@ui/Link'
+import { AiOutlineInstagram, AiOutlineYoutube } from 'react-icons/ai'
+import { RiTiktokFill } from 'react-icons/ri'
 
-interface RRSButtonProps {
-  background?: keyof typeof colors
-}
-
-const FooterDiv = styled.footer`
-  min-width: 100vw;
-  max-width: 100vw;
-  min-height: ${sizes.footer};
-  max-height: ${sizes.footer};
-
-  box-sizing: border-box;
-  background-color: ${colors.primary};
-  padding: 1rem ${sizes.inlineMargin};
-
-  display: grid;
-  grid-template-columns: repeat(2, 1fr) 13rem repeat(2, 1fr);
-  gap: 1rem;
-  align-items: center;
-  text-align: center;
-
-  @media (max-width: 1000px) {
-    grid-template-columns: 13rem;
-    padding: 1rem calc((100% - 13rem) / 2);
-  }
-`
-
-const Contacto = styled.div`
-  background-image: url('/resources/footer/background.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top center;
-
-  aspect-ratio: 1910/641;
-
-  display: grid;
-  grid-template-columns: 40% 60%;
-
-  padding: 0 10vw;
-  margin: 0 4vw;
-
-  height: calc(92vw * 641 / 1920);
-
-  align-items: center;
-  justify-items: center;
-
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
-`
-
-const TextDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  @media (max-width: 600px) {
-    & p {
-      font-size: 6vw;
-    }
-  }
-`
-
-const RRSSButton = styled.a<RRSButtonProps>`
-  aspect-ratio: 1;
-  background-color: ${props => colors[props.background ?? 'primary']};
-  padding: 1.7vw;
-  border-radius: 99999px;
-  margin: 0 2vw;
-  width: 7vw;
-  height: 7vw;
-
-  @media (max-width: 600px) {
-    padding: 2.2vw;
-    width: 10vw;
-    height: 10vw;
-    margin: 0 4vw;
-  }
-`
-
-const HiddenLink = styled.div`
-  @media (max-width: 1000px) {
-    display: none;
-  }
-`
-
-const HiddenImg = styled(Img)`
-  @media (max-width: 600px) {
-    display: none;
-  }
-`
+const rrssStyle = css({
+  bg: 'grey.700',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: 'token(spacing.xl)',
+  height: 'token(spacing.xl)',
+  borderRadius: 'md',
+  cursor: 'pointer',
+})
 
 export default function Footer(): JSX.Element {
   return (
-    <>
-      <Contacto>
-        <HiddenImg
-          src="/resources/footer/resource.svg"
-          aspectRatio="83/75"
-          width="100%"
-          height="auto"
-        />
-        <TextDiv>
-          <Text fontFamily="HelveticaRounded" fontSize="4vw" textAlign="center">
-            Únete a la comunidad
-          </Text>
-          <Flex justifyContent="center" flexDirection="row" margin="1vw 0 0 0">
-            <RRSSButton
-              target="_blank"
-              href="https://www.instagram.com/_inothy/"
-            >
-              <Img src="/icons/instagram.svg" aspectRatio="1" />
-            </RRSSButton>
-            <RRSSButton
-              background="secondary"
-              target="_blank"
-              href="https://mobile.twitter.com/_inothy"
-            >
-              <Img src="/icons/twitter.svg" aspectRatio="1" />
-            </RRSSButton>
-          </Flex>
-        </TextDiv>
-      </Contacto>
-      <FooterDiv>
-        <HiddenLink>
-          <Link href="/info" legacyBehavior>
-            <A
-              color="white"
-              fontWeight="regular"
-              fontSize="1.2rem"
-              textAlign="center"
-            >
-              Información
-            </A>
-          </Link>
-        </HiddenLink>
-
-        <HiddenLink>
-          <Link href="/legal" legacyBehavior>
-            <A
-              color="white"
-              fontWeight="regular"
-              fontSize="1.2rem"
-              textAlign="center"
-            >
-              Términos y condiciones
-            </A>
-          </Link>
-        </HiddenLink>
-        <Link href="/" legacyBehavior>
-          <a style={{ height: '100%' }}>
-            <Img src="/isologo.svg" priority />
-          </a>
-        </Link>
-        <HiddenLink>
-          <Link href="/privacy" legacyBehavior>
-            <A
-              color="white"
-              fontWeight="regular"
-              fontSize="1.2rem"
-              textAlign="center"
-            >
-              Política de privacidad
-            </A>
-          </Link>
-        </HiddenLink>
-        <HiddenLink>
-          <Link href="/cookies" legacyBehavior>
-            <A
-              color="white"
-              fontWeight="regular"
-              fontSize="1.2rem"
-              textAlign="center"
-            >
-              Cookies
-            </A>
-          </Link>
-        </HiddenLink>
-      </FooterDiv>
-    </>
+    <footer
+      className={css({
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: 'token(spacing.6xl)',
+        width: '5xl',
+        margin: 'auto',
+      })}
+    >
+      <Logo footer />
+      <Link visual="footer" href="/legal">
+        Términos y condiciones
+      </Link>
+      <Link visual="footer" href="/privacy">
+        Política de privacidad
+      </Link>
+      <Link visual="footer" href="/cookies">
+        Cookies
+      </Link>
+      <div className={css({ display: 'flex', gap: 'sm' })}>
+        <a
+          className={rrssStyle}
+          href="https://youtube.com/@_inothy"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <AiOutlineYoutube color="white" size={20} />
+        </a>
+        <a
+          className={rrssStyle}
+          href="https://www.instagram.com/_inothy/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <AiOutlineInstagram color="white" size={20} />
+        </a>
+        <a
+          className={rrssStyle}
+          href="https://www.instagram.com/_inothy/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <RiTiktokFill color="white" size={20} />
+        </a>
+      </div>
+    </footer>
   )
 }

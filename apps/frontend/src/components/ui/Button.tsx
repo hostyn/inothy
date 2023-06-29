@@ -1,69 +1,60 @@
-import styled from 'styled-components'
-import { colors, sizes } from '@config/theme'
-import LoadingRing from '@components/LoadingRing'
-import { type ForwardedRef, forwardRef } from 'react'
+import { cva } from '@styled-system/css'
+import { styled } from '@styled-system/jsx'
+import NextLink from 'next/link'
 
-interface StyledButtonProps {
-  fontFamily?: string
-  fontSize?: string
-  color?: keyof typeof colors
-  background?: keyof typeof colors
-  margin?: string
-  padding?: string
-  width?: string
-  height?: string
-  border?: string
-  borderRadius?: string
-  gridColumn?: string
-}
+export const buttonStyle = cva({
+  base: {
+    fontWeight: '600',
+    lineHeight: '1.5',
+    cursor: 'pointer',
+    transition: 'all 0.1s ease-in-out',
 
-const StyledButton = styled.button<StyledButtonProps>`
-  font-family: ${props => props.fontFamily ?? 'VarelaRound'};
-  font-size: ${props => props.fontSize ?? sizes.buttonText};
-  background: ${props => colors[props.background ?? 'secondary']};
-  color: ${props => colors[props.color ?? 'white'] ?? 'white'};
-  border-radius: ${props => props.borderRadius ?? '999999px'};
-  border: ${props => props.border ?? 'none'};
-  height: ${props => props.height ?? 'auto'};
-  width: ${props => props.width ?? 'initial'};
-  margin: ${props => props.margin ?? '0 1em'};
-  padding: ${props => props.padding ?? '0.5rem 2rem'};
-  grid-column: ${props => props.gridColumn ?? 'initial'};
-  cursor: ${props => (props.disabled ?? false ? 'default' : 'pointer')};
-  transition: 0.2s;
+    _focusVisible: {
+      outline: '3px solid token(colors.primary.300)',
+    },
+  },
+  variants: {
+    visual: {
+      primary: {
+        bg: 'primary.500',
+        color: 'white',
 
-  :hover:enabled {
-    scale: 1.05;
-  }
+        _hover: {
+          bg: 'primary.800',
+        },
+      },
 
-  :disabled {
-    background-color: ${colors.disabledButton};
-  }
-`
+      secondary: {
+        bg: 'grey.100',
+        color: 'primary.500',
 
-interface ButtonProps extends StyledButtonProps {
-  children?: any
-  loading?: boolean
-  disabled?: boolean
-  type?: 'button' | 'submit' | 'reset'
-  onClick?: () => any
-}
+        _hover: {
+          bg: 'primary.100',
+        },
+      },
 
-function Button(
-  { children, loading, color, ...props }: ButtonProps,
-  ref: ForwardedRef<HTMLButtonElement>
-): JSX.Element {
-  return (
-    <StyledButton {...props} color={color} ref={ref}>
-      {loading == null ? (
-        children
-      ) : loading ? (
-        <LoadingRing color={color ?? 'white'} />
-      ) : (
-        children
-      )}
-    </StyledButton>
-  )
-}
+      action: {
+        bg: 'red.400',
+        color: 'white',
 
-export default forwardRef(Button)
+        _hover: {
+          bg: 'red.500',
+        },
+      },
+    },
+    size: {
+      md: {
+        borderRadius: 'md',
+        px: 'sm',
+        py: 'xs',
+      },
+    },
+  },
+  defaultVariants: {
+    visual: 'primary',
+    size: 'md',
+  },
+})
+
+export const Button = styled('button', buttonStyle)
+export const LinkButton = styled(NextLink, buttonStyle)

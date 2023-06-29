@@ -3,16 +3,12 @@ import App, {
   type AppContext,
   type AppInitialProps,
 } from 'next/app'
-import Providers from '../context/Providers'
-import '../styles/global.css'
-import { pdfjs } from 'react-pdf'
 import Head from 'next/head'
 import { type IncomingHttpHeaders } from 'http2'
-import Cookies from '@components/Cookies'
 import { trpc } from '@services/trpc'
 import initAuth from '@config/initAuth'
-
-pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.js'
+import '@styles/global.css'
+import { Nunito } from 'next/font/google'
 
 initAuth()
 
@@ -20,16 +16,20 @@ interface PageProps extends AppInitialProps {
   headers: IncomingHttpHeaders | null
 }
 
+const nunito = Nunito({ subsets: ['latin'] })
+
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Providers headers={pageProps.headers}>
-        <Cookies />
+      {/* <Providers headers={pageProps.headers}> */}
+      {/* <Cookies /> */}
+      <main className={nunito.className}>
         <Component {...pageProps} />
-      </Providers>
+      </main>
+      {/* </Providers> */}
     </>
   )
 }
