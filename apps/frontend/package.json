@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prepare": "panda codegen",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint src",
     "lint:tsc": "tsc --noEmit",
-    "deploy:functions": "firebase deploy --only functions",
-    "reset:firebase": "node scripts/firebaseMock.js"
+    "deploy:functions": "firebase deploy --only functions"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.29.12",
@@ -30,6 +30,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.5",
+    "react-icons": "^4.10.1",
     "react-is": "^18.2.0",
     "react-pdf": "^5.7.2",
     "sharp": "^0.31.3",
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "@firebase/app-types": "^0.8.0",
+    "@pandacss/dev": "^0.5.0",
     "@types/node": "^18.14.4",
     "@types/nodemailer": "^6.4.7",
     "@types/react": "^18.0.25",

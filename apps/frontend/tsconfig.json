@@ -4,7 +4,7 @@
     "baseUrl": "src",
     "strict": true,
     "paths": {
-      "@ui": ["components/ui"],
+      "@ui/*": ["components/ui/*"],
       "@components/*": ["components/*"],
       "@config/*": ["config/*"],
       "@context/*": ["context/*"],
@@ -13,8 +13,10 @@
       "@util/*": ["util/*"],
       "@views/*": ["views/*"],
       "@services/*": ["services/*"],
+      "@styles/*": ["styles/*"],
+      "@styled-system/*": ["styled-system/*"],
     },
   },
-  "include": ["src", "*.d.ts", "scripts"],
+  "include": ["src", "*.d.ts", "**/*.ts"],
   "exclude": ["node_modules"]
 }

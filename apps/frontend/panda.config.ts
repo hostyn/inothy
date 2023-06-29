@@ -1,0 +1,118 @@
+import { defineConfig } from '@pandacss/dev'
+
+export default defineConfig({
+  // Whether to use css reset
+  preflight: true,
+
+  // Where to look for your css declarations
+  include: [
+    './src/components/**/*.{js,jsx,ts,tsx}',
+    './src/pages/**/*.{js,jsx,ts,tsx}',
+    './src/views/**/*.{js,jsx,ts,tsx}',
+  ],
+
+  // Files to exclude
+  exclude: [],
+
+  // Useful for theme customization
+  theme: {
+    tokens: {
+      colors: {
+        white: { value: '#FFFFFF' },
+        primary: {
+          100: { value: '#DBE6F3' },
+          200: { value: '#97C1F3' },
+          300: { value: '#6095D4' },
+          400: { value: '#2B5F9D' },
+          500: { value: '#163D6B' },
+          600: { value: '#103561' },
+          700: { value: '#0D3059' },
+          800: { value: '#0A2B52' },
+          900: { value: '#08213F' },
+        },
+        red: {
+          100: { value: '#FFE5EA' },
+          200: { value: '#FFA1B2' },
+          300: { value: '#F66E86' },
+          400: { value: '#D93552' },
+          500: { value: '#EA0029' },
+          600: { value: '#B80020' },
+          700: { value: '#9F001C' },
+          800: { value: '#620011' },
+          900: { value: '#330009' },
+        },
+        grey: {
+          100: { value: '#E4E6E9' },
+          200: { value: '#B2BAC3' },
+          300: { value: '#838D99' },
+          400: { value: '#616D7B' },
+          500: { value: '#384453' },
+          600: { value: '#283749' },
+          700: { value: '#203146' },
+          800: { value: '#172638' },
+          900: { value: '#0F1C2D' },
+        },
+      },
+
+      spacing: {
+        xs: { value: '4px' },
+        sm: { value: '8px' },
+        md: { value: '16px' },
+        lg: { value: '24px' },
+        xl: { value: '32px' },
+        '2xl': { value: '40px' },
+        '3xl': { value: '48px' },
+        '4xl': { value: '56px' },
+        '5xl': { value: '64px' },
+        '6xl': { value: '72px' },
+        '7xl': { value: '80px' },
+        '8xl': { value: '88px' },
+        '9xl': { value: '96px' },
+      },
+
+      radii: {
+        md: { value: '5px' },
+      },
+
+      fontSizes: {
+        sm: { value: '0.875rem' },
+        md: { value: '1rem' },
+        lg: { value: '1.25rem' },
+        xl: { value: '1.5rem' },
+        '2xl': { value: '2rem' },
+        '3xl': { value: '2.5rem' },
+        '4xl': { value: '3rem' },
+        '5xl': { value: '3.5rem' },
+        '6xl': { value: '4rem' },
+      },
+
+      sizes: {
+        '7xs': { value: '1.5rem' },
+        '6xs': { value: '2rem' },
+        '5xs': { value: '2.5rem' },
+        '4xs': { value: '3rem' },
+        '3xs': { value: '3.5rem' },
+        '2xs': { value: '4rem' },
+        xs: { value: '4.5rem' },
+        sm: { value: '6rem' },
+        md: { value: '8rem' },
+        lg: { value: '12rem' },
+        xl: { value: '16rem' },
+        '2xl': { value: '24rem' },
+        '3xl': { value: '32rem' },
+        '4xl': { value: '48rem' },
+        '5xl': { value: '64rem' },
+
+        '6xl': { value: '80rem' },
+        '7xl': { value: '96rem' },
+        '8xl': { value: '112rem' },
+        '9xl': { value: '128rem' },
+      },
+    },
+  },
+
+  jsxFramework: 'react',
+
+  // The output directory for your css system
+  outdir: 'src/styled-system',
+})
