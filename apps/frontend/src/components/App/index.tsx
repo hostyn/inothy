@@ -12,7 +12,7 @@ export default function App({
       <Nav />
       <div
         className={css({
-          height: 'calc(100vh - token(spacing.6xl))',
+          minHeight: 'calc(100vh - token(spacing.6xl))',
         })}
       >
         {children}
