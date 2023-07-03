@@ -19,7 +19,9 @@ export default function Nav(): JSX.Element {
       })}
     >
       <div className={divStyles}>
-        <Logo />
+        <Link href="/">
+          <Logo />
+        </Link>
         <SearchBar />
       </div>
 
