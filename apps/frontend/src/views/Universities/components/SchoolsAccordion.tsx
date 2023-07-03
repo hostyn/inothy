@@ -1,7 +1,9 @@
 import * as Accordion from '@radix-ui/react-accordion'
 import { css } from '@styled-system/css'
 import type { RouterOutputs } from 'backend'
+import Link from 'next/link'
 import React from 'react'
+import { LiaAngleDownSolid } from 'react-icons/lia'
 
 export default function SchoolsAccordion({
   schools,
@@ -19,17 +21,52 @@ export default function SchoolsAccordion({
       })}
       type="single"
       collapsible
+      defaultValue={schools?.[0]?.id}
     >
       {schools.map(school => (
-        <Accordion.Item key={school.id} value={school.id}>
+        <Accordion.Item
+          key={school.id}
+          value={school.id}
+          className={css({
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'xs',
+          })}
+        >
           <SchoolTrigger>
-            <p>{school.name}</p>
+            <div
+              className={css({
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'sm',
+              })}
+            >
+              <LiaAngleDownSolid
+                className={css({
+                  fill: 'primary.500',
+                  transition: 'transform 300ms cubic-bezier(0.87, 0, 0.13, 1)',
+                  transform: 'rotate(-90deg)',
+                })}
+                size={18}
+              />
+              <p className={css({ color: 'primary.500', fontWeight: '600' })}>
+                {school.name}
+              </p>
+            </div>
           </SchoolTrigger>
-          {school.degrees.map(degree => (
-            <SchoolContent key={degree.id}>
-              <p>{degree.name}</p>
-            </SchoolContent>
-          ))}
+          <SchoolContent>
+            {school.degrees.map(degree => (
+              <div key={degree.id}>
+                <Link
+                  href={`/degree/${degree.id}`}
+                  className={css({ color: 'primary.500' })}
+                >
+                  {degree.name}
+                </Link>
+              </div>
+            ))}
+          </SchoolContent>
         </Accordion.Item>
       ))}
     </Accordion.Root>
@@ -46,7 +83,7 @@ const SchoolTrigger = React.forwardRef(
     }: { children: JSX.Element; className?: string },
     forwardedRef: React.Ref<HTMLButtonElement>
   ) => (
-    <Accordion.Header className={css({})}>
+    <Accordion.Header>
       <Accordion.Trigger
         {...props}
         ref={forwardedRef}
@@ -55,6 +92,11 @@ const SchoolTrigger = React.forwardRef(
           justifyContent: 'space-between',
           width: '100%',
           alignItems: 'center',
+          cursor: 'pointer',
+
+          '&[data-state="open"] div > svg': {
+            transform: 'rotate(0)',
+          },
         })}
       >
         {children}
@@ -70,13 +112,16 @@ const SchoolContent = React.forwardRef(
       children,
       className,
       ...props
-    }: { children: JSX.Element; className?: string },
+    }: { children: JSX.Element[]; className?: string },
     forwardedRef: React.Ref<HTMLDivElement>
   ) => (
     <Accordion.Content
       {...props}
       ref={forwardedRef}
       className={css({
+        paddingLeft: 'xl',
+        gap: 'xl',
+
         '&[data-state="open"]': {
           animation: 'slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1);',
         },

@@ -7,7 +7,10 @@ import SchoolsAccordion from './SchoolsAccordion'
 import { LiaAngleDownSolid } from 'react-icons/lia'
 
 export default function UniversitiesAccordion(): JSX.Element {
-  const { data: universities } = trpc.universities.getUniversities.useQuery()
+  const { data: universities } = trpc.universities.getUniversities.useQuery(
+    undefined,
+    { cacheTime: 1000 * 60 }
+  )
 
   return (
     <Accordion.Root
@@ -61,8 +64,9 @@ export default function UniversitiesAccordion(): JSX.Element {
               <LiaAngleDownSolid
                 className={css({
                   fill: 'primary.500',
+                  transition: 'transform 300ms cubic-bezier(0.87, 0, 0.13, 1)',
                 })}
-                size={16}
+                size={18}
               />
             </>
           </UniversityTrigger>
@@ -86,7 +90,7 @@ const UniversityTrigger = React.forwardRef(
     }: { children: JSX.Element; className?: string },
     forwardedRef: React.Ref<HTMLButtonElement>
   ) => (
-    <Accordion.Header className={css({})}>
+    <Accordion.Header>
       <Accordion.Trigger
         {...props}
         ref={forwardedRef}
@@ -96,8 +100,17 @@ const UniversityTrigger = React.forwardRef(
           width: '100%',
           alignItems: 'center',
           borderRadius: 'md',
-          bg: 'grey.100',
           padding: 'sm',
+          cursor: 'pointer',
+          transition: 'background-color 300ms cubic-bezier(0.87, 0, 0.13, 1)',
+
+          '&[data-state="open"]': {
+            bg: 'grey.100',
+          },
+
+          '&[data-state="open"] > svg': {
+            transform: 'rotate(180deg)',
+          },
         })}
       >
         {children}
@@ -129,7 +142,7 @@ const UniversityContent = React.forwardRef(
         },
       })}
     >
-      <div className="AccordionContentText">{children}</div>
+      {children}
     </Accordion.Content>
   )
 )
