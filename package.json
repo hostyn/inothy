@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "lint": "turbo run lint",
-    "dev": "dotenv -c development -- turbo dev"
+    "dev": "dotenv -c development -- turbo dev",
+    "build": "turbo build"
   },
   "devDependencies": {
     "@turbo/gen": "^1.9.7",
