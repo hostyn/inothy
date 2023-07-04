@@ -4,7 +4,7 @@ import { createTRPCRouter } from '../trpc'
 export const authRouter = createTRPCRouter({
   getUserData: publicProcedure.query(async ({ ctx }) => {
     if (ctx.user.id == null) {
-      return {}
+      return null
     }
 
     const userData = await ctx.prisma.user.findUnique({
@@ -19,6 +19,7 @@ export const authRouter = createTRPCRouter({
         uid: true,
       },
     })
+
     return userData
   }),
 })
