@@ -60,7 +60,15 @@ export default function SchoolsAccordion({
               <div key={degree.id}>
                 <Link
                   href={`/degree/${degree.id}`}
-                  className={css({ color: 'primary.500' })}
+                  className={css({
+                    color: 'primary.500',
+                    borderRadius: 'md',
+
+                    _focusVisible: {
+                      outline: '3px solid token(colors.primary.300)',
+                      outlineOffset: '-3px',
+                    },
+                  })}
                 >
                   {degree.name}
                 </Link>
@@ -93,6 +101,12 @@ const SchoolTrigger = React.forwardRef(
           width: '100%',
           alignItems: 'center',
           cursor: 'pointer',
+          borderRadius: 'md',
+
+          _focusVisible: {
+            outline: '3px solid token(colors.primary.300)',
+            outlineOffset: '-3px',
+          },
 
           '&[data-state="open"] div > svg': {
             transform: 'rotate(0)',

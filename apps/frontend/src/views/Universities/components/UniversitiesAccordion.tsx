@@ -104,6 +104,11 @@ const UniversityTrigger = React.forwardRef(
           cursor: 'pointer',
           transition: 'background-color 300ms cubic-bezier(0.87, 0, 0.13, 1)',
 
+          _focusVisible: {
+            outline: '3px solid token(colors.primary.300)',
+            outlineOffset: '-3px',
+          },
+
           '&[data-state="open"]': {
             bg: 'grey.100',
           },
