@@ -53,6 +53,19 @@ async function main() {
   await prisma.user.create({
     data: { uid: user.uid, email: user.email ?? '', username: 'test' },
   })
+
+  await prisma.documentType.createMany({
+    data: [
+      { name: 'Examen' },
+      { name: 'Apuntes' },
+      { name: 'Práctica' },
+      { name: 'Trabajo' },
+      { name: 'Ejercicios' },
+      { name: 'Resumen' },
+      { name: 'Presentación' },
+      { name: 'Otros' },
+    ],
+  })
 }
 
 main()
