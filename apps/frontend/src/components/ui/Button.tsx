@@ -57,4 +57,4 @@ export const buttonStyle = cva({
 })
 
 export const Button = styled('button', buttonStyle)
-export const LinkButton = styled(NextLink, buttonStyle)
+export const ButtonLink = styled(NextLink, buttonStyle)

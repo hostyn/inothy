@@ -1,6 +1,6 @@
 import App from '@components/App'
 import { css } from '@styled-system/css'
-import { LinkButton } from '@ui/Button'
+import { ButtonLink } from '@ui/Button'
 import Head from 'next/head'
 
 export default function notFound(): JSX.Element {
@@ -50,7 +50,7 @@ export default function notFound(): JSX.Element {
               Parece que esta página no existe.
             </p>
           </div>
-          <LinkButton href="/">Volver al inicio</LinkButton>
+          <ButtonLink href="/">Volver al inicio</ButtonLink>
         </div>
       </App>
     </>
