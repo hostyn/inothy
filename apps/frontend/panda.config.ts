@@ -108,6 +108,10 @@ export default defineConfig({
         '8xl': { value: '112rem' },
         '9xl': { value: '128rem' },
       },
+
+      shadows: {
+        regular: { value: '0px 0px 20px 0px rgba(0, 0, 0, 0.25)' },
+      },
     },
     extend: {
       keyframes: {
@@ -126,6 +130,35 @@ export default defineConfig({
           },
           to: {
             height: 0,
+          },
+        },
+
+        fadeIn: {
+          from: {
+            opacity: 0,
+          },
+          to: {
+            opacity: 1,
+          },
+        },
+
+        fadeOut: {
+          from: {
+            opacity: 1,
+          },
+          to: {
+            opacity: 0,
+          },
+        },
+
+        exitToLeft: {
+          from: {
+            opacity: 1,
+            transform: 'translateX(0)',
+          },
+          to: {
+            opacity: 0,
+            transform: 'translateX(-200px)',
           },
         },
       },

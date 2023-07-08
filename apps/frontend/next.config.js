@@ -8,6 +8,6 @@ module.exports = {
     styledComponents: true
   },
   images: {
-    domains: ['storage.googleapis.com']
+    domains: ['storage.googleapis.com', 'i0.wp.com']
   },
 }

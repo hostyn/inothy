@@ -20,12 +20,24 @@ const linkStyles = cva({
       footer: {
         color: 'gray.700',
       },
+      warning: {
+        color: 'red.600',
+      },
+    },
+
+    size: {
+      md: {
+        fontSize: 'md',
+      },
+      sm: { fontSize: 'sm' },
     },
   },
 
   defaultVariants: {
     visual: 'primary',
+    size: 'md',
   },
 })
 
 export const Link = styled(NextLink, linkStyles)
+export const LinkButton = styled('button', linkStyles)
