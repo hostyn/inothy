@@ -7,7 +7,7 @@ export const buttonStyle = cva({
     fontWeight: '600',
     lineHeight: '1.5',
     cursor: 'pointer',
-    transition: 'all 0.1s ease-in-out',
+    transition: 'background 0.1s ease-in-out',
 
     _focusVisible: {
       outline: '3px solid token(colors.primary.300)',

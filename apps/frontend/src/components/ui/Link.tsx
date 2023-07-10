@@ -7,9 +7,14 @@ const linkStyles = cva({
     fontWeight: '700',
     lineHeight: '1.5',
     cursor: 'pointer',
+    borderRadius: 'md',
 
     _hover: {
       textDecoration: 'underline',
+    },
+
+    _focusVisible: {
+      outline: '3px solid token(colors.primary.300)',
     },
   },
   variants: {
