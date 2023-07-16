@@ -9,6 +9,7 @@ import { trpc } from '@services/trpc'
 import initAuth from '@config/initAuth'
 import '@styles/global.css'
 import { Nunito } from 'next/font/google'
+import { Toaster } from 'sonner'
 
 initAuth()
 
@@ -27,6 +28,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       {/* <Providers headers={pageProps.headers}> */}
       {/* <Cookies /> */}
       <main className={nunito.className}>
+        <Toaster position="bottom-right" duration={300000} />
         <Component {...pageProps} />
       </main>
       {/* </Providers> */}
