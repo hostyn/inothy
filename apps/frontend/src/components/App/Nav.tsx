@@ -72,7 +72,12 @@ export default function Nav(): JSX.Element {
                   })}
                 >
                   <Image
-                    src="https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1"
+                    src={
+                      user.id != null
+                        ? user.photoURL ??
+                          'https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1'
+                        : 'https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1'
+                    }
                     alt="profile picture"
                     width={32}
                     height={32}
