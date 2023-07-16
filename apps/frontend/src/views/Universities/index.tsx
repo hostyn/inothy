@@ -3,16 +3,13 @@ import { css } from '@styled-system/css'
 import SearchBar from '@ui/SearchBar'
 import { LiaUniversitySolid } from 'react-icons/lia'
 import UniversitiesAccordion from './components/UniversitiesAccordion'
+import { AppContext } from '@ui/AppContext'
+import { Separator } from '@ui/Separator'
 
 export default function UniversitiesView(): JSX.Element {
   return (
     <App>
-      <div
-        className={css({
-          width: '5xl',
-          margin: 'auto',
-        })}
-      >
+      <AppContext>
         <div
           className={css({
             py: 'md',
@@ -40,10 +37,10 @@ export default function UniversitiesView(): JSX.Element {
           <SearchBar />
         </div>
 
-        <div className={css({ height: '2px', bg: 'grey.100' })} />
+        <Separator />
 
         <UniversitiesAccordion />
-      </div>
+      </AppContext>
     </App>
   )
 }
