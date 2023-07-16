@@ -16,6 +16,7 @@
       "@styles/*": ["styles/*"],
       "@styled-system/*": ["styled-system/*"],
     },
+    "useUnknownInCatchVariables": false
   },
   "include": ["src", "*.d.ts", "**/*.ts"],
   "exclude": ["node_modules"]
