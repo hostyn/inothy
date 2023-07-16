@@ -75,6 +75,7 @@ export default defineConfig({
       },
 
       fontSizes: {
+        xs: { value: '0.75rem' },
         sm: { value: '0.875rem' },
         md: { value: '1rem' },
         lg: { value: '1.25rem' },
@@ -87,6 +88,8 @@ export default defineConfig({
       },
 
       sizes: {
+        '9xs': { value: '1rem' },
+        '8xs': { value: '1.25rem' },
         '7xs': { value: '1.5rem' },
         '6xs': { value: '2rem' },
         '5xs': { value: '2.5rem' },
@@ -113,6 +116,14 @@ export default defineConfig({
         regular: { value: '0px 0px 20px 0px rgba(0, 0, 0, 0.25)' },
       },
     },
+
+    semanticTokens: {
+      colors: {
+        text: { value: '{colors.primary.500}' },
+        error: { value: '{colors.red.400}' },
+      },
+    },
+
     extend: {
       keyframes: {
         slideDown: {
