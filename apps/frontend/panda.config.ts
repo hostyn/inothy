@@ -143,35 +143,6 @@ export default defineConfig({
             height: 0,
           },
         },
-
-        fadeIn: {
-          from: {
-            opacity: 0,
-          },
-          to: {
-            opacity: 1,
-          },
-        },
-
-        fadeOut: {
-          from: {
-            opacity: 1,
-          },
-          to: {
-            opacity: 0,
-          },
-        },
-
-        exitToLeft: {
-          from: {
-            opacity: 1,
-            transform: 'translateX(0)',
-          },
-          to: {
-            opacity: 0,
-            transform: 'translateX(-200px)',
-          },
-        },
       },
     },
   },
