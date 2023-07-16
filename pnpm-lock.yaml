@@ -42,6 +42,7 @@ importers:
   apps/frontend:
     specifiers:
       '@firebase/app-types': ^0.8.1
+      '@hookform/resolvers': ^3.1.1
       '@pandacss/dev': ^0.5.1
       '@radix-ui/react-accordion': ^1.1.2
       '@radix-ui/react-menubar': ^1.0.3
@@ -84,7 +85,9 @@ importers:
       typescript: ^4.9.5
       uuidv4: ^6.2.13
       webpack: ^5.75.0
+      zod: ^3.21.4
     dependencies:
+      '@hookform/resolvers': 3.1.1_react-hook-form@7.44.3
       '@radix-ui/react-accordion': 1.1.2_hrrtw4it2dqo6rzcqzvl36ff7i
       '@radix-ui/react-menubar': 1.0.3_hrrtw4it2dqo6rzcqzvl36ff7i
       '@tanstack/react-query': 4.29.14_biqbaboplfbrettd7655fr4n2y
@@ -114,6 +117,7 @@ importers:
       superjson: 1.12.3
       uuidv4: 6.2.13
       webpack: 5.87.0
+      zod: 3.21.4
     devDependencies:
       '@firebase/app-types': 0.8.1
       '@pandacss/dev': 0.5.1_mwqwnc5ce56elb4ujfhddh2jgy
@@ -1750,6 +1754,14 @@ packages:
       long: 4.0.0
       protobufjs: 7.2.3
       yargs: 17.7.2
+
+  /@hookform/resolvers/3.1.1_react-hook-form@7.44.3:
+    resolution: {integrity: sha512-tS16bAUkqjITNSvbJuO1x7MXbn7Oe8ZziDTJdA9mMvsoYthnOOiznOTGBYwbdlYBgU+tgpI/BtTU3paRbCuSlg==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.44.3_react@18.2.0
+    dev: false
 
   /@humanwhocodes/config-array/0.11.10:
     resolution: {integrity: sha512-KVVjQmNUepDVGXNuoRRdmmEjruj0KfiGSbS8LVc12LMsWDQzRXJ0qdhN8L8uUigKpfEHRhlaQFY0ib1tnUbNeQ==}
