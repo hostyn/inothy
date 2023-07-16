@@ -1,6 +1,5 @@
 import App from '@components/App'
 import authContentSSR from '@middleware/authContentSSR'
-import publicContent from '@middleware/publicContent'
 import { css } from '@styled-system/css'
 import { AppContext } from '@ui/AppContext'
 import { Button } from '@ui/Button'
@@ -22,6 +21,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { toastError } from '@services/toaster'
 import { useState } from 'react'
 import Spinner from '@components/Spinner'
+import authContent from '@middleware/authContent'
+import { useRouter } from 'next/router'
 
 const loginSchema = z.object({
   email: z.string().email('Email inválido.'),
@@ -64,6 +65,8 @@ const oAuthButtonStyles = css({
 
 const Login: NextPage = () => {
   const [loading, setLoading] = useState(false)
+
+  const { push } = useRouter()
   const {
     register,
     handleSubmit,
@@ -83,7 +86,7 @@ const Login: NextPage = () => {
     try {
       setLoading(true)
       await signInWithEmailAndPassword(auth, email, password)
-      setLoading(false)
+      await push('/')
     } catch (e) {
       if (e.code === 'auth/wrong-password') {
         setError('password', {
@@ -306,5 +309,5 @@ const Login: NextPage = () => {
   )
 }
 
-export default publicContent(Login)
+export default authContent(Login)
 export const getServerSideProps = authContentSSR()
