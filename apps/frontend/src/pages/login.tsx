@@ -15,14 +15,17 @@ import { FcGoogle } from 'react-icons/fc'
 import { AiOutlineTwitter } from 'react-icons/ai'
 import { BsFacebook } from 'react-icons/bs'
 import NextLink from 'next/link'
-import { signInWithRedirect } from 'firebase/auth'
+import { signInWithEmailAndPassword, signInWithRedirect } from 'firebase/auth'
 import { auth, googleProvider } from '@config/firebase'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toastError } from '@services/toaster'
+import { useState } from 'react'
+import Spinner from '@components/Spinner'
 
 const loginSchema = z.object({
-  email: z.string().email('Email inválido'),
-  password: z.string().min(1, 'La contraseña es obligatoria'),
+  email: z.string().email('Email inválido.'),
+  password: z.string().min(1, 'La contraseña es obligatoria.'),
 })
 
 type FormValues = z.infer<typeof loginSchema>
@@ -48,6 +51,11 @@ const oAuthButtonStyles = css({
   alignItems: 'center',
   justifyContent: 'center',
   cursor: 'pointer',
+  transition: 'all 0.2s ease-in-out',
+
+  _hover: {
+    bg: 'grey.200',
+  },
 
   _focus: {
     outline: '3px solid token(colors.primary.300)',
@@ -55,11 +63,13 @@ const oAuthButtonStyles = css({
 })
 
 const Login: NextPage = () => {
+  const [loading, setLoading] = useState(false)
   const {
     register,
     handleSubmit,
     formState: { errors },
     clearErrors,
+    setError,
   } = useForm<FormValues>({
     mode: 'onSubmit',
     reValidateMode: 'onBlur',
@@ -69,7 +79,56 @@ const Login: NextPage = () => {
   const onLoginWithEmailAndPassword: SubmitHandler<FormValues> = async ({
     email,
     password,
-  }) => {}
+  }) => {
+    try {
+      setLoading(true)
+      await signInWithEmailAndPassword(auth, email, password)
+      setLoading(false)
+    } catch (e) {
+      if (e.code === 'auth/wrong-password') {
+        setError('password', {
+          message: 'Contraseña incorrecta.',
+        })
+        return
+      }
+
+      if (e.code === 'auth/user-not-found') {
+        setError('email', {
+          message: 'Email no encontrado.',
+        })
+        return
+      }
+
+      if (e.code === 'auth/too-many-requests') {
+        setError('email', {
+          message: 'Demasiados intentos.',
+        })
+        toastError('Demasiados intentos, intentalo de nuevo más tarde.')
+        return
+      }
+
+      if (e.code === 'auth/invalid-email') {
+        setError('email', {
+          message: 'Email inválido.',
+        })
+        return
+      }
+
+      if (e.code === 'auth/user-disabled') {
+        setError('email', {
+          message: 'Usuario deshabilitado.',
+        })
+        toastError(
+          'El usuario ha sido deshabilitado, contacta con el soporte para mas información.'
+        )
+        return
+      }
+
+      toastError('No se ha podido iniciar sesión')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleGoogleLogin = async (): Promise<void> => {
     await signInWithRedirect(auth, googleProvider)
@@ -127,7 +186,7 @@ const Login: NextPage = () => {
                     clearErrors('email')
                   },
                 })}
-                className={css({ mb: errors.email != null ? '8px' : '28px' })}
+                className={css({ mb: errors.email != null ? '6px' : '26px' })}
               />
               <Input
                 placeholder="Contraseña"
@@ -141,11 +200,15 @@ const Login: NextPage = () => {
                   },
                 })}
                 className={css({
-                  mb: errors.password != null ? '8px' : '28px',
+                  mb: errors.password != null ? '2px' : '22px',
                 })}
               />
-              <Button className={css({ width: 'fit-content' })}>
-                Iniciar sesión
+              <Button className={css({ width: '110px' })} disabled={loading}>
+                {loading ? (
+                  <Spinner className={css({ my: 'xs', mx: 'auto' })} />
+                ) : (
+                  'Iniciar sesión'
+                )}
               </Button>
             </form>
 
