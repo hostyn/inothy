@@ -12,6 +12,14 @@ export const buttonStyle = cva({
     _focusVisible: {
       outline: '3px solid token(colors.primary.300)',
     },
+
+    _disabled: {
+      bg: 'grey.500',
+
+      _hover: {
+        bg: 'grey.500',
+      },
+    },
   },
   variants: {
     visual: {
