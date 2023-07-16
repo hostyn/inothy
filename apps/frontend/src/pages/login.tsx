@@ -9,7 +9,7 @@ import { Link } from '@ui/Link'
 import { Separator } from '@ui/Separator'
 import { type NextPage } from 'next'
 import Head from 'next/head'
-import { useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form'
 import { MdLockOutline, MdOutlineEmail } from 'react-icons/md'
 import { FcGoogle } from 'react-icons/fc'
 import { AiOutlineTwitter } from 'react-icons/ai'
@@ -17,12 +17,15 @@ import { BsFacebook } from 'react-icons/bs'
 import NextLink from 'next/link'
 import { signInWithRedirect } from 'firebase/auth'
 import { auth, googleProvider } from '@config/firebase'
-import useAuth from '@hooks/useAuth'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-interface FormValues {
-  email: string
-  password: string
-}
+const loginSchema = z.object({
+  email: z.string().email('Email inválido'),
+  password: z.string().min(1, 'La contraseña es obligatoria'),
+})
+
+type FormValues = z.infer<typeof loginSchema>
 
 const termsStyles = css({
   fontWeight: 'bold',
@@ -41,7 +44,7 @@ const oAuthButtonStyles = css({
   cursor: 'pointer',
 })
 
-const Home: NextPage = () => {
+const Login: NextPage = () => {
   const {
     register,
     handleSubmit,
@@ -50,11 +53,13 @@ const Home: NextPage = () => {
   } = useForm<FormValues>({
     mode: 'onSubmit',
     reValidateMode: 'onBlur',
+    resolver: zodResolver(loginSchema),
   })
 
-  const { user } = useAuth()
-
-  console.log(user)
+  const onLoginWithEmailAndPassword: SubmitHandler<FormValues> = async ({
+    email,
+    password,
+  }) => {}
 
   const handleGoogleLogin = async (): Promise<void> => {
     await signInWithRedirect(auth, googleProvider)
@@ -92,46 +97,42 @@ const Home: NextPage = () => {
               Iniciar Sesión
             </h1>
             <form
-              onSubmit={handleSubmit(data => {
-                console.log(data)
-              })}
+              noValidate
+              onSubmit={handleSubmit(onLoginWithEmailAndPassword)}
               className={css({
                 display: 'flex',
                 flexDir: 'column',
                 alignItems: 'center',
                 width: 'xl',
-                gap: 'md',
               })}
             >
               <Input
                 placeholder="Email"
                 Icon={MdOutlineEmail}
+                type="email"
+                error={errors.email}
+                autoComplete="username"
                 {...register('email', {
-                  required: 'El email es obligatorio.',
-                  minLength: {
-                    value: 10,
-                    message: 'El email es demasiado corto.',
-                  },
                   onChange: () => {
                     clearErrors('email')
                   },
                 })}
-                error={errors.email}
+                className={css({ mb: errors.email != null ? '8px' : '28px' })}
               />
               <Input
                 placeholder="Contraseña"
                 Icon={MdLockOutline}
+                type="password"
+                error={errors.password}
+                autoComplete="current-password"
                 {...register('password', {
-                  required: 'La contraseña es obligatoria.',
-                  minLength: {
-                    value: 10,
-                    message: 'La contraseña es demasiado corta.',
-                  },
                   onChange: () => {
                     clearErrors('password')
                   },
                 })}
-                error={errors.password}
+                className={css({
+                  mb: errors.password != null ? '8px' : '28px',
+                })}
               />
               <Button className={css({ width: 'fit-content' })}>
                 Iniciar sesión
@@ -232,5 +233,5 @@ const Home: NextPage = () => {
   )
 }
 
-export default publicContent(Home)
+export default publicContent(Login)
 export const getServerSideProps = authContentSSR()
