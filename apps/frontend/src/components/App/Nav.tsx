@@ -18,7 +18,7 @@ const linkStyles = css({
 export default function Nav(): JSX.Element {
   const { user, userData } = useAuth()
   return (
-    <nav
+    <header
       className={css({
         display: 'flex',
         justifyContent: 'space-between',
@@ -152,6 +152,6 @@ export default function Nav(): JSX.Element {
           </>
         )}
       </div>
-    </nav>
+    </header>
   )
 }
