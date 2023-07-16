@@ -13,6 +13,10 @@ const rrssStyle = css({
   height: 'token(spacing.xl)',
   borderRadius: 'md',
   cursor: 'pointer',
+
+  _focus: {
+    outline: '3px solid token(colors.primary.300)',
+  },
 })
 
 export default function Footer(): JSX.Element {

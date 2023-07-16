@@ -30,7 +30,13 @@ type FormValues = z.infer<typeof loginSchema>
 const termsStyles = css({
   fontWeight: 'bold',
   color: 'grey.500',
+  borderRadius: 'md',
+
   _hover: { textDecoration: 'underline' },
+
+  _focus: {
+    outline: '3px solid token(colors.primary.300)',
+  },
 })
 
 const oAuthButtonStyles = css({
@@ -42,6 +48,10 @@ const oAuthButtonStyles = css({
   alignItems: 'center',
   justifyContent: 'center',
   cursor: 'pointer',
+
+  _focus: {
+    outline: '3px solid token(colors.primary.300)',
+  },
 })
 
 const Login: NextPage = () => {
