@@ -1,11 +1,16 @@
 import { forwardRef } from 'react'
 import type { FieldError, ChangeHandler } from 'react-hook-form'
-import { css } from '@styled-system/css'
+import { css, cx } from '@styled-system/css'
 import { type IconType } from 'react-icons'
 import { MdErrorOutline } from 'react-icons/md'
 
-interface InputProps {
+interface InputProps
+  extends React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  > {
   placeholder?: string
+  className?: string
   onChange?: ChangeHandler | ((e: any) => void)
   onBlur?: ChangeHandler
   type?: string
@@ -17,16 +22,19 @@ interface InputProps {
 }
 
 function Input(
-  { placeholder, error, Icon, ...props }: InputProps,
+  { placeholder, error, Icon, className, ...props }: InputProps,
   ref: React.Ref<any>
 ): JSX.Element {
   return (
     <div
-      className={css({
-        display: 'flex',
-        flexDir: 'column',
-        width: '100%',
-      })}
+      className={cx(
+        css({
+          display: 'flex',
+          flexDir: 'column',
+          width: '100%',
+        }),
+        className
+      )}
     >
       <div className={css({ position: 'relative' })}>
         <input
@@ -38,7 +46,7 @@ function Input(
             paddingRight: 'xl',
             height: '6xs',
             width: '100%',
-            transition: 'outline-color 0.2s ease, background 0.2s ease',
+            transition: 'background 0.2s ease',
 
             // When the input has value but is not focused
             '&:not(:placeholder-shown)': {
@@ -47,6 +55,7 @@ function Input(
                 error != null
                   ? '2px solid token(colors.red.200)'
                   : '2px solid token(colors.grey.100)',
+              transition: 'outline-color 0.2s ease, background 0.2s ease',
             },
 
             // When the input is focused
@@ -96,6 +105,8 @@ function Input(
           ref={ref}
           title={placeholder}
           placeholder=" "
+          aria-invalid={error != null}
+          aria-errormessage={error?.message}
         />
         <label
           className={css({
