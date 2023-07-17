@@ -5,17 +5,13 @@ import { AppContext } from '@ui/AppContext'
 import { Button } from '@ui/Button'
 import Input from '@ui/Input'
 import { Link } from '@ui/Link'
-import { Separator } from '@ui/Separator'
 import { type NextPage } from 'next'
 import Head from 'next/head'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { MdLockOutline, MdOutlineEmail } from 'react-icons/md'
-import { FcGoogle } from 'react-icons/fc'
-import { AiOutlineTwitter } from 'react-icons/ai'
-import { BsFacebook } from 'react-icons/bs'
 import NextLink from 'next/link'
-import { signInWithEmailAndPassword, signInWithRedirect } from 'firebase/auth'
-import { auth, googleProvider } from '@config/firebase'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '@config/firebase'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toastError } from '@services/toaster'
@@ -23,6 +19,7 @@ import { useState } from 'react'
 import Spinner from '@components/Spinner'
 import authContent from '@middleware/authContent'
 import { useRouter } from 'next/router'
+import OAuthProviders from '@components/OAuthProviders'
 
 const loginSchema = z.object({
   email: z.string().email('Email inválido.'),
@@ -37,26 +34,6 @@ const termsStyles = css({
   borderRadius: 'md',
 
   _hover: { textDecoration: 'underline' },
-
-  _focus: {
-    outline: '3px solid token(colors.primary.300)',
-  },
-})
-
-const oAuthButtonStyles = css({
-  borderRadius: '10000rem',
-  bg: 'grey.100',
-  width: '5xs',
-  height: '5xs',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  cursor: 'pointer',
-  transition: 'all 0.2s ease-in-out',
-
-  _hover: {
-    bg: 'grey.200',
-  },
 
   _focus: {
     outline: '3px solid token(colors.primary.300)',
@@ -131,10 +108,6 @@ const Login: NextPage = () => {
     } finally {
       setLoading(false)
     }
-  }
-
-  const handleGoogleLogin = async (): Promise<void> => {
-    await signInWithRedirect(auth, googleProvider)
   }
 
   return (
@@ -233,64 +206,8 @@ const Login: NextPage = () => {
                 ¿Has olvidado tu contraseña?
               </Link>
             </div>
-            <div
-              className={css({
-                display: 'flex',
-                flexDir: 'column',
-                alignItems: 'center',
-                width: 'xl',
-                gap: 'md',
-              })}
-            >
-              <div
-                className={css({
-                  display: 'flex',
-                  width: '100%',
-                  alignItems: 'center',
-                  gap: 'sm',
-                  height: '2px',
-                })}
-              >
-                <Separator />
-                <p
-                  className={css({
-                    width: 'max-content',
-                    textWrap: 'nowrap',
-                    color: 'grey.200',
-                  })}
-                >
-                  iniciar sesión con
-                </p>
-                <Separator />
-              </div>
 
-              <div
-                className={css({
-                  display: 'flex',
-                  gap: 'sm',
-                })}
-              >
-                <button
-                  className={oAuthButtonStyles}
-                  onClick={handleGoogleLogin}
-                >
-                  <FcGoogle size={24} />
-                </button>
-
-                <div className={oAuthButtonStyles}>
-                  <AiOutlineTwitter
-                    size={24}
-                    className={css({ fill: '#1DA1F2' })}
-                  />
-                </div>
-
-                <div className={oAuthButtonStyles}>
-                  <BsFacebook size={24} className={css({ fill: '#3b5998' })} />
-                </div>
-              </div>
-
-              <Separator />
-            </div>
+            <OAuthProviders text="iniciar sesión" />
 
             <p className={css({ fontSize: 'sm', color: 'grey.400' })}>
               Al iniciar aceptas nuestros{' '}
