@@ -64,6 +64,10 @@ export default function SchoolsAccordion({
                     color: 'primary.500',
                     borderRadius: 'md',
 
+                    _hover: {
+                      textDecoration: 'underline',
+                    },
+
                     _focusVisible: {
                       outline: '3px solid token(colors.primary.300)',
                       outlineOffset: '-3px',
