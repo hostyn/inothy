@@ -42,7 +42,7 @@ export default function Nav(): JSX.Element {
           <>
             <Link href="/login">Iniciar sesión</Link>
 
-            <ButtonLink href="/signin">Registrarse</ButtonLink>
+            <ButtonLink href="/register">Registrarse</ButtonLink>
           </>
         ) : (
           <>
