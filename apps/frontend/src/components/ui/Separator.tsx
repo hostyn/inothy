@@ -4,6 +4,7 @@ import { styled } from '@styled-system/jsx'
 const separatorStyles = cva({
   base: {
     height: '2px',
+    minHeight: '2px',
     width: '100%',
   },
   variants: {
