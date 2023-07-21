@@ -109,11 +109,11 @@ export default function Nav(): JSX.Element {
                   alignItems: 'flex-end',
 
                   '&[data-state="closed"]': {
-                    animation: 'dropDownClose 0.2s ease-in',
+                    animation: 'dropDownClose 150ms ease-in',
                   },
 
                   '&[data-state="open"]': {
-                    animation: 'dropDownOpen 0.2s ease-out',
+                    animation: 'dropDownOpen 150ms ease-out',
                   },
 
                   '--dropdown-height':
