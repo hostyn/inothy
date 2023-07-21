@@ -143,6 +143,32 @@ export default defineConfig({
             height: 0,
           },
         },
+
+        dropDownClose: {
+          from: {
+            maxHeight: 'var(--dropdown-height)',
+            maxWidth: '16rem',
+            opacity: 1,
+          },
+          to: {
+            maxHeight: 0,
+            maxWidth: 0,
+            opacity: 0,
+          },
+        },
+
+        dropDownOpen: {
+          from: {
+            maxHeight: 0,
+            maxWidth: 0,
+            opacity: 0,
+          },
+          to: {
+            maxHeight: 'var(--dropdown-height)',
+            maxWidth: '16rem',
+            opacity: 1,
+          },
+        },
       },
     },
   },

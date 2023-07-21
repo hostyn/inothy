@@ -6,13 +6,22 @@ import { Link, LinkButton } from '@ui/Link'
 import SearchBar from '@ui/SearchBar'
 import Image from 'next/image'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
-import * as Menubar from '@radix-ui/react-menubar'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { Separator } from '@ui/Separator'
 
 const divStyles = css({ display: 'flex', gap: 'md', alignItems: 'center' })
+
 const linkStyles = css({
   fontSize: 'sm',
   color: 'primary.500',
   fontWeight: '500',
+  width: 'calc(token(sizes.xl) - token(spacing.md) * 2)',
+  p: 'xs',
+
+  _focusVisible: {
+    outline: 'none',
+    bg: 'primary.100',
+  },
 })
 
 export default function Nav(): JSX.Element {
@@ -56,99 +65,123 @@ export default function Nav(): JSX.Element {
             >
               Subir <AiOutlineCloudUpload size={20} />
             </ButtonLink>
-            <Menubar.Root
-              className={css({
-                height: '6xs',
-                width: '6xs',
-                borderRadius: 'md',
-                overflow: 'hidden',
-              })}
-            >
-              <Menubar.Menu>
-                <Menubar.Trigger
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger
+                className={css({
+                  height: '6xs',
+                  width: '6xs',
+                  borderRadius: 'md',
+                  overflow: 'hidden',
+
+                  _focusVisible: {
+                    outline: '3px solid token(colors.primary.300)',
+                  },
+                })}
+              >
+                <Image
+                  src={
+                    user.id != null
+                      ? user.photoURL ??
+                        'https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1'
+                      : 'https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1'
+                  }
+                  alt="profile picture"
+                  width={32}
+                  height={32}
+                />
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content
+                className={css({
+                  boxShadow: 'regular',
+                  borderRadius: 'md',
+                  zIndex: 10,
+                  padding: 'md',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'xs',
+                  width: 'xl',
+                  overflow: 'hidden',
+                  alignItems: 'flex-end',
+
+                  '&[data-state="closed"]': {
+                    animation: 'dropDownClose 0.2s ease-in',
+                  },
+
+                  '&[data-state="open"]': {
+                    animation: 'dropDownOpen 0.2s ease-out',
+                  },
+
+                  '--dropdown-height':
+                    'calc(token(spacing.md) * 2 + 29px * 7 + 2px * 2 + token(spacing.xs) * 8)',
+                })}
+                align="end"
+                sideOffset={10}
+              >
+                <p className={linkStyles}>
+                  {userData?.username} - {user.email}
+                </p>
+
+                <Separator />
+
+                <DropdownMenu.Item asChild className={linkStyles}>
+                  <Link focus="disabled" hover="disabled" href="/universities">
+                    Universidades
+                  </Link>
+                </DropdownMenu.Item>
+
+                <DropdownMenu.Item asChild className={linkStyles}>
+                  <Link focus="disabled" hover="disabled" href="/bought">
+                    Comprado
+                  </Link>
+                </DropdownMenu.Item>
+
+                <DropdownMenu.Item asChild className={linkStyles}>
+                  <Link focus="disabled" hover="disabled" href="/uploaded">
+                    Subido
+                  </Link>
+                </DropdownMenu.Item>
+
+                <DropdownMenu.Item asChild className={linkStyles}>
+                  <Link focus="disabled" hover="disabled" href="/balance">
+                    Saldo
+                  </Link>
+                </DropdownMenu.Item>
+
+                <DropdownMenu.Item asChild className={linkStyles}>
+                  <Link focus="disabled" hover="disabled" href="/settings">
+                    Ajustes
+                  </Link>
+                </DropdownMenu.Item>
+
+                <Separator />
+
+                <DropdownMenu.Item
+                  asChild
                   className={css({
-                    height: '6xs',
-                    cursor: 'pointer',
+                    display: 'flex',
+                    width: 'calc(token(sizes.xl) - token(spacing.md) * 2)',
+                    p: 'xs',
+
+                    _focus: {
+                      bg: 'red.100',
+                      outline: 'none',
+                    },
                   })}
                 >
-                  <Image
-                    src={
-                      user.id != null
-                        ? user.photoURL ??
-                          'https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1'
-                        : 'https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1'
-                    }
-                    alt="profile picture"
-                    width={32}
-                    height={32}
-                  />
-                </Menubar.Trigger>
-                <Menubar.Portal>
-                  <Menubar.Content
-                    className={css({
-                      boxShadow: 'regular',
-                      borderRadius: 'md',
-                      zIndex: 10,
-                      padding: 'md',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: 'sm',
-                      width: 'xl',
-                    })}
-                    align="end"
-                    sideOffset={5}
-                    alignOffset={-3}
+                  <LinkButton
+                    visual="warning"
+                    size="sm"
+                    hover="disabled"
+                    focus="disabled"
+                    onClick={async () => {
+                      await user.signOut()
+                    }}
                   >
-                    <p className={linkStyles}>
-                      {userData?.username} - {user.email}
-                    </p>
-                    <div
-                      className={css({
-                        height: '2px',
-                        bg: 'grey.100',
-                      })}
-                    />
-                    <Link href="/universities" className={linkStyles}>
-                      Universidades
-                    </Link>
-
-                    <Link href="/bought" className={linkStyles}>
-                      Comprado
-                    </Link>
-
-                    <Link href="/uploaded" className={linkStyles}>
-                      Subido
-                    </Link>
-
-                    <Link href="/balance" className={linkStyles}>
-                      Saldo
-                    </Link>
-
-                    <Link href="/settings" className={linkStyles}>
-                      Ajustes
-                    </Link>
-
-                    <div
-                      className={css({
-                        height: '2px',
-                        bg: 'grey.100',
-                      })}
-                    />
-
-                    <LinkButton
-                      visual="warning"
-                      size="sm"
-                      className={css({ width: 'fit-content' })}
-                      onClick={async () => {
-                        await user.signOut()
-                      }}
-                    >
-                      Cerrar sesión
-                    </LinkButton>
-                  </Menubar.Content>
-                </Menubar.Portal>
-              </Menubar.Menu>
-            </Menubar.Root>
+                    Cerrar sesión
+                  </LinkButton>
+                </DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
           </>
         )}
       </div>
