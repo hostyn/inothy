@@ -96,6 +96,7 @@ export default function Nav(): JSX.Element {
                 />
               </DropdownMenu.Trigger>
               <DropdownMenu.Content
+                asChild
                 className={css({
                   boxShadow: 'regular',
                   borderRadius: 'md',
@@ -121,75 +122,81 @@ export default function Nav(): JSX.Element {
                 align="end"
                 sideOffset={10}
               >
-                <DropdownMenu.Item asChild className={linkStyles}>
-                  <Link
-                    focus="disabled"
-                    hover="disabled"
-                    href={`/profile/${userData?.username ?? ''}`}
+                <nav>
+                  <DropdownMenu.Item asChild className={linkStyles}>
+                    <Link
+                      focus="disabled"
+                      hover="disabled"
+                      href={`/profile/${userData?.username ?? ''}`}
+                    >
+                      {userData?.username} - {user.email}
+                    </Link>
+                  </DropdownMenu.Item>
+
+                  <Separator className={css({ my: 'xs' })} />
+
+                  <DropdownMenu.Item asChild className={linkStyles}>
+                    <Link
+                      focus="disabled"
+                      hover="disabled"
+                      href="/universities"
+                    >
+                      Universidades
+                    </Link>
+                  </DropdownMenu.Item>
+
+                  <DropdownMenu.Item asChild className={linkStyles}>
+                    <Link focus="disabled" hover="disabled" href="/bought">
+                      Comprado
+                    </Link>
+                  </DropdownMenu.Item>
+
+                  <DropdownMenu.Item asChild className={linkStyles}>
+                    <Link focus="disabled" hover="disabled" href="/uploaded">
+                      Subido
+                    </Link>
+                  </DropdownMenu.Item>
+
+                  <DropdownMenu.Item asChild className={linkStyles}>
+                    <Link focus="disabled" hover="disabled" href="/balance">
+                      Saldo
+                    </Link>
+                  </DropdownMenu.Item>
+
+                  <DropdownMenu.Item asChild className={linkStyles}>
+                    <Link focus="disabled" hover="disabled" href="/settings">
+                      Ajustes
+                    </Link>
+                  </DropdownMenu.Item>
+
+                  <Separator className={css({ my: 'xs' })} />
+
+                  <DropdownMenu.Item
+                    asChild
+                    className={css({
+                      display: 'flex',
+                      width: 'calc(token(sizes.xl) - token(spacing.md) * 2)',
+                      p: 'xs',
+
+                      _focus: {
+                        bg: 'red.100',
+                        outline: 'none',
+                      },
+                    })}
                   >
-                    {userData?.username} - {user.email}
-                  </Link>
-                </DropdownMenu.Item>
-
-                <Separator className={css({ my: 'xs' })} />
-
-                <DropdownMenu.Item asChild className={linkStyles}>
-                  <Link focus="disabled" hover="disabled" href="/universities">
-                    Universidades
-                  </Link>
-                </DropdownMenu.Item>
-
-                <DropdownMenu.Item asChild className={linkStyles}>
-                  <Link focus="disabled" hover="disabled" href="/bought">
-                    Comprado
-                  </Link>
-                </DropdownMenu.Item>
-
-                <DropdownMenu.Item asChild className={linkStyles}>
-                  <Link focus="disabled" hover="disabled" href="/uploaded">
-                    Subido
-                  </Link>
-                </DropdownMenu.Item>
-
-                <DropdownMenu.Item asChild className={linkStyles}>
-                  <Link focus="disabled" hover="disabled" href="/balance">
-                    Saldo
-                  </Link>
-                </DropdownMenu.Item>
-
-                <DropdownMenu.Item asChild className={linkStyles}>
-                  <Link focus="disabled" hover="disabled" href="/settings">
-                    Ajustes
-                  </Link>
-                </DropdownMenu.Item>
-
-                <Separator className={css({ my: 'xs' })} />
-
-                <DropdownMenu.Item
-                  asChild
-                  className={css({
-                    display: 'flex',
-                    width: 'calc(token(sizes.xl) - token(spacing.md) * 2)',
-                    p: 'xs',
-
-                    _focus: {
-                      bg: 'red.100',
-                      outline: 'none',
-                    },
-                  })}
-                >
-                  <LinkButton
-                    visual="warning"
-                    size="sm"
-                    hover="disabled"
-                    focus="disabled"
-                    onClick={async () => {
-                      await user.signOut()
-                    }}
-                  >
-                    Cerrar sesión
-                  </LinkButton>
-                </DropdownMenu.Item>
+                    <LinkButton
+                      visual="warning"
+                      size="sm"
+                      hover="disabled"
+                      focus="disabled"
+                      onClick={async () => {
+                        await user.signOut()
+                      }}
+                    >
+                      Cerrar sesión
+                    </LinkButton>
+                  </DropdownMenu.Item>
+                </nav>
               </DropdownMenu.Content>
             </DropdownMenu.Root>
           </>
