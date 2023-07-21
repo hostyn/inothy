@@ -113,7 +113,10 @@ export default defineConfig({
       },
 
       shadows: {
-        regular: { value: '0px 0px 20px 0px rgba(0, 0, 0, 0.25)' },
+        regular: {
+          value:
+            'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
+        },
       },
     },
 
@@ -167,6 +170,50 @@ export default defineConfig({
             maxHeight: 'var(--dropdown-height)',
             maxWidth: '16rem',
             opacity: 1,
+          },
+        },
+
+        overlayShow: {
+          from: {
+            opacity: 0,
+            backdropFilter: 'none',
+          },
+          to: {
+            opacity: 1,
+            backdropFilter: 'blur(2px)',
+          },
+        },
+
+        overlayHide: {
+          from: {
+            opacity: 1,
+            backdropFilter: 'blur(2px)',
+          },
+          to: {
+            opacity: 0,
+            backdropFilter: 'none',
+          },
+        },
+
+        contentShow: {
+          from: {
+            opacity: 0,
+            transform: 'translate(-50%, -48%) scale(0.96)',
+          },
+          to: {
+            opacity: 1,
+            transform: 'translate(-50%, -50%) scale(1)',
+          },
+        },
+
+        contentHide: {
+          from: {
+            opacity: 1,
+            transform: 'translate(-50%, -50%) scale(1)',
+          },
+          to: {
+            opacity: 0,
+            transform: 'translate(-50%, -48%) scale(0.96)',
           },
         },
       },
