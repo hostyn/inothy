@@ -8,14 +8,6 @@ const linkStyles = cva({
     lineHeight: '1.5',
     cursor: 'pointer',
     borderRadius: 'md',
-
-    _hover: {
-      textDecoration: 'underline',
-    },
-
-    _focusVisible: {
-      outline: '3px solid token(colors.primary.300)',
-    },
   },
   variants: {
     visual: {
@@ -36,11 +28,31 @@ const linkStyles = cva({
       },
       sm: { fontSize: 'sm' },
     },
+
+    focus: {
+      enabled: {
+        _focusVisible: {
+          outline: '3px solid token(colors.primary.300)',
+        },
+      },
+      disabled: {},
+    },
+
+    hover: {
+      enabled: {
+        _hover: {
+          textDecoration: 'underline',
+        },
+      },
+      disabled: {},
+    },
   },
 
   defaultVariants: {
     visual: 'primary',
     size: 'md',
+    focus: 'enabled',
+    hover: 'enabled',
   },
 })
 
