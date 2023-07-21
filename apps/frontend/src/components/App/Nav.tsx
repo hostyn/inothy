@@ -18,7 +18,12 @@ const linkStyles = css({
   width: 'calc(token(sizes.xl) - token(spacing.md) * 2)',
   p: 'xs',
 
-  _focusVisible: {
+  _focus: {
+    outline: 'none',
+    bg: 'primary.100',
+  },
+
+  _hover: {
     outline: 'none',
     bg: 'primary.100',
   },
@@ -98,7 +103,6 @@ export default function Nav(): JSX.Element {
                   padding: 'md',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 'xs',
                   width: 'xl',
                   overflow: 'hidden',
                   alignItems: 'flex-end',
@@ -112,16 +116,22 @@ export default function Nav(): JSX.Element {
                   },
 
                   '--dropdown-height':
-                    'calc(token(spacing.md) * 2 + 29px * 7 + 2px * 2 + token(spacing.xs) * 8)',
+                    'calc(token(spacing.md) * 2 + 29px * 7 + 10px * 2)',
                 })}
                 align="end"
                 sideOffset={10}
               >
-                <p className={linkStyles}>
-                  {userData?.username} - {user.email}
-                </p>
+                <DropdownMenu.Item asChild className={linkStyles}>
+                  <Link
+                    focus="disabled"
+                    hover="disabled"
+                    href={`/profile/${userData?.username ?? ''}`}
+                  >
+                    {userData?.username} - {user.email}
+                  </Link>
+                </DropdownMenu.Item>
 
-                <Separator />
+                <Separator className={css({ my: 'xs' })} />
 
                 <DropdownMenu.Item asChild className={linkStyles}>
                   <Link focus="disabled" hover="disabled" href="/universities">
@@ -153,7 +163,7 @@ export default function Nav(): JSX.Element {
                   </Link>
                 </DropdownMenu.Item>
 
-                <Separator />
+                <Separator className={css({ my: 'xs' })} />
 
                 <DropdownMenu.Item
                   asChild
