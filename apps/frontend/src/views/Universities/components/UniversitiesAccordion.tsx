@@ -51,7 +51,7 @@ export default function UniversitiesAccordion(): JSX.Element {
                   height={32}
                   className={css({ borderRadius: 'md' })}
                 />
-                <p
+                <h2
                   className={css({
                     fontSize: 'lg',
                     fontWeight: '600',
@@ -59,7 +59,7 @@ export default function UniversitiesAccordion(): JSX.Element {
                   })}
                 >
                   {university.name}
-                </p>
+                </h2>
               </div>
               <LiaAngleDownSolid
                 className={css({

@@ -50,9 +50,9 @@ export default function SchoolsAccordion({
                 })}
                 size={18}
               />
-              <p className={css({ color: 'primary.500', fontWeight: '600' })}>
+              <h3 className={css({ color: 'primary.500', fontWeight: '600' })}>
                 {school.name}
-              </p>
+              </h3>
             </div>
           </SchoolTrigger>
           <SchoolContent>
