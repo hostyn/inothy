@@ -77,6 +77,7 @@ export default function Nav(): JSX.Element {
                   width: '6xs',
                   borderRadius: 'md',
                   overflow: 'hidden',
+                  userSelect: 'none',
 
                   _focusVisible: {
                     outline: '3px solid token(colors.primary.300)',
