@@ -19,7 +19,7 @@ const FIREBASE_ADMIN_CREDENTIALS = JSON.parse(
 
 const initAuth = (): void => {
   init({
-    authPageURL: '/auth',
+    authPageURL: '/login',
     appPageURL: '/',
     loginAPIEndpoint: '/api/login',
     logoutAPIEndpoint: '/api/logout',
@@ -40,7 +40,7 @@ const initAuth = (): void => {
       projectId: FIREBASE_CLIENT.projectId,
     },
     cookies: {
-      name: 'LlantasFames', // required
+      name: 'inothy_auth', // required
       // Keys are required unless you set `signed` to `false`.
       // The keys cannot be accessible on the client side.
       keys: [
