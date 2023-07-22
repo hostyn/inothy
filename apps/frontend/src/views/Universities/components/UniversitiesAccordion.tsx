@@ -17,7 +17,6 @@ export default function UniversitiesAccordion(): JSX.Element {
       className={css({
         display: 'flex',
         flexDirection: 'column',
-        py: 'md',
         gap: 'xs',
       })}
       type="single"
