@@ -1,7 +1,7 @@
 import { css, cx } from '@styled-system/css'
 import type React from 'react'
 
-export const appContextStyles = css({
+export const pageSpacingStyles = css({
   width: '5xl',
   margin: 'auto',
   minHeight: 'inherit',
@@ -12,6 +12,6 @@ interface Props {
   className?: string
 }
 
-export const AppContext = ({ className, children }: Props): JSX.Element => {
-  return <div className={cx(appContextStyles, className)}>{children}</div>
+export const PageSpacing = ({ className, children }: Props): JSX.Element => {
+  return <div className={cx(pageSpacingStyles, className)}>{children}</div>
 }

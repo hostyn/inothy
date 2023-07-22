@@ -1,7 +1,7 @@
 import App from '@components/App'
 import authContentSSR from '@middleware/authContentSSR'
 import { css } from '@styled-system/css'
-import { AppContext } from '@ui/AppContext'
+import { PageSpacing } from '@ui/PageSpacing'
 import { Button } from '@ui/Button'
 import Input from '@ui/Input'
 import { Link } from '@ui/Link'
@@ -117,7 +117,7 @@ const Login: NextPage = () => {
         <meta name="robots" content="index,follow" />
       </Head>
       <App>
-        <AppContext
+        <PageSpacing
           className={css({
             display: 'flex',
             alignItems: 'center',
@@ -220,7 +220,7 @@ const Login: NextPage = () => {
               </NextLink>
             </p>
           </div>
-        </AppContext>
+        </PageSpacing>
       </App>
     </>
   )
