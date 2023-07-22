@@ -11,27 +11,28 @@ datasource db {
 }
 
 model User {
-  id           String        @id @default(auto()) @map("_id") @db.ObjectId
-  uid          String        @unique
-  username     String        @unique
-  email        String        @unique
-  address      Address?
-  mangopayUser MangopayUser?
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  degree       Degree?       @relation(fields: [degreeId], references: [id])
-  degreeId     String?       @db.ObjectId
-  biography    String?
-  avatarUrl    String?
-  firstName    String?
-  lastName     String?
-  nationality  String?
-  birthDate    DateTime?
-  country      String?
-  ip           String?
-  referralCode String?
-  documents    Document[]
-  reviews      Review[]
+  id                  String        @id @default(auto()) @map("_id") @db.ObjectId
+  uid                 String        @unique
+  username            String        @unique
+  usernameChangedDate DateTime?
+  email               String        @unique
+  address             Address?
+  mangopayUser        MangopayUser?
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  degree              Degree?       @relation(fields: [degreeId], references: [id])
+  degreeId            String?       @db.ObjectId
+  biography           String?
+  avatarUrl           String?
+  firstName           String?
+  lastName            String?
+  nationality         String?
+  birthDate           DateTime?
+  country             String?
+  ip                  String?
+  referralCode        String?
+  documents           Document[]
+  reviews             Review[]
 }
 
 model Address {
