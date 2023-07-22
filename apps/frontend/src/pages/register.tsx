@@ -109,7 +109,7 @@ const Register: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Inothy - Registro</title>
+        <title>Registrarse - Inothy</title>
         <meta name="robots" content="index,follow" />
       </Head>
       <App>

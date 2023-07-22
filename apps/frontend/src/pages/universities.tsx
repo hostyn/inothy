@@ -7,7 +7,7 @@ function Universities(): JSX.Element {
   return (
     <>
       <Head>
-        <title>Inothy - Universidades</title>
+        <title>Universidades - Inothy</title>
         <meta name="robots" content="index,follow" />
       </Head>
       <UniversitiesView />

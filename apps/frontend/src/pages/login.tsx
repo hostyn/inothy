@@ -113,7 +113,7 @@ const Login: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Inothy - Iniciar sesión</title>
+        <title>Iniciar sesión - Inothy</title>
         <meta name="robots" content="index,follow" />
       </Head>
       <App>
