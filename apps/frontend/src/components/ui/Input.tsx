@@ -46,7 +46,7 @@ function Input(
             paddingRight: 'xl',
             height: '6xs',
             width: '100%',
-            transition: 'background 0.2s ease',
+            transition: 'background 150ms ease, outline-width 50ms ease-in-out',
 
             // When the input has value but is not focused
             '&:not(:placeholder-shown)': {
@@ -55,7 +55,8 @@ function Input(
                 error != null
                   ? '2px solid token(colors.red.200)'
                   : '2px solid token(colors.grey.100)',
-              transition: 'outline-color 0.2s ease, background 0.2s ease',
+              transition:
+                'outline-color 150ms ease, background 150ms ease, outline-width 50ms ease-in-out',
             },
 
             // When the input is focused
@@ -114,7 +115,7 @@ function Input(
             color: 'grey.400',
             top: '10px',
             left: 'calc(token(spacing.sm) - 2px)',
-            transition: 'all 0.2s ease',
+            transition: 'all 150ms ease',
             pointerEvents: 'none',
             userSelect: 'none',
             lineHeight: '.8',
@@ -129,7 +130,7 @@ function Input(
               color: 'grey.400',
               top: 'sm',
               right: 'sm',
-              transition: 'all 0.2s ease',
+              transition: 'all 150ms ease',
               pointerEvents: 'none',
               userSelect: 'none',
             })}

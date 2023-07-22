@@ -8,6 +8,7 @@ const linkStyles = cva({
     lineHeight: '1.5',
     cursor: 'pointer',
     borderRadius: 'md',
+    transition: 'outline-width 50ms ease-in-out',
   },
   variants: {
     visual: {
@@ -33,6 +34,7 @@ const linkStyles = cva({
       enabled: {
         _focusVisible: {
           outline: '3px solid token(colors.primary.300)',
+          outlineOffset: '2px',
         },
       },
       disabled: {},

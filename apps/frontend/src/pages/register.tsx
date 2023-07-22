@@ -41,6 +41,7 @@ const termsStyles = css({
   fontWeight: 'bold',
   color: 'grey.500',
   borderRadius: 'md',
+  transition: 'outline-width 50ms ease-in-out',
 
   _hover: { textDecoration: 'underline' },
 

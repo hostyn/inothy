@@ -15,7 +15,7 @@ const oAuthButtonStyles = css({
   alignItems: 'center',
   justifyContent: 'center',
   cursor: 'pointer',
-  transition: 'all 0.2s ease-in-out',
+  transition: 'outline-width 50ms ease-in-out',
 
   _hover: {
     bg: 'grey.200',
