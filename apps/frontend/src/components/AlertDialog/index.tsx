@@ -100,8 +100,13 @@ export default function AlertDialog({
                   py: 'xs',
                   px: 'sm',
                   borderRadius: 'md',
+                  transition: 'outline-width 50ms ease-in-out',
 
                   _focus: {
+                    outline: '3px solid token(colors.primary.200)',
+                  },
+
+                  _hover: {
                     outline: '3px solid token(colors.primary.200)',
                   },
                 })}
@@ -117,8 +122,13 @@ export default function AlertDialog({
                   py: 'xs',
                   px: 'sm',
                   borderRadius: 'md',
+                  transition: 'outline-width 50ms ease-in-out',
 
                   _focus: {
+                    outline: '3px solid token(colors.red.200)',
+                  },
+
+                  _hover: {
                     outline: '3px solid token(colors.red.200)',
                   },
                 })}
