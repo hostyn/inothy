@@ -55,6 +55,7 @@ export default defineConfig({
       },
 
       spacing: {
+        '2xs': { value: '2px' },
         xs: { value: '4px' },
         sm: { value: '8px' },
         md: { value: '16px' },
