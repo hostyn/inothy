@@ -10,13 +10,13 @@ export default function App({
   return (
     <>
       <Nav />
-      <div
+      <main
         className={css({
           minHeight: 'calc(100vh - token(spacing.6xl))',
         })}
       >
         {children}
-      </div>
+      </main>
       <Footer />
     </>
   )

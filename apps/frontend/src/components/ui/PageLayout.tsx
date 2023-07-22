@@ -19,7 +19,7 @@ export default function PageLayout({
 }: PageLayoutProps): JSX.Element {
   return (
     <PageSpacing>
-      <div
+      <header
         className={css({
           py: 'md',
           display: 'flex',
@@ -40,7 +40,7 @@ export default function PageLayout({
           </h1>
         </div>
         {searchBar && <SearchBar />}
-      </div>
+      </header>
 
       <Separator
         className={css({
