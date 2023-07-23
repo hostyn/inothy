@@ -130,6 +130,7 @@ export default function Nav(): JSX.Element {
                       focus="disabled"
                       hover="disabled"
                       href={`/profile/${userData?.username ?? ''}`}
+                      weight="normal"
                     >
                       {userData?.username} - {user.email}
                     </Link>
@@ -142,31 +143,52 @@ export default function Nav(): JSX.Element {
                       focus="disabled"
                       hover="disabled"
                       href="/universities"
+                      weight="normal"
                     >
                       Universidades
                     </Link>
                   </DropdownMenu.Item>
 
                   <DropdownMenu.Item asChild className={linkStyles}>
-                    <Link focus="disabled" hover="disabled" href="/bought">
+                    <Link
+                      focus="disabled"
+                      hover="disabled"
+                      weight="normal"
+                      href="/bought"
+                    >
                       Comprado
                     </Link>
                   </DropdownMenu.Item>
 
                   <DropdownMenu.Item asChild className={linkStyles}>
-                    <Link focus="disabled" hover="disabled" href="/uploaded">
+                    <Link
+                      focus="disabled"
+                      hover="disabled"
+                      weight="normal"
+                      href="/uploaded"
+                    >
                       Subido
                     </Link>
                   </DropdownMenu.Item>
 
                   <DropdownMenu.Item asChild className={linkStyles}>
-                    <Link focus="disabled" hover="disabled" href="/balance">
+                    <Link
+                      focus="disabled"
+                      hover="disabled"
+                      weight="normal"
+                      href="/balance"
+                    >
                       Saldo
                     </Link>
                   </DropdownMenu.Item>
 
                   <DropdownMenu.Item asChild className={linkStyles}>
-                    <Link focus="disabled" hover="disabled" href="/settings">
+                    <Link
+                      focus="disabled"
+                      hover="disabled"
+                      weight="normal"
+                      href="/settings"
+                    >
                       Ajustes
                     </Link>
                   </DropdownMenu.Item>

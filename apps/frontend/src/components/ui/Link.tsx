@@ -4,7 +4,6 @@ import NextLink from 'next/link'
 
 const linkStyles = cva({
   base: {
-    fontWeight: '700',
     lineHeight: '1.5',
     cursor: 'pointer',
     borderRadius: 'md',
@@ -28,6 +27,15 @@ const linkStyles = cva({
         fontSize: 'md',
       },
       sm: { fontSize: 'sm' },
+    },
+
+    weight: {
+      normal: {
+        fontWeight: '500',
+      },
+      bold: {
+        fontWeight: '700',
+      },
     },
 
     focus: {
@@ -55,6 +63,7 @@ const linkStyles = cva({
     size: 'md',
     focus: 'enabled',
     hover: 'enabled',
+    weight: 'bold',
   },
 })
 
