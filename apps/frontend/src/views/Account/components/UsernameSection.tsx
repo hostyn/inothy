@@ -154,7 +154,7 @@ export default function UsernameSection(): JSX.Element {
       onSubmit={handleFormSubmit}
     >
       <Input
-        placeholder="Nombre"
+        placeholder="Nombre de usuario"
         Icon={AiOutlineUser}
         error={errors.username}
         {...register('username', {
