@@ -18,6 +18,8 @@ export default function GenericSectionLayout({
 }: GenericSectionLayoutProps): JSX.Element {
   return (
     <form
+      noValidate
+      onSubmit={onSubmit}
       className={css({
         border: '2px solid token(colors.grey.100)',
         borderRadius: 'md',
@@ -42,9 +44,7 @@ export default function GenericSectionLayout({
           {bottomText}
         </p>
         {buttonText != null && (
-          <Button disabled={disabled} onClick={onSubmit}>
-            {buttonText}
-          </Button>
+          <Button disabled={disabled}>{buttonText}</Button>
         )}
       </div>
     </form>
