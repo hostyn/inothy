@@ -159,7 +159,10 @@ const Register: NextPage = () => {
                     clearErrors('email')
                   },
                 })}
-                className={css({ mb: errors.email != null ? '6px' : '26px' })}
+                className={css({
+                  width: '100%',
+                  mb: errors.email != null ? '6px' : '26px',
+                })}
               />
 
               <Input
@@ -174,6 +177,7 @@ const Register: NextPage = () => {
                   },
                 })}
                 className={css({
+                  width: '100%',
                   mb: errors.password != null ? '6px' : '26px',
                 })}
               />
@@ -190,6 +194,7 @@ const Register: NextPage = () => {
                   },
                 })}
                 className={css({
+                  width: '100%',
                   mb: errors.repeatPassword != null ? '2px' : '22px',
                 })}
               />

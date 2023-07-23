@@ -31,7 +31,6 @@ function Input(
         css({
           display: 'flex',
           flexDir: 'column',
-          width: '100%',
         }),
         className
       )}
