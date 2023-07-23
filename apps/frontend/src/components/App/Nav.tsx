@@ -108,6 +108,7 @@ export default function Nav(): JSX.Element {
                   width: 'xl',
                   overflow: 'hidden',
                   alignItems: 'flex-end',
+                  bg: 'white',
 
                   '&[data-state="closed"]': {
                     animation: 'dropDownClose 150ms ease-in',
