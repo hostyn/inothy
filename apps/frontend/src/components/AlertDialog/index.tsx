@@ -1,7 +1,7 @@
 import * as RAlertDialog from '@radix-ui/react-alert-dialog'
 import { css } from '@styled-system/css'
 
-export interface AlertDialogProps {
+export interface AlertDialogProps extends RAlertDialog.AlertDialogProps {
   children: React.ReactNode
   dialogTitle: string
   dialogDescription: string
@@ -19,9 +19,10 @@ export default function AlertDialog({
   dialogConfirmText = 'Confirmar',
   dialogOnConfirm,
   dialogTriggerType = 'button',
+  ...props
 }: AlertDialogProps): JSX.Element {
   return (
-    <RAlertDialog.Root>
+    <RAlertDialog.Root {...props}>
       <RAlertDialog.Trigger asChild type={dialogTriggerType}>
         {children}
       </RAlertDialog.Trigger>
