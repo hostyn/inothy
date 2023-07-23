@@ -9,10 +9,13 @@ export default defineConfig({
     './src/components/**/*.{js,jsx,ts,tsx}',
     './src/pages/**/*.{js,jsx,ts,tsx}',
     './src/views/**/*.{js,jsx,ts,tsx}',
+    './src/services/**/*.{js,jsx,ts,tsx}',
   ],
 
   // Files to exclude
   exclude: [],
+
+  globalCss: { extend: { 'button, a': { cursor: 'pointer' } } },
 
   // Useful for theme customization
   theme: {
@@ -51,6 +54,17 @@ export default defineConfig({
           700: { value: '#203146' },
           800: { value: '#172638' },
           900: { value: '#0F1C2D' },
+        },
+        green: {
+          100: { value: '#E5FFF0' },
+          200: { value: '#A1FFC7' },
+          300: { value: '#6EF6A5' },
+          400: { value: '#30F27E' },
+          500: { value: '#06D358' },
+          600: { value: '#00B84A' },
+          700: { value: '#009F40' },
+          800: { value: '#006227' },
+          900: { value: '#003314' },
         },
       },
 
