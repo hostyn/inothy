@@ -131,6 +131,11 @@ export default function Nav(): JSX.Element {
                       hover="disabled"
                       href={`/profile/${userData?.username ?? ''}`}
                       weight="normal"
+                      className={css({
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      })}
                     >
                       {userData?.username} - {user.email}
                     </Link>
