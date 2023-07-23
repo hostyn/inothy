@@ -19,6 +19,7 @@ export const authRouter = createTRPCRouter({
         degreeId: true,
         email: true,
         uid: true,
+        usernameChangedDate: true,
       },
     })
 
@@ -64,6 +65,20 @@ export const authRouter = createTRPCRouter({
         where: { uid: ctx.user.id ?? '' },
       })
 
+      const addSixMonts = (date: Date): Date => {
+        return new Date(date.getTime() + 6 * 30 * 24 * 60 * 60 * 1000)
+      }
+
+      if (
+        user?.usernameChangedDate != null &&
+        addSixMonts(user?.usernameChangedDate) > new Date()
+      ) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'username-changed-recently',
+        })
+      }
+
       if (user?.username === input.username) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
@@ -84,7 +99,7 @@ export const authRouter = createTRPCRouter({
 
       await ctx.prisma.user.update({
         where: { uid: ctx.user.id ?? '' },
-        data: { username: input.username },
+        data: { username: input.username, usernameChangedDate: new Date() },
       })
 
       return { success: true }
