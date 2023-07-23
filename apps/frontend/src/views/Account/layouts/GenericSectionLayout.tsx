@@ -5,7 +5,7 @@ import { Button } from '@ui/Button'
 export interface GenericSectionLayoutProps
   extends Omit<AlertDialogProps, 'dialogTriggerType'> {
   children: React.ReactNode
-  buttonText?: string
+  buttonContent?: React.ReactNode
   bottomText: string
   disabled?: boolean
   onSubmit?: () => void | Promise<void>
@@ -13,7 +13,7 @@ export interface GenericSectionLayoutProps
 
 export default function GenericSectionLayout({
   children,
-  buttonText,
+  buttonContent,
   bottomText,
   disabled = true,
   onSubmit,
@@ -46,9 +46,9 @@ export default function GenericSectionLayout({
         >
           {bottomText}
         </p>
-        {buttonText != null && (
+        {buttonContent != null && (
           <AlertDialog dialogTriggerType="submit" {...props}>
-            <Button disabled={disabled}>{buttonText}</Button>
+            <Button disabled={disabled}>{buttonContent}</Button>
           </AlertDialog>
         )}
       </div>
