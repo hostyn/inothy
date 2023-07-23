@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       {/* <Providers headers={pageProps.headers}> */}
       {/* <Cookies /> */}
       <div className={nunito.className}>
-        <Toaster position="bottom-right" duration={3000} />
+        <Toaster position="bottom-right" duration={5000} />
         <Component {...pageProps} />
       </div>
       {/* </Providers> */}
