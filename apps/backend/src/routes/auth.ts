@@ -25,6 +25,27 @@ export const authRouter = createTRPCRouter({
     return userData
   }),
 
+  usernameAvailable: protectedProcedure
+    .input(
+      z.object({
+        username: z
+          .string()
+          .min(3, 'username-too-short')
+          .max(30, 'username-too-long')
+          .regex(
+            /^[a-z_\d](?!.*?\.{2})[a-z._\d]{1,28}[a-z_\d]$/,
+            'invalid-username'
+          ),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const user = await ctx.prisma.user.findFirst({
+        where: { username: input.username },
+      })
+
+      return user == null
+    }),
+
   changeUsername: protectedProcedure
     .input(
       z.object({
@@ -34,7 +55,7 @@ export const authRouter = createTRPCRouter({
           .max(30, 'username-too-long')
           .regex(
             /^[a-z_\d](?!.*?\.{2})[a-z._\d]{1,28}[a-z_\d]$/,
-            'username-invalid'
+            'invalid-username'
           ),
       })
     )
