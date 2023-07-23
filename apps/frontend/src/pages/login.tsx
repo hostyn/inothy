@@ -201,13 +201,10 @@ const Login: NextPage = () => {
                 width: 'xl',
               })}
             >
-              <Link className={css({ fontWeight: '500' })} href="/register">
+              <Link weight="normal" href="/register">
                 ¿No tienes una cuenta? Regístrate.
               </Link>
-              <Link
-                className={css({ fontWeight: '500' })}
-                href="/forgot-password"
-              >
+              <Link weight="normal" href="/forgot-password">
                 ¿Has olvidado tu contraseña?
               </Link>
             </div>

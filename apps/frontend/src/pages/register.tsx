@@ -207,7 +207,7 @@ const Register: NextPage = () => {
               </Button>
             </form>
 
-            <Link className={css({ fontWeight: '500' })} href="/login">
+            <Link weight="normal" href="/login">
               ¿Ya tienes cuenta? Inicia sesión.
             </Link>
 
