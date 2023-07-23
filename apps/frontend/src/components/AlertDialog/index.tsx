@@ -1,26 +1,30 @@
 import * as RAlertDialog from '@radix-ui/react-alert-dialog'
 import { css } from '@styled-system/css'
 
-interface AlertDialogProps {
+export interface AlertDialogProps {
   children: React.ReactNode
-  title: string
-  description: string
-  cancelText?: string
-  confirmText?: string
-  onConfirm: () => void
+  dialogTitle: string
+  dialogDescription: string
+  dialogCancelText?: string
+  dialogConfirmText?: string
+  dialogOnConfirm: () => void
+  dialogTriggerType?: 'button' | 'reset' | 'submit'
 }
 
 export default function AlertDialog({
   children,
-  title,
-  description,
-  cancelText = 'Cancelar',
-  confirmText = 'Confirmar',
-  onConfirm,
+  dialogTitle,
+  dialogDescription,
+  dialogCancelText = 'Cancelar',
+  dialogConfirmText = 'Confirmar',
+  dialogOnConfirm,
+  dialogTriggerType = 'button',
 }: AlertDialogProps): JSX.Element {
   return (
     <RAlertDialog.Root>
-      <RAlertDialog.Trigger asChild>{children}</RAlertDialog.Trigger>
+      <RAlertDialog.Trigger asChild type={dialogTriggerType}>
+        {children}
+      </RAlertDialog.Trigger>
       <RAlertDialog.Portal>
         <RAlertDialog.Overlay
           className={css({
@@ -74,7 +78,7 @@ export default function AlertDialog({
               fontWeight: '700',
             })}
           >
-            {title}
+            {dialogTitle}
           </RAlertDialog.Title>
           <RAlertDialog.Description
             className={css({
@@ -83,7 +87,7 @@ export default function AlertDialog({
               lineHeight: 1.5,
             })}
           >
-            {description}
+            {dialogDescription}
           </RAlertDialog.Description>
           <div
             className={css({
@@ -101,6 +105,7 @@ export default function AlertDialog({
                   px: 'sm',
                   borderRadius: 'md',
                   transition: 'outline-width 50ms ease-in-out',
+                  cursor: 'pointer',
 
                   _focus: {
                     outline: '3px solid token(colors.primary.200)',
@@ -111,7 +116,7 @@ export default function AlertDialog({
                   },
                 })}
               >
-                {cancelText}
+                {dialogCancelText}
               </button>
             </RAlertDialog.Cancel>
             <RAlertDialog.Action asChild>
@@ -123,6 +128,7 @@ export default function AlertDialog({
                   px: 'sm',
                   borderRadius: 'md',
                   transition: 'outline-width 50ms ease-in-out',
+                  cursor: 'pointer',
 
                   _focus: {
                     outline: '3px solid token(colors.red.200)',
@@ -132,9 +138,9 @@ export default function AlertDialog({
                     outline: '3px solid token(colors.red.200)',
                   },
                 })}
-                onClick={onConfirm}
+                onClick={dialogOnConfirm}
               >
-                {confirmText}
+                {dialogConfirmText}
               </button>
             </RAlertDialog.Action>
           </div>
