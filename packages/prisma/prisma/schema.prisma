@@ -124,7 +124,7 @@ model Document {
   documentTypeId String       @db.ObjectId
   year           Int
   calification   Float
-  professor      String
+  professor      String?
   byHand         Boolean
 }
 
