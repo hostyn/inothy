@@ -50,10 +50,6 @@ async function main() {
     emailVerified: true,
   })
 
-  await prisma.user.create({
-    data: { uid: user.uid, email: user.email ?? '', username: 'test' },
-  })
-
   await prisma.documentType.createMany({
     data: [
       { name: 'Examen' },
