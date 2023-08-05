@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { protectedProcedure, publicProcedure } from '../procedures'
 import { createTRPCRouter } from '../trpc'
 import { TRPCError } from '@trpc/server'
+import { getUserData } from '../util/getUserData'
 
 export const authRouter = createTRPCRouter({
   getUserData: publicProcedure.query(async ({ ctx }) => {
@@ -61,17 +62,15 @@ export const authRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const user = await ctx.prisma.user.findUnique({
-        where: { uid: ctx.user.id ?? '' },
-      })
+      const userData = await getUserData(ctx.user)
 
       const addSixMonts = (date: Date): Date => {
         return new Date(date.getTime() + 6 * 30 * 24 * 60 * 60 * 1000)
       }
 
       if (
-        user?.usernameChangedDate != null &&
-        addSixMonts(user?.usernameChangedDate) > new Date()
+        userData.usernameChangedDate != null &&
+        addSixMonts(userData.usernameChangedDate) > new Date()
       ) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
@@ -79,7 +78,7 @@ export const authRouter = createTRPCRouter({
         })
       }
 
-      if (user?.username === input.username) {
+      if (userData.username === input.username) {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: 'already-username',
@@ -100,6 +99,27 @@ export const authRouter = createTRPCRouter({
       await ctx.prisma.user.update({
         where: { uid: ctx.user.id ?? '' },
         data: { username: input.username, usernameChangedDate: new Date() },
+      })
+
+      return { success: true }
+    }),
+
+  changeBiography: protectedProcedure
+    .input(
+      z.object({
+        biography: z.string().max(300, 'description-too-long'),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userData = await getUserData(ctx.user)
+
+      await ctx.prisma.user.update({
+        where: {
+          uid: userData.uid,
+        },
+        data: {
+          biography: input.biography,
+        },
       })
 
       return { success: true }
