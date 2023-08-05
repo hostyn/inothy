@@ -107,7 +107,10 @@ export const authRouter = createTRPCRouter({
   changeBiography: protectedProcedure
     .input(
       z.object({
-        biography: z.string().max(300, 'description-too-long'),
+        biography: z
+          .string()
+          .min(16, 'description-too-short')
+          .max(300, 'description-too-long'),
       })
     )
     .mutation(async ({ ctx, input }) => {
