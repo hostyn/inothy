@@ -40,7 +40,6 @@ export default function UsernameSection(): JSX.Element {
     },
 
     onError: error => {
-      console.log(error.message)
       if (error.message === 'username-already-exists') {
         toastError('El nombre de usuario está en uso.')
         return
@@ -73,7 +72,7 @@ export default function UsernameSection(): JSX.Element {
         return
       }
 
-      toastError('Ha ocurrido un error.')
+      toastError('Ha ocurrido un error inesperado.')
     },
   })
 
