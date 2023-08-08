@@ -144,7 +144,14 @@ importers:
       '@typescript-eslint/parser': ^5.12.0
       eslint: ^8.9.0
       eslint-config-google: ^0.14.0
-      eslint-plugin-import: ^2.25.4
+      eslint-config-prettier: ^8.8.0
+      eslint-config-standard: ^17.1.0
+      eslint-config-standard-with-typescript: ^34.0.1
+      eslint-plugin-import: ^2.27.5
+      eslint-plugin-n: ^15.7.0
+      eslint-plugin-prettier: ^4.2.1
+      eslint-plugin-promise: ^6.1.1
+      eslint-plugin-react: ^7.32.2
       firebase-admin: ^11.8.0
       firebase-functions: 4.4.1
       firebase-functions-test: ^3.1.0
@@ -161,7 +168,14 @@ importers:
       '@typescript-eslint/parser': 5.59.11_2jcgcerbs6bi4debdtwega5q6u
       eslint: 8.43.0
       eslint-config-google: 0.14.0_eslint@8.43.0
+      eslint-config-prettier: 8.8.0_eslint@8.43.0
+      eslint-config-standard: 17.1.0_3ql5her3gsiwffkuo4z7c4jsnq
+      eslint-config-standard-with-typescript: 34.0.1_aofnr5brpvch6ipjfqqvlhvega
       eslint-plugin-import: 2.27.5_uxlzkvdl7bie3tsj7zcwvawrke
+      eslint-plugin-n: 15.7.0_eslint@8.43.0
+      eslint-plugin-prettier: 4.2.1_n7dmkrns7rrm5xusezv3cppb3q
+      eslint-plugin-promise: 6.1.1_eslint@8.43.0
+      eslint-plugin-react: 7.32.2_eslint@8.43.0
       firebase-functions-test: 3.1.0_fhyg65onwwrpulel3ak4pmla2e
       prisma: 4.14.1
       ts-node: 10.9.1_gamchj74f4cosewgiaiggc3fvy
@@ -5585,6 +5599,28 @@ packages:
       eslint: 8.43.0
     dev: true
 
+  /eslint-config-standard-with-typescript/34.0.1_aofnr5brpvch6ipjfqqvlhvega:
+    resolution: {integrity: sha512-J7WvZeLtd0Vr9F+v4dZbqJCLD16cbIy4U+alJMq4MiXdpipdBM3U5NkXaGUjePc4sb1ZE01U9g6VuTBpHHz1fg==}
+    peerDependencies:
+      '@typescript-eslint/eslint-plugin': ^5.43.0
+      eslint: ^8.0.1
+      eslint-plugin-import: ^2.25.2
+      eslint-plugin-n: ^15.0.0
+      eslint-plugin-promise: ^6.0.0
+      typescript: '*'
+    dependencies:
+      '@typescript-eslint/eslint-plugin': 5.59.11_jxhnufqfdxsaktvg4boo4kir6q
+      '@typescript-eslint/parser': 5.59.11_2jcgcerbs6bi4debdtwega5q6u
+      eslint: 8.43.0
+      eslint-config-standard: 17.0.0_3ql5her3gsiwffkuo4z7c4jsnq
+      eslint-plugin-import: 2.27.5_uxlzkvdl7bie3tsj7zcwvawrke
+      eslint-plugin-n: 15.7.0_eslint@8.43.0
+      eslint-plugin-promise: 6.1.1_eslint@8.43.0
+      typescript: 4.9.5
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /eslint-config-standard-with-typescript/34.0.1_ma3n7nr42zkxufrs4jbsb2npiy:
     resolution: {integrity: sha512-J7WvZeLtd0Vr9F+v4dZbqJCLD16cbIy4U+alJMq4MiXdpipdBM3U5NkXaGUjePc4sb1ZE01U9g6VuTBpHHz1fg==}
     peerDependencies:
@@ -5742,7 +5778,23 @@ packages:
       is-core-module: 2.12.1
       minimatch: 3.1.2
       resolve: 1.22.2
-      semver: 7.5.2
+      semver: 7.5.3
+    dev: true
+
+  /eslint-plugin-prettier/4.2.1_n7dmkrns7rrm5xusezv3cppb3q:
+    resolution: {integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      eslint: '>=7.28.0'
+      eslint-config-prettier: '*'
+      prettier: '>=2.0.0'
+    peerDependenciesMeta:
+      eslint-config-prettier:
+        optional: true
+    dependencies:
+      eslint: 8.43.0
+      eslint-config-prettier: 8.8.0_eslint@8.43.0
+      prettier-linter-helpers: 1.0.0
     dev: true
 
   /eslint-plugin-prettier/4.2.1_zh6vkmzat4wtnmvmftdassiwyu:
