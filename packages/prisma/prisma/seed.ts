@@ -44,7 +44,7 @@ async function main() {
   const users = await authAdmin.listUsers()
   await authAdmin.deleteUsers(users.users.map(user => user.uid))
 
-  const user = await authAdmin.createUser({
+  await authAdmin.createUser({
     email: 'test@test.com',
     password: 'test1234',
     emailVerified: true,

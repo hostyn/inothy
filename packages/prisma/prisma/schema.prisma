@@ -15,7 +15,6 @@ model User {
   uid                 String        @unique
   username            String        @unique
   usernameChangedDate DateTime?
-  email               String        @unique
   address             Address?
   mangopayUser        MangopayUser?
   createdAt           DateTime      @default(now())
