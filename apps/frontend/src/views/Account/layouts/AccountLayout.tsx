@@ -49,7 +49,7 @@ export default function AccountLayout({
               href="/account/profile"
               state={selected === 'profile' ? 'active' : 'inactive'}
             >
-              <AiOutlineUser size={16} className={iconStyle} />
+              <AiOutlineUser size={16} />
               Perfil
             </Link>
 
@@ -57,7 +57,7 @@ export default function AccountLayout({
               href="/account/security"
               state={selected === 'security' ? 'active' : 'inactive'}
             >
-              <MdLockOutline size={16} className={iconStyle} />
+              <MdLockOutline size={16} />
               Seguridad
             </Link>
 
@@ -69,13 +69,13 @@ export default function AccountLayout({
               Pagos
             </Link>
 
-            <Separator />
+            <Separator size="sm" />
 
             <Link
               href="/account/balance"
               state={selected === 'balance' ? 'active' : 'inactive'}
             >
-              <IoWalletOutline size={16} className={iconStyle} />
+              <IoWalletOutline size={16} />
               Saldo
             </Link>
 
@@ -83,7 +83,7 @@ export default function AccountLayout({
               href="/account/purchased"
               state={selected === 'purchased' ? 'active' : 'inactive'}
             >
-              <AiOutlineShoppingCart size={16} className={iconStyle} />
+              <AiOutlineShoppingCart size={16} />
               Comprado
             </Link>
 
@@ -91,7 +91,7 @@ export default function AccountLayout({
               href="/account/uploaded"
               state={selected === 'uploaded' ? 'active' : 'inactive'}
             >
-              <AiOutlineCloudUpload size={16} className={iconStyle} />
+              <AiOutlineCloudUpload size={16} />
               Subido
             </Link>
           </nav>
@@ -109,8 +109,6 @@ export default function AccountLayout({
     </App>
   )
 }
-
-const iconStyle = css({ width: '16px', height: '16px' })
 
 const linkStyles = cva({
   base: {
