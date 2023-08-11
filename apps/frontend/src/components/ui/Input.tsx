@@ -47,6 +47,11 @@ function Input(
             width: '100%',
             transition: 'background 150ms ease, outline-width 50ms ease-in-out',
 
+            // When the input is disabled
+            _disabled: {
+              color: 'grey.300',
+            },
+
             // When the input has value but is not focused
             '&:not(:placeholder-shown)': {
               bg: 'white',
