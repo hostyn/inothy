@@ -11,6 +11,7 @@ export default function Spinner({
       className={cx(spinerClass.spinner, className)}
       viewBox="25 25 50 50"
       strokeWidth="5"
+      stroke="white"
     >
       <circle cx="50" cy="50" r="20" />
     </svg>
