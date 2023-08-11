@@ -136,19 +136,40 @@ export default function Nav(): JSX.Element {
                 sideOffset={10}
               >
                 <nav>
-                  <DropdownMenu.Item asChild className={linkStyles}>
+                  <DropdownMenu.Item
+                    asChild
+                    className={css({
+                      display: 'block',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+
+                      fontSize: 'sm',
+                      color: 'primary.500',
+                      fontWeight: '500',
+                      width: 'calc(token(sizes.xl) - token(spacing.md) * 2)',
+                      p: 'xs',
+                      alignItems: 'center',
+                      minHeight: '29px',
+
+                      _focus: {
+                        outline: 'none',
+                        bg: 'primary.100',
+                      },
+
+                      _hover: {
+                        outline: 'none',
+                        bg: 'primary.100',
+                      },
+                    })}
+                  >
                     <Link
                       focus="disabled"
                       hover="disabled"
                       href={`/profile/${userData?.username ?? ''}`}
                       weight="normal"
-                      className={css({
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                      })}
                     >
-                      {userData?.username} - {user.email}
+                      {userData?.username} - {user.email} asdf asdf asdf asdf
                     </Link>
                   </DropdownMenu.Item>
 
