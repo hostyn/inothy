@@ -5,9 +5,16 @@ import { ButtonLink } from '@ui/Button'
 import { Link, LinkButton } from '@ui/Link'
 import SearchBar from '@ui/SearchBar'
 import Image from 'next/image'
-import { AiOutlineCloudUpload } from 'react-icons/ai'
+import {
+  AiOutlineCloudUpload,
+  AiOutlineShoppingCart,
+  AiOutlineUser,
+} from 'react-icons/ai'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { Separator } from '@ui/Separator'
+import { HiOutlineLibrary } from 'react-icons/hi'
+import { MdLockOutline } from 'react-icons/md'
+import { IoCardOutline, IoWalletOutline } from 'react-icons/io5'
 
 const divStyles = css({ display: 'flex', gap: 'md', alignItems: 'center' })
 
@@ -17,6 +24,10 @@ const linkStyles = css({
   fontWeight: '500',
   width: 'calc(token(sizes.xl) - token(spacing.md) * 2)',
   p: 'xs',
+  display: 'flex',
+  gap: 'sm',
+  alignItems: 'center',
+  minHeight: '29px',
 
   _focus: {
     outline: 'none',
@@ -119,7 +130,7 @@ export default function Nav(): JSX.Element {
                   },
 
                   '--dropdown-height':
-                    'calc(token(spacing.md) * 2 + 29px * 7 + 10px * 2)',
+                    'calc(token(spacing.md) * 2 + 29px * 9 + 9px * 4)',
                 })}
                 align="end"
                 sideOffset={10}
@@ -141,7 +152,7 @@ export default function Nav(): JSX.Element {
                     </Link>
                   </DropdownMenu.Item>
 
-                  <Separator className={css({ my: 'xs' })} />
+                  <Separator size="sm" className={css({ my: 'xs' })} />
 
                   <DropdownMenu.Item asChild className={linkStyles}>
                     <Link
@@ -150,7 +161,22 @@ export default function Nav(): JSX.Element {
                       href="/universities"
                       weight="normal"
                     >
+                      <HiOutlineLibrary size={16} />
                       Universidades
+                    </Link>
+                  </DropdownMenu.Item>
+
+                  <Separator size="sm" className={css({ my: 'xs' })} />
+
+                  <DropdownMenu.Item asChild className={linkStyles}>
+                    <Link
+                      focus="disabled"
+                      hover="disabled"
+                      weight="normal"
+                      href="/account/profile"
+                    >
+                      <AiOutlineUser size={16} />
+                      Perfil
                     </Link>
                   </DropdownMenu.Item>
 
@@ -159,8 +185,47 @@ export default function Nav(): JSX.Element {
                       focus="disabled"
                       hover="disabled"
                       weight="normal"
-                      href="/bought"
+                      href="/account/security"
                     >
+                      <MdLockOutline size={16} />
+                      Seguridad
+                    </Link>
+                  </DropdownMenu.Item>
+
+                  <DropdownMenu.Item asChild className={linkStyles}>
+                    <Link
+                      focus="disabled"
+                      hover="disabled"
+                      weight="normal"
+                      href="/account/payment"
+                    >
+                      <IoCardOutline size={16} />
+                      Pagos
+                    </Link>
+                  </DropdownMenu.Item>
+
+                  <Separator size="sm" className={css({ my: 'xs' })} />
+
+                  <DropdownMenu.Item asChild className={linkStyles}>
+                    <Link
+                      focus="disabled"
+                      hover="disabled"
+                      weight="normal"
+                      href="/account/balance"
+                    >
+                      <IoWalletOutline size={16} />
+                      Balance
+                    </Link>
+                  </DropdownMenu.Item>
+
+                  <DropdownMenu.Item asChild className={linkStyles}>
+                    <Link
+                      focus="disabled"
+                      hover="disabled"
+                      weight="normal"
+                      href="/account/purchased"
+                    >
+                      <AiOutlineShoppingCart size={16} />
                       Comprado
                     </Link>
                   </DropdownMenu.Item>
@@ -170,35 +235,14 @@ export default function Nav(): JSX.Element {
                       focus="disabled"
                       hover="disabled"
                       weight="normal"
-                      href="/uploaded"
+                      href="/account/uploaded"
                     >
+                      <AiOutlineCloudUpload size={16} />
                       Subido
                     </Link>
                   </DropdownMenu.Item>
 
-                  <DropdownMenu.Item asChild className={linkStyles}>
-                    <Link
-                      focus="disabled"
-                      hover="disabled"
-                      weight="normal"
-                      href="/balance"
-                    >
-                      Saldo
-                    </Link>
-                  </DropdownMenu.Item>
-
-                  <DropdownMenu.Item asChild className={linkStyles}>
-                    <Link
-                      focus="disabled"
-                      hover="disabled"
-                      weight="normal"
-                      href="/settings"
-                    >
-                      Ajustes
-                    </Link>
-                  </DropdownMenu.Item>
-
-                  <Separator className={css({ my: 'xs' })} />
+                  <Separator size="sm" className={css({ my: 'xs' })} />
 
                   <DropdownMenu.Item
                     asChild

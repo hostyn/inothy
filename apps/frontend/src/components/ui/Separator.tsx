@@ -13,9 +13,21 @@ const separatorStyles = cva({
         bg: 'grey.100',
       },
     },
+
+    size: {
+      sm: {
+        height: '1px',
+        minHeight: '1px',
+      },
+      md: {
+        height: '2px',
+        minHeight: '2px',
+      },
+    },
   },
   defaultVariants: {
     visual: 'regular',
+    size: 'md',
   },
 })
 
