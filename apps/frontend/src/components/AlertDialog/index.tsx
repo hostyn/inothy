@@ -4,7 +4,7 @@ import { css } from '@styled-system/css'
 export interface AlertDialogProps extends RAlertDialog.AlertDialogProps {
   children: React.ReactNode
   dialogTitle: string
-  dialogDescription: string
+  dialogDescription: string | React.ReactNode
   dialogCancelText?: string
   dialogConfirmText?: string
   dialogOnConfirm: () => void
@@ -87,6 +87,7 @@ export default function AlertDialog({
               fontSize: 'sm',
               lineHeight: 1.5,
             })}
+            asChild={typeof dialogDescription !== 'string'}
           >
             {dialogDescription}
           </RAlertDialog.Description>
@@ -124,6 +125,7 @@ export default function AlertDialog({
               <button
                 className={css({
                   color: 'red.500',
+                  stroke: 'red.500',
                   bg: 'red.100',
                   py: 'xs',
                   px: 'sm',
