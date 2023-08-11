@@ -1,6 +1,6 @@
 import protectedContent from '@middleware/protectedContent'
 import protectedContentSSR from '@middleware/protectedContentSSR'
-import General from '@views/Account/General'
+import Uploaded from '@views/Account/Uploaded'
 import { type NextPage } from 'next'
 import Head from 'next/head'
 
@@ -8,10 +8,10 @@ const Page: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Ajustes generales - Inothy</title>
+        <title>Subido - Inothy</title>
         <meta name="robots" content="noindex,follow" />
       </Head>
-      <General />
+      <Uploaded />
     </>
   )
 }
