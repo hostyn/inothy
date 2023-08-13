@@ -57,8 +57,7 @@ export default function EmailSection(): JSX.Element {
 
   const handleChangeEmail = async (): Promise<void> => {
     setLoading(true)
-    const email = getValues('email')
-    const password = getValues('password')
+    const { email, password } = getValues()
     const user = auth.currentUser
 
     if (user == null) {
@@ -83,7 +82,7 @@ export default function EmailSection(): JSX.Element {
         return
       }
 
-      if (e.code === 'auth/invalid-emaile') {
+      if (e.code === 'auth/invalid-email') {
         toastError('Email no válido.')
         return
       }
