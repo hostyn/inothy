@@ -1,7 +1,7 @@
 import { auth, googleProvider } from '@config/firebase'
 import { css } from '@styled-system/css'
 import { Separator } from '@ui/Separator'
-import { signInWithRedirect } from 'firebase/auth'
+import { signInWithPopup } from 'firebase/auth'
 import { AiOutlineTwitter } from 'react-icons/ai'
 import { BsFacebook } from 'react-icons/bs'
 import { FcGoogle } from 'react-icons/fc'
@@ -32,7 +32,7 @@ export default function OAuthProviders({
   text: string
 }): JSX.Element {
   const handleGoogleLogin = async (): Promise<void> => {
-    await signInWithRedirect(auth, googleProvider)
+    await signInWithPopup(auth, googleProvider)
   }
 
   return (
