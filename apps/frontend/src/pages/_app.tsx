@@ -8,7 +8,7 @@ import { type IncomingHttpHeaders } from 'http2'
 import { trpc } from '@services/trpc'
 import initAuth from '@config/initAuth'
 import '@styles/global.css'
-import { Nunito } from 'next/font/google'
+import { Nunito, Nunito_Sans } from 'next/font/google'
 import { Toaster } from 'sonner'
 
 initAuth()
@@ -18,6 +18,10 @@ interface PageProps extends AppInitialProps {
 }
 
 const nunito = Nunito({ subsets: ['latin'] })
+const nunitoSans = Nunito_Sans({
+  subsets: ['latin'],
+  variable: '--nunito-sans',
+})
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
@@ -27,7 +31,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       </Head>
       {/* <Providers headers={pageProps.headers}> */}
       {/* <Cookies /> */}
-      <div className={nunito.className}>
+      <div className={`${nunito.className} ${nunitoSans.className}`}>
         <Toaster position="bottom-right" duration={5000} />
         <Component {...pageProps} />
       </div>
