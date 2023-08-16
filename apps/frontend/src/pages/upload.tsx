@@ -1,17 +1,20 @@
 import Head from 'next/head'
-import ProtectedContent from '@components/ProtectedContent'
-import UploadView from '@views/Upload'
+import protectedContentSSR from '@middleware/protectedContentSSR'
+import protectedContent from '@middleware/protectedContent'
+import Upload from '@views/Upload'
 
-export default function Upload(): JSX.Element {
+function Page(): JSX.Element {
   return (
     <>
       <Head>
-        <title>Inothy - Subir archivos</title>
+        <title>Subir archivos - Inothy</title>
         <meta name="robots" content="noindex,nofollow" />
       </Head>
-      <ProtectedContent>
-        <UploadView />
-      </ProtectedContent>
+      <Upload />
     </>
   )
 }
+
+export default protectedContent(Page)
+
+export const getServerSideProps = protectedContentSSR()
