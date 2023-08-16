@@ -72,7 +72,7 @@ export default function Nav(): JSX.Element {
         ) : (
           <>
             <ButtonLink
-              href="/uplaod"
+              href="/upload"
               className={css({
                 display: 'flex',
                 alignItems: 'center',
