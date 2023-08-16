@@ -5,7 +5,6 @@ import { MdLockOutline } from 'react-icons/md'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import useAuth from '@hooks/useAuth'
 import { useState } from 'react'
 import Spinner from '@components/Spinner'
 import { toastError, toastSuccess } from '@services/toaster'
@@ -17,7 +16,7 @@ import {
 import { auth } from '@config/firebase'
 
 const passwordSchema = z.object({
-  password: z.string(),
+  password: z.string().min(1, 'Debes introducir la contraseña actual.'),
   newPassword: z
     .string()
     .min(1, 'La contraseña es obligatoria.')
@@ -28,14 +27,8 @@ const passwordSchema = z.object({
 type FormValues = z.infer<typeof passwordSchema>
 
 export default function PasswordSectionWithPasswordSet(): JSX.Element {
-  const { user } = useAuth()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-
-  const userHasPassword =
-    user.firebaseUser?.providerData.some(
-      item => item.providerId === 'password'
-    ) ?? false
 
   const {
     register,
@@ -52,14 +45,7 @@ export default function PasswordSectionWithPasswordSet(): JSX.Element {
   })
 
   const handleFormSubmit = handleSubmit(
-    async ({ password, newPassword, repeatPassword }) => {
-      if (userHasPassword && password.length === 0) {
-        setError('password', {
-          message: 'Debes introducir tu contraseña actual.',
-        })
-        return
-      }
-
+    async ({ newPassword, repeatPassword }) => {
       if (newPassword !== repeatPassword) {
         setError('repeatPassword', {
           message: 'Las contraseñas no coinciden.',
