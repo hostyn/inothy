@@ -209,7 +209,7 @@ const Login: NextPage = () => {
               </Link>
             </div>
 
-            <OAuthProviders text="iniciar sesión" />
+            <OAuthProviders />
 
             <p className={css({ fontSize: 'sm', color: 'grey.400' })}>
               Al iniciar aceptas nuestros{' '}

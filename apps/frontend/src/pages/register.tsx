@@ -211,7 +211,7 @@ const Register: NextPage = () => {
               ¿Ya tienes cuenta? Inicia sesión.
             </Link>
 
-            <OAuthProviders text="registrarse" />
+            <OAuthProviders />
 
             <p className={css({ fontSize: 'sm', color: 'grey.400' })}>
               Al registrarte aceptas nuestros{' '}

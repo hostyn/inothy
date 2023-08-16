@@ -1,38 +1,24 @@
 import { auth, googleProvider } from '@config/firebase'
+import { toastError } from '@services/toaster'
 import { css } from '@styled-system/css'
 import { Separator } from '@ui/Separator'
 import { signInWithPopup } from 'firebase/auth'
-import { AiOutlineTwitter } from 'react-icons/ai'
-import { BsFacebook } from 'react-icons/bs'
 import { FcGoogle } from 'react-icons/fc'
 
-const oAuthButtonStyles = css({
-  borderRadius: '10000rem',
-  bg: 'grey.100',
-  width: '5xs',
-  height: '5xs',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  cursor: 'pointer',
-  transition: 'outline-width 50ms ease-in-out',
-
-  _hover: {
-    bg: 'grey.200',
-  },
-
-  _focus: {
-    outline: '3px solid token(colors.primary.300)',
-  },
-})
-
-export default function OAuthProviders({
-  text,
-}: {
-  text: string
-}): JSX.Element {
-  const handleGoogleLogin = async (): Promise<void> => {
-    await signInWithPopup(auth, googleProvider)
+export default function OAuthProviders(): JSX.Element {
+  const handleLogin = async (): Promise<void> => {
+    try {
+      await signInWithPopup(auth, googleProvider)
+    } catch (error) {
+      if (
+        error.code === 'auth/popup-closed-by-user' ||
+        error.code === 'auth/cancelled-popup-request'
+      ) {
+        toastError('Has cancelado el inicio de sesión.')
+        return
+      }
+      toastError('Ha ocurrido un error inesperado al iniciar sesión.')
+    }
   }
 
   return (
@@ -62,7 +48,7 @@ export default function OAuthProviders({
             color: 'grey.200',
           })}
         >
-          {text} con
+          o
         </p>
         <Separator />
       </div>
@@ -73,20 +59,36 @@ export default function OAuthProviders({
           gap: 'sm',
         })}
       >
-        <button className={oAuthButtonStyles} onClick={handleGoogleLogin}>
+        <button className={oAuthButtonStyles} onClick={handleLogin}>
           <FcGoogle size={24} />
+          Inicia sesión con Google
         </button>
-
-        <div className={oAuthButtonStyles}>
-          <AiOutlineTwitter size={24} className={css({ fill: '#1DA1F2' })} />
-        </div>
-
-        <div className={oAuthButtonStyles}>
-          <BsFacebook size={24} className={css({ fill: '#3b5998' })} />
-        </div>
       </div>
 
       <Separator />
     </div>
   )
 }
+
+const oAuthButtonStyles = css({
+  borderRadius: 'md',
+  bg: 'grey.100',
+  color: 'text',
+  height: '5xs',
+  display: 'flex',
+  p: 'sm',
+  gap: 'sm',
+  alignItems: 'center',
+  justifyContent: 'center',
+  cursor: 'pointer',
+  transition:
+    'outline-width 100ms ease-in-out, background-color 100ms ease-in-out',
+
+  _hover: {
+    bg: 'grey.200',
+  },
+
+  _focus: {
+    outline: '3px solid token(colors.primary.300)',
+  },
+})
