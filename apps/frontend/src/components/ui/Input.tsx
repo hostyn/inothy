@@ -19,10 +19,18 @@ interface InputProps
   autoComplete?: string
   value?: string
   Icon?: IconType
+  nativePlaceholder?: string
 }
 
 function Input(
-  { placeholder, error, Icon, className, ...props }: InputProps,
+  {
+    placeholder,
+    error,
+    Icon,
+    className,
+    nativePlaceholder,
+    ...props
+  }: InputProps,
   ref: React.Ref<any>
 ): JSX.Element {
   return (
@@ -42,7 +50,7 @@ function Input(
             bg: error != null ? 'red.100' : 'grey.100',
             borderRadius: 'md',
             paddingLeft: 'sm',
-            paddingRight: 'xl',
+            paddingRight: Icon != null ? 'xl' : 'sm',
             height: '6xs',
             width: '100%',
             transition: 'background 150ms ease, outline-width 50ms ease-in-out',
@@ -109,7 +117,7 @@ function Input(
           {...props}
           ref={ref}
           title={placeholder}
-          placeholder=" "
+          placeholder={nativePlaceholder ?? ' '}
           aria-invalid={error != null}
           aria-errormessage={error?.message}
         />
