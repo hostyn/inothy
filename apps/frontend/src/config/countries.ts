@@ -1,1000 +1,998 @@
-const countries = [
+export const COUNTRIES = [
   {
     iso: 'AF',
-    name: 'Afganistán'
+    name: 'Afganistán',
   },
   {
     iso: 'AL',
-    name: 'Albania'
+    name: 'Albania',
   },
   {
     iso: 'DE',
-    name: 'Alemania'
+    name: 'Alemania',
   },
   {
     iso: 'AD',
-    name: 'Andorra'
+    name: 'Andorra',
   },
   {
     iso: 'AO',
-    name: 'Angola'
+    name: 'Angola',
   },
   {
     iso: 'AI',
-    name: 'Anguila'
+    name: 'Anguila',
   },
   {
     iso: 'AG',
-    name: 'Antigua y Barbuda'
+    name: 'Antigua y Barbuda',
   },
   {
     iso: 'AQ',
-    name: 'Antártida'
+    name: 'Antártida',
   },
   {
     iso: 'SA',
-    name: 'Arabia Saudí'
+    name: 'Arabia Saudita',
   },
   {
     iso: 'DZ',
-    name: 'Argelia'
+    name: 'Argelia',
   },
   {
     iso: 'AR',
-    name: 'Argentina'
+    name: 'Argentina',
   },
   {
     iso: 'AM',
-    name: 'Armenia'
+    name: 'Armenia',
   },
   {
     iso: 'AW',
-    name: 'Aruba'
+    name: 'Aruba',
   },
   {
     iso: 'AU',
-    name: 'Australia'
+    name: 'Australia',
   },
   {
     iso: 'AT',
-    name: 'Austria'
+    name: 'Austria',
   },
   {
     iso: 'AZ',
-    name: 'Azerbaiyán'
+    name: 'Azerbaiyán',
   },
   {
     iso: 'BS',
-    name: 'Bahamas'
+    name: 'Bahamas',
   },
   {
     iso: 'BD',
-    name: 'Bangladés'
+    name: 'Bangladés',
   },
   {
     iso: 'BB',
-    name: 'Barbados'
+    name: 'Barbados',
   },
   {
     iso: 'BH',
-    name: 'Baréin'
+    name: 'Baréin',
   },
   {
     iso: 'BZ',
-    name: 'Belice'
+    name: 'Belice',
   },
   {
     iso: 'BJ',
-    name: 'Benín'
+    name: 'Benín',
   },
   {
     iso: 'BM',
-    name: 'Bermudas'
+    name: 'Bermudas',
   },
   {
     iso: 'BY',
-    name: 'Bielorrusia'
+    name: 'Bielorrusia',
   },
   {
     iso: 'BO',
-    name: 'Bolivia'
-  },
-  {
-    iso: 'BA',
-    name: 'Bosnia y Herzegovina'
-  },
-  {
-    iso: 'BW',
-    name: 'Botsuana'
-  },
-  {
-    iso: 'BR',
-    name: 'Brasil'
-  },
-  {
-    iso: 'BN',
-    name: 'Brunéi'
-  },
-  {
-    iso: 'BG',
-    name: 'Bulgaria'
-  },
-  {
-    iso: 'BF',
-    name: 'Burkina Faso'
-  },
-  {
-    iso: 'BI',
-    name: 'Burundi'
-  },
-  {
-    iso: 'BT',
-    name: 'Bután'
-  },
-  {
-    iso: 'BE',
-    name: 'Bélgica'
-  },
-  {
-    iso: 'CV',
-    name: 'Cabo Verde'
-  },
-  {
-    iso: 'KH',
-    name: 'Camboya'
-  },
-  {
-    iso: 'CM',
-    name: 'Camerún'
-  },
-  {
-    iso: 'CA',
-    name: 'Canadá'
+    name: 'Bolivia',
   },
   {
     iso: 'BQ',
-    name: 'Caribe neerlandés'
+    name: 'Bonaire, San Eustaquio y Saba',
+  },
+  {
+    iso: 'BA',
+    name: 'Bosnia y Herzegovina',
+  },
+  {
+    iso: 'BW',
+    name: 'Botsuana',
+  },
+  {
+    iso: 'BR',
+    name: 'Brasil',
+  },
+  {
+    iso: 'BN',
+    name: 'Brunéi',
+  },
+  {
+    iso: 'BG',
+    name: 'Bulgaria',
+  },
+  {
+    iso: 'BF',
+    name: 'Burkina Faso',
+  },
+  {
+    iso: 'BI',
+    name: 'Burundi',
+  },
+  {
+    iso: 'BT',
+    name: 'Bután',
+  },
+  {
+    iso: 'BE',
+    name: 'Bélgica',
+  },
+  {
+    iso: 'CV',
+    name: 'Cabo Verde',
+  },
+  {
+    iso: 'KH',
+    name: 'Camboya',
+  },
+  {
+    iso: 'CM',
+    name: 'Camerún',
+  },
+  {
+    iso: 'CA',
+    name: 'Canadá',
   },
   {
     iso: 'QA',
-    name: 'Catar'
+    name: 'Catar',
   },
   {
     iso: 'TD',
-    name: 'Chad'
-  },
-  {
-    iso: 'CZ',
-    name: 'Chequia'
+    name: 'Chad',
   },
   {
     iso: 'CL',
-    name: 'Chile'
+    name: 'Chile',
   },
   {
     iso: 'CN',
-    name: 'China'
+    name: 'China',
   },
   {
     iso: 'CY',
-    name: 'Chipre'
+    name: 'Chipre',
   },
   {
     iso: 'VA',
-    name: 'Ciudad del Vaticano'
+    name: 'Ciudad del Vaticano',
   },
   {
     iso: 'CO',
-    name: 'Colombia'
+    name: 'Colombia',
   },
   {
     iso: 'KM',
-    name: 'Comoras'
+    name: 'Comoras',
   },
   {
     iso: 'CG',
-    name: 'Congo'
+    name: 'Congo',
   },
   {
     iso: 'KP',
-    name: 'Corea del Norte'
+    name: 'Corea del Norte',
   },
   {
     iso: 'KR',
-    name: 'Corea del Sur'
+    name: 'Corea del Sur',
   },
   {
     iso: 'CR',
-    name: 'Costa Rica'
-  },
-  {
-    iso: 'HR',
-    name: 'Croacia'
-  },
-  {
-    iso: 'CU',
-    name: 'Cuba'
-  },
-  {
-    iso: 'CW',
-    name: 'Curazao'
+    name: 'Costa Rica',
   },
   {
     iso: 'CI',
-    name: 'Côte d’Ivoire'
+    name: 'Costa de Marfil',
+  },
+  {
+    iso: 'HR',
+    name: 'Croacia',
+  },
+  {
+    iso: 'CU',
+    name: 'Cuba',
+  },
+  {
+    iso: 'CW',
+    name: 'Curazao',
   },
   {
     iso: 'DK',
-    name: 'Dinamarca'
+    name: 'Dinamarca',
   },
   {
     iso: 'DM',
-    name: 'Dominica'
+    name: 'Dominica',
   },
   {
     iso: 'EC',
-    name: 'Ecuador'
+    name: 'Ecuador',
   },
   {
     iso: 'EG',
-    name: 'Egipto'
+    name: 'Egipto',
   },
   {
     iso: 'SV',
-    name: 'El Salvador'
+    name: 'El Salvador',
   },
   {
     iso: 'AE',
-    name: 'Emiratos Árabes Unidos'
+    name: 'Emiratos Árabes Unidos',
   },
   {
     iso: 'ER',
-    name: 'Eritrea'
+    name: 'Eritrea',
   },
   {
     iso: 'SK',
-    name: 'Eslovaquia'
+    name: 'Eslovaquia',
   },
   {
     iso: 'SI',
-    name: 'Eslovenia'
+    name: 'Eslovenia',
   },
   {
     iso: 'ES',
-    name: 'España'
+    name: 'España',
   },
   {
     iso: 'US',
-    name: 'Estados Unidos'
+    name: 'Estados Unidos',
   },
   {
     iso: 'EE',
-    name: 'Estonia'
+    name: 'Estonia',
   },
   {
     iso: 'SZ',
-    name: 'Esuatini'
+    name: 'Esuatini',
   },
   {
     iso: 'ET',
-    name: 'Etiopía'
+    name: 'Etiopía',
   },
   {
     iso: 'PH',
-    name: 'Filipinas'
+    name: 'Filipinas',
   },
   {
     iso: 'FI',
-    name: 'Finlandia'
+    name: 'Finlandia',
   },
   {
     iso: 'FJ',
-    name: 'Fiyi'
+    name: 'Fiyi',
   },
   {
     iso: 'FR',
-    name: 'Francia'
+    name: 'Francia',
   },
   {
     iso: 'GA',
-    name: 'Gabón'
+    name: 'Gabón',
   },
   {
     iso: 'GM',
-    name: 'Gambia'
+    name: 'Gambia',
   },
   {
     iso: 'GE',
-    name: 'Georgia'
+    name: 'Georgia',
   },
   {
     iso: 'GH',
-    name: 'Ghana'
+    name: 'Ghana',
   },
   {
     iso: 'GI',
-    name: 'Gibraltar'
+    name: 'Gibraltar',
   },
   {
     iso: 'GD',
-    name: 'Granada'
+    name: 'Granada',
   },
   {
     iso: 'GR',
-    name: 'Grecia'
+    name: 'Grecia',
   },
   {
     iso: 'GL',
-    name: 'Groenlandia'
+    name: 'Groenlandia',
   },
   {
     iso: 'GP',
-    name: 'Guadalupe'
+    name: 'Guadalupe',
   },
   {
     iso: 'GU',
-    name: 'Guam'
+    name: 'Guam',
   },
   {
     iso: 'GT',
-    name: 'Guatemala'
+    name: 'Guatemala',
   },
   {
     iso: 'GF',
-    name: 'Guayana Francesa'
+    name: 'Guayana Francesa',
   },
   {
     iso: 'GG',
-    name: 'Guernesey'
+    name: 'Guernsey',
   },
   {
     iso: 'GN',
-    name: 'Guinea'
+    name: 'Guinea',
   },
   {
     iso: 'GQ',
-    name: 'Guinea Ecuatorial'
+    name: 'Guinea Ecuatorial',
   },
   {
     iso: 'GW',
-    name: 'Guinea-Bisáu'
+    name: 'Guinea-Bisáu',
   },
   {
     iso: 'GY',
-    name: 'Guyana'
+    name: 'Guyana',
   },
   {
     iso: 'HT',
-    name: 'Haití'
+    name: 'Haití',
   },
   {
     iso: 'HN',
-    name: 'Honduras'
+    name: 'Honduras',
   },
   {
     iso: 'HK',
-    name: 'Hong Kong'
+    name: 'Hong Kong',
   },
   {
     iso: 'HU',
-    name: 'Hungría'
+    name: 'Hungría',
   },
   {
     iso: 'IN',
-    name: 'India'
+    name: 'India',
   },
   {
     iso: 'ID',
-    name: 'Indonesia'
+    name: 'Indonesia',
   },
   {
     iso: 'IQ',
-    name: 'Irak'
+    name: 'Irak',
   },
   {
     iso: 'IE',
-    name: 'Irlanda'
+    name: 'Irlanda',
   },
   {
     iso: 'IR',
-    name: 'Irán'
+    name: 'Irán',
   },
   {
     iso: 'BV',
-    name: 'Isla Bouvet'
+    name: 'Isla Bouvet',
   },
   {
     iso: 'NF',
-    name: 'Isla Norfolk'
+    name: 'Isla Norfolk',
   },
   {
     iso: 'IM',
-    name: 'Isla de Man'
+    name: 'Isla de Man',
   },
   {
     iso: 'CX',
-    name: 'Isla de Navidad'
+    name: 'Isla de Navidad',
   },
   {
     iso: 'IS',
-    name: 'Islandia'
-  },
-  {
-    iso: 'AX',
-    name: 'Islas Aland'
+    name: 'Islandia',
   },
   {
     iso: 'KY',
-    name: 'Islas Caimán'
+    name: 'Islas Caimán',
   },
   {
     iso: 'CC',
-    name: 'Islas Cocos'
+    name: 'Islas Cocos',
   },
   {
     iso: 'CK',
-    name: 'Islas Cook'
+    name: 'Islas Cook',
   },
   {
     iso: 'FO',
-    name: 'Islas Feroe'
+    name: 'Islas Feroe',
   },
   {
     iso: 'GS',
-    name: 'Islas Georgia del Sur y Sandwich del Sur'
+    name: 'Islas Georgia del Sur y Sandwich del Sur',
   },
   {
     iso: 'HM',
-    name: 'Islas Heard y McDonald'
+    name: 'Islas Heard y McDonald',
   },
   {
     iso: 'FK',
-    name: 'Islas Malvinas (Islas Falkland)'
+    name: 'Islas Malvinas',
   },
   {
     iso: 'MP',
-    name: 'Islas Marianas del Norte'
+    name: 'Islas Marianas del Norte',
   },
   {
     iso: 'MH',
-    name: 'Islas Marshall'
+    name: 'Islas Marshall',
   },
   {
     iso: 'PN',
-    name: 'Islas Pitcairn'
+    name: 'Islas Pitcairn',
   },
   {
     iso: 'SB',
-    name: 'Islas Salomón'
+    name: 'Islas Salomón',
   },
   {
     iso: 'TC',
-    name: 'Islas Turcas y Caicos'
-  },
-  {
-    iso: 'VG',
-    name: 'Islas Vírgenes Británicas'
-  },
-  {
-    iso: 'VI',
-    name: 'Islas Vírgenes de EE. UU.'
+    name: 'Islas Turcas y Caicos',
   },
   {
     iso: 'UM',
-    name: 'Islas menores alejadas de EE. UU.'
+    name: 'Islas Ultramarinas Menores de Estados Unidos',
+  },
+  {
+    iso: 'VG',
+    name: 'Islas Vírgenes Británicas',
+  },
+  {
+    iso: 'VI',
+    name: 'Islas Vírgenes de Estados Unidos',
+  },
+  {
+    iso: 'AX',
+    name: 'Islas Åland',
   },
   {
     iso: 'IL',
-    name: 'Israel'
+    name: 'Israel',
   },
   {
     iso: 'IT',
-    name: 'Italia'
+    name: 'Italia',
   },
   {
     iso: 'JM',
-    name: 'Jamaica'
+    name: 'Jamaica',
   },
   {
     iso: 'JP',
-    name: 'Japón'
+    name: 'Japón',
   },
   {
     iso: 'JE',
-    name: 'Jersey'
+    name: 'Jersey',
   },
   {
     iso: 'JO',
-    name: 'Jordania'
+    name: 'Jordania',
   },
   {
     iso: 'KZ',
-    name: 'Kazajistán'
+    name: 'Kazajistán',
   },
   {
     iso: 'KE',
-    name: 'Kenia'
+    name: 'Kenia',
   },
   {
     iso: 'KG',
-    name: 'Kirguistán'
+    name: 'Kirguistán',
   },
   {
     iso: 'KI',
-    name: 'Kiribati'
+    name: 'Kiribati',
   },
   {
     iso: 'KW',
-    name: 'Kuwait'
+    name: 'Kuwait',
   },
   {
     iso: 'LA',
-    name: 'Laos'
+    name: 'Laos',
   },
   {
     iso: 'LS',
-    name: 'Lesoto'
+    name: 'Lesoto',
   },
   {
     iso: 'LV',
-    name: 'Letonia'
+    name: 'Letonia',
   },
   {
     iso: 'LR',
-    name: 'Liberia'
+    name: 'Liberia',
   },
   {
     iso: 'LY',
-    name: 'Libia'
+    name: 'Libia',
   },
   {
     iso: 'LI',
-    name: 'Liechtenstein'
+    name: 'Liechtenstein',
   },
   {
     iso: 'LT',
-    name: 'Lituania'
+    name: 'Lituania',
   },
   {
     iso: 'LU',
-    name: 'Luxemburgo'
+    name: 'Luxemburgo',
   },
   {
     iso: 'LB',
-    name: 'Líbano'
+    name: 'Líbano',
   },
   {
     iso: 'MO',
-    name: 'Macao'
+    name: 'Macao',
   },
   {
     iso: 'MK',
-    name: 'Macedonia del Norte'
+    name: 'Macedonia del Norte',
   },
   {
     iso: 'MG',
-    name: 'Madagascar'
+    name: 'Madagascar',
   },
   {
     iso: 'MY',
-    name: 'Malasia'
+    name: 'Malasia',
   },
   {
     iso: 'MW',
-    name: 'Malaui'
+    name: 'Malaui',
   },
   {
     iso: 'MV',
-    name: 'Maldivas'
-  },
-  {
-    iso: 'ML',
-    name: 'Mali'
+    name: 'Maldivas',
   },
   {
     iso: 'MT',
-    name: 'Malta'
+    name: 'Malta',
+  },
+  {
+    iso: 'ML',
+    name: 'Malí',
   },
   {
     iso: 'MA',
-    name: 'Marruecos'
+    name: 'Marruecos',
   },
   {
     iso: 'MQ',
-    name: 'Martinica'
+    name: 'Martinica',
   },
   {
     iso: 'MU',
-    name: 'Mauricio'
+    name: 'Mauricio',
   },
   {
     iso: 'MR',
-    name: 'Mauritania'
+    name: 'Mauritania',
   },
   {
     iso: 'YT',
-    name: 'Mayotte'
+    name: 'Mayotte',
   },
   {
     iso: 'FM',
-    name: 'Micronesia'
+    name: 'Micronesia',
   },
   {
     iso: 'MD',
-    name: 'Moldavia'
+    name: 'Moldavia',
   },
   {
     iso: 'MN',
-    name: 'Mongolia'
+    name: 'Mongolia',
   },
   {
     iso: 'ME',
-    name: 'Montenegro'
+    name: 'Montenegro',
   },
   {
     iso: 'MS',
-    name: 'Montserrat'
+    name: 'Montserrat',
   },
   {
     iso: 'MZ',
-    name: 'Mozambique'
+    name: 'Mozambique',
   },
   {
     iso: 'MM',
-    name: 'Myanmar (Birmania)'
+    name: 'Myanmar',
   },
   {
     iso: 'MX',
-    name: 'México'
+    name: 'México',
   },
   {
     iso: 'MC',
-    name: 'Mónaco'
+    name: 'Mónaco',
   },
   {
     iso: 'NA',
-    name: 'Namibia'
+    name: 'Namibia',
   },
   {
     iso: 'NR',
-    name: 'Nauru'
+    name: 'Nauru',
   },
   {
     iso: 'NP',
-    name: 'Nepal'
+    name: 'Nepal',
   },
   {
     iso: 'NI',
-    name: 'Nicaragua'
+    name: 'Nicaragua',
   },
   {
     iso: 'NG',
-    name: 'Nigeria'
+    name: 'Nigeria',
   },
   {
     iso: 'NU',
-    name: 'Niue'
+    name: 'Niue',
   },
   {
     iso: 'NO',
-    name: 'Noruega'
+    name: 'Noruega',
   },
   {
     iso: 'NC',
-    name: 'Nueva Caledonia'
+    name: 'Nueva Caledonia',
   },
   {
     iso: 'NZ',
-    name: 'Nueva Zelanda'
+    name: 'Nueva Zelanda',
   },
   {
     iso: 'NE',
-    name: 'Níger'
+    name: 'Níger',
   },
   {
     iso: 'OM',
-    name: 'Omán'
+    name: 'Omán',
   },
   {
     iso: 'PK',
-    name: 'Pakistán'
+    name: 'Pakistán',
   },
   {
     iso: 'PW',
-    name: 'Palaos'
-  },
-  {
-    iso: 'PS',
-    name: 'Palestina'
+    name: 'Palaos',
   },
   {
     iso: 'PA',
-    name: 'Panamá'
+    name: 'Panamá',
   },
   {
     iso: 'PG',
-    name: 'Papúa Nueva Guinea'
+    name: 'Papúa Nueva Guinea',
   },
   {
     iso: 'PY',
-    name: 'Paraguay'
+    name: 'Paraguay',
   },
   {
     iso: 'NL',
-    name: 'Países Bajos'
+    name: 'Países Bajos',
   },
   {
     iso: 'PE',
-    name: 'Perú'
+    name: 'Perú',
   },
   {
     iso: 'PF',
-    name: 'Polinesia Francesa'
+    name: 'Polinesia Francesa',
   },
   {
     iso: 'PL',
-    name: 'Polonia'
+    name: 'Polonia',
   },
   {
     iso: 'PT',
-    name: 'Portugal'
+    name: 'Portugal',
   },
   {
     iso: 'PR',
-    name: 'Puerto Rico'
+    name: 'Puerto Rico',
   },
   {
     iso: 'GB',
-    name: 'Reino Unido'
+    name: 'Reino Unido',
   },
   {
     iso: 'CF',
-    name: 'República Centroafricana'
+    name: 'República Centroafricana',
+  },
+  {
+    iso: 'CZ',
+    name: 'República Checa',
   },
   {
     iso: 'CD',
-    name: 'República Democrática del Congo'
+    name: 'República Democrática del Congo',
   },
   {
     iso: 'DO',
-    name: 'República Dominicana'
+    name: 'República Dominicana',
   },
   {
     iso: 'RE',
-    name: 'Reunión'
+    name: 'Reunión',
   },
   {
     iso: 'RW',
-    name: 'Ruanda'
+    name: 'Ruanda',
   },
   {
     iso: 'RO',
-    name: 'Rumanía'
+    name: 'Rumanía',
   },
   {
     iso: 'RU',
-    name: 'Rusia'
+    name: 'Rusia',
   },
   {
     iso: 'WS',
-    name: 'Samoa'
+    name: 'Samoa',
   },
   {
     iso: 'AS',
-    name: 'Samoa Americana'
+    name: 'Samoa Americana',
   },
   {
     iso: 'BL',
-    name: 'San Bartolomé'
+    name: 'San Bartolomé',
   },
   {
     iso: 'KN',
-    name: 'San Cristóbal y Nieves'
+    name: 'San Cristóbal y Nieves',
   },
   {
     iso: 'SM',
-    name: 'San Marino'
+    name: 'San Marino',
   },
   {
     iso: 'MF',
-    name: 'San Martín'
+    name: 'San Martín (parte francesa)',
   },
   {
     iso: 'PM',
-    name: 'San Pedro y Miquelón'
+    name: 'San Pedro y Miquelón',
   },
   {
     iso: 'VC',
-    name: 'San Vicente y las Granadinas'
+    name: 'San Vicente y las Granadinas',
   },
   {
     iso: 'SH',
-    name: 'Santa Elena'
+    name: 'Santa Elena, Ascensión y Tristán de Acuña',
   },
   {
     iso: 'LC',
-    name: 'Santa Lucía'
+    name: 'Santa Lucía',
   },
   {
     iso: 'ST',
-    name: 'Santo Tomé y Príncipe'
+    name: 'Santo Tomé y Príncipe',
   },
   {
     iso: 'SN',
-    name: 'Senegal'
+    name: 'Senegal',
   },
   {
     iso: 'RS',
-    name: 'Serbia'
+    name: 'Serbia',
   },
   {
     iso: 'SC',
-    name: 'Seychelles'
+    name: 'Seychelles',
   },
   {
     iso: 'SL',
-    name: 'Sierra Leona'
+    name: 'Sierra Leona',
   },
   {
     iso: 'SG',
-    name: 'Singapur'
+    name: 'Singapur',
   },
   {
     iso: 'SX',
-    name: 'Sint Maarten'
+    name: 'Sint Maarten (parte neerlandesa)',
   },
   {
     iso: 'SY',
-    name: 'Siria'
+    name: 'Siria',
   },
   {
     iso: 'SO',
-    name: 'Somalia'
+    name: 'Somalia',
   },
   {
     iso: 'LK',
-    name: 'Sri Lanka'
+    name: 'Sri Lanka',
   },
   {
     iso: 'ZA',
-    name: 'Sudáfrica'
+    name: 'Sudáfrica',
   },
   {
     iso: 'SD',
-    name: 'Sudán'
+    name: 'Sudán',
   },
   {
     iso: 'SS',
-    name: 'Sudán del Sur'
+    name: 'Sudán del Sur',
   },
   {
     iso: 'SE',
-    name: 'Suecia'
+    name: 'Suecia',
   },
   {
     iso: 'CH',
-    name: 'Suiza'
+    name: 'Suiza',
   },
   {
     iso: 'SR',
-    name: 'Surinam'
+    name: 'Surinam',
   },
   {
     iso: 'SJ',
-    name: 'Svalbard y Jan Mayen'
+    name: 'Svalbard y Jan Mayen',
   },
   {
     iso: 'EH',
-    name: 'Sáhara Occidental'
+    name: 'Sáhara Occidental',
   },
   {
     iso: 'TH',
-    name: 'Tailandia'
+    name: 'Tailandia',
   },
   {
     iso: 'TW',
-    name: 'Taiwán'
+    name: 'Taiwán',
   },
   {
     iso: 'TZ',
-    name: 'Tanzania'
+    name: 'Tanzania',
   },
   {
     iso: 'TJ',
-    name: 'Tayikistán'
+    name: 'Tayikistán',
   },
   {
     iso: 'IO',
-    name: 'Territorio Británico del Océano Índico'
+    name: 'Territorio Británico del Océano Índico',
   },
   {
     iso: 'TF',
-    name: 'Territorios Australes Franceses'
+    name: 'Territorios Australes Franceses',
+  },
+  {
+    iso: 'PS',
+    name: 'Territorios Palestinos',
   },
   {
     iso: 'TL',
-    name: 'Timor-Leste'
+    name: 'Timor Oriental',
   },
   {
     iso: 'TG',
-    name: 'Togo'
+    name: 'Togo',
   },
   {
     iso: 'TK',
-    name: 'Tokelau'
+    name: 'Tokelau',
   },
   {
     iso: 'TO',
-    name: 'Tonga'
+    name: 'Tonga',
   },
   {
     iso: 'TT',
-    name: 'Trinidad y Tobago'
+    name: 'Trinidad y Tobago',
   },
   {
     iso: 'TM',
-    name: 'Turkmenistán'
+    name: 'Turkmenistán',
   },
   {
     iso: 'TR',
-    name: 'Turquía'
+    name: 'Turquía',
   },
   {
     iso: 'TV',
-    name: 'Tuvalu'
+    name: 'Tuvalu',
   },
   {
     iso: 'TN',
-    name: 'Túnez'
+    name: 'Túnez',
   },
   {
     iso: 'UA',
-    name: 'Ucrania'
+    name: 'Ucrania',
   },
   {
     iso: 'UG',
-    name: 'Uganda'
+    name: 'Uganda',
   },
   {
     iso: 'UY',
-    name: 'Uruguay'
+    name: 'Uruguay',
   },
   {
     iso: 'UZ',
-    name: 'Uzbekistán'
+    name: 'Uzbekistán',
   },
   {
     iso: 'VU',
-    name: 'Vanuatu'
+    name: 'Vanuatu',
   },
   {
     iso: 'VE',
-    name: 'Venezuela'
+    name: 'Venezuela',
   },
   {
     iso: 'VN',
-    name: 'Vietnam'
+    name: 'Vietnam',
   },
   {
     iso: 'WF',
-    name: 'Wallis y Futuna'
+    name: 'Wallis y Futuna',
   },
   {
     iso: 'YE',
-    name: 'Yemen'
+    name: 'Yemen',
   },
   {
     iso: 'DJ',
-    name: 'Yibuti'
+    name: 'Yibuti',
   },
   {
     iso: 'ZM',
-    name: 'Zambia'
+    name: 'Zambia',
   },
   {
     iso: 'ZW',
-    name: 'Zimbabue'
-  }
+    name: 'Zimbabue',
+  },
 ]
-
-export default countries
