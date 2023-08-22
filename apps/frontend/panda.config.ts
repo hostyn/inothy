@@ -231,6 +231,43 @@ export default defineConfig({
             transform: 'translate(-50%, -48%) scale(0.96)',
           },
         },
+
+        tabsShow: {
+          '0%': {
+            opacity: 0,
+            transform: 'translateX(30px)',
+          },
+          '50%': {
+            opacity: 0,
+            transform: 'translateX(30px)',
+          },
+          '100%': {
+            opacity: 1,
+          },
+        },
+
+        tabsHide: {
+          '0%': {
+            opacity: 1,
+          },
+          '50%': {
+            opacity: 0,
+            transform: 'translateX(-30px)',
+          },
+          '100%': {
+            opacity: 0,
+            transform: 'translateX(-30px)',
+          },
+        },
+
+        tabsDisplay: {
+          from: {
+            display: 'flex',
+          },
+          to: {
+            display: 'none',
+          },
+        },
       },
     },
   },
