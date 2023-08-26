@@ -10,15 +10,16 @@ import PiggyIcon from './icons/Piggy'
 import { useState } from 'react'
 import PersonalInfo from './components/PersonalInfo'
 import Address from './components/Address'
-import Step from './Step'
-import type { UploadData } from './types'
+import StepCard from './Step'
+import type { Step, UploadData } from './types'
 import TabContent from './TabContent'
+import PersonalInfoCompleted from './components/PersonalInfoCompleted'
 
-const STEPS = [
+const STEPS: Step[] = [
   {
     number: 0,
     title: 'Completa tu perfil',
-    steps: [PersonalInfo, Address, PersonalInfo],
+    steps: [PersonalInfo, Address, PersonalInfoCompleted],
   },
   {
     number: 1,
@@ -140,7 +141,7 @@ export default function Upload(): JSX.Element {
                 gap: 'xl',
               })}
             >
-              <Step
+              <StepCard
                 number={0}
                 title="Completa tu perfil"
                 description="Necesitamos un poco de información sobre tí."
@@ -148,21 +149,21 @@ export default function Upload(): JSX.Element {
               />
 
               <Separator />
-              <Step
+              <StepCard
                 number={1}
                 title="Sube tu documento"
                 description="Sube tus documetos arrastrandolos al navegador."
                 Icon={UploadIcon}
               />
               <Separator />
-              <Step
+              <StepCard
                 number={2}
                 title="Haz que destaque"
                 description="Rellena información sobre el documento, título, descripción, asignatura..."
                 Icon={DocumentIcon}
               />
               <Separator />
-              <Step
+              <StepCard
                 number={3}
                 title="Ponles precio"
                 description="Ponles precio y gana dinero."
@@ -182,6 +183,7 @@ export default function Upload(): JSX.Element {
               setData={setData}
               data={data}
               title={`Paso ${step.number}: ${step.title}`}
+              steps={STEPS}
             />
           ))
         )}

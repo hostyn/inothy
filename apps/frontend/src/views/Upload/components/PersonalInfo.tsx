@@ -45,6 +45,7 @@ export default function PersonalInfo({
   setData,
   prev,
   title,
+  ...props
 }: StepProps): JSX.Element {
   const { user } = useAuth()
 
@@ -82,6 +83,7 @@ export default function PersonalInfo({
       title={title}
       prev={prev}
       onSubmit={handleSubmit(onSubmit)}
+      {...props}
     >
       <div
         className={css({

@@ -1,6 +1,6 @@
 import { css } from '@styled-system/css'
 
-export default function Step({
+export default function StepCard({
   number,
   title,
   description,

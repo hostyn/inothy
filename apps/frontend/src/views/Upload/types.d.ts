@@ -17,4 +17,11 @@ export interface StepProps {
   title: string
   data: UploadData
   setData: Dispatch<SetStateAction<UploadData>>
+  steps: Step[]
+}
+
+export interface Step {
+  number: number
+  title: string
+  steps: Array<({ ...props }: StepProps) => JSX.Element>
 }

@@ -6,11 +6,14 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import TabContent from '../TabContent'
 import type { StepProps } from '../types'
+import { trpc } from '@services/trpc'
+import { toastError } from '@services/toaster'
+import { useState } from 'react'
 
 const personalInfoSchema = z.object({
   address1: z.string().min(1, 'La linea 1 es obligatoria.'),
   address2: z.string(),
-  country: z.string(),
+  country: z.string().min(1, 'El país es obligatorio.'),
   city: z.string().min(1, 'La ciudad es obligatoria.'),
   region: z.string().min(1, 'La región es obligatoria.'),
   postalCode: z.string().min(1, 'El codigo postal es obligatorio.'),
@@ -23,7 +26,60 @@ export default function Address({
   value,
   title,
   prev,
+  data,
+  ...props
 }: StepProps): JSX.Element {
+  const [loading, setLoading] = useState(false)
+
+  const updateMangopayUser = trpc.auth.updateMangopayUserToOwner.useMutation({
+    onError: error => {
+      setLoading(false)
+
+      if (error.message === 'name-required') {
+        toastError('El nombre es obligatorio.')
+        return
+      }
+
+      if (error.message === 'last-name-required') {
+        toastError('El apellido es obligatorio.')
+        return
+      }
+
+      if (error.message === 'underage') {
+        toastError('Debes ser mayor de edad para registrarte.')
+        return
+      }
+
+      if (error.message === 'city-required') {
+        toastError('La ciudad es obligatoria.')
+        return
+      }
+
+      if (error.message === 'region-required') {
+        toastError('La región es obligatoria.')
+        return
+      }
+
+      if (error.message === 'postal-code-required') {
+        toastError('El codigo postal es obligatorio.')
+        return
+      }
+
+      if (error.message === 'already-owner') {
+        toastError(
+          'Ya has completado tu perfil. Por favor, refresca la página.'
+        )
+        return
+      }
+
+      toastError('Ha ocurrido un error inesperado, intentelo mas tarde.')
+    },
+    onSuccess: () => {
+      setLoading(false)
+      next()
+    },
+  })
+
   const {
     register,
     handleSubmit,
@@ -43,7 +99,31 @@ export default function Address({
     },
   })
 
-  const onSubmit = (values: FormValues): void => {}
+  const onSubmit = (values: FormValues): void => {
+    if (data?.step !== 'complete-profile') {
+      toastError('Ha ocurrido un error inesperado, intentelo mas tarde.')
+      return
+    }
+
+    setLoading(true)
+
+    const { birthDate, ...compatibleData } = data
+
+    const birthDateObject = new Date(birthDate)
+    const birthDateUTC = new Date(
+      Date.UTC(
+        birthDateObject.getFullYear(),
+        birthDateObject.getMonth(),
+        birthDateObject.getDate()
+      )
+    )
+
+    updateMangopayUser.mutate({
+      ...values,
+      ...compatibleData,
+      birthDate: birthDateUTC.getTime(),
+    })
+  }
 
   return (
     <TabContent
@@ -51,6 +131,8 @@ export default function Address({
       title={title}
       prev={prev}
       onSubmit={handleSubmit(onSubmit)}
+      loading={loading}
+      {...props}
     >
       <div
         className={css({

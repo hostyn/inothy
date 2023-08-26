@@ -20,6 +20,9 @@ const linkStyles = cva({
       warning: {
         color: 'red.600',
       },
+      grey: {
+        color: 'grey.500',
+      },
     },
 
     size: {
