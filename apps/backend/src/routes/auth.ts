@@ -3,6 +3,9 @@ import { protectedProcedure, publicProcedure } from '../procedures'
 import { createTRPCRouter } from '../trpc'
 import { TRPCError } from '@trpc/server'
 import { getUserData } from '../util/getUserData'
+import mangopay from '../config/mangopay'
+import { COUNTRIES } from '../config/countries'
+import type { CountryISO, user } from 'mangopay2-nodejs-sdk'
 
 export const authRouter = createTRPCRouter({
   getUserData: publicProcedure.query(async ({ ctx }) => {
@@ -123,6 +126,142 @@ export const authRouter = createTRPCRouter({
           biography: input.biography,
         },
       })
+
+      return { success: true }
+    }),
+
+  updateMangopayUserToOwner: protectedProcedure
+    .input(
+      z.object({
+        name: z.string().min(1, 'name-required'),
+        lastName: z.string().min(1, 'last-name-required'),
+        birthDate: z.number().refine(
+          birthDate => {
+            const date = new Date(birthDate)
+            const today = new Date()
+
+            const ageThresholdDate = new Date(
+              today.getUTCFullYear() - 18,
+              today.getUTCMonth(),
+              today.getUTCDate(),
+              23,
+              59,
+              59,
+              999
+            )
+
+            return date <= ageThresholdDate
+          },
+          { message: 'underage' }
+        ),
+        nationality: z
+          .string()
+          .min(1, 'nationality-required')
+          .refine(country => COUNTRIES.includes(country as CountryISO), {
+            message: 'invalid-nationality',
+          }),
+        countryOfResidency: z
+          .string()
+          .min(1, 'country-of-residency-required')
+          .refine(country => COUNTRIES.includes(country as CountryISO), {
+            message: 'invalid-country-of-residency',
+          }),
+        address1: z.string().min(1, 'address1-required'),
+        address2: z.string(),
+        country: z
+          .string()
+          .min(1, 'country-required')
+          .refine(country => COUNTRIES.includes(country as CountryISO), {
+            message: 'invalid-country',
+          }),
+        city: z.string().min(1, 'city-required'),
+        region: z.string().min(1, 'region-required'),
+        postalCode: z.string().min(1, 'postal-code-required'),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userData = await ctx.prisma.user.findUnique({
+        where: { uid: ctx.user.id ?? '' },
+        include: {
+          mangopayUser: true,
+        },
+      })
+
+      if (userData?.mangopayUser?.mangopayType === 'OWNER') {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'already-owner',
+        })
+      }
+
+      try {
+        const mangopayUserData: user.CreateUserNaturalData = {
+          PersonType: 'NATURAL',
+          FirstName: input.name,
+          LastName: input.lastName,
+          Email: ctx.user.email ?? '',
+          Address: {
+            AddressLine1: input.address1,
+            AddressLine2: input.address2,
+            City: input.city,
+            Region: input.region,
+            PostalCode: input.postalCode,
+            Country: input.country as CountryISO,
+          },
+          Birthday: Number((input.birthDate / 1000).toFixed(0)),
+          Nationality: input.nationality as CountryISO,
+          CountryOfResidence: input.countryOfResidency as CountryISO,
+          UserCategory: 'OWNER',
+          TermsAndConditionsAccepted: true,
+        }
+
+        const createMangopayUserResponse =
+          userData?.mangopayUser == null
+            ? await mangopay.Users.create(mangopayUserData)
+            : await mangopay.Users.update({
+                Id: userData.mangopayUser.id,
+                ...mangopayUserData,
+              })
+
+        const walletId =
+          userData?.mangopayUser?.mangopayWalletId ??
+          (
+            await mangopay.Wallets.create({
+              Currency: 'EUR',
+              Owners: [createMangopayUserResponse.Id],
+              Description: 'Inothy Wallet',
+            })
+          ).Id
+
+        await ctx.prisma.user.update({
+          where: { uid: ctx.user.id ?? '' },
+          data: {
+            canBuy: true,
+            canUpload: true,
+            mangopayUser: {
+              upsert: {
+                create: {
+                  mangopayId: createMangopayUserResponse.Id,
+                  kycLevel: createMangopayUserResponse.KYCLevel,
+                  mangopayType: 'OWNER',
+                  mangopayWalletId: walletId,
+                },
+                update: {
+                  mangopayId: createMangopayUserResponse.Id,
+                  kycLevel: createMangopayUserResponse.KYCLevel,
+                  mangopayType: 'OWNER',
+                  mangopayWalletId: walletId,
+                },
+              },
+            },
+          },
+        })
+      } catch {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'unexpected-error',
+        })
+      }
 
       return { success: true }
     }),
