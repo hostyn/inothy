@@ -8,7 +8,12 @@ interface CompleteProfileData {
   countryOfResidency: string
 }
 
-export type UploadData = null | CompleteProfileData
+interface UploadDocumentData {
+  step: 'upload-document'
+  file: File
+}
+
+export type UploadData = null | CompleteProfileData | UploadDocumentData
 
 export interface StepProps {
   next: () => void

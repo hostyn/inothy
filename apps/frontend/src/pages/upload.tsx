@@ -17,4 +17,7 @@ function Page(): JSX.Element {
 
 export default protectedContent(Page)
 
-export const getServerSideProps = protectedContentSSR()
+export const getServerSideProps = protectedContentSSR(async ({ helper }) => {
+  await helper.universities.getUniversities.prefetch()
+  return { props: {} }
+})

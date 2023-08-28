@@ -8,12 +8,14 @@ import UploadIcon from './icons/Upload'
 import DocumentIcon from './icons/Document'
 import PiggyIcon from './icons/Piggy'
 import { useState } from 'react'
-import PersonalInfo from './components/PersonalInfo'
-import Address from './components/Address'
+import PersonalInfo from './steps/PersonalInfo'
+import Address from './steps/Address'
 import StepCard from './Step'
 import type { Step, UploadData } from './types'
 import TabContent from './TabContent'
-import PersonalInfoCompleted from './components/PersonalInfoCompleted'
+import PersonalInfoCompleted from './steps/PersonalInfoCompleted'
+import UploadFile from './steps/UploadFile'
+import Subject from './steps/Subject'
 
 const STEPS: Step[] = [
   {
@@ -24,12 +26,12 @@ const STEPS: Step[] = [
   {
     number: 1,
     title: 'Sube tu documento',
-    steps: [PersonalInfo, PersonalInfo, PersonalInfo],
+    steps: [UploadFile],
   },
   {
     number: 2,
     title: 'Haz que destaque',
-    steps: [PersonalInfo, PersonalInfo, PersonalInfo],
+    steps: [Subject, PersonalInfo, PersonalInfo],
   },
   {
     number: 3,
@@ -44,7 +46,7 @@ export default function Upload(): JSX.Element {
 
   const nextStep = (): void => {
     if (step === 'intro') {
-      setStep('0.0')
+      setStep('1.0')
       return
     }
 
