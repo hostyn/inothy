@@ -1,6 +1,8 @@
+import Spinner from '@components/Spinner'
 import { Content as TabsContent } from '@radix-ui/react-tabs'
 import { css } from '@styled-system/css'
 import { Button } from '@ui/Button'
+import type { Step } from './types'
 
 interface TabContentProps {
   children: React.ReactNode
@@ -9,6 +11,9 @@ interface TabContentProps {
   first?: boolean
   prev?: () => void
   title?: string
+  loading?: boolean
+  disabled?: boolean
+  steps?: Step[]
 }
 
 export default function TabContent({
@@ -18,6 +23,9 @@ export default function TabContent({
   first = false,
   prev,
   title,
+  loading = false,
+  disabled = false,
+  steps,
 }: TabContentProps): JSX.Element {
   return (
     <TabsContent value={value} className={tabsContentStyles} tabIndex={-1}>
@@ -46,12 +54,64 @@ export default function TabContent({
         </div>
 
         <div id="progress">
-          <div
-            className={css({
-              height: '4px',
-              bg: 'grey.100',
-            })}
-          ></div>
+          {steps == null ? (
+            <div
+              className={css({
+                height: '4px',
+                bg: 'grey.100',
+              })}
+            ></div>
+          ) : (
+            <div
+              className={css({
+                height: '4px',
+                display: 'grid',
+                gap: 'xs',
+              })}
+              style={{
+                gridTemplateColumns: steps
+                  .map(stepGroup => `${stepGroup.steps.length}fr`)
+                  .join(' '),
+              }}
+            >
+              {/* TODO: Limpiar las animación */}
+              {steps.map(stepGroup => {
+                const [stepNumber, substepNumber] = value.split('.').map(Number)
+                return (
+                  <div
+                    key={stepGroup.number}
+                    className={css({
+                      display: 'flex',
+                      bg: 'grey.100',
+                    })}
+                  >
+                    {stepGroup.steps.map((step, index) => (
+                      <div
+                        key={`${stepGroup.number}.${index}`}
+                        className={css({
+                          height: '100%',
+                          width: '100%',
+                          bg:
+                            stepGroup.number < stepNumber
+                              ? 'primary.500'
+                              : stepGroup.number === stepNumber
+                              ? index <= substepNumber
+                                ? 'primary.500'
+                                : 'grey.100'
+                              : 'grey.100',
+                          animation:
+                            stepGroup.number === stepNumber &&
+                            index === substepNumber
+                              ? 'progressStart 1s ease'
+                              : 'none',
+                        })}
+                      ></div>
+                    ))}
+                  </div>
+                )
+              })}
+            </div>
+          )}
           <div
             className={css({
               display: 'grid',
@@ -80,7 +140,17 @@ export default function TabContent({
             ) : (
               <div />
             )}
-            <Button>{first ? 'Empezar' : 'Siguiente'}</Button>
+            <Button
+              className={css({
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: loading ? 'calc(token(fontSizes.md) * 1.5)' : 'md',
+              })}
+              disabled={loading || disabled}
+            >
+              {loading ? <Spinner /> : first ? 'Empezar' : 'Siguiente'}
+            </Button>
           </div>
         </div>
       </form>
