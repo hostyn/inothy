@@ -144,7 +144,6 @@ export default function Subject({
                 </button>
               ))
           )}
-          D
         </div>
       </div>
     </TabContent>
