@@ -23,6 +23,8 @@ export const authRouter = createTRPCRouter({
         degreeId: true,
         uid: true,
         usernameChangedDate: true,
+        canUpload: true,
+        canBuy: true,
       },
     })
 
