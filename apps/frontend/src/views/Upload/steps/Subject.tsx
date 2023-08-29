@@ -1,6 +1,6 @@
 import { css } from '@styled-system/css'
 import TabContent from '../TabContent'
-import type { StepProps } from '../types'
+import type { StepProps, UploadData } from '../types'
 import { trpc } from '@services/trpc'
 import { useState } from 'react'
 import { PiBookBookmarkLight } from 'react-icons/pi'
@@ -44,6 +44,10 @@ export default function Subject({
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
+    setData((data: UploadData) => ({
+      ...data,
+      subject: universitySelected.subject,
+    }))
     next()
   }
 
