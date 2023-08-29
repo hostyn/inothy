@@ -12,6 +12,7 @@ interface UploadDocumentData {
   step: 'upload-document'
   file: File
   subject?: string
+  documentType?: string
 }
 
 export type UploadData = null | CompleteProfileData | UploadDocumentData

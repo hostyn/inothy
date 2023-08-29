@@ -1,6 +1,6 @@
 import { css } from '@styled-system/css'
 import TabContent from '../TabContent'
-import type { StepProps } from '../types'
+import type { StepProps, UploadData } from '../types'
 import { trpc } from '@services/trpc'
 import {
   AssignmentIcon,
@@ -12,6 +12,7 @@ import {
   PresentationIcon,
   SummaryIcon,
 } from '../icons/Icons'
+import { useState } from 'react'
 
 export const DOCUMENT_TYPES: Record<
   string,
@@ -65,9 +66,16 @@ export default function DocumentType({
   ...props
 }: StepProps): JSX.Element {
   const { data: documentTypes } = trpc.document.getDocumentTypes.useQuery()
+  const [documentType, setDocumentType] = useState<null | string>(null)
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault()
+
+    setData((data: UploadData) => ({
+      ...data,
+      documentType,
+    }))
+
     next()
   }
 
@@ -101,15 +109,23 @@ export default function DocumentType({
             height: '3xl',
             width: '100%',
             overflowY: 'scroll',
+            padding: '3px',
           })}
         >
-          {documentTypes?.map(documentType => {
-            const Icon = DOCUMENT_TYPES[documentType.name].icon
+          {documentTypes?.map(docType => {
+            const Icon = DOCUMENT_TYPES[docType.name].icon
             return (
               <button
-                key={documentType.id}
+                key={docType.id}
                 type="button"
-                className={documentTypeCardStyles}
+                className={`${documentTypeCardStyles} ${
+                  docType.id === documentType
+                    ? documentTypeCardSelectedStyles
+                    : ''
+                }`}
+                onClick={() => {
+                  setDocumentType(docType.id)
+                }}
               >
                 <span
                   className={css({
@@ -127,7 +143,7 @@ export default function DocumentType({
                       color: 'text',
                     })}
                   >
-                    {DOCUMENT_TYPES[documentType.name].name}
+                    {DOCUMENT_TYPES[docType.name].name}
                   </span>
                   <span
                     className={css({
@@ -135,7 +151,7 @@ export default function DocumentType({
                       fontSize: 'sm',
                     })}
                   >
-                    {DOCUMENT_TYPES[documentType.name].description}
+                    {DOCUMENT_TYPES[docType.name].description}
                   </span>
                 </span>
                 <Icon />
@@ -148,6 +164,11 @@ export default function DocumentType({
   )
 }
 
+const documentTypeCardSelectedStyles = css({
+  border: '1px solid token(colors.primary.300)',
+  outline: '1px solid token(colors.primary.300)',
+})
+
 const documentTypeCardStyles = css({
   display: 'grid',
   gridTemplateColumns: '1fr 32px',
@@ -157,4 +178,9 @@ const documentTypeCardStyles = css({
   py: 'md',
   px: 'lg',
   borderRadius: 'md',
+  transition: 'outline-width 50ms ease-in-out',
+
+  _focus: {
+    outline: '3px solid token(colors.primary.300)',
+  },
 })
