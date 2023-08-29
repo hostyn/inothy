@@ -7,7 +7,7 @@ import ListIcon from './icons/List'
 import UploadIcon from './icons/Upload'
 import DocumentIcon from './icons/Document'
 import PiggyIcon from './icons/Piggy'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import PersonalInfo from './steps/PersonalInfo'
 import Address from './steps/Address'
 import StepCard from './Step'
@@ -16,6 +16,8 @@ import TabContent from './TabContent'
 import PersonalInfoCompleted from './steps/PersonalInfoCompleted'
 import UploadFile from './steps/UploadFile'
 import Subject from './steps/Subject'
+import DocumentType from './steps/DocumentType'
+import useAuth from '@hooks/useAuth'
 
 const STEPS: Step[] = [
   {
@@ -31,7 +33,7 @@ const STEPS: Step[] = [
   {
     number: 2,
     title: 'Haz que destaque',
-    steps: [Subject, PersonalInfo, PersonalInfo],
+    steps: [Subject, DocumentType, PersonalInfo],
   },
   {
     number: 3,
@@ -41,12 +43,16 @@ const STEPS: Step[] = [
 ]
 
 export default function Upload(): JSX.Element {
+  const { userData } = useAuth()
   const [data, setData] = useState<UploadData>(null)
   const [step, setStep] = useState('intro')
+  const steps = useRef(
+    userData?.canUpload ?? false ? STEPS.slice(1) : STEPS
+  ).current
 
   const nextStep = (): void => {
     if (step === 'intro') {
-      setStep('1.0')
+      setStep(userData?.canUpload ?? false ? '1.0' : '0.0')
       return
     }
 
@@ -56,11 +62,11 @@ export default function Upload(): JSX.Element {
     }
 
     const [stepNumber, substepNumber] = step.split('.').map(Number)
-    const totalSubsteps = STEPS[stepNumber].steps.length
+    const totalSubsteps = steps[stepNumber].steps.length
 
     if (substepNumber === totalSubsteps - 1) {
       const newStepNumber =
-        stepNumber === STEPS.length - 1 ? 'end' : stepNumber + 1
+        stepNumber === steps.length - 1 ? 'end' : stepNumber + 1
       setStep(`${newStepNumber}.0`)
     } else {
       setStep(`${stepNumber}.${substepNumber + 1}`)
@@ -71,8 +77,8 @@ export default function Upload(): JSX.Element {
     if (step === 'intro') return
 
     if (step === 'end') {
-      const lastStepNumber = STEPS.length - 1
-      const lastSubstepNumber = STEPS[lastStepNumber].steps.length - 1
+      const lastStepNumber = steps.length - 1
+      const lastSubstepNumber = steps[lastStepNumber].steps.length - 1
       setStep(`${lastStepNumber}.${lastSubstepNumber}`)
       return
     }
@@ -80,7 +86,10 @@ export default function Upload(): JSX.Element {
     const [stepNumber, substepNumber] = step.split('.').map(Number)
 
     if (substepNumber === 0) {
-      if (stepNumber === 0) {
+      if (
+        stepNumber === 0 ||
+        ((userData?.canUpload ?? false) && stepNumber === 1)
+      ) {
         setStep('intro')
       } else {
         setStep(`${stepNumber - 1}.0`)
@@ -175,7 +184,7 @@ export default function Upload(): JSX.Element {
           </div>
         </TabContent>
 
-        {STEPS.map(step =>
+        {steps.map(step =>
           step.steps.map((Substep, index) => (
             <Substep
               key={`${step.number}.${index}`}
@@ -185,7 +194,7 @@ export default function Upload(): JSX.Element {
               setData={setData}
               data={data}
               title={`Paso ${step.number}: ${step.title}`}
-              steps={STEPS}
+              steps={steps}
             />
           ))
         )}
