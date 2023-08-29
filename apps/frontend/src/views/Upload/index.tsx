@@ -62,11 +62,14 @@ export default function Upload(): JSX.Element {
     }
 
     const [stepNumber, substepNumber] = step.split('.').map(Number)
-    const totalSubsteps = steps[stepNumber].steps.length
+    const totalSubsteps =
+      steps.find(step => step.number === stepNumber)?.steps.length ?? 0
 
     if (substepNumber === totalSubsteps - 1) {
       const newStepNumber =
-        stepNumber === steps.length - 1 ? 'end' : stepNumber + 1
+        stepNumber === (steps.at(-1)?.number as number) - 1
+          ? 'end'
+          : stepNumber + 1
       setStep(`${newStepNumber}.0`)
     } else {
       setStep(`${stepNumber}.${substepNumber + 1}`)
