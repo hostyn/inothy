@@ -134,8 +134,17 @@ export default function Subject({
                       fill: 'text',
                     })}
                   />
-                  {subject.subject.name}
-                  {subject.subject.code != null && ` (${subject.subject.code})`}
+                  <span
+                    className={css({
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                    })}
+                  >
+                    {subject.subject.name}
+                    {subject.subject.code != null &&
+                      ` (${subject.subject.code})`}
+                  </span>
 
                   {subject.id === universitySelected.subject && (
                     <BsCheck2
@@ -165,9 +174,9 @@ const subjectCardStyles = css({
   gap: 'sm',
   padding: 'xs',
   textAlign: 'left',
+  transition: 'outline-width 50ms ease-in-out',
 
   _focus: {
-    bg: 'white',
     outline: '3px solid token(colors.primary.300)',
   },
 })
