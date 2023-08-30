@@ -1,24 +1,25 @@
-import App from '@components/App'
+import { useRef, useState } from 'react'
 import { css, cx } from '@styled-system/css'
+import { Root as TabsRoot } from '@radix-ui/react-tabs'
 import { pageSpacingStyles } from '@ui/PageSpacing'
 import { Separator } from '@ui/Separator'
-import { Root as TabsRoot } from '@radix-ui/react-tabs'
+import App from '@components/App'
+import useAuth from '@hooks/useAuth'
+import type { Step, UploadData } from './types'
+import StepCard from './Step'
+import TabContent from './TabContent'
 import ListIcon from './icons/List'
 import UploadIcon from './icons/Upload'
 import DocumentIcon from './icons/Document'
 import PiggyIcon from './icons/Piggy'
-import { useRef, useState } from 'react'
 import PersonalInfo from './steps/PersonalInfo'
 import Address from './steps/Address'
-import StepCard from './Step'
-import type { Step, UploadData } from './types'
-import TabContent from './TabContent'
 import PersonalInfoCompleted from './steps/PersonalInfoCompleted'
 import UploadFile from './steps/UploadFile'
 import Subject from './steps/Subject'
 import DocumentType from './steps/DocumentType'
-import useAuth from '@hooks/useAuth'
 import TitleAndDescription from './steps/TitleAndDescription'
+import MoreInfo from './steps/MoreInfo'
 
 const STEPS: Step[] = [
   {
@@ -34,7 +35,7 @@ const STEPS: Step[] = [
   {
     number: 2,
     title: 'Haz que destaque',
-    steps: [Subject, DocumentType, TitleAndDescription],
+    steps: [Subject, DocumentType, TitleAndDescription, MoreInfo],
   },
   {
     number: 3,
@@ -94,7 +95,10 @@ export default function Upload(): JSX.Element {
       ) {
         setStep('intro')
       } else {
-        setStep(`${stepNumber - 1}.0`)
+        const newSubstepNumber =
+          (steps.find(step => step.number === stepNumber - 1)?.steps.length ??
+            1) - 1
+        setStep(`${stepNumber - 1}.${newSubstepNumber}`)
       }
     } else {
       setStep(`${stepNumber}.${substepNumber - 1}`)
