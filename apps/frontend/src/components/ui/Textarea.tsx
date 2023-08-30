@@ -17,10 +17,19 @@ interface TextArea
   error?: FieldError
   autoComplete?: string
   value?: string
+  nativePlaceholder?: string
+  keepErrorSpace?: boolean
 }
 
 function Input(
-  { placeholder, error, className, ...props }: TextArea,
+  {
+    placeholder,
+    error,
+    className,
+    nativePlaceholder,
+    keepErrorSpace = false,
+    ...props
+  }: TextArea,
   ref: React.Ref<any>
 ): JSX.Element {
   return (
@@ -102,7 +111,7 @@ function Input(
           {...props}
           ref={ref}
           title={placeholder}
-          placeholder=" "
+          placeholder={nativePlaceholder ?? ' '}
           aria-invalid={error != null}
           aria-errormessage={error?.message}
         />
@@ -121,7 +130,7 @@ function Input(
           {placeholder}
         </label>
       </div>
-      {error != null && (
+      {(keepErrorSpace || error != null) && (
         <div
           className={css({
             width: '100%',
@@ -131,21 +140,25 @@ function Input(
             gap: 'xs',
           })}
         >
-          <MdErrorOutline
-            size={14}
-            className={css({
-              fill: 'error',
-            })}
-          />
-          <p
-            className={css({
-              fontSize: 'sm',
-              fontWeight: '500',
-              color: 'error',
-            })}
-          >
-            {error?.message?.toString()}
-          </p>
+          {error != null && (
+            <>
+              <MdErrorOutline
+                size={14}
+                className={css({
+                  fill: 'error',
+                })}
+              />
+              <p
+                className={css({
+                  fontSize: 'sm',
+                  fontWeight: '500',
+                  color: 'error',
+                })}
+              >
+                {error?.message?.toString()}
+              </p>
+            </>
+          )}
         </div>
       )}
     </div>

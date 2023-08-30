@@ -5,9 +5,12 @@ import { type IconType } from 'react-icons'
 import { MdErrorOutline } from 'react-icons/md'
 
 interface InputProps
-  extends React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
+  extends Omit<
+    React.DetailedHTMLProps<
+      React.InputHTMLAttributes<HTMLInputElement>,
+      HTMLInputElement
+    >,
+    'size'
   > {
   placeholder?: string
   className?: string
@@ -20,6 +23,8 @@ interface InputProps
   value?: string
   Icon?: IconType
   nativePlaceholder?: string
+  size?: 'md' | 'lg'
+  keepErrorSpace?: boolean
 }
 
 function Input(
@@ -29,6 +34,8 @@ function Input(
     Icon,
     className,
     nativePlaceholder,
+    size = 'md',
+    keepErrorSpace = false,
     ...props
   }: InputProps,
   ref: React.Ref<any>
@@ -46,12 +53,13 @@ function Input(
       <div className={css({ position: 'relative' })}>
         <input
           className={css({
+            fontSize: size,
             color: 'primary.500',
             bg: error != null ? 'red.100' : 'grey.100',
             borderRadius: 'md',
             paddingLeft: 'sm',
             paddingRight: Icon != null ? 'xl' : 'sm',
-            height: '6xs',
+            height: size === 'md' ? '6xs' : '5xs',
             width: '100%',
             transition: 'background 150ms ease, outline-width 50ms ease-in-out',
 
@@ -151,7 +159,7 @@ function Input(
           </label>
         )}
       </div>
-      {error != null && (
+      {(keepErrorSpace || error != null) && (
         <div
           className={css({
             width: '100%',
@@ -161,21 +169,25 @@ function Input(
             gap: 'xs',
           })}
         >
-          <MdErrorOutline
-            size={14}
-            className={css({
-              fill: 'error',
-            })}
-          />
-          <p
-            className={css({
-              fontSize: 'sm',
-              fontWeight: '500',
-              color: 'error',
-            })}
-          >
-            {error?.message?.toString()}
-          </p>
+          {error != null && (
+            <>
+              <MdErrorOutline
+                size={14}
+                className={css({
+                  fill: 'error',
+                })}
+              />
+              <p
+                className={css({
+                  fontSize: 'sm',
+                  fontWeight: '500',
+                  color: 'error',
+                })}
+              >
+                {error?.message?.toString()}
+              </p>
+            </>
+          )}
         </div>
       )}
     </div>
