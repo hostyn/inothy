@@ -18,6 +18,7 @@ import UploadFile from './steps/UploadFile'
 import Subject from './steps/Subject'
 import DocumentType from './steps/DocumentType'
 import useAuth from '@hooks/useAuth'
+import TitleAndDescription from './steps/TitleAndDescription'
 
 const STEPS: Step[] = [
   {
@@ -33,7 +34,7 @@ const STEPS: Step[] = [
   {
     number: 2,
     title: 'Haz que destaque',
-    steps: [Subject, DocumentType, PersonalInfo],
+    steps: [Subject, DocumentType, TitleAndDescription],
   },
   {
     number: 3,
@@ -67,10 +68,8 @@ export default function Upload(): JSX.Element {
 
     if (substepNumber === totalSubsteps - 1) {
       const newStepNumber =
-        stepNumber === (steps.at(-1)?.number as number) - 1
-          ? 'end'
-          : stepNumber + 1
-      setStep(`${newStepNumber}.0`)
+        stepNumber === (steps.at(-1)?.number as number) ? 'end' : stepNumber + 1
+      setStep(newStepNumber === 'end' ? 'end' : `${newStepNumber}.0`)
     } else {
       setStep(`${stepNumber}.${substepNumber + 1}`)
     }

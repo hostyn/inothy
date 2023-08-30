@@ -13,6 +13,8 @@ interface UploadDocumentData {
   file: File
   subject?: string
   documentType?: string
+  title?: string
+  description?: string
 }
 
 export type UploadData = null | CompleteProfileData | UploadDocumentData
