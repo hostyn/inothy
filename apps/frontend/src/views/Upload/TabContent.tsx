@@ -30,6 +30,7 @@ export default function TabContent({
   return (
     <TabsContent value={value} className={tabsContentStyles} tabIndex={-1}>
       <form
+        noValidate
         onSubmit={onSubmit}
         className={css({
           position: 'absolute',

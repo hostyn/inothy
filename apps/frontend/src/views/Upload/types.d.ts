@@ -15,6 +15,10 @@ interface UploadDocumentData {
   documentType?: string
   title?: string
   description?: string
+  byHand?: boolean
+  year?: number
+  calification?: number
+  professor?: string
 }
 
 export type UploadData = null | CompleteProfileData | UploadDocumentData

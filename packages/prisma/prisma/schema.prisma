@@ -124,8 +124,8 @@ model Document {
   reviews        Review[]
   documentType   DocumentType @relation(fields: [documentTypeId], references: [id])
   documentTypeId String       @db.ObjectId
-  year           Int
-  calification   Float
+  year           Int?
+  calification   Float?
   professor      String?
   byHand         Boolean
 }
