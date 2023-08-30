@@ -158,14 +158,17 @@ export default function Upload(): JSX.Element {
                 gap: 'xl',
               })}
             >
-              <StepCard
-                number={0}
-                title="Completa tu perfil"
-                description="Necesitamos un poco de información sobre tí."
-                Icon={ListIcon}
-              />
-
-              <Separator />
+              {!(userData?.canUpload ?? false) && (
+                <>
+                  <StepCard
+                    number={0}
+                    title="Completa tu perfil"
+                    description="Necesitamos un poco de información sobre tí."
+                    Icon={ListIcon}
+                  />
+                  <Separator />{' '}
+                </>
+              )}
               <StepCard
                 number={1}
                 title="Sube tu documento"
