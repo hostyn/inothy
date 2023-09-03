@@ -8,8 +8,15 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 const titleAndDescripcionSchema = z.object({
-  title: z.string().min(1, 'El título es obligatorio.'),
-  description: z.string().min(1, 'La descripción es obligatoria.'),
+  title: z
+    .string()
+    .min(1, 'El título es obligatorio.')
+    .min(10, 'El título debe tener al menos 10 caracteres.')
+    .max(100, 'El título debe tener como máximo 100 caracteres.'),
+  description: z
+    .string()
+    .min(1, 'La descripción es obligatoria.')
+    .max(2000, 'La descripción debe tener como máximo 2000 caracteres.'),
 })
 
 type FormValues = z.infer<typeof titleAndDescripcionSchema>
