@@ -20,6 +20,7 @@ import Subject from './steps/Subject'
 import DocumentType from './steps/DocumentType'
 import TitleAndDescription from './steps/TitleAndDescription'
 import MoreInfo from './steps/MoreInfo'
+import Price from './steps/Price'
 
 const STEPS: Step[] = [
   {
@@ -40,7 +41,7 @@ const STEPS: Step[] = [
   {
     number: 3,
     title: 'Ponles precio',
-    steps: [PersonalInfo, PersonalInfo, PersonalInfo],
+    steps: [Price],
   },
 ]
 

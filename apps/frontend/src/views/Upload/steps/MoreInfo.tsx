@@ -181,6 +181,7 @@ const radioStyles = css({
 
 const radioLabelStyles = css({
   display: 'flex',
+  userSelect: 'none',
 
   '& span': {
     display: 'flex',
