@@ -71,7 +71,11 @@ export default function UploadFile({
           </p>
         </div>
 
-        <DropZone onFile={setFile} />
+        <DropZone
+          onFile={setFile}
+          initialFile={file ?? undefined}
+          maxFileSize={104857600}
+        />
       </div>
     </TabContent>
   )
