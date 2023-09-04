@@ -77,7 +77,7 @@ export default function DropZone({
         onChange={handleFileChange}
       />
       <label
-        htmlFor="dropzone-fileinput"
+        htmlFor={file != null ? '' : 'dropzone-fileinput'}
         className={css({
           display: 'flex',
           flexDirection: 'column',
