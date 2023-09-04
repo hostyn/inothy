@@ -114,7 +114,7 @@ export default function Subject({
               .map(subject => (
                 <button
                   key={subject.id}
-                  value={subject.id}
+                  value={subject.subject.id}
                   className={`${subjectCardStyles} ${
                     subject.id === universitySelected.subject
                       ? subjectCardSelectedStyles
@@ -124,7 +124,7 @@ export default function Subject({
                   onClick={() => {
                     setUniversitySelected(data => ({
                       ...data,
-                      subject: subject.id,
+                      subject: subject.subject.id,
                     }))
                   }}
                 >
