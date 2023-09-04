@@ -165,8 +165,8 @@ export default function DocumentType({
 }
 
 const documentTypeCardSelectedStyles = css({
-  border: '1px solid token(colors.primary.300)',
-  outline: '1px solid token(colors.primary.300)',
+  outline: '2px solid token(colors.primary.300)',
+  outlineOffset: '-1px',
 })
 
 const documentTypeCardStyles = css({
@@ -178,9 +178,10 @@ const documentTypeCardStyles = css({
   py: 'md',
   px: 'lg',
   borderRadius: 'md',
-  transition: 'outline-width 50ms ease-in-out',
+  transition: 'outline-width 50ms ease-in-out, outline-offset 50ms ease-in-out',
 
   _focus: {
     outline: '3px solid token(colors.primary.300)',
+    outlineOffset: '0',
   },
 })

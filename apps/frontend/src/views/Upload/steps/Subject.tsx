@@ -116,7 +116,7 @@ export default function Subject({
                   key={subject.id}
                   value={subject.subject.id}
                   className={`${subjectCardStyles} ${
-                    subject.id === universitySelected.subject
+                    subject.subject.id === universitySelected.subject
                       ? subjectCardSelectedStyles
                       : ''
                   }`}
@@ -174,15 +174,16 @@ const subjectCardStyles = css({
   gap: 'sm',
   padding: 'xs',
   textAlign: 'left',
-  transition: 'outline-width 50ms ease-in-out',
+  transition: 'outline-width 50ms ease-in-out, outline-offset 50ms ease-in-out',
 
   _focus: {
     outline: '3px solid token(colors.primary.300)',
+    outlineOffset: '0',
   },
 })
 
 const subjectCardSelectedStyles = css({
-  border: '1px solid token(colors.primary.300)',
-  outline: '1px solid token(colors.primary.300)',
+  outline: '2px solid token(colors.primary.300)',
+  outlineOffset: '-1px',
   gridTemplateColumns: 'auto 1fr auto',
 })
