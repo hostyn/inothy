@@ -8,7 +8,7 @@ interface TabContentProps {
   children: React.ReactNode
   value: string
   onSubmit: React.FormEventHandler<HTMLFormElement>
-  first?: boolean
+  nextText?: string
   prev?: () => void
   title?: string
   loading?: boolean
@@ -20,7 +20,7 @@ export default function TabContent({
   children,
   value,
   onSubmit,
-  first = false,
+  nextText = 'Siguiente',
   prev,
   title,
   loading = false,
@@ -150,7 +150,7 @@ export default function TabContent({
               })}
               disabled={loading || disabled}
             >
-              {loading ? <Spinner /> : first ? 'Empezar' : 'Siguiente'}
+              {loading ? <Spinner /> : nextText}
             </Button>
           </div>
         </div>

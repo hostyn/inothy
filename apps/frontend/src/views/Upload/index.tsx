@@ -126,6 +126,7 @@ export default function Upload(): JSX.Element {
       >
         <TabContent
           value="intro"
+          nextText="Empezar"
           onSubmit={e => {
             e.preventDefault()
             nextStep()
