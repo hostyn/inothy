@@ -1,3 +1,5 @@
+import type { RouterOutputs } from 'backend'
+
 interface CompleteProfileData {
   step: 'complete-profile'
   name: string
@@ -21,7 +23,16 @@ interface UploadDocumentData {
   professor?: string
 }
 
-export type UploadData = null | CompleteProfileData | UploadDocumentData
+type BackendDocumentUploaded = RouterOutputs['document']['upload']
+interface DocumentUploaded extends BackendDocumentUploaded {
+  step: 'document-uploaded'
+}
+
+export type UploadData =
+  | null
+  | CompleteProfileData
+  | UploadDocumentData
+  | DocumentUploaded
 
 export interface StepProps {
   next: () => void

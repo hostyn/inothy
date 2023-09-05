@@ -4,20 +4,40 @@ import type { StepProps } from '../types'
 import { Link } from '@ui/Link'
 import { useState } from 'react'
 import { getSellerAmount } from '@util/priceCalculator'
+import { trpc } from '@services/trpc'
+import { toastError } from '@services/toaster'
 
 export default function Price({
   next,
   value,
   title,
+  data,
   setData,
   ...props
 }: StepProps): JSX.Element {
-  const [price, setPrice] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const upload = trpc.document.upload.useMutation({
+    onSuccess: data => {
+      setData({
+        step: 'document-uploaded',
+        ...data,
+      })
+
+      setLoading(false)
+      next()
+    },
+
+    onError: () => {
+      toastError('Ha ocurrido un error al subir el documento')
+      setLoading(false)
+    },
+  })
+
+  const [price, setPrice] = useState('1.00')
 
   const handlePriceChange: React.ChangeEventHandler<HTMLInputElement> = e => {
     const input = e.target.value.replaceAll(',', '.')
-
-    console.log(input)
 
     if (input === '') {
       setPrice('')
@@ -30,13 +50,61 @@ export default function Price({
     setPrice(input)
   }
 
-  const onSubmit: React.FormEventHandler<HTMLFormElement> = (e): void => {
+  const handlePriceBlur: React.FocusEventHandler<
+    HTMLInputElement
+  > = async e => {
+    if (e.target.value === '') {
+      await new Promise(resolve => setTimeout(resolve, 100))
+      setPrice('1.00')
+      return
+    }
+
+    const input = e.target.value.replaceAll(',', '.')
+    setPrice(Number(input).toFixed(2))
+  }
+
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = async (
+    e
+  ): Promise<void> => {
     e.preventDefault()
-    next()
+    setLoading(true)
+
+    if (price === '') return
+
+    if (data?.step !== 'upload-document') return
+
+    const reader = new FileReader()
+    reader.readAsDataURL(data.file)
+    reader.onload = async () => {
+      const base64 = reader.result
+
+      upload.mutate({
+        file: (base64 as string).split(',')[1],
+        contentType: data.file.type,
+        extension: data.file.name.split('.').pop() ?? '',
+        title: data.title ?? '',
+        description: data.description ?? '',
+        subject: data.subject ?? '',
+        documentTypeId: data.documentType ?? '',
+        price: Number(price),
+        byHand: data.byHand ?? false,
+        calification: data.calification ?? undefined,
+        professor: data.professor ?? undefined,
+        year: data.year ?? undefined,
+      })
+    }
   }
 
   return (
-    <TabContent value={value} title={title} onSubmit={onSubmit} {...props}>
+    <TabContent
+      value={value}
+      title={title}
+      onSubmit={onSubmit}
+      nextText="Subir"
+      loading={loading}
+      disabled={price === ''}
+      {...props}
+    >
       <div
         className={css({
           display: 'flex',
@@ -72,7 +140,13 @@ export default function Price({
             >
               ¡Toca fijar el precio!
             </h1>
-            <p>Podrás cambiarlo cuando quieras.</p>
+            <p
+              className={css({
+                color: 'grey.500',
+              })}
+            >
+              Podrás cambiarlo cuando quieras.
+            </p>
           </div>
 
           <div
@@ -86,7 +160,9 @@ export default function Price({
           >
             <label className={labelInputStyles}>
               <input
+                inputMode="decimal"
                 onChange={handlePriceChange}
+                onBlur={handlePriceBlur}
                 className={inputStyles}
                 value={price}
                 style={{ width: `${price.length}ch` }}
@@ -99,7 +175,8 @@ export default function Price({
                 color: 'grey.400',
               })}
             >
-              Tu ganas: {price !== '' ? getSellerAmount(Number(price)) : '-'} €
+              Tú ganas:{' '}
+              {price !== '' ? getSellerAmount(Number(price)).toFixed(2) : '-'} €
             </span>
           </div>
         </div>

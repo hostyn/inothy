@@ -21,6 +21,11 @@ import DocumentType from './steps/DocumentType'
 import TitleAndDescription from './steps/TitleAndDescription'
 import MoreInfo from './steps/MoreInfo'
 import Price from './steps/Price'
+import { Link } from '@ui/Link'
+import { SummaryIcon } from './icons/Icons'
+import { MdOutlineShare } from 'react-icons/md'
+import { toastSuccess } from '@services/toaster'
+import { useRouter } from 'next/router'
 
 const STEPS: Step[] = [
   {
@@ -47,6 +52,7 @@ const STEPS: Step[] = [
 
 export default function Upload(): JSX.Element {
   const { userData } = useAuth()
+  const { push } = useRouter()
   const [data, setData] = useState<UploadData>(null)
   const [step, setStep] = useState('intro')
   const steps = useRef(
@@ -104,6 +110,20 @@ export default function Upload(): JSX.Element {
     } else {
       setStep(`${stepNumber}.${substepNumber - 1}`)
     }
+  }
+
+  const share = async ({
+    url,
+    ...props
+  }: {
+    url: string
+    title: string
+    text: string
+  }): Promise<void> => {
+    // TODO: Handle web share api for mobile https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API
+
+    await navigator.clipboard.writeText(url)
+    toastSuccess('Enlace copiado al portapapeles')
   }
 
   return (
@@ -193,6 +213,123 @@ export default function Upload(): JSX.Element {
               />
             </ul>
           </div>
+        </TabContent>
+
+        <TabContent
+          value="end"
+          onSubmit={async e => {
+            e.preventDefault()
+            await push(
+              `/document/${
+                data?.step === 'document-uploaded' ? (data.id as string) : ''
+              }`
+            )
+          }}
+          nextText="Terminar"
+        >
+          {data?.step === 'document-uploaded' && (
+            <div
+              className={css({
+                display: 'flex',
+                flexDir: 'column',
+                alignItems: 'center',
+                gap: '5xl',
+              })}
+            >
+              <div
+                className={css({
+                  display: 'flex',
+                  flexDir: 'column',
+                  alignItems: 'center',
+                  gap: '5xl',
+                  lineHeight: '100%',
+                })}
+              >
+                <div
+                  className={css({
+                    display: 'flex',
+                    flexDir: 'column',
+                    alignItems: 'center',
+                    gap: 'md',
+                    lineHeight: '100%',
+                  })}
+                >
+                  <h1
+                    className={css({
+                      fontSize: '2xl',
+                      color: 'text',
+                      fontWeight: '700',
+                    })}
+                  >
+                    ¡Documento subido!
+                  </h1>
+                  <p
+                    className={css({
+                      color: 'grey.500',
+                    })}
+                  >
+                    ¡Comparte tus apuntes para empezar a ganar dinero!
+                  </p>
+                </div>
+                <div
+                  className={css({
+                    display: 'grid',
+                    gridTemplateColumns: 'auto 1fr auto',
+                    borderRadius: 'md',
+                    border: '1px solid token(colors.grey.100)',
+                    padding: 'md',
+                    width: '4xl',
+                    gap: 'md',
+                    alignItems: 'center',
+                  })}
+                >
+                  <SummaryIcon />
+                  <div
+                    className={css({
+                      display: 'flex',
+                      flexDir: 'column',
+                      gap: 'xs',
+                    })}
+                  >
+                    <Link
+                      href={`/document/${data.id as string}`}
+                      className={css({
+                        color: 'text',
+                        fontWeight: '600',
+                        width: 'fit-content',
+                      })}
+                    >
+                      {data.title}
+                    </Link>
+                    <span
+                      className={css({
+                        color: 'grey.500',
+                        fontSize: 'sm',
+                      })}
+                    >
+                      {data.subject.name} · {data.subject.university.name}
+                    </span>
+                  </div>
+                  <button
+                    onClick={async () => {
+                      await share({
+                        url: `https://inothy.com/document/${data.id as string}`,
+                        title: data.title,
+                        text: data.description,
+                      })
+                    }}
+                  >
+                    <MdOutlineShare
+                      size={24}
+                      className={css({
+                        fill: 'grey.400',
+                      })}
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </TabContent>
 
         {steps.map(step =>
