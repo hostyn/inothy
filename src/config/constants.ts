@@ -10,6 +10,8 @@ export const MANGOPAY_CLIENT_ID = process.env.MANGOPAY_CLIENT_ID as string
 export const MANGOPAY_API_KEY = process.env.MANGOPAY_API_KEY as string
 export const MANGOPAY_ENDPOINT = process.env.MANGOPAY_ENDPOINT as string
 export const FRONTEND_URL = process.env.NEXT_PUBLIC_FRONTEND_URL as string
+export const EMAIL_HOST = process.env.EMAIL_HOST as string
+export const EMAIL_PORT = Number(process.env.EMAIL_PORT as string)
 export const NOREPLY_USER = process.env.NOREPLY_USER as string
 export const NOREPLY_PASS = process.env.NOREPLY_PASS as string
 export const MIN_PRICE = parseFloat(process.env.NEXT_PUBLIC_MIN_PRICE as string)
@@ -24,7 +26,6 @@ export const BADGE_NAMES = {
   silver: 'Plata',
   gold: 'Oro',
 }
-
 
 export const REFUSE_REASONS = {
   DOCUMENT_UNREADABLE:
@@ -45,5 +46,5 @@ export const REFUSE_REASONS = {
     'El documento ha sido rechazado porque se sospecha que ha sido falsificado.',
   UNDERAGE_PERSON:
     'El documento ha sido rechazado porque es necesario ser mayor de edad.',
-  SPECIFIC_CASE: 'El documento ha sido rechazado por un caso específico.'
+  SPECIFIC_CASE: 'El documento ha sido rechazado por un caso específico.',
 }

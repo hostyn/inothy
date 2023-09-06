@@ -1,9 +1,14 @@
-import { NOREPLY_PASS, NOREPLY_USER } from 'config/constants'
+import {
+  EMAIL_HOST,
+  EMAIL_PORT,
+  NOREPLY_PASS,
+  NOREPLY_USER,
+} from 'config/constants'
 import nodemailer from 'nodemailer'
 
 const transpoerter = nodemailer.createTransport({
-  host: 'smtp.privateemail.com',
-  port: 465,
+  host: EMAIL_HOST,
+  port: EMAIL_PORT,
   secure: true,
   auth: {
     user: NOREPLY_USER,
