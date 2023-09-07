@@ -10,6 +10,10 @@ import fs from 'fs'
 const prisma = new PrismaClient()
 
 async function main() {
+  await storageAdmin.deleteFiles({
+    prefix: 'documents/',
+  })
+
   await Promise.all(
     universities.map(async university => {
       const logoBuffer = fs.readFileSync(`resources/${university.symbol}.png`)
