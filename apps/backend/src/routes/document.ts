@@ -5,7 +5,7 @@ import { getUserData } from '../util/getUserData'
 import { TRPCError } from '@trpc/server'
 import { storageAdmin } from 'firebase-admin-config'
 import { v4 as uuidv4 } from 'uuid'
-import makePdfPreview from '../util/makePdfPreview'
+import { makePdfPreview } from '../util/processPdf'
 
 export const documentRouter = createTRPCRouter({
   getDocumentTypes: publicProcedure.query(async ({ ctx }) => {
