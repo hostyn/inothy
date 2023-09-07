@@ -17,6 +17,7 @@ importers:
       '@trpc/client': ^10.29.1
       '@trpc/server': ^10.29.1
       '@types/bcryptjs': ^2.4.2
+      '@types/qrcode-svg': ^1.1.2
       '@types/uuid': ^9.0.2
       eslint: ^7.32.0
       eslint-config-custom: workspace:*
@@ -25,6 +26,7 @@ importers:
       next-firebase-auth: 1.0.0-canary.22
       pdf-lib: ^1.17.1
       prisma: workspace:*
+      qrcode-svg: ^1.1.0
       superjson: ^1.12.3
       tsconfig: workspace:*
       typescript: ^4.5.3
@@ -39,11 +41,13 @@ importers:
       next-firebase-auth: 1.0.0-canary.22
       pdf-lib: 1.17.1
       prisma: link:../../packages/prisma
+      qrcode-svg: 1.1.0
       superjson: 1.12.3
       uuid: 9.0.0
       zod: 3.21.4
     devDependencies:
       '@types/bcryptjs': 2.4.2
+      '@types/qrcode-svg': 1.1.2
       eslint: 7.32.0
       eslint-config-custom: link:../../packages/eslint-config-custom
       tsconfig: link:../../packages/tsconfig
@@ -3436,6 +3440,10 @@ packages:
 
   /@types/prop-types/15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
+
+  /@types/qrcode-svg/1.1.2:
+    resolution: {integrity: sha512-bz36jcD7773J7+Pjygvr7UCxt/0TZw4isRaifJyXByOyZDUs52YhW4hinMMqN5XOa8i6mz4u55mEmahLqlfx4w==}
+    dev: true
 
   /@types/qs/6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
@@ -9528,6 +9536,11 @@ packages:
   /punycode/2.3.0:
     resolution: {integrity: sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==}
     engines: {node: '>=6'}
+
+  /qrcode-svg/1.1.0:
+    resolution: {integrity: sha512-XyQCIXux1zEIA3NPb0AeR8UMYvXZzWEhgdBgBjH9gO7M48H9uoHzviNz8pXw3UzrAcxRRRn9gxHewAVK7bn9qw==}
+    hasBin: true
+    dev: false
 
   /qs/6.11.0:
     resolution: {integrity: sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==}

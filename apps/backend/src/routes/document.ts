@@ -5,7 +5,7 @@ import { getUserData } from '../util/getUserData'
 import { TRPCError } from '@trpc/server'
 import { storageAdmin } from 'firebase-admin-config'
 import { v4 as uuidv4 } from 'uuid'
-import { makePdfPreview } from '../util/processPdf'
+import { makePdfDocument, makePdfPreview } from '../util/processPdf'
 
 export const documentRouter = createTRPCRouter({
   getDocumentTypes: publicProcedure.query(async ({ ctx }) => {
@@ -96,7 +96,8 @@ export const documentRouter = createTRPCRouter({
           base64pdf: input.file,
           title: input.title,
           author: userData.username,
-          subject: `${subject.name} - ${subject.university.name}`,
+          subject: subject.name,
+          university: subject.university.name,
         })
 
         const preivewRef = storageAdmin.file(preivewPath)
@@ -157,6 +158,32 @@ export const documentRouter = createTRPCRouter({
           },
         },
       })
+
+      // Improve PDF
+      if (input.contentType === 'application/pdf') {
+        const improvedPdf = await makePdfDocument({
+          base64pdf: input.file,
+          title: input.title,
+          author: userData.username,
+          subject: subject.name,
+          university: subject.university.name,
+          url: `https://inothy.com/document/${document.id}`,
+        })
+
+        const improvedPDFStream = fileRef.createWriteStream({
+          metadata: {
+            contentType: input.contentType,
+          },
+        })
+
+        try {
+          await new Promise((resolve, reject) => {
+            improvedPDFStream.on('finish', resolve)
+            improvedPDFStream.on('error', reject)
+            improvedPDFStream.end(Buffer.from(improvedPdf))
+          })
+        } catch {}
+      }
 
       return document
     }),
