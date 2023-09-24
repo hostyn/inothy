@@ -248,7 +248,7 @@ export default function DocumentPage({
               </Text>
               {user?.data?.bought?.includes(
                 documentData.subject.id + '/' + documentData.id
-              ) != null ? (
+              ) ?? false ? (
                 <Button
                   margin="0"
                   height="auto"

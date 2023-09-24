@@ -31,7 +31,7 @@ export default function Payment({
   documents,
   onSuccess = null,
 }: PaymentProps): JSX.Element {
-  const [state, setState] = useState<PaymentState>('cardSuccess')
+  const [state, setState] = useState<PaymentState>('resume')
 
   const [paymentDetails, setPaymentDetails] = useState<PaymentDetails>({
     cardId: null,
