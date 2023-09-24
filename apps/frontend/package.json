@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@firebase/app-types": "^0.8.1",
-    "@pandacss/dev": "^0.14.0",
+    "@pandacss/dev": "^0.15.1",
     "@types/node": "^18.17.14",
     "@types/nodemailer": "^6.4.7",
     "@types/react": "^18.2.14",
