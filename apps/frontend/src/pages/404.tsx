@@ -1,17 +1,7 @@
-import styled from 'styled-components'
 import App from '@components/App'
-import Link from 'next/link'
+import { css } from '@styled-system/css'
+import { ButtonLink } from '@ui/Button'
 import Head from 'next/head'
-import { A, Img, Text } from '@ui'
-
-const NotFoundDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: inherit;
-  min-width: 100vw;
-`
 
 export default function notFound(): JSX.Element {
   return (
@@ -20,21 +10,48 @@ export default function notFound(): JSX.Element {
         <title>Inothy - 404 No encontrado</title>
       </Head>
       <App>
-        <NotFoundDiv>
-          <Text fontSize="5rem" fontWeight="bold" color="secondary">
-            404
-          </Text>
-          <Text fontSize="2rem" textAlign="center">
-            ¡Vaya!
-          </Text>
-          <Text fontSize="2rem" textAlign="center">
-            No hemos podido encontrar lo que buscabas
-          </Text>
-          <Link href="/" passHref>
-            <A margin="1rem 0">Volver al home</A>
-          </Link>
-          <Img src="/resources/404/404.svg" aspectRatio="172/75" width="50%" />
-        </NotFoundDiv>
+        <div
+          className={css({
+            width: '5xl',
+            margin: 'auto',
+            display: 'flex',
+            flexDir: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: 'inherit',
+            gap: 'md',
+          })}
+        >
+          <div
+            className={css({
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            })}
+          >
+            <h1
+              className={css({
+                fontSize: '4xl',
+                fontWeight: 'bold',
+                color: 'primary.500',
+                lineHeight: '1',
+              })}
+            >
+              404
+            </h1>
+            <p
+              className={css({
+                color: 'primary.500',
+                fontWeight: '500',
+                fontSize: 'lg',
+              })}
+            >
+              Parece que esta página no existe.
+            </p>
+          </div>
+          <ButtonLink href="/">Volver al inicio</ButtonLink>
+        </div>
       </App>
     </>
   )

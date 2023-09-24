@@ -1,10 +1,9 @@
-import LoadingPage from '@components/LoadingPage'
-import { type GetServerSideProps } from 'next'
+import protectedContentSSR from '@middleware/protectedContentSSR'
 
 export default function Account(): JSX.Element {
-  return <LoadingPage />
+  return <></>
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  return { redirect: { permanent: true, destination: '/account/profile' } }
-}
+export const getServerSideProps = protectedContentSSR(async () => ({
+  redirect: { permanent: true, destination: '/account/general' },
+}))

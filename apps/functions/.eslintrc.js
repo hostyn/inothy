@@ -4,11 +4,26 @@ module.exports = {
     es6: true,
     node: true,
   },
-  extends: ["eslint:recommended", "google"],
-  rules: {
-    quotes: ["error", "double"],
-  },
+  extends: [
+    'eslint:recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
+    'google',
+    'plugin:@typescript-eslint/recommended',
+    'standard-with-typescript',
+    'eslint-config-prettier',
+  ],
   parserOptions: {
-    ecmaVersion: 2020,
+    project: ['tsconfig.json', 'tsconfig.dev.json'],
+    sourceType: 'module',
+    tsconfigRootDir: __dirname,
   },
-};
+  ignorePatterns: [
+    '/lib/**/*', // Ignore built files.
+  ],
+  plugins: ['@typescript-eslint', 'import'],
+  rules: {
+    '@typescript-eslint/no-misused-promises': 'off',
+  },
+}

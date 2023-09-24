@@ -2,12 +2,15 @@
   "private": true,
   "scripts": {
     "lint": "turbo run lint",
-    "dev": "dotenv -c development -- turbo dev"
+    "dev": "dotenv -c development -- turbo dev",
+    "build": "turbo build",
+    "functions:deploy": "firebase deploy --only functions",
+    "functions:prepare": "bash syncSchema.sh && npm --prefix apps/functions run prisma:generate"
   },
   "devDependencies": {
-    "@turbo/gen": "^1.9.7",
+    "@turbo/gen": "^1.10.7",
     "dotenv-cli": "^7.2.1",
-    "turbo": "^1.9.7"
+    "turbo": "^1.10.7"
   },
   "packageManager": "pnpm@7.15.0",
   "name": "inothy"

@@ -3,6 +3,7 @@
     "repo",
     "frontend",
     "backend",
-    "database"
+    "database",
+    "functions"
   ]
 }

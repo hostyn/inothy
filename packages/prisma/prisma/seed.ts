@@ -10,6 +10,10 @@ import fs from 'fs'
 const prisma = new PrismaClient()
 
 async function main() {
+  await storageAdmin.deleteFiles({
+    prefix: 'documents/',
+  })
+
   await Promise.all(
     universities.map(async university => {
       const logoBuffer = fs.readFileSync(`resources/${university.symbol}.png`)
@@ -44,14 +48,23 @@ async function main() {
   const users = await authAdmin.listUsers()
   await authAdmin.deleteUsers(users.users.map(user => user.uid))
 
-  const user = await authAdmin.createUser({
+  await authAdmin.createUser({
     email: 'test@test.com',
     password: 'test1234',
     emailVerified: true,
   })
 
-  await prisma.user.create({
-    data: { uid: user.uid, email: user.email ?? '', username: 'test' },
+  await prisma.documentType.createMany({
+    data: [
+      { name: 'exam' },
+      { name: 'note' },
+      { name: 'practice' },
+      { name: 'assignment' },
+      { name: 'exercise' },
+      { name: 'summary' },
+      { name: 'presentation' },
+      { name: 'other' },
+    ],
   })
 }
 

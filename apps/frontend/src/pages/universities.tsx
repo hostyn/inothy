@@ -1,30 +1,23 @@
-import { type GetServerSideProps } from 'next'
 import Head from 'next/head'
-import type { University } from 'types/api'
-import { getUniversities } from '@util/api'
+import publicContentSSR from '@middleware/publicContentSSR'
+import publicContent from '@middleware/publicContent'
 import UniversitiesView from '@views/Universities'
 
-interface UniversitiesProps {
-  universities: University[]
-}
-
-export default function Universities({
-  universities,
-}: UniversitiesProps): JSX.Element {
+function Universities(): JSX.Element {
   return (
     <>
       <Head>
-        <title>Inothy - Universidades</title>
+        <title>Universidades - Inothy</title>
         <meta name="robots" content="index,follow" />
       </Head>
-      <UniversitiesView universities={universities} />
+      <UniversitiesView />
     </>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  const universities = await getUniversities()
-  return {
-    props: { universities },
-  }
-}
+export default publicContent(Universities)
+
+export const getServerSideProps = publicContentSSR(async ({ helper }) => {
+  await helper.universities.getUniversities.prefetch()
+  return { props: {} }
+})

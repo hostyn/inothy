@@ -1,17 +1,20 @@
+import protectedContent from '@middleware/protectedContent'
+import protectedContentSSR from '@middleware/protectedContentSSR'
+import Profile from '@views/Account/Profile'
+import { type NextPage } from 'next'
 import Head from 'next/head'
-import ProtectedContent from '@components/ProtectedContent'
-import ProfileView from '@views/Account/Profile'
 
-export default function Profile(): JSX.Element {
+const Page: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Inothy - Cuenta</title>
-        <meta name="robots" content="noindex,nofollow" />
+        <title>Ajustes de la cuenta - Inothy</title>
+        <meta name="robots" content="noindex,follow" />
       </Head>
-      <ProtectedContent>
-        <ProfileView />
-      </ProtectedContent>
+      <Profile />
     </>
   )
 }
+
+export default protectedContent(Page)
+export const getServerSideProps = protectedContentSSR()

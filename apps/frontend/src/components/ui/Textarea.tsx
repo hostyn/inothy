@@ -1,126 +1,168 @@
-import styled from 'styled-components'
-import { colors } from '@config/theme'
 import { forwardRef } from 'react'
 import type { FieldError, ChangeHandler } from 'react-hook-form'
-import Text from './Text'
-import Img from './Img'
-import Flex from './Flex'
+import { css, cx } from '@styled-system/css'
+import { MdErrorOutline } from 'react-icons/md'
 
-const TextareaDiv = styled.div`
-  position: relative;
-  margin: 10px 0 5px 0;
-`
-
-const Label = styled.label`
-  position: absolute;
-  top: 11px;
-  left: 10px;
-  transition: all 0.2s ease;
-  background-color: white;
-  pointer-events: none;
-  font-size: 1rem;
-  color: #8e8e8e;
-  user-select: none;
-`
-
-const StyledTextarea = styled.textarea<{ error: boolean }>`
-  color: ${colors.primary};
-  border: ${props =>
-    props.error
-      ? `2px solid ${colors.secondary}`
-      : `2px solid ${colors.primary}`};
-  border-radius: 10px;
-  padding: 10px;
-  width: 100%;
-  font-family: VarelaRound;
-  font-size: 1rem;
-  resize: none;
-
-  :focus {
-    outline: none;
-  }
-
-  :focus + ${Label}, :not(:placeholder-shown) + ${Label} {
-    transform: translateY(-100%);
-    font-size: 0.9rem;
-    padding: 0 3px;
-    color: ${props => (props.error ? colors.secondary : colors.primary)};
-  }
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  &[type='number'] {
-    appearance: textfield;
-    -moz-appearance: textfield;
-  }
-
-  :disabled {
-    background-color: #efefef;
-  }
-
-  :disabled + ${Label} {
-    background: linear-gradient(#ffffff 20%, #efefef);
-  }
-`
-
-const ErrorDiv = styled.div`
-  width: 100%;
-  height: calc(0.8rem + 5px);
-  display: flex;
-  padding: 0 0 5px 0;
-`
-
-interface TextareaProps {
+interface TextArea
+  extends React.DetailedHTMLProps<
+    React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    HTMLTextAreaElement
+  > {
   placeholder?: string
-  onChange?: ChangeHandler
+  className?: string
+  onChange?: ChangeHandler | ((e: any) => void)
   onBlur?: ChangeHandler
   type?: string
   name?: string
   error?: FieldError
   autoComplete?: string
-  rows?: number
-  disabled?: boolean
   value?: string
+  nativePlaceholder?: string
+  keepErrorSpace?: boolean
 }
 
-function Textarea(
-  { placeholder, error, rows, ...props }: TextareaProps,
+function Input(
+  {
+    placeholder,
+    error,
+    className,
+    nativePlaceholder,
+    keepErrorSpace = false,
+    ...props
+  }: TextArea,
   ref: React.Ref<any>
 ): JSX.Element {
   return (
-    <Flex>
-      <TextareaDiv>
-        <StyledTextarea
+    <div
+      className={cx(
+        css({
+          display: 'flex',
+          flexDir: 'column',
+        }),
+        className
+      )}
+    >
+      <div className={css({ position: 'relative' })}>
+        <textarea
+          className={css({
+            color: 'primary.500',
+            bg: error != null ? 'red.100' : 'grey.100',
+            borderRadius: 'md',
+            py: 'xs',
+            px: 'sm',
+            width: '100%',
+            transition: 'background 150ms ease, outline-width 50ms ease-in-out',
+            resize: 'none',
+
+            // When the input has value but is not focused
+            '&:not(:placeholder-shown)': {
+              bg: 'white',
+              outline:
+                error != null
+                  ? '2px solid token(colors.red.200)'
+                  : '2px solid token(colors.grey.100)',
+              transition:
+                'outline-color 150ms ease, background 150ms ease, outline-width 50ms ease-in-out',
+            },
+
+            // When the input is focused
+            _focus: {
+              bg: 'white',
+              outline:
+                error != null
+                  ? '3px solid token(colors.red.300)'
+                  : '3px solid token(colors.primary.300)',
+            },
+
+            // The label when the input is focused or has value
+            '&:focus + label': {
+              transform: 'translateY(-150%)',
+              fontSize: 'sm',
+              px: '2px',
+              color: error != null ? 'red.300' : 'primary.300',
+              fontWeight: '700',
+              bg: 'white',
+            },
+
+            '&:not(:placeholder-shown) + label': {
+              transform: 'translateY(-150%)',
+              fontSize: 'sm',
+              px: '2px',
+              color: error != null ? 'red.200' : 'grey.200',
+              fontWeight: '600',
+              bg: 'white',
+            },
+
+            // The icon when the input is focused
+            '&:focus + label + label svg': {
+              fill: error != null ? 'red.300' : 'primary.300',
+            },
+
+            // The icon when the input has value
+            '&:not(:placeholder-shown) + label + label svg': {
+              fill: error != null ? 'red.200' : 'grey.200',
+            },
+
+            '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
+              WebkitAppearance: 'none',
+              margin: '0',
+            },
+          })}
           {...props}
           ref={ref}
-          title=""
-          rows={rows}
-          placeholder=" "
-          error={error != null}
+          title={placeholder}
+          placeholder={nativePlaceholder ?? ' '}
+          aria-invalid={error != null}
+          aria-errormessage={error?.message}
         />
-        <Label>{placeholder}</Label>
-      </TextareaDiv>
-      <ErrorDiv>
-        {error != null && (
-          <>
-            <Img
-              src="/icons/info-error.svg"
-              width="1rem"
-              height="1rem"
-              margin="0 5px"
-            />
-            <Text margin="0 auto 0 0" color="secondary" fontSize="0.8rem">
-              {error?.message?.toString()}
-            </Text>
-          </>
-        )}
-      </ErrorDiv>
-    </Flex>
+        <label
+          className={css({
+            position: 'absolute',
+            color: 'grey.400',
+            top: '10px',
+            left: 'calc(token(spacing.sm) - 2px)',
+            transition: 'all 150ms ease',
+            pointerEvents: 'none',
+            userSelect: 'none',
+            lineHeight: '.8',
+          })}
+        >
+          {placeholder}
+        </label>
+      </div>
+      {(keepErrorSpace || error != null) && (
+        <div
+          className={css({
+            width: '100%',
+            height: '8xs',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'xs',
+          })}
+        >
+          {error != null && (
+            <>
+              <MdErrorOutline
+                size={14}
+                className={css({
+                  fill: 'error',
+                })}
+              />
+              <p
+                className={css({
+                  fontSize: 'sm',
+                  fontWeight: '500',
+                  color: 'error',
+                })}
+              >
+                {error?.message?.toString()}
+              </p>
+            </>
+          )}
+        </div>
+      )}
+    </div>
   )
 }
 
-export default forwardRef(Textarea)
+export default forwardRef(Input)

@@ -5,7 +5,7 @@ module.exports = {
     node: true,
   },
   extends: [
-    "turbo",
+    'turbo',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'standard-with-typescript',

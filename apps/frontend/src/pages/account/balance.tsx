@@ -1,17 +1,20 @@
+import protectedContent from '@middleware/protectedContent'
+import protectedContentSSR from '@middleware/protectedContentSSR'
+import Balance from '@views/Account/Balance'
+import { type NextPage } from 'next'
 import Head from 'next/head'
-import ProtectedContent from '@components/ProtectedContent'
-import BalanceView from '@views/Account/Balance'
 
-export default function Balance(): JSX.Element {
+const Page: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Inothy - Balance</title>
-        <meta name="robots" content="noindex,nofollow" />
+        <title>Balance - Inothy</title>
+        <meta name="robots" content="noindex,follow" />
       </Head>
-      <ProtectedContent>
-        <BalanceView />
-      </ProtectedContent>
+      <Balance />
     </>
   )
 }
+
+export default protectedContent(Page)
+export const getServerSideProps = protectedContentSSR()
