@@ -29,13 +29,10 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      {/* <Providers headers={pageProps.headers}> */}
-      {/* <Cookies /> */}
       <div className={`${nunito.className} ${nunitoSans.className}`}>
         <Toaster position="bottom-right" duration={5000} />
         <Component {...pageProps} />
       </div>
-      {/* </Providers> */}
     </>
   )
 }
