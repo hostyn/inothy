@@ -9,7 +9,7 @@ import fs from 'fs'
 
 const prisma = new PrismaClient()
 
-async function main() {
+async function main(): Promise<void> {
   await storageAdmin.deleteFiles({
     prefix: 'documents/',
   })
@@ -24,16 +24,16 @@ async function main() {
 
       const logoUrl = universityLogoRef.publicUrl()
 
-      universityLogoRef
+      void universityLogoRef
         .save(logoBuffer)
-        .then(() => universityLogoRef.makePublic())
+        .then(async () => await universityLogoRef.makePublic())
 
       await prisma.university.create({
         data: {
           id: university.id,
           name: university.name,
           symbol: university.symbol,
-          logoUrl: logoUrl,
+          logoUrl,
           url: university.url,
         },
       })

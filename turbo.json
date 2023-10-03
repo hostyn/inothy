@@ -25,7 +25,8 @@
     "VERCEL_URL",
     "NODE_ENV",
     "COOKIE_SECRET_CURRENT",
-    "COOKIE_SECRET_PREVIOUS"
+    "COOKIE_SECRET_PREVIOUS",
+    "DATABASE_URL"
   ],
   "pipeline": {
     "lint": {
@@ -35,7 +36,13 @@
       "cache": false,
       "persistent": true
     },
+    "db:generate": {
+      "cache": false
+    },
     "build": {
+      "dependsOn": [
+        "db:generate"
+      ],
       "cache": false,
       "persistent": true
     }

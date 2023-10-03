@@ -22,7 +22,7 @@
     "firebase-admin-config": "workspace:^0.0.0"
   },
   "scripts": {
-    "db:generate": "prisma db generate",
+    "db:generate": "prisma generate",
     "db:push": "prisma db push --skip-generate",
     "db:studio": "prisma studio --browser none",
     "db:seed": "prisma db push --force-reset && prisma db seed",

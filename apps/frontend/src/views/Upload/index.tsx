@@ -120,8 +120,6 @@ export default function Upload(): JSX.Element {
     title: string
     text: string
   }): Promise<void> => {
-    // TODO: Handle web share api for mobile https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API
-
     await navigator.clipboard.writeText(url)
     toastSuccess('Enlace copiado al portapapeles')
   }
@@ -220,9 +218,7 @@ export default function Upload(): JSX.Element {
           onSubmit={async e => {
             e.preventDefault()
             await push(
-              `/document/${
-                data?.step === 'document-uploaded' ? (data.id as string) : ''
-              }`
+              `/document/${data?.step === 'document-uploaded' ? data.id : ''}`
             )
           }}
           nextText="Terminar"
@@ -292,7 +288,7 @@ export default function Upload(): JSX.Element {
                     })}
                   >
                     <Link
-                      href={`/document/${data.id as string}`}
+                      href={`/document/${data.id}`}
                       className={css({
                         color: 'text',
                         fontWeight: '600',
@@ -313,7 +309,7 @@ export default function Upload(): JSX.Element {
                   <button
                     onClick={async () => {
                       await share({
-                        url: `https://inothy.com/document/${data.id as string}`,
+                        url: `https://inothy.com/document/${data.id}`,
                         title: data.title,
                         text: data.description,
                       })
