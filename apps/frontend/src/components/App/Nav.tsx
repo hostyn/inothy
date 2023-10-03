@@ -54,7 +54,7 @@ export default function Nav(): JSX.Element {
       })}
     >
       <div className={divStyles}>
-        <Link href="/">
+        <Link href="/" aria-label="Volver a la página principal">
           <Logo />
         </Link>
         <SearchBar />
