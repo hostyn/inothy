@@ -1,9 +1,10 @@
 import App from '@components/App'
+import publicContent from '@middleware/publicContent'
 import { css } from '@styled-system/css'
 import { ButtonLink } from '@ui/Button'
 import Head from 'next/head'
 
-export default function notFound(): JSX.Element {
+function NotFound(): JSX.Element {
   return (
     <>
       <Head>
@@ -56,3 +57,5 @@ export default function notFound(): JSX.Element {
     </>
   )
 }
+
+export default publicContent(NotFound)
