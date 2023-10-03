@@ -1,7 +1,7 @@
 import { initTRPC } from '@trpc/server'
 import superjson from 'superjson'
 import { ZodError } from 'zod'
-import { type PrismaClient, prisma } from 'prisma'
+import { prisma } from 'prisma'
 import { type AuthUser } from 'next-firebase-auth'
 
 interface CreateContextOptions {
@@ -10,7 +10,7 @@ interface CreateContextOptions {
 
 export const createInnerTRPCContext = ({
   user,
-}: CreateContextOptions): CreateContextOptions & { prisma: PrismaClient } => ({
+}: CreateContextOptions): CreateContextOptions & { prisma: typeof prisma } => ({
   user,
   prisma,
 })
