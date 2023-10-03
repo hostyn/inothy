@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@firebase/app-types": "^0.8.1",
+    "@next/eslint-plugin-next": "^13.5.4",
     "@pandacss/dev": "^0.15.1",
     "@types/node": "^18.17.14",
     "@types/nodemailer": "^6.4.7",
