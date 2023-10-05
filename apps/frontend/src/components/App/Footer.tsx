@@ -47,6 +47,7 @@ export default function Footer(): JSX.Element {
           href="https://youtube.com/@_inothy"
           target="_blank"
           rel="noreferrer"
+          aria-label="Youtube"
         >
           <AiOutlineYoutube color="white" size={20} />
         </a>
@@ -55,14 +56,16 @@ export default function Footer(): JSX.Element {
           href="https://www.instagram.com/_inothy/"
           target="_blank"
           rel="noreferrer"
+          aria-label="Instagram"
         >
           <AiOutlineInstagram color="white" size={20} />
         </a>
         <a
           className={rrssStyle}
-          href="https://www.instagram.com/_inothy/"
+          href="https://www.tiktok.com/@_inothy"
           target="_blank"
           rel="noreferrer"
+          aria-label="TikTok"
         >
           <RiTiktokFill color="white" size={20} />
         </a>

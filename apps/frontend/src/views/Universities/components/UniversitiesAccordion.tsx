@@ -89,7 +89,7 @@ const UniversityTrigger = React.forwardRef(
     }: { children: JSX.Element; className?: string },
     forwardedRef: React.Ref<HTMLButtonElement>
   ) => (
-    <Accordion.Header>
+    <Accordion.Header asChild>
       <Accordion.Trigger
         {...props}
         ref={forwardedRef}

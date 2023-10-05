@@ -61,6 +61,7 @@
     "dotenv": "^16.0.3",
     "eslint": "^8.44.0",
     "eslint-config-custom": "workspace:*",
+    "eslint-config-next": "^13.5.4",
     "tsconfig": "workspace:*",
     "typescript": "^4.9.5"
   }
