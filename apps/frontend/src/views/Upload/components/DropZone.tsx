@@ -62,7 +62,7 @@ export default function DropZone({
 
   useEffect(() => {
     onFile(file)
-  }, [file])
+  }, [file, onFile])
 
   return (
     <>
