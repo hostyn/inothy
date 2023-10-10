@@ -2,12 +2,14 @@
   "private": true,
   "scripts": {
     "lint": "turbo run lint",
-    "dev": "dotenv -c development -- turbo dev",
+    "dev": "npm run mongo:start && dotenv -c development -- turbo dev",
     "build": "turbo run db:generate && dotenv -c development -- turbo build --filter=frontend",
     "db:generate": "turbo run db:generate",
     "functions:deploy": "firebase deploy --only functions",
     "functions:prepare": "bash syncSchema.sh && npm --prefix apps/functions run prisma:generate",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "mongo:start": "docker-compose up -d",
+    "mongo:stop": "docker-compose down"
   },
   "devDependencies": {
     "@turbo/gen": "^1.10.7",
@@ -16,6 +18,6 @@
     "next": "^13.4.8",
     "turbo": "^1.10.7"
   },
-  "packageManager": "pnpm@7.15.0",
+  "packageManager": "pnpm@8.8.0",
   "name": "inothy"
 }
