@@ -48,7 +48,7 @@ async function main(): Promise<void> {
   const users = await authAdmin.listUsers()
   await authAdmin.deleteUsers(users.users.map(user => user.uid))
 
-  await authAdmin.createUser({
+  const user = await authAdmin.createUser({
     email: 'test@test.com',
     password: 'test1234',
     emailVerified: true,
@@ -65,6 +65,61 @@ async function main(): Promise<void> {
       { name: 'presentation' },
       { name: 'other' },
     ],
+  })
+
+  await new Promise(resolve => setTimeout(resolve, 1000))
+
+  const documentIdentifier = '1ffe84b5-67ef-4bc2-9b3f-74635bdc73e3'
+  const filePath = `documents/${documentIdentifier}/document.pdf`
+
+  const fileRef = storageAdmin.file(filePath)
+  const fileStream = fileRef.createWriteStream({
+    metadata: {
+      contentType: 'application/pdf',
+    },
+  })
+
+  const document = fs.readFileSync('resources/document.pdf')
+
+  try {
+    await new Promise((resolve, reject) => {
+      fileStream.on('finish', resolve)
+      fileStream.on('error', reject)
+      fileStream.end(document)
+    })
+  } catch {}
+
+  const examDocumentType = await prisma.documentType.findFirst({
+    where: {
+      name: 'exam',
+    },
+  })
+
+  await prisma.document.create({
+    data: {
+      byHand: false,
+      contentType: 'application/pdf',
+      title: 'test',
+      description: 'test',
+      filePath: 'documents/test.pdf',
+      price: 2.3,
+      user: {
+        create: {
+          uid: user.uid,
+          username: 'test',
+        },
+      },
+      subject: {
+        connect: {
+          id: '649a010baa817f497301be99',
+        },
+      },
+      documentType: {
+        connect: {
+          id: examDocumentType?.id,
+        },
+      },
+    },
   })
 }
 
