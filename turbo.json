@@ -26,7 +26,8 @@
     "NODE_ENV",
     "COOKIE_SECRET_CURRENT",
     "COOKIE_SECRET_PREVIOUS",
-    "DATABASE_URL"
+    "DATABASE_URL",
+    "STRIPE_SECRET_KEY"
   ],
   "pipeline": {
     "lint": {
