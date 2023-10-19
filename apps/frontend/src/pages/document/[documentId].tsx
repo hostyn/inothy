@@ -1,0 +1,37 @@
+import Head from 'next/head'
+import publicContentSSR from '@middleware/publicContentSSR'
+import publicContent from '@middleware/publicContent'
+import DocumentView from '@views/Document/index'
+import { useRouter } from 'next/router'
+import { trpc } from '@services/trpc'
+
+function Document(props: any): JSX.Element {
+  const { data: documentData } = trpc.document.getDocument.useQuery({
+    id: props.documentId,
+  })
+
+  return (
+    <>
+      <Head>
+        <title>{documentData?.title} - Inothy</title>
+        <meta name="robots" content="index,follow" />
+      </Head>
+      <DocumentView />
+    </>
+  )
+}
+
+export const getServerSideProps = publicContentSSR(async ctx => {
+  const documentId = ctx.params?.documentId as string
+  await ctx.helper.document.getDocument.prefetch({
+    id: documentId,
+  })
+  console.log('documento', documentId)
+  return {
+    props: {
+      documentId,
+    },
+  }
+})
+
+export default publicContent(Document)
