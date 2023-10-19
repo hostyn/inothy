@@ -211,7 +211,6 @@ export default function DocumentView({}: {}): JSX.Element {
                   >
                     Tipo
                   </p>
-                  {/* TODO: A mano? De donde puedo sacar estos datos? */}
                   <div
                     className={css({
                       fontSize: '16px',
@@ -219,7 +218,7 @@ export default function DocumentView({}: {}): JSX.Element {
                       color: 'grey.500',
                     })}
                   >
-                    {documentData?.title}
+                    {documentData?.documentTypeId}
                   </div>
                 </div>
               </div>
