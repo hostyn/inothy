@@ -13,6 +13,18 @@ export const documentRouter = createTRPCRouter({
     return documentTypes
   }),
 
+  getDocument: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const document = await ctx.prisma.document.findUnique({
+        where: {
+          id: input.id,
+        },
+      })
+      if (!document) throw new TRPCError({ code: 'NOT_FOUND' })
+      return document
+    }),
+
   upload: protectedProcedure
     .input(
       z.object({
