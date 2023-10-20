@@ -43,26 +43,26 @@ export default function DocumentView(): JSX.Element {
         >
           <div
             className={css({
-              pr: '32px',
-              width: '400px',
+              mr: 'xl',
+              width: '2xl', //TODO: Este está aproximado a 24 rem siendo 25 en figma
             })}
           >
             <div
               className={stack({
-                gap: '16px',
-                px: '8px',
+                gap: 'md',
+                px: 'sm',
               })}
             >
               <div
                 className={css({
                   display: 'flex',
                   justifyContent: 'space-between',
-                  py: '16px',
+                  py: 'md',
                 })}
               >
                 <div
                   className={css({
-                    fontSize: '48px',
+                    fontSize: '4xl',
                     fontWeight: '700',
                     color: 'primary.500',
                   })}
@@ -73,7 +73,7 @@ export default function DocumentView(): JSX.Element {
                   className={css({
                     alignSelf: 'center',
                     height: 'fit-content',
-                    fontSize: '16px',
+                    fontSize: 'md',
                     fontWeight: '700',
                   })}
                 >
@@ -81,18 +81,18 @@ export default function DocumentView(): JSX.Element {
                 </Button>
               </div>
 
-              <div className={hstack({ gap: '8px' })}>
+              <div className={hstack({ gap: 'sm' })}>
                 <MdOutlineChat
                   size={'24px'}
                   className={css({
                     color: 'grey.500',
-                    minW: '24px',
+                    minWidth: '7xs',
                   })}
                 />
-                <div className={stack({ gap: '4px' })}>
+                <div className={stack({ gap: 'xs' })}>
                   <p
                     className={css({
-                      fontSize: '14px',
+                      fontSize: 'sm',
                       fontWeight: '500',
                       color: 'grey.400',
                     })}
@@ -101,7 +101,7 @@ export default function DocumentView(): JSX.Element {
                   </p>
                   <div
                     className={css({
-                      fontSize: '16px',
+                      fontSize: 'md',
                       fontWeight: '600',
                       color: 'grey.500',
                     })}
@@ -118,15 +118,15 @@ export default function DocumentView(): JSX.Element {
               </div>
 
               <Separator />
-              <div className={hstack({ gap: '8px' })}>
+              <div className={hstack({ gap: 'sm' })}>
                 <MdPersonOutline
                   size={'24px'}
-                  className={css({ color: 'grey.500', minW: '24px' })}
+                  className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
                   <p
                     className={css({
-                      fontSize: '14px',
+                      fontSize: 'sm',
                       fontWeight: '500',
                       color: 'grey.400',
                     })}
@@ -135,7 +135,7 @@ export default function DocumentView(): JSX.Element {
                   </p>
                   <div
                     className={css({
-                      fontSize: '16px',
+                      fontSize: 'md',
                       fontWeight: '700',
                       color: 'grey.500',
                     })}
@@ -144,25 +144,24 @@ export default function DocumentView(): JSX.Element {
                   </div>
                 </div>
               </div>
-              <div className={hstack({ gap: '8px' })}>
+              <div className={hstack({ gap: 'sm' })}>
                 <MdOutlineApartment
                   size={'24px'}
-                  className={css({ color: 'grey.500', minW: '24px' })}
+                  className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
                   <p
                     className={css({
-                      fontSize: '14px',
+                      fontSize: 'sm',
                       fontWeight: '500',
                       color: 'grey.400',
                     })}
                   >
                     Universidad
                   </p>
-                  {/* TODO: no encuentro la universidad en el modelo de prisma */}
                   <div
                     className={css({
-                      fontSize: '16px',
+                      fontSize: 'md',
                       fontWeight: '700',
                       color: 'grey.500',
                     })}
@@ -171,15 +170,15 @@ export default function DocumentView(): JSX.Element {
                   </div>
                 </div>
               </div>
-              <div className={hstack({ gap: '8px' })}>
+              <div className={hstack({ gap: 'sm' })}>
                 <MdOutlineBook
                   size={'24px'}
-                  className={css({ color: 'grey.500', minW: '24px' })}
+                  className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
                   <p
                     className={css({
-                      fontSize: '14px',
+                      fontSize: 'sm',
                       fontWeight: '500',
                       color: 'grey.400',
                     })}
@@ -188,7 +187,7 @@ export default function DocumentView(): JSX.Element {
                   </p>
                   <div
                     className={css({
-                      fontSize: '16px',
+                      fontSize: 'md',
                       fontWeight: '700',
                       color: 'grey.500',
                     })}
@@ -197,15 +196,15 @@ export default function DocumentView(): JSX.Element {
                   </div>
                 </div>
               </div>
-              <div className={hstack({ gap: '8px' })}>
+              <div className={hstack({ gap: 'sm' })}>
                 <MdOutlineFitnessCenter
                   size={'24px'}
-                  className={css({ color: 'grey.500', minW: '24px' })}
+                  className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
                   <p
                     className={css({
-                      fontSize: '14px',
+                      fontSize: 'sm',
                       fontWeight: '500',
                       color: 'grey.400',
                     })}
@@ -214,7 +213,7 @@ export default function DocumentView(): JSX.Element {
                   </p>
                   <div
                     className={css({
-                      fontSize: '16px',
+                      fontSize: 'md',
                       fontWeight: '700',
                       color: 'grey.500',
                     })}
@@ -223,42 +222,42 @@ export default function DocumentView(): JSX.Element {
                   </div>
                 </div>
               </div>
-              <div className={hstack({ gap: '8px' })}>
+              <div className={hstack({ gap: 'sm' })}>
                 <MdOutlineLaptopChromebook
                   size={'24px'}
-                  className={css({ color: 'grey.500', minW: '24px' })}
+                  className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
                   <p
                     className={css({
-                      fontSize: '14px',
+                      fontSize: 'sm',
                       fontWeight: '500',
                       color: 'grey.400',
                     })}
                   >
                     Producción
                   </p>
-                  {/* TODO: A mano? De donde puedo sacar estos datos? */}
                   <div
                     className={css({
-                      fontSize: '16px',
+                      fontSize: 'md',
                       fontWeight: '700',
                       color: 'grey.500',
                     })}
                   >
+                    {/* TODO: Buscar las opciones exactas */}
                     {documentData?.byHand ? 'A mano' : 'Digital'}
                   </div>
                 </div>
               </div>
-              <div className={hstack({ gap: '8px' })}>
+              <div className={hstack({ gap: 'sm' })}>
                 <MdOutlineWorkspacePremium
                   size={'24px'}
-                  className={css({ color: 'grey.500', minW: '24px' })}
+                  className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
                   <p
                     className={css({
-                      fontSize: '14px',
+                      fontSize: 'sm',
                       fontWeight: '500',
                       color: 'grey.400',
                     })}
@@ -267,7 +266,7 @@ export default function DocumentView(): JSX.Element {
                   </p>
                   <div
                     className={css({
-                      fontSize: '16px',
+                      fontSize: 'md',
                       fontWeight: '700',
                       color: 'grey.500',
                     })}
@@ -276,15 +275,15 @@ export default function DocumentView(): JSX.Element {
                   </div>
                 </div>
               </div>
-              <div className={hstack({ gap: '8px' })}>
+              <div className={hstack({ gap: 'sm' })}>
                 <IoGlassesOutline
                   size={'24px'}
-                  className={css({ color: 'grey.500', minW: '24px' })}
+                  className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
                   <p
                     className={css({
-                      fontSize: '14px',
+                      fontSize: 'sm',
                       fontWeight: '500',
                       color: 'grey.400',
                     })}
@@ -293,7 +292,7 @@ export default function DocumentView(): JSX.Element {
                   </p>
                   <div
                     className={css({
-                      fontSize: '16px',
+                      fontSize: 'md',
                       fontWeight: '700',
                       color: 'grey.500',
                     })}
@@ -302,15 +301,15 @@ export default function DocumentView(): JSX.Element {
                   </div>
                 </div>
               </div>
-              <div className={hstack({ gap: '8px' })}>
+              <div className={hstack({ gap: 'sm' })}>
                 <MdOutlineCalendarToday
                   size={'24px'}
-                  className={css({ color: 'grey.500', minW: '24px' })}
+                  className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
                   <p
                     className={css({
-                      fontSize: '14px',
+                      fontSize: 'sm',
                       fontWeight: '500',
                       color: 'grey.400',
                     })}
@@ -319,7 +318,7 @@ export default function DocumentView(): JSX.Element {
                   </p>
                   <div
                     className={css({
-                      fontSize: '16px',
+                      fontSize: 'md',
                       fontWeight: '700',
                       color: 'grey.500',
                     })}
