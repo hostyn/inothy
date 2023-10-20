@@ -59,7 +59,7 @@ export default function DocumentView({
                 px: 'sm',
               })}
             >
-              <div
+              <section
                 className={css({
                   display: 'flex',
                   justifyContent: 'space-between',
@@ -82,68 +82,79 @@ export default function DocumentView({
                 >
                   Comprar
                 </Button>
-              </div>
-
-              <Property
-                title="Descripción"
-                icon={MdOutlineChat}
-                content={documentData?.description ?? ''}
-              />
+              </section>
+              <section>
+                <Property
+                  title="Descripción"
+                  icon={MdOutlineChat}
+                  content={documentData?.description ?? ''}
+                />
+              </section>
 
               <Separator />
-
-              <Property
-                title="Usuario"
-                icon={MdPersonOutline}
-                content={documentData?.userId ?? ''}
-              />
-
-              <Property
-                title="Universidad"
-                icon={MdOutlineApartment}
-                content={documentData?.subject.universityId ?? ''}
-              />
-
-              <Property
-                title="Asignatura"
-                icon={MdOutlineBook}
-                content={documentData?.subjectId ?? ''}
-              />
-
-              <Property
-                title="Tipo"
-                icon={MdOutlineFitnessCenter}
-                content={documentData?.documentTypeId ?? ''}
-              />
-
-              <Property
-                title="Producción"
-                icon={MdOutlineLaptopChromebook}
-                content={documentData?.byHand ? 'A mano' : 'Digital' ?? false}
-              />
-              {documentData?.calification != null && (
+              <section>
                 <Property
-                  title="Nota"
-                  icon={MdOutlineWorkspacePremium}
-                  content={documentData?.calification ?? 0}
+                  title="Usuario"
+                  icon={MdPersonOutline}
+                  content={documentData?.userId ?? ''}
                 />
-              )}
-
-              {documentData?.calification != null && (
+              </section>
+              <section>
                 <Property
-                  title="Profesor"
-                  icon={IoGlassesOutline}
-                  content={documentData?.professor ?? ''}
+                  title="Universidad"
+                  icon={MdOutlineApartment}
+                  content={documentData?.subject.universityId ?? ''}
                 />
-              )}
+              </section>
 
-              {documentData?.calification != null && (
+              <section>
                 <Property
-                  title="Año"
-                  icon={MdOutlineCalendarToday}
-                  content={documentData?.year ?? 0}
+                  title="Asignatura"
+                  icon={MdOutlineBook}
+                  content={documentData?.subjectId ?? ''}
                 />
-              )}
+              </section>
+              <section>
+                <Property
+                  title="Tipo"
+                  icon={MdOutlineFitnessCenter}
+                  content={documentData?.documentTypeId ?? ''}
+                />
+              </section>
+              <section>
+                <Property
+                  title="Producción"
+                  icon={MdOutlineLaptopChromebook}
+                  content={documentData?.byHand ? 'A mano' : 'Digital' ?? false}
+                />
+              </section>
+              <section>
+                {documentData?.calification != null && (
+                  <Property
+                    title="Nota"
+                    icon={MdOutlineWorkspacePremium}
+                    content={documentData?.calification ?? 0}
+                  />
+                )}
+              </section>
+              <section>
+                {documentData?.calification != null && (
+                  <Property
+                    title="Profesor"
+                    icon={IoGlassesOutline}
+                    content={documentData?.professor ?? ''}
+                  />
+                )}
+              </section>
+              <section>
+                {documentData?.calification != null && (
+                  <Property
+                    title="Año"
+                    icon={MdOutlineCalendarToday}
+                    content={documentData?.year ?? 0}
+                  />
+                )}
+              </section>
             </div>
           </div>
           <div
