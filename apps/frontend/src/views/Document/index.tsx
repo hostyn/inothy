@@ -19,8 +19,9 @@ import {
 } from 'react-icons/md'
 
 import { IoGlassesOutline } from 'react-icons/io5'
+import { currencyFormatter } from '@util/normailize'
 
-export default function DocumentView({}: {}): JSX.Element {
+export default function DocumentView(): JSX.Element {
   const { query } = useRouter()
 
   const documentId = Array.isArray(query.documentId)
@@ -66,7 +67,7 @@ export default function DocumentView({}: {}): JSX.Element {
                     color: 'primary.500',
                   })}
                 >
-                  {documentData?.price.toString().replace('.', ',')} €
+                  {currencyFormatter.format(documentData?.price!)}
                 </div>
                 <Button
                   className={css({
