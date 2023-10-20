@@ -4,9 +4,13 @@ import publicContent from '@middleware/publicContent'
 import DocumentView from '@views/Document/index'
 import { trpc } from '@services/trpc'
 
-function Document(props: any): JSX.Element {
+interface DocumentProps {
+  documentId: string
+}
+
+function Document({ documentId }: DocumentProps): JSX.Element {
   const { data: documentData } = trpc.document.getDocument.useQuery({
-    id: props.documentId,
+    id: documentId,
   })
 
   return (
