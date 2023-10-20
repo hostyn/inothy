@@ -20,6 +20,13 @@ export const documentRouter = createTRPCRouter({
         where: {
           id: input.id,
         },
+        include: {
+          subject: {
+            include: {
+              university: true,
+            },
+          },
+        },
       })
       if (document == null)
         throw new TRPCError({
