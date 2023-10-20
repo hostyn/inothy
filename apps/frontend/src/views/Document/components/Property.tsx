@@ -27,15 +27,27 @@ const Property = ({
         >
           {title}
         </span>
-        <div
-          className={css({
-            fontSize: 'md',
-            fontWeight: '700',
-            color: 'grey.500',
-          })}
-        >
-          {content}
-        </div>
+        {title === 'Descripción' ? (
+          <p
+            className={css({
+              fontSize: 'md',
+              fontWeight: '700',
+              color: 'grey.500',
+            })}
+          >
+            {content}
+          </p>
+        ) : (
+          <div
+            className={css({
+              fontSize: 'md',
+              fontWeight: '700',
+              color: 'grey.500',
+            })}
+          >
+            {content}
+          </div>
+        )}
       </div>
     </div>
   )
