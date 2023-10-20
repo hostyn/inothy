@@ -20,6 +20,7 @@ import {
 import { IoGlassesOutline } from 'react-icons/io5'
 import { currencyFormatter } from '@util/normailize'
 import Image from 'next/image'
+import Property from './components/Property'
 
 interface DocumentProps {
   documentId: string
@@ -49,7 +50,7 @@ export default function DocumentView({
         >
           <div
             className={css({
-              width: '2xl', //TODO: Este está aproximado a 24 rem siendo 25 en figma
+              width: '2xl',
             })}
           >
             <div
@@ -83,252 +84,61 @@ export default function DocumentView({
                 </Button>
               </div>
 
-              <div className={hstack({ gap: 'sm' })}>
-                <MdOutlineChat
-                  size={24}
-                  className={css({
-                    color: 'grey.500',
-                    minWidth: '7xs',
-                  })}
-                />
-                <div className={stack({ gap: 'xs' })}>
-                  <span
-                    className={css({
-                      fontSize: 'sm',
-                      fontWeight: '500',
-                      color: 'grey.400',
-                    })}
-                  >
-                    Descripción
-                  </span>
-                  <div
-                    className={css({
-                      fontSize: 'md',
-                      fontWeight: '600',
-                      color: 'grey.500',
-                    })}
-                  >
-                    {/* {documentData?.description */}
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Praesentium accusantium nam voluptas quibusdam iusto autem
-                    nobis facere quisquam quod sed corrupti, amet quos quasi,
-                    maxime eveniet nulla omnis minus alias cum esse nihil unde.
-                    Perspiciatis perferendis sit nobis ad autem. Voluptas fuga
-                    ratione ipsam excepturi corporis ea quis sit deleniti!
-                  </div>
-                </div>
-              </div>
+              <Property
+                title="Descripción"
+                icon={MdOutlineChat}
+                content={documentData?.description ?? ''}
+              />
 
               <Separator />
-              <div className={hstack({ gap: 'sm' })}>
-                <MdPersonOutline
-                  size={24}
-                  className={css({ color: 'grey.500', minWidth: '7xs' })}
-                />
-                <div>
-                  <span
-                    className={css({
-                      fontSize: 'sm',
-                      fontWeight: '500',
-                      color: 'grey.400',
-                    })}
-                  >
-                    Usuario
-                  </span>
-                  <div
-                    className={css({
-                      fontSize: 'md',
-                      fontWeight: '700',
-                      color: 'grey.500',
-                    })}
-                  >
-                    {documentData?.userId}
-                  </div>
-                </div>
-              </div>
-              <div className={hstack({ gap: 'sm' })}>
-                <MdOutlineApartment
-                  size={24}
-                  className={css({ color: 'grey.500', minWidth: '7xs' })}
-                />
-                <div>
-                  <span
-                    className={css({
-                      fontSize: 'sm',
-                      fontWeight: '500',
-                      color: 'grey.400',
-                    })}
-                  >
-                    Universidad
-                  </span>
-                  <div
-                    className={css({
-                      fontSize: 'md',
-                      fontWeight: '700',
-                      color: 'grey.500',
-                    })}
-                  >
-                    {documentData?.subject.universityId}
-                  </div>
-                </div>
-              </div>
-              <div className={hstack({ gap: 'sm' })}>
-                <MdOutlineBook
-                  size={24}
-                  className={css({ color: 'grey.500', minWidth: '7xs' })}
-                />
-                <div>
-                  <span
-                    className={css({
-                      fontSize: 'sm',
-                      fontWeight: '500',
-                      color: 'grey.400',
-                    })}
-                  >
-                    Asignatura
-                  </span>
-                  <div
-                    className={css({
-                      fontSize: 'md',
-                      fontWeight: '700',
-                      color: 'grey.500',
-                    })}
-                  >
-                    {documentData?.subjectId}
-                  </div>
-                </div>
-              </div>
-              <div className={hstack({ gap: 'sm' })}>
-                <MdOutlineFitnessCenter
-                  size={24}
-                  className={css({ color: 'grey.500', minWidth: '7xs' })}
-                />
-                <div>
-                  <span
-                    className={css({
-                      fontSize: 'sm',
-                      fontWeight: '500',
-                      color: 'grey.400',
-                    })}
-                  >
-                    Tipo
-                  </span>
-                  <div
-                    className={css({
-                      fontSize: 'md',
-                      fontWeight: '700',
-                      color: 'grey.500',
-                    })}
-                  >
-                    {documentData?.documentTypeId}
-                  </div>
-                </div>
-              </div>
-              <div className={hstack({ gap: 'sm' })}>
-                <MdOutlineLaptopChromebook
-                  size={24}
-                  className={css({ color: 'grey.500', minWidth: '7xs' })}
-                />
-                <div>
-                  <span
-                    className={css({
-                      fontSize: 'sm',
-                      fontWeight: '500',
-                      color: 'grey.400',
-                    })}
-                  >
-                    Producción
-                  </span>
-                  <div
-                    className={css({
-                      fontSize: 'md',
-                      fontWeight: '700',
-                      color: 'grey.500',
-                    })}
-                  >
-                    {/* TODO: Buscar las opciones exactas */}
-                    {documentData?.byHand ? 'A mano' : 'Digital'}
-                  </div>
-                </div>
-              </div>
-              <div className={hstack({ gap: 'sm' })}>
-                <MdOutlineWorkspacePremium
-                  size={24}
-                  className={css({ color: 'grey.500', minWidth: '7xs' })}
-                />
-                <div>
-                  <span
-                    className={css({
-                      fontSize: 'sm',
-                      fontWeight: '500',
-                      color: 'grey.400',
-                    })}
-                  >
-                    Nota
-                  </span>
-                  <div
-                    className={css({
-                      fontSize: 'md',
-                      fontWeight: '700',
-                      color: 'grey.500',
-                    })}
-                  >
-                    {documentData?.rating}
-                  </div>
-                </div>
-              </div>
-              <div className={hstack({ gap: 'sm' })}>
-                <IoGlassesOutline
-                  size={24}
-                  className={css({ color: 'grey.500', minWidth: '7xs' })}
-                />
-                <div>
-                  <span
-                    className={css({
-                      fontSize: 'sm',
-                      fontWeight: '500',
-                      color: 'grey.400',
-                    })}
-                  >
-                    Profesor
-                  </span>
-                  <div
-                    className={css({
-                      fontSize: 'md',
-                      fontWeight: '700',
-                      color: 'grey.500',
-                    })}
-                  >
-                    {documentData?.professor}
-                  </div>
-                </div>
-              </div>
-              <div className={hstack({ gap: 'sm' })}>
-                <MdOutlineCalendarToday
-                  size={24}
-                  className={css({ color: 'grey.500', minWidth: '7xs' })}
-                />
-                <div>
-                  <span
-                    className={css({
-                      fontSize: 'sm',
-                      fontWeight: '500',
-                      color: 'grey.400',
-                    })}
-                  >
-                    Año
-                  </span>
-                  <div
-                    className={css({
-                      fontSize: 'md',
-                      fontWeight: '700',
-                      color: 'grey.500',
-                    })}
-                  >
-                    {documentData?.year}
-                  </div>
-                </div>
-              </div>
+
+              <Property
+                title="Usuario"
+                icon={MdPersonOutline}
+                content={documentData?.userId ?? ''}
+              />
+
+              <Property
+                title="Universidad"
+                icon={MdOutlineApartment}
+                content={documentData?.subject.universityId ?? ''}
+              />
+
+              <Property
+                title="Asignatura"
+                icon={MdOutlineBook}
+                content={documentData?.subjectId ?? ''}
+              />
+
+              <Property
+                title="Tipo"
+                icon={MdOutlineFitnessCenter}
+                content={documentData?.documentTypeId ?? ''}
+              />
+
+              <Property
+                title="Producción"
+                icon={MdOutlineLaptopChromebook}
+                content={documentData?.byHand ? 'A mano' : 'Digital' ?? false}
+              />
+
+              <Property
+                title="Nota"
+                icon={MdOutlineWorkspacePremium}
+                content={documentData?.calification ?? 0}
+              />
+
+              <Property
+                title="Profesor"
+                icon={IoGlassesOutline}
+                content={documentData?.professor ?? ''}
+              />
+
+              <Property
+                title="Año"
+                icon={MdOutlineCalendarToday}
+                content={documentData?.year ?? 0}
+              />
             </div>
           </div>
           <div
