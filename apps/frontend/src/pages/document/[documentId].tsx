@@ -19,7 +19,7 @@ function Document({ documentId }: DocumentProps): JSX.Element {
         <title>{documentData?.title} - Inothy</title>
         <meta name="robots" content="index,follow" />
       </Head>
-      <DocumentView />
+      <DocumentView documentId={documentId} />
     </>
   )
 }

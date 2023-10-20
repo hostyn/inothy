@@ -4,7 +4,6 @@ import { hstack, stack } from '@styled-system/patterns'
 import { Separator } from '@ui/Separator'
 import { css } from '@styled-system/css'
 import { trpc } from '@services/trpc'
-import { useRouter } from 'next/router'
 import { Button } from '@ui/Button'
 import {
   MdPersonOutline,
@@ -22,13 +21,13 @@ import { IoGlassesOutline } from 'react-icons/io5'
 import { currencyFormatter } from '@util/normailize'
 import Image from 'next/image'
 
-export default function DocumentView(): JSX.Element {
-  const { query } = useRouter()
+interface DocumentProps {
+  documentId: string
+}
 
-  const documentId = Array.isArray(query.documentId)
-    ? query.documentId[0]
-    : query.documentId
-
+export default function DocumentView({
+  documentId,
+}: DocumentProps): JSX.Element {
   const { data: documentData } = trpc.document.getDocument.useQuery({
     id: documentId!,
   })
