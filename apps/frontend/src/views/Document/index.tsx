@@ -33,8 +33,6 @@ export default function DocumentView({
     id: documentId,
   })
 
-  console.log(documentData)
-
   return (
     <App>
       <PageLayout
