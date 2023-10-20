@@ -1,3 +1,4 @@
+import { Button } from './Button'
 import { PageSpacing } from './PageSpacing'
 import SearchBar from './SearchBar'
 import { Separator } from './Separator'
@@ -9,6 +10,8 @@ interface PageLayoutProps {
   title: string
   Icon: IconType
   searchBar?: boolean
+  button?: boolean
+  buttonTitle?: string
 }
 
 export default function PageLayout({
@@ -16,6 +19,8 @@ export default function PageLayout({
   title,
   Icon,
   searchBar = false,
+  button = false,
+  buttonTitle = '',
 }: PageLayoutProps): JSX.Element {
   return (
     <PageSpacing>
@@ -40,6 +45,7 @@ export default function PageLayout({
           </h1>
         </div>
         {searchBar && <SearchBar />}
+        {button && <Button>{buttonTitle}</Button>}
       </header>
 
       <Separator

@@ -34,7 +34,12 @@ export default function DocumentView({
 
   return (
     <App>
-      <PageLayout title={documentData?.title!} Icon={MdOutlineDescription}>
+      <PageLayout
+        title={documentData?.title ?? ''}
+        Icon={MdOutlineDescription}
+        button
+        buttonTitle="Comprar"
+      >
         <div
           className={css({
             display: 'flex',
@@ -72,9 +77,6 @@ export default function DocumentView({
                 <Button
                   className={css({
                     alignSelf: 'center',
-                    height: 'fit-content',
-                    fontSize: 'md',
-                    fontWeight: '700',
                   })}
                 >
                   Comprar
