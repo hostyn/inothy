@@ -33,6 +33,8 @@ export default function DocumentView({
     id: documentId,
   })
 
+  console.log(documentData)
+
   return (
     <App>
       <PageLayout
@@ -54,7 +56,9 @@ export default function DocumentView({
             })}
           >
             <div
-              className={stack({
+              className={css({
+                display: 'flex',
+                flexDirection: 'column',
                 gap: 'md',
                 px: 'sm',
               })}
@@ -83,87 +87,82 @@ export default function DocumentView({
                   Comprar
                 </Button>
               </section>
-              <section>
-                <Property
-                  title="Descripción"
-                  icon={MdOutlineChat}
-                  content={documentData?.description ?? ''}
-                />
-              </section>
+
+              <Property
+                title="Descripción"
+                icon={MdOutlineChat}
+                content={documentData?.description ?? ''}
+              />
 
               <Separator />
-              <section>
-                <Property
-                  title="Usuario"
-                  icon={MdPersonOutline}
-                  content={documentData?.userId ?? ''}
-                />
-              </section>
-              <section>
-                <Property
-                  title="Universidad"
-                  icon={MdOutlineApartment}
-                  content={documentData?.subject.universityId ?? ''}
-                />
-              </section>
 
-              <section>
+              <Property
+                title="Usuario"
+                icon={MdPersonOutline}
+                content={documentData?.user.username ?? ''}
+                isLink
+                link={`/user/${documentData?.user.username}`}
+              />
+
+              <Property
+                title="Universidad"
+                icon={MdOutlineApartment}
+                content={documentData?.subject.university.name ?? ''}
+              />
+
+              <Property
+                title="Asignatura"
+                icon={MdOutlineBook}
+                content={documentData?.subject.name ?? ''}
+                isLink
+                link={`/subject/${documentData?.subjectId}`}
+              />
+
+              <Property
+                title="Tipo"
+                icon={MdOutlineFitnessCenter}
+                content={documentData?.documentType.name ?? ''}
+              />
+
+              <Property
+                title="Producción"
+                icon={MdOutlineLaptopChromebook}
+                content={documentData?.byHand ? 'A mano' : 'Digital' ?? false}
+              />
+
+              {documentData?.calification != null && (
                 <Property
-                  title="Asignatura"
-                  icon={MdOutlineBook}
-                  content={documentData?.subjectId ?? ''}
+                  title="Nota"
+                  icon={MdOutlineWorkspacePremium}
+                  content={documentData?.calification ?? 0}
                 />
-              </section>
-              <section>
+              )}
+
+              {documentData?.calification != null && (
                 <Property
-                  title="Tipo"
-                  icon={MdOutlineFitnessCenter}
-                  content={documentData?.documentTypeId ?? ''}
+                  title="Profesor"
+                  icon={IoGlassesOutline}
+                  content={documentData?.professor ?? ''}
                 />
-              </section>
-              <section>
+              )}
+
+              {documentData?.calification != null && (
                 <Property
-                  title="Producción"
-                  icon={MdOutlineLaptopChromebook}
-                  content={documentData?.byHand ? 'A mano' : 'Digital' ?? false}
+                  title="Año"
+                  icon={MdOutlineCalendarToday}
+                  content={documentData?.year ?? 0}
                 />
-              </section>
-              <section>
-                {documentData?.calification != null && (
-                  <Property
-                    title="Nota"
-                    icon={MdOutlineWorkspacePremium}
-                    content={documentData?.calification ?? 0}
-                  />
-                )}
-              </section>
-              <section>
-                {documentData?.calification != null && (
-                  <Property
-                    title="Profesor"
-                    icon={IoGlassesOutline}
-                    content={documentData?.professor ?? ''}
-                  />
-                )}
-              </section>
-              <section>
-                {documentData?.calification != null && (
-                  <Property
-                    title="Año"
-                    icon={MdOutlineCalendarToday}
-                    content={documentData?.year ?? 0}
-                  />
-                )}
-              </section>
+              )}
             </div>
           </div>
           <div
             className={css({
-              border: '1px solid token(colors.grey.700)', //TODO: Esto es para ver hasta donde llega
+              borderLeft: '1px solid token(colors.grey.900)',
               display: 'flex',
               flexGrow: '1',
               flexShrink: '0',
               flexBasis: '0',
+              justifyContent: 'center',
             })}
           >
             <Image

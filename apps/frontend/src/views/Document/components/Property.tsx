@@ -1,5 +1,6 @@
 import { css } from '@styled-system/css'
 import { hstack } from '@styled-system/patterns'
+import Link from 'next/link'
 import React from 'react'
 import { IconType } from 'react-icons'
 
@@ -7,15 +8,19 @@ interface PropertyProps {
   title: string
   icon: IconType
   content: string | boolean | number
+  isLink?: boolean
+  link?: string
 }
 
 const Property = ({
   title,
   icon: Icon,
   content,
+  isLink = false,
+  link = '',
 }: PropertyProps): JSX.Element => {
   return (
-    <div className={hstack({ gap: 'sm' })}>
+    <section className={hstack({ gap: 'sm' })}>
       <Icon size={24} className={css({ color: 'grey.500', minWidth: '7xs' })} />
       <div>
         <span
@@ -45,11 +50,11 @@ const Property = ({
               color: 'grey.500',
             })}
           >
-            {content}
+            {isLink ? <Link href={link}>{content}</Link> : content}
           </div>
         )}
       </div>
-    </div>
+    </section>
   )
 }
 
