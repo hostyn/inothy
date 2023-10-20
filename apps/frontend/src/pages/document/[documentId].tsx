@@ -26,9 +26,14 @@ function Document({ documentId }: DocumentProps): JSX.Element {
 
 export const getServerSideProps = publicContentSSR(async ctx => {
   const documentId = ctx.params?.documentId as string
-  await ctx.helper.document.getDocument.prefetch({
+  const document = await ctx.helper.document.getDocument.prefetch({
     id: documentId,
   })
+  if (document == null) {
+    return {
+      notFound: true,
+    }
+  }
   return {
     props: {
       documentId,
