@@ -121,24 +121,29 @@ export default function DocumentView({
                 icon={MdOutlineLaptopChromebook}
                 content={documentData?.byHand ? 'A mano' : 'Digital' ?? false}
               />
+              {documentData?.calification != null && (
+                <Property
+                  title="Nota"
+                  icon={MdOutlineWorkspacePremium}
+                  content={documentData?.calification ?? 0}
+                />
+              )}
 
-              <Property
-                title="Nota"
-                icon={MdOutlineWorkspacePremium}
-                content={documentData?.calification ?? 0}
-              />
+              {documentData?.calification != null && (
+                <Property
+                  title="Profesor"
+                  icon={IoGlassesOutline}
+                  content={documentData?.professor ?? ''}
+                />
+              )}
 
-              <Property
-                title="Profesor"
-                icon={IoGlassesOutline}
-                content={documentData?.professor ?? ''}
-              />
-
-              <Property
-                title="Año"
-                icon={MdOutlineCalendarToday}
-                content={documentData?.year ?? 0}
-              />
+              {documentData?.calification != null && (
+                <Property
+                  title="Año"
+                  icon={MdOutlineCalendarToday}
+                  content={documentData?.year ?? 0}
+                />
+              )}
             </div>
           </div>
           <div
