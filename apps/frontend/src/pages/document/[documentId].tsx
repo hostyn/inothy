@@ -29,7 +29,6 @@ export const getServerSideProps = publicContentSSR(async ctx => {
   await ctx.helper.document.getDocument.prefetch({
     id: documentId,
   })
-  console.log('documento', documentId)
   return {
     props: {
       documentId,
