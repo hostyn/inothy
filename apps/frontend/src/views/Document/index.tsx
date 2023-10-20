@@ -29,7 +29,7 @@ export default function DocumentView({
   documentId,
 }: DocumentProps): JSX.Element {
   const { data: documentData } = trpc.document.getDocument.useQuery({
-    id: documentId!,
+    id: documentId,
   })
 
   return (
@@ -67,7 +67,7 @@ export default function DocumentView({
                     color: 'primary.500',
                   })}
                 >
-                  {currencyFormatter.format(documentData?.price!)}
+                  {currencyFormatter.format(documentData?.price ?? 0)}
                 </div>
                 <Button
                   className={css({
@@ -90,7 +90,7 @@ export default function DocumentView({
                   })}
                 />
                 <div className={stack({ gap: 'xs' })}>
-                  <p
+                  <span
                     className={css({
                       fontSize: 'sm',
                       fontWeight: '500',
@@ -98,7 +98,7 @@ export default function DocumentView({
                     })}
                   >
                     Descripción
-                  </p>
+                  </span>
                   <div
                     className={css({
                       fontSize: 'md',
@@ -124,7 +124,7 @@ export default function DocumentView({
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
-                  <p
+                  <span
                     className={css({
                       fontSize: 'sm',
                       fontWeight: '500',
@@ -132,7 +132,7 @@ export default function DocumentView({
                     })}
                   >
                     Usuario
-                  </p>
+                  </span>
                   <div
                     className={css({
                       fontSize: 'md',
@@ -150,7 +150,7 @@ export default function DocumentView({
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
-                  <p
+                  <span
                     className={css({
                       fontSize: 'sm',
                       fontWeight: '500',
@@ -158,7 +158,7 @@ export default function DocumentView({
                     })}
                   >
                     Universidad
-                  </p>
+                  </span>
                   <div
                     className={css({
                       fontSize: 'md',
@@ -176,7 +176,7 @@ export default function DocumentView({
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
-                  <p
+                  <span
                     className={css({
                       fontSize: 'sm',
                       fontWeight: '500',
@@ -184,7 +184,7 @@ export default function DocumentView({
                     })}
                   >
                     Asignatura
-                  </p>
+                  </span>
                   <div
                     className={css({
                       fontSize: 'md',
@@ -202,7 +202,7 @@ export default function DocumentView({
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
-                  <p
+                  <span
                     className={css({
                       fontSize: 'sm',
                       fontWeight: '500',
@@ -210,7 +210,7 @@ export default function DocumentView({
                     })}
                   >
                     Tipo
-                  </p>
+                  </span>
                   <div
                     className={css({
                       fontSize: 'md',
@@ -228,7 +228,7 @@ export default function DocumentView({
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
-                  <p
+                  <span
                     className={css({
                       fontSize: 'sm',
                       fontWeight: '500',
@@ -236,7 +236,7 @@ export default function DocumentView({
                     })}
                   >
                     Producción
-                  </p>
+                  </span>
                   <div
                     className={css({
                       fontSize: 'md',
@@ -255,7 +255,7 @@ export default function DocumentView({
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
-                  <p
+                  <span
                     className={css({
                       fontSize: 'sm',
                       fontWeight: '500',
@@ -263,7 +263,7 @@ export default function DocumentView({
                     })}
                   >
                     Nota
-                  </p>
+                  </span>
                   <div
                     className={css({
                       fontSize: 'md',
@@ -281,7 +281,7 @@ export default function DocumentView({
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
-                  <p
+                  <span
                     className={css({
                       fontSize: 'sm',
                       fontWeight: '500',
@@ -289,7 +289,7 @@ export default function DocumentView({
                     })}
                   >
                     Profesor
-                  </p>
+                  </span>
                   <div
                     className={css({
                       fontSize: 'md',
@@ -307,7 +307,7 @@ export default function DocumentView({
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
-                  <p
+                  <span
                     className={css({
                       fontSize: 'sm',
                       fontWeight: '500',
@@ -315,7 +315,7 @@ export default function DocumentView({
                     })}
                   >
                     Año
-                  </p>
+                  </span>
                   <div
                     className={css({
                       fontSize: 'md',
