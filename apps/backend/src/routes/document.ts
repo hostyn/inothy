@@ -20,10 +20,20 @@ export const documentRouter = createTRPCRouter({
         where: {
           id: input.id,
         },
-        include: {
+        select: {
+          title: true,
+          price: true,
+          userId: true,
+          subjectId: true,
+          documentTypeId: true,
+          byHand: true,
+          rating: true,
+          professor: true,
+          year: true,
+          previewUrl: true,
           subject: {
-            include: {
-              university: true,
+            select: {
+              universityId: true,
             },
           },
         },
