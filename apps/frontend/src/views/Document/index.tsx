@@ -84,7 +84,7 @@ export default function DocumentView(): JSX.Element {
 
               <div className={hstack({ gap: 'sm' })}>
                 <MdOutlineChat
-                  size={'24px'}
+                  size={24}
                   className={css({
                     color: 'grey.500',
                     minWidth: '7xs',
@@ -121,7 +121,7 @@ export default function DocumentView(): JSX.Element {
               <Separator />
               <div className={hstack({ gap: 'sm' })}>
                 <MdPersonOutline
-                  size={'24px'}
+                  size={24}
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
@@ -147,7 +147,7 @@ export default function DocumentView(): JSX.Element {
               </div>
               <div className={hstack({ gap: 'sm' })}>
                 <MdOutlineApartment
-                  size={'24px'}
+                  size={24}
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
@@ -173,7 +173,7 @@ export default function DocumentView(): JSX.Element {
               </div>
               <div className={hstack({ gap: 'sm' })}>
                 <MdOutlineBook
-                  size={'24px'}
+                  size={24}
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
@@ -199,7 +199,7 @@ export default function DocumentView(): JSX.Element {
               </div>
               <div className={hstack({ gap: 'sm' })}>
                 <MdOutlineFitnessCenter
-                  size={'24px'}
+                  size={24}
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
@@ -225,7 +225,7 @@ export default function DocumentView(): JSX.Element {
               </div>
               <div className={hstack({ gap: 'sm' })}>
                 <MdOutlineLaptopChromebook
-                  size={'24px'}
+                  size={24}
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
@@ -252,7 +252,7 @@ export default function DocumentView(): JSX.Element {
               </div>
               <div className={hstack({ gap: 'sm' })}>
                 <MdOutlineWorkspacePremium
-                  size={'24px'}
+                  size={24}
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
@@ -278,7 +278,7 @@ export default function DocumentView(): JSX.Element {
               </div>
               <div className={hstack({ gap: 'sm' })}>
                 <IoGlassesOutline
-                  size={'24px'}
+                  size={24}
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
@@ -304,7 +304,7 @@ export default function DocumentView(): JSX.Element {
               </div>
               <div className={hstack({ gap: 'sm' })}>
                 <MdOutlineCalendarToday
-                  size={'24px'}
+                  size={24}
                   className={css({ color: 'grey.500', minWidth: '7xs' })}
                 />
                 <div>
@@ -332,20 +332,17 @@ export default function DocumentView(): JSX.Element {
           </div>
           <div
             className={css({
-              border: '1px solid #000',
+              border: '1px solid token(colors.grey.700)', //TODO: Esto es para ver hasta donde llega
               display: 'flex',
               flexGrow: '1',
               flexShrink: '0',
               flexBasis: '0',
-
-              // `url(${documentData?.filePath})`
-              bgImage: 'url(/check.svg)',
-              bgPosition: 'center',
-              bgRepeat: 'no-repeat',
-              backgroundSize: 'cover',
             })}
           >
-            {/* <Image /> */}
+            <Image
+              alt={documentData?.title ?? 'Previsualización documento'}
+              src={documentData?.previewUrl ?? ''}
+            />
           </div>
         </div>
       </PageLayout>
