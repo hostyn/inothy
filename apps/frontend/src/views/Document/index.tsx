@@ -20,6 +20,7 @@ import {
 
 import { IoGlassesOutline } from 'react-icons/io5'
 import { currencyFormatter } from '@util/normailize'
+import Image from 'next/image'
 
 export default function DocumentView(): JSX.Element {
   const { query } = useRouter()
@@ -166,7 +167,7 @@ export default function DocumentView(): JSX.Element {
                       color: 'grey.500',
                     })}
                   >
-                    {documentData?.title}
+                    {documentData?.subject.universityId}
                   </div>
                 </div>
               </div>
@@ -343,7 +344,9 @@ export default function DocumentView(): JSX.Element {
               bgRepeat: 'no-repeat',
               backgroundSize: 'cover',
             })}
-          ></div>
+          >
+            {/* <Image /> */}
+          </div>
         </div>
       </PageLayout>
     </App>
