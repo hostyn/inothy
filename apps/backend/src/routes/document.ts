@@ -21,7 +21,11 @@ export const documentRouter = createTRPCRouter({
           id: input.id,
         },
       })
-      if (!document) throw new TRPCError({ code: 'NOT_FOUND' })
+      if (document == null)
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'document-not-found',
+        })
       return document
     }),
 
