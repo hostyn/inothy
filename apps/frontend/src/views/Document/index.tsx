@@ -44,11 +44,11 @@ export default function DocumentView({
           className={css({
             display: 'flex',
             width: 'inherit',
+            gap: 'xl',
           })}
         >
           <div
             className={css({
-              mr: 'xl',
               width: '2xl', //TODO: Este está aproximado a 24 rem siendo 25 en figma
             })}
           >
