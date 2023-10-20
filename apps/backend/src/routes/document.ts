@@ -24,17 +24,30 @@ export const documentRouter = createTRPCRouter({
           description: true,
           title: true,
           price: true,
-          userId: true,
-          subjectId: true,
-          documentTypeId: true,
+          user: {
+            select: {
+              username: true,
+            },
+          },
+          documentType: {
+            select: {
+              name: true,
+            },
+          },
           byHand: true,
           calification: true,
           professor: true,
           year: true,
           previewUrl: true,
+          subjectId: true,
           subject: {
             select: {
-              universityId: true,
+              university: {
+                select: {
+                  name: true,
+                },
+              },
+              name: true,
             },
           },
         },
