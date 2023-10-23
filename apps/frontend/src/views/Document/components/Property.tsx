@@ -7,7 +7,7 @@ import { IconType } from 'react-icons'
 interface PropertyProps {
   title: string
   icon: IconType
-  content: string | boolean | number
+  content: string
   link?: string
 }
 

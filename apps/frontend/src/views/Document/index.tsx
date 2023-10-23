@@ -35,6 +35,7 @@ export default function DocumentView({
 
   const onCallToAction = () => {
     console.log('Botón accionado') // TODO: Cambiar una vez el botón tenga funcionalidad
+    console.log(documentData)
   }
 
   return (
@@ -134,7 +135,7 @@ export default function DocumentView({
                 <Property
                   title="Nota"
                   icon={MdOutlineWorkspacePremium}
-                  content={documentData?.calification ?? 0}
+                  content={documentData?.calification.toString() ?? ''}
                 />
               )}
 
@@ -150,7 +151,7 @@ export default function DocumentView({
                 <Property
                   title="Año"
                   icon={MdOutlineCalendarToday}
-                  content={documentData?.year ?? 0}
+                  content={documentData?.year?.toString() ?? ''}
                 />
               )}
             </div>
