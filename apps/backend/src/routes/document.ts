@@ -39,7 +39,6 @@ export const documentRouter = createTRPCRouter({
           professor: true,
           year: true,
           previewUrl: true,
-          subjectId: true,
           subject: {
             select: {
               university: {
@@ -48,6 +47,7 @@ export const documentRouter = createTRPCRouter({
                 },
               },
               name: true,
+              id: true,
             },
           },
         },
