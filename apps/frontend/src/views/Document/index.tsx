@@ -157,7 +157,6 @@ export default function DocumentView({
           </div>
           <div
             className={css({
-              borderLeft: '1px solid token(colors.grey.900)',
               display: 'flex',
               flexGrow: '1',
               flexShrink: '0',
