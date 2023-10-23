@@ -33,13 +33,17 @@ export default function DocumentView({
     id: documentId,
   })
 
+  const onCallToAction = () => {
+    console.log('Botón accionado') // TODO: Cambiar una vez el botón tenga funcionalidad
+  }
+
   return (
     <App>
       <PageLayout
         title={documentData?.title ?? ''}
         Icon={MdOutlineDescription}
-        button
-        buttonTitle="Comprar"
+        callToActionText="Comprar"
+        onCallToAction={onCallToAction}
       >
         <div
           className={css({

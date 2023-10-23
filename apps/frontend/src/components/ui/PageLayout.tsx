@@ -10,8 +10,8 @@ interface PageLayoutProps {
   title: string
   Icon: IconType
   searchBar?: boolean
-  button?: boolean
-  buttonTitle?: string
+  callToActionText?: string
+  onCallToAction?: () => void
 }
 
 export default function PageLayout({
@@ -19,8 +19,8 @@ export default function PageLayout({
   title,
   Icon,
   searchBar = false,
-  button = false,
-  buttonTitle = '',
+  callToActionText = '',
+  onCallToAction = () => {},
 }: PageLayoutProps): JSX.Element {
   return (
     <PageSpacing>
@@ -45,7 +45,9 @@ export default function PageLayout({
           </h1>
         </div>
         {searchBar && <SearchBar />}
-        {button && <Button>{buttonTitle}</Button>}
+        {callToActionText && (
+          <Button onClick={onCallToAction}>{callToActionText}</Button>
+        )}
       </header>
 
       <Separator
