@@ -8,7 +8,6 @@ interface PropertyProps {
   title: string
   icon: IconType
   content: string | boolean | number
-  isLink?: boolean
   link?: string
 }
 
@@ -16,7 +15,6 @@ const Property = ({
   title,
   icon: Icon,
   content,
-  isLink = false,
   link = '',
 }: PropertyProps): JSX.Element => {
   return (
@@ -50,7 +48,7 @@ const Property = ({
               color: 'grey.500',
             })}
           >
-            {isLink ? <Link href={link}>{content}</Link> : content}
+            {link != null ? <Link href={link}>{content}</Link> : content}
           </div>
         )}
       </div>

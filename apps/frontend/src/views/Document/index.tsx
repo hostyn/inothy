@@ -102,7 +102,6 @@ export default function DocumentView({
                 title="Usuario"
                 icon={MdPersonOutline}
                 content={documentData?.user.username ?? ''}
-                isLink
                 link={`/user/${documentData?.user.username}`}
               />
 
@@ -116,7 +115,6 @@ export default function DocumentView({
                 title="Asignatura"
                 icon={MdOutlineBook}
                 content={documentData?.subject.name ?? ''}
-                isLink
                 link={`/subject/${documentData?.subjectId}`}
               />
 
