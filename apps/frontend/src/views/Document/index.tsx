@@ -72,7 +72,7 @@ export default function DocumentView({
                   py: 'md',
                 })}
               >
-                <div
+                <p
                   className={css({
                     fontSize: '4xl',
                     fontWeight: '700',
@@ -80,7 +80,7 @@ export default function DocumentView({
                   })}
                 >
                   {currencyFormatter.format(documentData?.price ?? 0)}
-                </div>
+                </p>
                 <Button
                   className={css({
                     alignSelf: 'center',

@@ -30,33 +30,21 @@ const Property = ({
         >
           {title}
         </span>
-        {title === 'Descripción' ? (
-          <p
-            className={css({
-              fontSize: 'md',
-              fontWeight: '700',
-              color: 'grey.500',
-            })}
-          >
-            {content}
-          </p>
-        ) : (
-          <div
-            className={css({
-              fontSize: 'md',
-              fontWeight: '700',
-              color: 'grey.500',
-            })}
-          >
-            {link != null ? (
-              <Link href={link} title={title}>
-                {content}
-              </Link>
-            ) : (
-              content
-            )}
-          </div>
-        )}
+        <p
+          className={css({
+            fontSize: 'md',
+            fontWeight: '700',
+            color: 'grey.500',
+          })}
+        >
+          {link != null ? (
+            <Link href={link} title={title}>
+              {content}
+            </Link>
+          ) : (
+            content
+          )}
+        </p>
       </div>
     </section>
   )
