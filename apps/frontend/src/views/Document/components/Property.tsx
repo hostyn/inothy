@@ -48,7 +48,13 @@ const Property = ({
               color: 'grey.500',
             })}
           >
-            {link != null ? <Link href={link}>{content}</Link> : content}
+            {link != null ? (
+              <Link href={link} title={title}>
+                {content}
+              </Link>
+            ) : (
+              content
+            )}
           </div>
         )}
       </div>
