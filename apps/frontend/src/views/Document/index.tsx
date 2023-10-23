@@ -1,6 +1,5 @@
 import App from '@components/App'
 import PageLayout from '@ui/PageLayout'
-import { hstack, stack } from '@styled-system/patterns'
 import { Separator } from '@ui/Separator'
 import { css } from '@styled-system/css'
 import { trpc } from '@services/trpc'
