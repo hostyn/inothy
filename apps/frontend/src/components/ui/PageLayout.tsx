@@ -45,7 +45,7 @@ export default function PageLayout({
           </h1>
         </div>
         {searchBar && <SearchBar />}
-        {callToActionText && (
+        {onCallToAction != null && (
           <Button onClick={onCallToAction}>{callToActionText}</Button>
         )}
       </header>
