@@ -15,7 +15,7 @@ const Property = ({
   title,
   icon: Icon,
   content,
-  link = '',
+  link,
 }: PropertyProps): JSX.Element => {
   return (
     <section className={hstack({ gap: 'sm' })}>
