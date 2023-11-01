@@ -134,7 +134,7 @@ export default function DocumentView({
                 <Property
                   title="Nota"
                   icon={MdOutlineWorkspacePremium}
-                  content={documentData?.calification.toString() ?? ''}
+                  content={documentData?.calification.toFixed(2) ?? ''}
                 />
               )}
 
