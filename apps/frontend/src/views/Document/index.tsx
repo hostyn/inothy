@@ -134,23 +134,23 @@ export default function DocumentView({
                 <Property
                   title="Nota"
                   icon={MdOutlineWorkspacePremium}
-                  content={documentData?.calification.toFixed(2) ?? ''}
+                  content={documentData?.calification.toFixed(2)}
                 />
               )}
 
-              {documentData?.calification != null && (
+              {documentData?.professor != null && (
                 <Property
                   title="Profesor"
                   icon={IoGlassesOutline}
-                  content={documentData?.professor ?? ''}
+                  content={documentData?.professor}
                 />
               )}
 
-              {documentData?.calification != null && (
+              {documentData?.year != null && (
                 <Property
                   title="Año"
                   icon={MdOutlineCalendarToday}
-                  content={documentData?.year?.toString() ?? ''}
+                  content={documentData?.year?.toString()}
                 />
               )}
             </div>
