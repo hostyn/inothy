@@ -19,8 +19,8 @@ export default function PageLayout({
   title,
   Icon,
   searchBar = false,
-  callToActionText = '',
-  onCallToAction = () => {},
+  callToActionText,
+  onCallToAction,
 }: PageLayoutProps): JSX.Element {
   return (
     <PageSpacing>
