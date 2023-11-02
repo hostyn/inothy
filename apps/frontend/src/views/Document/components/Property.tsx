@@ -1,5 +1,5 @@
 import { css } from '@styled-system/css'
-import { hstack } from '@styled-system/patterns'
+import { hstack, stack } from '@styled-system/patterns'
 import Link from 'next/link'
 import type { IconType } from 'react-icons'
 
@@ -17,9 +17,9 @@ const Property = ({
   link,
 }: PropertyProps): JSX.Element => {
   return (
-    <section className={hstack({ gap: 'sm' })}>
+    <section className={hstack({ gap: 'sm', py: 'xs' })}>
       <Icon size={24} className={css({ color: 'grey.500', minWidth: '7xs' })} />
-      <div>
+      <div className={stack({ gap: 'xs' })}>
         <span
           className={css({
             fontSize: 'sm',
@@ -29,21 +29,32 @@ const Property = ({
         >
           {title}
         </span>
-        <div
-          className={css({
-            fontSize: 'md',
-            fontWeight: '700',
-            color: 'grey.500',
-          })}
-        >
-          {link != null ? (
-            <Link href={link} title={title}>
-              {content}
-            </Link>
-          ) : (
-            <p>{content}</p>
-          )}
-        </div>
+        {link != null ? (
+          <Link
+            href={link}
+            title={title}
+            className={css({
+              fontSize: 'md',
+              fontWeight: '700',
+              color: 'grey.500',
+              _hover: {
+                textDecoration: 'underline',
+              },
+            })}
+          >
+            {content}
+          </Link>
+        ) : (
+          <p
+            className={css({
+              fontSize: 'md',
+              fontWeight: '700',
+              color: 'grey.500',
+            })}
+          >
+            {content}
+          </p>
+        )}
       </div>
     </section>
   )
