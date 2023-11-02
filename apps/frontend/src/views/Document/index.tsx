@@ -21,7 +21,7 @@ import { currencyFormatter } from '@util/normailize'
 // import Image from 'next/image'
 import Property from './components/Property'
 import { Document, Page, pdfjs } from 'react-pdf'
-import { useState } from 'react'
+// import { useState } from 'react'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
@@ -32,14 +32,15 @@ interface DocumentProps {
 export default function DocumentView({
   documentId,
 }: DocumentProps): JSX.Element {
-  const [numPages, setNumPages] = useState(0)
+  // const [numPages, setNumPages] = useState(0) // TODO: Uncomment if want to see all pages
   const { data: documentData } = trpc.document.getDocument.useQuery({
     id: documentId,
   })
 
-  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
-    setNumPages(numPages)
-  }
+  // TODO: Uncomment if want to see all pages
+  // const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
+  //   setNumPages(numPages)
+  // }
 
   const onCallToAction = (): void => {
     console.log('Botón accionado') // TODO: Cambiar toda la función una vez el botón tenga funcionalidad
@@ -180,17 +181,18 @@ export default function DocumentView({
             /> */}
             <Document
               file={documentData?.previewUrl}
-              onLoadSuccess={onDocumentLoadSuccess}
+              // onLoadSuccess={onDocumentLoadSuccess} //TODO: Uncomment if want to see all the pages
             >
               {/* TODO: Decide how many pages to show and if we need navigation */}
-              {/* <Page pageNumber={1} /> */}
-              {Array.from(new Array(numPages), (el, index) => (
+              <Page pageNumber={1} />
+              {/* Uncomment if want to show all pages */}
+              {/* {Array.from(new Array(numPages), (el, index) => (
                 <Page
                   key={`page_${index + 1}`}
                   pageNumber={index + 1}
                   className={css({ my: 'sm' })}
                 />
-              ))}
+              ))} */}
             </Document>
           </div>
         </div>
