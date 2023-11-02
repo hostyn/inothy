@@ -89,6 +89,27 @@ async function main(): Promise<void> {
     })
   } catch {}
 
+  const previewPath = `documents/${documentIdentifier}/document.pdf`
+
+  const preivewRef = storageAdmin.file(previewPath)
+  const preivewStream = preivewRef.createWriteStream({
+    metadata: {
+      contentType: 'application/pdf',
+    },
+  })
+
+  const preivew = fs.readFileSync('resources/preview.pdf')
+
+  try {
+    await new Promise((resolve, reject) => {
+      preivewStream.on('finish', resolve)
+      preivewStream.on('error', reject)
+      preivewStream.end(preivew)
+    })
+
+    await preivewRef.makePublic()
+  } catch {}
+
   const examDocumentType = await prisma.documentType.findFirst({
     where: {
       name: 'exam',
@@ -102,6 +123,7 @@ async function main(): Promise<void> {
       title: 'test',
       description: 'test',
       filePath: 'documents/test.pdf',
+      previewUrl: preivewRef.publicUrl(),
       price: 2.3,
       user: {
         create: {
