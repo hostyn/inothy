@@ -23,7 +23,7 @@ import Property from './components/Property'
 import { Document, Page, pdfjs } from 'react-pdf'
 // import { useState } from 'react'
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
+pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker.js`
 
 interface DocumentProps {
   documentId: string
