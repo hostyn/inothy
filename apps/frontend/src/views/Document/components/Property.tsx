@@ -1,8 +1,7 @@
 import { css } from '@styled-system/css'
 import { hstack } from '@styled-system/patterns'
 import Link from 'next/link'
-import React from 'react'
-import { IconType } from 'react-icons'
+import type { IconType } from 'react-icons'
 
 interface PropertyProps {
   title: string

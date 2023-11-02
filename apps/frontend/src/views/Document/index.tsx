@@ -32,8 +32,8 @@ export default function DocumentView({
     id: documentId,
   })
 
-  const onCallToAction = () => {
-    console.log('Botón accionado') // TODO: Cambiar una vez el botón tenga funcionalidad
+  const onCallToAction = (): void => {
+    console.log('Botón accionado') // TODO: Cambiar toda la función una vez el botón tenga funcionalidad
     console.log(documentData)
   }
 
@@ -102,7 +102,7 @@ export default function DocumentView({
                 title="Usuario"
                 icon={MdPersonOutline}
                 content={documentData?.user.username ?? ''}
-                link={`/user/${documentData?.user.username}`}
+                link={`/user/${documentData?.user?.username ?? ''}`}
               />
 
               <Property
@@ -115,7 +115,7 @@ export default function DocumentView({
                 title="Asignatura"
                 icon={MdOutlineBook}
                 content={documentData?.subject.name ?? ''}
-                link={`/subject/${documentData?.subject.id}`}
+                link={`/subject/${documentData?.subject.id ?? ''}`}
               />
 
               <Property
@@ -127,7 +127,7 @@ export default function DocumentView({
               <Property
                 title="Producción"
                 icon={MdOutlineLaptopChromebook}
-                content={documentData?.byHand ? 'A mano' : 'Digital' ?? false}
+                content={documentData?.byHand === true ? 'A mano' : 'Digital'}
               />
 
               {documentData?.calification != null && (
