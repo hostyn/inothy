@@ -29,7 +29,7 @@ const Property = ({
         >
           {title}
         </span>
-        <p
+        <div
           className={css({
             fontSize: 'md',
             fontWeight: '700',
@@ -41,9 +41,9 @@ const Property = ({
               {content}
             </Link>
           ) : (
-            content
+            <p>content</p>
           )}
-        </p>
+        </div>
       </div>
     </section>
   )
