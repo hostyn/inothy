@@ -137,7 +137,7 @@ export default function DocumentView({
               <Property
                 title="Producción"
                 icon={MdOutlineLaptopChromebook}
-                content={documentData?.byHand === true ? 'A mano' : 'Digital'}
+                content={documentData?.byHand ?? true ? 'A mano' : 'Digital'}
               />
 
               {documentData?.calification != null && (
