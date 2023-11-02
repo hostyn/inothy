@@ -32,7 +32,7 @@ export const getServerSideProps = publicContentSSR(async ctx => {
     }
   }
   try {
-    await ctx.helper.document.getDocument.prefetch({
+    await ctx.helper.document.getDocument.fetch({
       id: documentId,
     })
     return {
