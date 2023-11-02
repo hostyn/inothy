@@ -18,8 +18,12 @@ import {
 
 import { IoGlassesOutline } from 'react-icons/io5'
 import { currencyFormatter } from '@util/normailize'
-import Image from 'next/image'
+// import Image from 'next/image'
 import Property from './components/Property'
+import { Document, Page, pdfjs } from 'react-pdf'
+import { useState } from 'react'
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
 interface DocumentProps {
   documentId: string
@@ -28,9 +32,14 @@ interface DocumentProps {
 export default function DocumentView({
   documentId,
 }: DocumentProps): JSX.Element {
+  const [numPages, setNumPages] = useState(0)
   const { data: documentData } = trpc.document.getDocument.useQuery({
     id: documentId,
   })
+
+  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
+    setNumPages(numPages)
+  }
 
   const onCallToAction = (): void => {
     console.log('Botón accionado') // TODO: Cambiar toda la función una vez el botón tenga funcionalidad
@@ -162,12 +171,27 @@ export default function DocumentView({
               flexShrink: '0',
               flexBasis: '0',
               justifyContent: 'center',
+              border: '1px solid token(colors.red.500)', // TODO: Remove once finished
             })}
           >
-            <Image
+            {/* <Image
               alt={documentData?.title ?? 'Previsualización documento'}
               src={documentData?.previewUrl ?? ''}
-            />
+            /> */}
+            <Document
+              file={documentData?.previewUrl}
+              onLoadSuccess={onDocumentLoadSuccess}
+            >
+              {/* TODO: Decide how many pages to show and if we need navigation */}
+              {/* <Page pageNumber={1} /> */}
+              {Array.from(new Array(numPages), (el, index) => (
+                <Page
+                  key={`page_${index + 1}`}
+                  pageNumber={index + 1}
+                  className={css({ my: 'sm' })}
+                />
+              ))}
+            </Document>
           </div>
         </div>
       </PageLayout>
