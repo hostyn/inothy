@@ -41,7 +41,7 @@ const Property = ({
               {content}
             </Link>
           ) : (
-            <p>content</p>
+            <p>{content}</p>
           )}
         </div>
       </div>
