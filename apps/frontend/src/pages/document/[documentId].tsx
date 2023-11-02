@@ -31,13 +31,19 @@ export const getServerSideProps = publicContentSSR(async ctx => {
       notFound: true,
     }
   }
-  await ctx.helper.document.getDocument.prefetch({
-    id: documentId,
-  })
-  return {
-    props: {
-      documentId,
-    },
+  try {
+    await ctx.helper.document.getDocument.prefetch({
+      id: documentId,
+    })
+    return {
+      props: {
+        documentId,
+      },
+    }
+  } catch {
+    return {
+      notFound: true,
+    }
   }
 })
 
