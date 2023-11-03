@@ -171,11 +171,13 @@ export default function DocumentView({
               display: 'flex',
               justifyContent: 'center',
               position: 'relative',
+              height: '4xl',
             })}
           >
             <Document
               file={documentData?.previewUrl}
               onLoadSuccess={onDocumentLoadSuccess}
+              className={css({ height: '100%' })}
             >
               <Page pageNumber={pageNumber} />
             </Document>
