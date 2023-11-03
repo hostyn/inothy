@@ -18,7 +18,6 @@ import {
 
 import { IoGlassesOutline } from 'react-icons/io5'
 import { currencyFormatter } from '@util/normailize'
-// import Image from 'next/image'
 import Property from './components/Property'
 import { Document, Page, pdfjs } from 'react-pdf'
 import { useState } from 'react'
