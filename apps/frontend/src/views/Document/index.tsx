@@ -21,7 +21,8 @@ import { currencyFormatter } from '@util/normailize'
 // import Image from 'next/image'
 import Property from './components/Property'
 import { Document, Page, pdfjs } from 'react-pdf'
-// import { useState } from 'react'
+import { useState } from 'react'
+import PageNavigator from './components/PageNavigator'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker.js`
 
@@ -32,15 +33,15 @@ interface DocumentProps {
 export default function DocumentView({
   documentId,
 }: DocumentProps): JSX.Element {
-  // const [numPages, setNumPages] = useState(0) // TODO: Uncomment if want to see all pages
+  const [numPages, setNumPages] = useState<number>(0)
+  const [pageNumber, setPageNumber] = useState<number>(1)
   const { data: documentData } = trpc.document.getDocument.useQuery({
     id: documentId,
   })
 
-  // TODO: Uncomment if want to see all pages
-  // const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
-  //   setNumPages(numPages)
-  // }
+  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
+    setNumPages(numPages)
+  }
 
   const onCallToAction = (): void => {
     console.log('Botón accionado') // TODO: Cambiar toda la función una vez el botón tenga funcionalidad
@@ -168,32 +169,21 @@ export default function DocumentView({
           <div
             className={css({
               display: 'flex',
-              flexGrow: '1',
-              flexShrink: '0',
-              flexBasis: '0',
               justifyContent: 'center',
-              border: '1px solid token(colors.red.500)', // TODO: Remove once finished
+              position: 'relative',
             })}
           >
-            {/* <Image
-              alt={documentData?.title ?? 'Previsualización documento'}
-              src={documentData?.previewUrl ?? ''}
-            /> */}
             <Document
               file={documentData?.previewUrl}
-              // onLoadSuccess={onDocumentLoadSuccess} //TODO: Uncomment if want to see all the pages
+              onLoadSuccess={onDocumentLoadSuccess}
             >
-              {/* TODO: Decide how many pages to show and if we need navigation */}
-              <Page pageNumber={1} />
-              {/* Uncomment if want to show all pages */}
-              {/* {Array.from(new Array(numPages), (el, index) => (
-                <Page
-                  key={`page_${index + 1}`}
-                  pageNumber={index + 1}
-                  className={css({ my: 'sm' })}
-                />
-              ))} */}
+              <Page pageNumber={pageNumber} />
             </Document>
+            <PageNavigator
+              numPages={numPages}
+              pageNumber={pageNumber}
+              setPageNumber={setPageNumber}
+            />
           </div>
         </div>
       </PageLayout>
