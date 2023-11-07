@@ -19,11 +19,7 @@ import {
 import { IoGlassesOutline } from 'react-icons/io5'
 import { currencyFormatter } from '@util/normailize'
 import Property from './components/Property'
-import { Document, Page, pdfjs } from 'react-pdf'
-import { useState } from 'react'
-import PageNavigator from './components/PageNavigator'
-
-pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker.js`
+import PDFPreview from './components/PDFPreview'
 
 interface DocumentProps {
   documentId: string
@@ -32,15 +28,9 @@ interface DocumentProps {
 export default function DocumentView({
   documentId,
 }: DocumentProps): JSX.Element {
-  const [numPages, setNumPages] = useState<number>(0)
-  const [pageNumber, setPageNumber] = useState<number>(1)
   const { data: documentData } = trpc.document.getDocument.useQuery({
     id: documentId,
   })
-
-  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }): void => {
-    setNumPages(numPages)
-  }
 
   const onCallToAction = (): void => {
     console.log('Botón accionado') // TODO: Cambiar toda la función una vez el botón tenga funcionalidad
@@ -65,6 +55,7 @@ export default function DocumentView({
           <div
             className={css({
               width: '2xl',
+              minWidth: '2xl',
             })}
           >
             <div
@@ -170,21 +161,15 @@ export default function DocumentView({
               display: 'flex',
               justifyContent: 'center',
               position: 'relative',
-              height: '4xl',
+              aspectRatio: '1/1.414',
+              width: '100%',
             })}
           >
-            <Document
-              file={documentData?.previewUrl}
-              onLoadSuccess={onDocumentLoadSuccess}
-              className={css({ height: '100%' })}
-            >
-              <Page pageNumber={pageNumber} />
-            </Document>
-            <PageNavigator
-              numPages={numPages}
-              pageNumber={pageNumber}
-              setPageNumber={setPageNumber}
-            />
+            {documentData?.previewUrl != null ? (
+              <PDFPreview previewUrl={documentData?.previewUrl ?? ''} />
+            ) : (
+              <p>no hay preview</p>
+            )}
           </div>
         </div>
       </PageLayout>
