@@ -15,7 +15,6 @@ import {
   MdOutlineCalendarToday,
   MdOutlineDescription,
 } from 'react-icons/md'
-
 import { IoGlassesOutline } from 'react-icons/io5'
 import { currencyFormatter } from '@util/normailize'
 import Property from './components/Property'
@@ -158,15 +157,15 @@ export default function DocumentView({
           </div>
           <div
             className={css({
-              display: 'flex',
-              justifyContent: 'center',
               position: 'relative',
               aspectRatio: '1/1.414',
               width: '100%',
+              height: '100%',
+              display: 'flex',
             })}
           >
             {documentData?.previewUrl != null ? (
-              <PDFPreview previewUrl={documentData?.previewUrl ?? ''} />
+              <PDFPreview previewUrl={documentData?.previewUrl} />
             ) : (
               <p>no hay preview</p>
             )}
