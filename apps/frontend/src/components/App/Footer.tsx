@@ -1,4 +1,4 @@
-import Logo from '@components/Logo'
+import Imagotipo from '@components/Imagotipo'
 import { css } from '@styled-system/css'
 import { Link } from '@ui/Link'
 import { AiOutlineInstagram, AiOutlineYoutube } from 'react-icons/ai'
@@ -31,7 +31,7 @@ export default function Footer(): JSX.Element {
         margin: 'auto',
       })}
     >
-      <Logo footer />
+      <Imagotipo footer />
       <Link visual="footer" href="/legal">
         Términos y condiciones
       </Link>

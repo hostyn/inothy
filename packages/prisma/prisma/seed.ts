@@ -89,6 +89,27 @@ async function main(): Promise<void> {
     })
   } catch {}
 
+  const previewPath = `documents/${documentIdentifier}/document.pdf`
+
+  const preivewRef = storageAdmin.file(previewPath)
+  const preivewStream = preivewRef.createWriteStream({
+    metadata: {
+      contentType: 'application/pdf',
+    },
+  })
+
+  const preivew = fs.readFileSync('resources/preview.pdf')
+
+  try {
+    await new Promise((resolve, reject) => {
+      preivewStream.on('finish', resolve)
+      preivewStream.on('error', reject)
+      preivewStream.end(preivew)
+    })
+
+    await preivewRef.makePublic()
+  } catch {}
+
   const examDocumentType = await prisma.documentType.findFirst({
     where: {
       name: 'exam',
@@ -99,10 +120,15 @@ async function main(): Promise<void> {
     data: {
       byHand: false,
       contentType: 'application/pdf',
-      title: 'test',
-      description: 'test',
+      title:
+        'Ejercicios resueltos del examen de Fundamentos de los Computadores del cuarto parcial del año 1.5 millone',
+      description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat interdum varius sit amet mattis vulputate. Ligula ullamcorper malesuada proin libero nunc. Fringilla phasellus faucibus scelerisque eleifend. Commodo viverra maecenas accumsan lacus vel. Orci ac auctor augue mauris augue neque gravida in fermentum. Mattis ullamcorper velit sed ullamcorper. Ornare quam viverra orci sagittis eu volutpat odio facilisis. Blandit massa enim nec dui nunc mattis enim ut tellus. Turpis massa tincidunt dui ut ornare. Pharetra convallis posuere morbi leo urna molestie at elementum eu.`,
       filePath: 'documents/test.pdf',
+      previewUrl: preivewRef.publicUrl(),
       price: 2.3,
+      calification: 9.6,
+      professor: 'Juan Pablo Sarmiento',
+      year: 2023,
       user: {
         create: {
           uid: user.uid,

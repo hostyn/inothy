@@ -13,6 +13,54 @@ export const documentRouter = createTRPCRouter({
     return documentTypes
   }),
 
+  getDocument: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const document = await ctx.prisma.document.findUnique({
+        where: {
+          id: input.id,
+        },
+        select: {
+          description: true,
+          title: true,
+          price: true,
+          contentType: true,
+          user: {
+            select: {
+              username: true,
+            },
+          },
+          documentType: {
+            select: {
+              name: true,
+            },
+          },
+          byHand: true,
+          calification: true,
+          professor: true,
+          year: true,
+          previewUrl: true,
+          subject: {
+            select: {
+              university: {
+                select: {
+                  name: true,
+                },
+              },
+              name: true,
+              id: true,
+            },
+          },
+        },
+      })
+      if (document == null)
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'document-not-found',
+        })
+      return document
+    }),
+
   upload: protectedProcedure
     .input(
       z.object({

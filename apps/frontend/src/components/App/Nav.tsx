@@ -1,4 +1,4 @@
-import Logo from '@components/Logo'
+import Imagotipo from '@components/Imagotipo'
 import useAuth from '@hooks/useAuth'
 import { css } from '@styled-system/css'
 import { ButtonLink } from '@ui/Button'
@@ -55,7 +55,7 @@ export default function Nav(): JSX.Element {
     >
       <div className={divStyles}>
         <Link href="/" aria-label="Volver a la página principal">
-          <Logo />
+          <Imagotipo />
         </Link>
         <SearchBar />
       </div>
