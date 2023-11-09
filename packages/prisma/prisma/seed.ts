@@ -126,6 +126,9 @@ async function main(): Promise<void> {
       filePath: 'documents/test.pdf',
       previewUrl: preivewRef.publicUrl(),
       price: 2.3,
+      calification: 9.6,
+      professor: 'Juan Pablo Sarmiento',
+      year: 2023,
       user: {
         create: {
           uid: user.uid,
