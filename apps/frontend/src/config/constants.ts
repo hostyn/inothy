@@ -46,3 +46,14 @@ export const REFUSE_REASONS = {
     'El documento ha sido rechazado porque es necesario ser mayor de edad.',
   SPECIFIC_CASE: 'El documento ha sido rechazado por un caso específico.',
 }
+
+export const DOCUMENT_TYPES: Record<string, string> = {
+  exam: 'Exámen',
+  note: 'Apuntes',
+  practice: 'Práctica',
+  assignment: 'Tarea',
+  exercise: 'Ejercicio',
+  summary: 'Resumen',
+  presentation: 'Presentación',
+  other: 'Otro',
+}

@@ -7,7 +7,6 @@ import { Button } from '@ui/Button'
 import {
   MdPersonOutline,
   MdOutlineChat,
-  MdOutlineApartment,
   MdOutlineBook,
   MdOutlineFitnessCenter,
   MdOutlineLaptopChromebook,
@@ -19,6 +18,8 @@ import { currencyFormatter } from '@util/normailize'
 import Property from './components/Property'
 import PDFPreview from './components/PDFPreview'
 import { BsFileEarmarkText } from 'react-icons/bs'
+import { DOCUMENT_TYPES } from '@config/constants'
+import { LiaUniversitySolid } from 'react-icons/lia'
 
 interface DocumentProps {
   documentId: string
@@ -107,7 +108,7 @@ export default function DocumentView({
 
               <Property
                 title="Universidad"
-                icon={MdOutlineApartment}
+                icon={LiaUniversitySolid}
                 content={documentData?.subject.university.name ?? ''}
               />
 
@@ -121,7 +122,11 @@ export default function DocumentView({
               <Property
                 title="Tipo"
                 icon={MdOutlineFitnessCenter}
-                content={documentData?.documentType.name ?? ''}
+                content={
+                  documentData?.documentType.name != null
+                    ? DOCUMENT_TYPES[documentData?.documentType.name] ?? 'Otro'
+                    : ''
+                }
               />
 
               <Property
