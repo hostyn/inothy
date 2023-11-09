@@ -1,6 +1,6 @@
 import { css } from '@styled-system/css'
 
-const Logo = ({ footer = false }: { footer?: boolean }): JSX.Element => {
+const Imagotipo = ({ footer = false }: { footer?: boolean }): JSX.Element => {
   return (
     <svg viewBox="0 0 194.17 61.27" className={css({ height: '6xs' })}>
       <g id="Capa_2" data-name="Capa 2">
@@ -84,4 +84,4 @@ const Logo = ({ footer = false }: { footer?: boolean }): JSX.Element => {
   )
 }
 
-export default Logo
+export default Imagotipo
