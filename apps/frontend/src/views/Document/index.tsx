@@ -13,12 +13,12 @@ import {
   MdOutlineLaptopChromebook,
   MdOutlineWorkspacePremium,
   MdOutlineCalendarToday,
-  MdOutlineDescription,
 } from 'react-icons/md'
 import { IoGlassesOutline } from 'react-icons/io5'
 import { currencyFormatter } from '@util/normailize'
 import Property from './components/Property'
 import PDFPreview from './components/PDFPreview'
+import { BsFileEarmarkText } from 'react-icons/bs'
 
 interface DocumentProps {
   documentId: string
@@ -40,7 +40,7 @@ export default function DocumentView({
     <App>
       <PageLayout
         title={documentData?.title ?? ''}
-        Icon={MdOutlineDescription}
+        Icon={BsFileEarmarkText}
         callToActionText="Comprar"
         onCallToAction={onCallToAction}
       >
