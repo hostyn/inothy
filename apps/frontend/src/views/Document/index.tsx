@@ -162,6 +162,9 @@ export default function DocumentView({
               width: '100%',
               height: '100%',
               display: 'flex',
+              overflow: 'hidden',
+              outline: '1px solid token(colors.grey.100)',
+              borderRadius: 'md',
             })}
           >
             {documentData?.previewUrl != null ? (

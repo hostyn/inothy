@@ -1,3 +1,4 @@
+import Logo from '@components/Logo'
 import Spinner from '@components/Spinner'
 import { css } from '@styled-system/css'
 
@@ -18,6 +19,19 @@ export default function LoadingPreview(): JSX.Element {
     >
       <Spinner className={css({ stroke: 'grey.500', fontSize: 'lg' })} />
       <span>Cargando previsualización</span>
+      <div
+        className={css({
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%) rotate(16deg)',
+          width: '100%',
+          opacity: '0.1',
+          zIndex: '-1',
+        })}
+      >
+        <Logo width="100%" />
+      </div>
     </div>
   )
 }
