@@ -30,6 +30,7 @@ export default function PageLayout({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          gap: 'md',
         })}
       >
         <div
@@ -39,8 +40,16 @@ export default function PageLayout({
             gap: 'sm',
           })}
         >
-          <Icon size={24} className={css({ color: 'primary.500' })} />
-          <h1 className={css({ fontSize: 'xl', color: 'primary.500' })}>
+          <Icon size={32} className={css({ color: 'primary.500' })} />
+          <h1
+            className={css({
+              fontSize: 'xl',
+              color: 'primary.500',
+              fontWeight: '600',
+              lineHeight: '110%',
+              letterSpacing: '-0.02em',
+            })}
+          >
             {title}
           </h1>
         </div>
