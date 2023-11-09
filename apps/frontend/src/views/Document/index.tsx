@@ -20,6 +20,7 @@ import PDFPreview from './components/PDFPreview'
 import { BsFileEarmarkText } from 'react-icons/bs'
 import { DOCUMENT_TYPES } from '@config/constants'
 import { LiaUniversitySolid } from 'react-icons/lia'
+import NoPreview from './components/NoPreview'
 
 interface DocumentProps {
   documentId: string
@@ -175,7 +176,7 @@ export default function DocumentView({
             {documentData?.previewUrl != null ? (
               <PDFPreview previewUrl={documentData?.previewUrl} />
             ) : (
-              <p>no hay preview</p>
+              <NoPreview mimeType={documentData?.contentType ?? ''} />
             )}
           </div>
         </div>

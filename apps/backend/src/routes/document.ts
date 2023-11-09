@@ -24,6 +24,7 @@ export const documentRouter = createTRPCRouter({
           description: true,
           title: true,
           price: true,
+          contentType: true,
           user: {
             select: {
               username: true,
