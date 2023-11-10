@@ -11,39 +11,55 @@ datasource db {
 }
 
 model User {
-  id                  String     @id @default(auto()) @map("_id") @db.ObjectId
-  uid                 String     @unique
-  username            String     @unique
+  id                  String        @id @default(auto()) @map("_id") @db.ObjectId
+  uid                 String        @unique
+  username            String        @unique
   usernameChangedDate DateTime?
   address             Address?
-  stripeAccountId     String?
-  createdAt           DateTime   @default(now())
-  updatedAt           DateTime   @updatedAt
-  degree              Degree?    @relation(fields: [degreeId], references: [id])
-  degreeId            String?    @db.ObjectId
+  mangopayUser        MangopayUser?
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  degree              Degree?       @relation(fields: [degreeId], references: [id])
+  degreeId            String?       @db.ObjectId
   biography           String?
   avatarUrl           String?
   firstName           String?
   lastName            String?
-  phone               String?
+  nationality         String?
   birthDate           DateTime?
+  country             String?
   ip                  String?
+  referralCode        String?
   documents           Document[]
   reviews             Review[]
-  canUpload           Boolean    @default(false)
-  canBuy              Boolean    @default(false)
+  canUpload           Boolean       @default(false)
+  canBuy              Boolean       @default(false)
 }
 
 model Address {
-  id         String  @id @default(auto()) @map("_id") @db.ObjectId
-  line1      String
-  line2      String?
-  city       String
-  postalCode String
-  region     String?
-  country    String
-  userId     String  @unique @db.ObjectId
-  user       User    @relation(fields: [userId], references: [id])
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  address1 String
+  address2 String
+  city     String
+  zip      String
+  region   String
+  country  String
+  userId   String @unique @db.ObjectId
+  user     User   @relation(fields: [userId], references: [id])
+}
+
+model MangopayUser {
+  id                      String  @id @default(auto()) @map("_id") @db.ObjectId
+  mangopayId              String  @unique
+  userId                  String  @unique @db.ObjectId
+  user                    User    @relation(fields: [userId], references: [id])
+  kycId                   String? @unique
+  kycLevel                String
+  kycStatus               String?
+  kycRefusedReasonType    String?
+  kycRefusedReasonMessage String?
+  mangopayType            String
+  mangopayWalletId        String  @unique
 }
 
 model University {

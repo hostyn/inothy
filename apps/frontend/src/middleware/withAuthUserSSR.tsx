@@ -3,7 +3,6 @@ import type {
   GetServerSidePropsResult,
   GetServerSideProps,
   GetServerSidePropsContext,
-  NextApiRequest,
 } from 'next'
 import { type AuthUser, withAuthUserTokenSSR } from 'next-firebase-auth'
 
@@ -19,10 +18,7 @@ const withAuthUserSSR = <Type,>(firebaseAuthParams?: FirebaseAuthParams) => {
     ) => Promise<GetServerSidePropsResult<Type>>
   ): GetServerSideProps => {
     return withAuthUserTokenSSR(firebaseAuthParams)(async ctx => {
-      const helper = useServerSideHelper(
-        ctx.req as NextApiRequest,
-        ctx.AuthUser
-      )
+      const helper = useServerSideHelper(ctx.AuthUser)
 
       await helper.auth.getUserData.prefetch()
 

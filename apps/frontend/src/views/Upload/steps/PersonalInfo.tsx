@@ -1,4 +1,6 @@
+import { COUNTRIES } from '@config/countries'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useAuth from '@hooks/useAuth'
 import { css } from '@styled-system/css'
 import Input from '@ui/Input'
 import { useForm } from 'react-hook-form'
@@ -7,8 +9,9 @@ import TabContent from '../TabContent'
 import type { StepProps, UploadData } from '../types'
 
 const personalInfoSchema = z.object({
-  firstName: z.string().min(1, 'El nombre es obligatorio.'),
+  name: z.string().min(1, 'El nombre es obligatorio.'),
   lastName: z.string().min(1, 'Los apellidos son obligatorios.'),
+  email: z.string().email('Email inválido.'),
   birthDate: z.string().refine(
     date => {
       const birthDate = new Date(date)
@@ -28,7 +31,10 @@ const personalInfoSchema = z.object({
     },
     { message: 'Debe ser mayor de edad.' }
   ),
-  phone: z.string().min(1, 'El teléfono es obligatorio.'),
+  nationality: z.string().min(1, 'La nacionalidad es obligatoria.'),
+  countryOfResidency: z
+    .string()
+    .min(1, 'El país de residencia es obligatorio.'),
 })
 
 type FormValues = z.infer<typeof personalInfoSchema>
@@ -41,6 +47,8 @@ export default function PersonalInfo({
   title,
   ...props
 }: StepProps): JSX.Element {
+  const { user } = useAuth()
+
   const {
     register,
     handleSubmit,
@@ -51,10 +59,12 @@ export default function PersonalInfo({
     reValidateMode: 'onBlur',
     resolver: zodResolver(personalInfoSchema),
     values: {
-      firstName: '',
+      email: user.email ?? '',
+      name: '',
       lastName: '',
+      countryOfResidency: 'ES',
+      nationality: 'ES',
       birthDate: new Date().toISOString().split('T')[0],
-      phone: '',
     },
   })
 
@@ -115,7 +125,6 @@ export default function PersonalInfo({
           display: 'flex',
           flexDirection: 'column',
           gap: 'xl',
-          width: '100%',
         })}
       >
         <div
@@ -147,10 +156,10 @@ export default function PersonalInfo({
             <Input
               nativePlaceholder="Juan Pablo"
               autoComplete="given-name"
-              error={errors.firstName}
-              {...register('firstName', {
+              error={errors.name}
+              {...register('name', {
                 onChange: () => {
-                  clearErrors('firstName')
+                  clearErrors('name')
                 },
               })}
             />
@@ -210,16 +219,16 @@ export default function PersonalInfo({
                 color: 'text',
               })}
             >
-              Teléfono
+              Email
             </span>
-            {/* TODO: Add phone prefix input */}
             <Input
-              nativePlaceholder="+34 XXX XXX XXX"
-              autoComplete="tel"
-              error={errors.phone}
-              {...register('phone', {
+              nativePlaceholder="juanpa@gmail.com"
+              disabled
+              autoComplete="email"
+              error={errors.email}
+              {...register('email', {
                 onChange: () => {
-                  clearErrors('phone')
+                  clearErrors('email')
                 },
               })}
             />
@@ -252,6 +261,104 @@ export default function PersonalInfo({
                 },
               })}
             />
+          </div>
+          <div
+            className={css({
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'sm',
+              width: '100%',
+            })}
+          >
+            <span
+              className={css({
+                fontSize: 'md',
+                fontWeight: '700',
+                lineHeight: '100%',
+                color: 'text',
+              })}
+            >
+              Nacionalidad
+            </span>
+            <select
+              defaultValue="ES"
+              {...register('nationality', {
+                onChange: () => {
+                  clearErrors('nationality')
+                },
+              })}
+              className={css({
+                color: 'primary.500',
+                bg: 'grey.100',
+                borderRadius: 'md',
+                paddingLeft: 'sm',
+                paddingRight: 'xl',
+                height: '6xs',
+                width: '100%',
+                transition:
+                  'background 150ms ease, outline-width 50ms ease-in-out',
+
+                _focus: {
+                  bg: 'white',
+                  outline: '3px solid token(colors.primary.300)',
+                },
+              })}
+            >
+              {COUNTRIES.map(country => (
+                <option key={country.iso} value={country.iso}>
+                  {country.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div
+            className={css({
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'sm',
+              width: '100%',
+            })}
+          >
+            <span
+              className={css({
+                fontSize: 'md',
+                fontWeight: '700',
+                lineHeight: '100%',
+                color: 'text',
+              })}
+            >
+              País de residencia
+            </span>
+            <select
+              defaultValue="ES"
+              {...register('countryOfResidency', {
+                onChange: () => {
+                  clearErrors('countryOfResidency')
+                },
+              })}
+              className={css({
+                color: 'primary.500',
+                bg: 'grey.100',
+                borderRadius: 'md',
+                paddingLeft: 'sm',
+                paddingRight: 'xl',
+                height: '6xs',
+                width: '100%',
+                transition:
+                  'background 150ms ease, outline-width 50ms ease-in-out',
+
+                _focus: {
+                  bg: 'white',
+                  outline: '3px solid token(colors.primary.300)',
+                },
+              })}
+            >
+              {COUNTRIES.map(country => (
+                <option key={country.iso} value={country.iso}>
+                  {country.name}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </div>

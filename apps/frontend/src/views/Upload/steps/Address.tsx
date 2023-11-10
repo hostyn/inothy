@@ -11,29 +11,13 @@ import { toastError } from '@services/toaster'
 import { useState } from 'react'
 
 const personalInfoSchema = z.object({
-  line1: z.string().min(1, 'La linea 1 es obligatoria.'),
-  line2: z.string(),
+  address1: z.string().min(1, 'La linea 1 es obligatoria.'),
+  address2: z.string(),
   country: z.string().min(1, 'El país es obligatorio.'),
   city: z.string().min(1, 'La ciudad es obligatoria.'),
-  region: z.string(),
+  region: z.string().min(1, 'La región es obligatoria.'),
   postalCode: z.string().min(1, 'El codigo postal es obligatorio.'),
 })
-
-const MutationErrors: Record<string, string> = {
-  'first-name-required': 'El nombre es obligatorio.',
-  'last-name-required': 'El apellido es obligatorio.',
-  underage: 'Debes ser mayor de edad para registrarte.',
-  'country-required': 'El país es obligatorio.',
-  'invalid-country': 'El país no es válido.',
-  'city-required': 'La ciudad es obligatoria.',
-  'postal-code-required': 'El codigo postal es obligatorio.',
-  'phone-required': 'El telefono es obligatorio.',
-  'already-seller':
-    'Ya has completado tu perfil. Por favor, refresca la página.',
-  'invalid-postal-code': 'El codigo postal no es válido.',
-  'invalid-city': 'La ciudad no es válida.',
-  'invalid-phone': 'El telefono no es válido.',
-}
 
 type FormValues = z.infer<typeof personalInfoSchema>
 
@@ -47,12 +31,44 @@ export default function Address({
 }: StepProps): JSX.Element {
   const [loading, setLoading] = useState(false)
 
-  const upgradeUserToSeller = trpc.auth.upgradeUserToSeller.useMutation({
+  const updateMangopayUser = trpc.auth.updateMangopayUserToOwner.useMutation({
     onError: error => {
       setLoading(false)
 
-      if (error.message in MutationErrors) {
-        toastError(MutationErrors[error.message])
+      if (error.message === 'name-required') {
+        toastError('El nombre es obligatorio.')
+        return
+      }
+
+      if (error.message === 'last-name-required') {
+        toastError('El apellido es obligatorio.')
+        return
+      }
+
+      if (error.message === 'underage') {
+        toastError('Debes ser mayor de edad para registrarte.')
+        return
+      }
+
+      if (error.message === 'city-required') {
+        toastError('La ciudad es obligatoria.')
+        return
+      }
+
+      if (error.message === 'region-required') {
+        toastError('La región es obligatoria.')
+        return
+      }
+
+      if (error.message === 'postal-code-required') {
+        toastError('El codigo postal es obligatorio.')
+        return
+      }
+
+      if (error.message === 'already-owner') {
+        toastError(
+          'Ya has completado tu perfil. Por favor, refresca la página.'
+        )
         return
       }
 
@@ -75,8 +91,8 @@ export default function Address({
     resolver: zodResolver(personalInfoSchema),
     values: {
       country: 'ES',
-      line1: '',
-      line2: '',
+      address1: '',
+      address2: '',
       city: '',
       region: '',
       postalCode: '',
@@ -102,7 +118,7 @@ export default function Address({
       )
     )
 
-    upgradeUserToSeller.mutate({
+    updateMangopayUser.mutate({
       ...values,
       ...compatibleData,
       birthDate: birthDateUTC.getTime(),
@@ -188,10 +204,10 @@ export default function Address({
             <Input
               nativePlaceholder="Avenida Calcuta 34, Planta 2 Izquierda"
               autoComplete="address-line1"
-              error={errors.line1}
-              {...register('line1', {
+              error={errors.address1}
+              {...register('address1', {
                 onChange: () => {
-                  clearErrors('line1')
+                  clearErrors('address1')
                 },
               })}
             />
@@ -218,10 +234,10 @@ export default function Address({
             <Input
               nativePlaceholder="Calle General del Rosario 24, Escalera 2"
               autoComplete="address-line2"
-              error={errors.line2}
-              {...register('line2', {
+              error={errors.address2}
+              {...register('address2', {
                 onChange: () => {
-                  clearErrors('line2')
+                  clearErrors('address2')
                 },
               })}
             />
