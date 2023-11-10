@@ -3,16 +3,9 @@ import { protectedProcedure, publicProcedure } from '../procedures'
 import { createTRPCRouter } from '../trpc'
 import { TRPCError } from '@trpc/server'
 import { getUserData } from '../util/getUserData'
+import mangopay from '../config/mangopay'
 import { COUNTRIES } from '../config/countries'
-import stripe from '../config/stripe'
-
-// TODO: Handle all stripe errors.
-const StripeErrors: Record<string, string> = {
-  'individual[address][postal_code]': 'invalid-postal-code',
-  'individual[address][city]': 'invalid-city',
-  'individual[address][line1]': 'invalid-line1',
-  'individual[phone]': 'invalid-phone-number',
-}
+import type { CountryISO, user } from 'mangopay2-nodejs-sdk'
 
 export const authRouter = createTRPCRouter({
   getUserData: publicProcedure.query(async ({ ctx }) => {
@@ -139,10 +132,10 @@ export const authRouter = createTRPCRouter({
       return { success: true }
     }),
 
-  upgradeUserToSeller: protectedProcedure
+  updateMangopayUserToOwner: protectedProcedure
     .input(
       z.object({
-        firstName: z.string().min(1, 'first-name-required'),
+        name: z.string().min(1, 'name-required'),
         lastName: z.string().min(1, 'last-name-required'),
         birthDate: z.number().refine(
           birthDate => {
@@ -163,131 +156,115 @@ export const authRouter = createTRPCRouter({
           },
           { message: 'underage' }
         ),
+        nationality: z
+          .string()
+          .min(1, 'nationality-required')
+          .refine(country => COUNTRIES.includes(country as CountryISO), {
+            message: 'invalid-nationality',
+          }),
+        countryOfResidency: z
+          .string()
+          .min(1, 'country-of-residency-required')
+          .refine(country => COUNTRIES.includes(country as CountryISO), {
+            message: 'invalid-country-of-residency',
+          }),
+        address1: z.string().min(1, 'address1-required'),
+        address2: z.string(),
         country: z
           .string()
           .min(1, 'country-required')
-          .refine(country => COUNTRIES.includes(country), {
+          .refine(country => COUNTRIES.includes(country as CountryISO), {
             message: 'invalid-country',
           }),
-        line1: z.string().min(1, 'line1-required'),
-        line2: z.string().optional(),
         city: z.string().min(1, 'city-required'),
-        region: z.string().optional(),
+        region: z.string().min(1, 'region-required'),
         postalCode: z.string().min(1, 'postal-code-required'),
-        phone: z.string().min(1, 'phone-required'),
       })
     )
     .mutation(async ({ ctx, input }) => {
       const userData = await ctx.prisma.user.findUnique({
         where: { uid: ctx.user.id ?? '' },
+        include: {
+          mangopayUser: true,
+        },
       })
 
-      if (userData?.stripeAccountId != null) {
+      if (userData?.mangopayUser?.mangopayType === 'OWNER') {
         throw new TRPCError({
           code: 'BAD_REQUEST',
-          message: 'already-seller',
+          message: 'already-owner',
         })
       }
 
-      const xForwardedFor = ctx.req.headers['x-forwarded-for']
-
-      const clientIp =
-        xForwardedFor != null
-          ? Array.isArray(xForwardedFor)
-            ? xForwardedFor[0]
-            : String(xForwardedFor).split(',')[0].trim()
-          : ctx.req.socket.remoteAddress
-
-      const birthDate = new Date(input.birthDate)
-
       try {
-        const stripeAccount = await stripe.accounts.create({
-          type: 'custom',
-          business_type: 'individual',
-          capabilities: {
-            transfers: { requested: true },
-            card_payments: { requested: true },
+        const mangopayUserData: user.CreateUserNaturalData = {
+          PersonType: 'NATURAL',
+          FirstName: input.name,
+          LastName: input.lastName,
+          Email: ctx.user.email ?? '',
+          Address: {
+            AddressLine1: input.address1,
+            AddressLine2: input.address2,
+            City: input.city,
+            Region: input.region,
+            PostalCode: input.postalCode,
+            Country: input.country as CountryISO,
           },
-          business_profile: {
-            mcc: '5815',
-            url: `https://inothy.com/user/${userData?.username ?? ''}`,
-          },
-          tos_acceptance: {
-            ip: clientIp,
-            date: Math.floor(Date.now() / 1000),
-          },
-          country: input.country,
-          individual: {
-            first_name: input.firstName,
-            last_name: input.lastName,
-            email: ctx.user.email ?? '',
-            phone: input.phone,
-            address: {
-              line1: input.line1,
-              line2: input.line2,
-              city: input.city,
-              postal_code: input.postalCode,
-              state: input.region,
-            },
-            dob: {
-              day: birthDate.getUTCDate(),
-              month: birthDate.getUTCMonth() + 1,
-              year: birthDate.getUTCFullYear(),
-            },
-          },
-          settings: {
-            payouts: {
-              schedule: {
-                interval: 'manual',
-              },
-            },
-          },
-        })
+          Birthday: Number((input.birthDate / 1000).toFixed(0)),
+          Nationality: input.nationality as CountryISO,
+          CountryOfResidence: input.countryOfResidency as CountryISO,
+          UserCategory: 'OWNER',
+          TermsAndConditionsAccepted: true,
+        }
+
+        const createMangopayUserResponse =
+          userData?.mangopayUser == null
+            ? await mangopay.Users.create(mangopayUserData)
+            : await mangopay.Users.update({
+                Id: userData.mangopayUser.id,
+                ...mangopayUserData,
+              })
+
+        const walletId =
+          userData?.mangopayUser?.mangopayWalletId ??
+          (
+            await mangopay.Wallets.create({
+              Currency: 'EUR',
+              Owners: [createMangopayUserResponse.Id],
+              Description: 'Inothy Wallet',
+            })
+          ).Id
 
         await ctx.prisma.user.update({
           where: { uid: ctx.user.id ?? '' },
           data: {
             canBuy: true,
             canUpload: true,
-            stripeAccountId: stripeAccount.id,
-            ip: clientIp,
-            firstName: input.firstName,
-            lastName: input.lastName,
-            birthDate: new Date(input.birthDate),
-            phone: input.phone,
-            address: {
-              create: {
-                line1: input.line1,
-                line2: input.line2,
-                city: input.city,
-                postalCode: input.postalCode,
-                region: input.region,
-                country: input.country,
+            mangopayUser: {
+              upsert: {
+                create: {
+                  mangopayId: createMangopayUserResponse.Id,
+                  kycLevel: createMangopayUserResponse.KYCLevel,
+                  mangopayType: 'OWNER',
+                  mangopayWalletId: walletId,
+                },
+                update: {
+                  mangopayId: createMangopayUserResponse.Id,
+                  kycLevel: createMangopayUserResponse.KYCLevel,
+                  mangopayType: 'OWNER',
+                  mangopayWalletId: walletId,
+                },
               },
             },
           },
         })
-      } catch (error) {
-        console.log('error', error)
-        console.log('catch', error.raw.param === 'individual[phone]')
-        if (error.type !== 'StripeInvalidRequestError')
-          throw new TRPCError({
-            code: 'INTERNAL_SERVER_ERROR',
-            message: 'unexpected-error',
-          })
-
-        if (error.raw.param in StripeErrors) {
-          throw new TRPCError({
-            code: 'BAD_REQUEST',
-            message: StripeErrors[error.raw.param],
-          })
-        }
-
+      } catch {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: 'unexpected-error',
         })
       }
+
       return { success: true }
     }),
 })

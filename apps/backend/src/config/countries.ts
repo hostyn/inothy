@@ -1,4 +1,6 @@
-export const COUNTRIES = [
+import type { CountryISO } from 'mangopay2-nodejs-sdk'
+
+export const COUNTRIES: CountryISO[] = [
   'AF',
   'AL',
   'DE',

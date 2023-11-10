@@ -6,6 +6,9 @@ export const FIREBASE_PUBLIC = process.env.NEXT_PUBLIC_FIREBASE as string
 export const FIREBASE_ADMIN_CREDENTIALS = process.env
   .FIREBASE_ADMIN_CREDENTIALS as string
 
+export const MANGOPAY_CLIENT_ID = process.env.MANGOPAY_CLIENT_ID as string
+export const MANGOPAY_API_KEY = process.env.MANGOPAY_API_KEY as string
+export const MANGOPAY_ENDPOINT = process.env.MANGOPAY_ENDPOINT as string
 export const FRONTEND_URL = process.env.NEXT_PUBLIC_FRONTEND_URL as string
 export const NOREPLY_USER = process.env.NOREPLY_USER as string
 export const NOREPLY_PASS = process.env.NOREPLY_PASS as string

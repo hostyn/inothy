@@ -3,19 +3,15 @@ import superjson from 'superjson'
 import { ZodError } from 'zod'
 import { prisma } from 'prisma'
 import { type AuthUser } from 'next-firebase-auth'
-import type { NextApiRequest } from 'next'
 
 interface CreateContextOptions {
   user: AuthUser
-  req: NextApiRequest
 }
 
 export const createInnerTRPCContext = ({
   user,
-  req,
 }: CreateContextOptions): CreateContextOptions & { prisma: typeof prisma } => ({
   user,
-  req,
   prisma,
 })
 

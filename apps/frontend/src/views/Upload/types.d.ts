@@ -2,10 +2,12 @@ import type { RouterOutputs } from 'backend'
 
 interface CompleteProfileData {
   step: 'complete-profile'
-  firstName: string
+  name: string
   lastName: string
+  email: string
   birthDate: string
-  phone: string
+  nationality: string
+  countryOfResidency: string
 }
 
 interface UploadDocumentData {
