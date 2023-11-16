@@ -28,7 +28,8 @@
     "db:seed": "prisma db push --force-reset && prisma db seed",
     "lint": "eslint \"**/*.ts*\"",
     "lint:tsc": "tsc --noEmit",
-    "dev": "pnpm run db:seed && pnpm run db:studio"
+    "dev": "pnpm run db:seed && pnpm run db:studio",
+    "prepare": "pnpm run db:generate"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
