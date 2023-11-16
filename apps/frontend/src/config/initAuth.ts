@@ -1,5 +1,4 @@
 import { init } from 'next-firebase-auth'
-import { serverEnv } from 'env'
 
 interface FirebaseClient {
   apiKey: string
@@ -11,11 +10,11 @@ interface FirebaseClient {
 }
 
 const FIREBASE_CLIENT: FirebaseClient = JSON.parse(
-  serverEnv.NEXT_PUBLIC_FIREBASE
+  process.env.NEXT_PUBLIC_FIREBASE ?? ''
 )
 
 const FIREBASE_ADMIN_CREDENTIALS = JSON.parse(
-  serverEnv.FIREBASE_ADMIN_CREDENTIALS
+  process.env.FIREBASE_ADMIN_CREDENTIALS ?? '{}'
 )
 
 const initAuth = (): void => {
@@ -44,7 +43,10 @@ const initAuth = (): void => {
       name: 'inothy_auth', // required
       // Keys are required unless you set `signed` to `false`.
       // The keys cannot be accessible on the client side.
-      keys: [serverEnv.COOKIE_SECRET_CURRENT, serverEnv.COOKIE_SECRET_PREVIOUS],
+      keys: [
+        process.env.COOKIE_SECRET_CURRENT,
+        process.env.COOKIE_SECRET_PREVIOUS,
+      ],
       httpOnly: true,
       maxAge: 12 * 60 * 60 * 24 * 1000, // twelve days
       overwrite: true,

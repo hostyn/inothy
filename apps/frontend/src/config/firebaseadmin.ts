@@ -1,10 +1,9 @@
 import admin from 'firebase-admin'
-import { serverEnv } from 'env'
 
 try {
   admin.initializeApp({
     credential: admin.credential.cert(
-      JSON.parse(serverEnv.FIREBASE_ADMIN_CREDENTIALS)
+      JSON.parse(process.env.FIREBASE_ADMIN_CREDENTIALS as string)
     ),
   })
 } catch (error) {
@@ -17,6 +16,6 @@ export const authAdmin = admin.auth()
 export const firestoreAdmin = admin.firestore()
 export const storageAdmin = admin
   .storage()
-  .bucket(JSON.parse(serverEnv.NEXT_PUBLIC_FIREBASE).storageBucket)
+  .bucket(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE as string).storageBucket)
 
 export default admin

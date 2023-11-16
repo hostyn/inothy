@@ -14,7 +14,7 @@
       "@views/*": ["views/*"],
       "@services/*": ["services/*"],
       "@styles/*": ["styles/*"],
-      "@styled-system/*": ["styled-system/*"],
+      "@styled-system/*": ["styled-system/*"]
     },
     "useUnknownInCatchVariables": false
   },

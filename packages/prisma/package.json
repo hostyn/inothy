@@ -18,8 +18,7 @@
   },
   "dependencies": {
     "@prisma/client": "4.14.1",
-    "firebase-admin-config": "workspace:^0.0.0",
-    "env": "workspace:*"
+    "firebase-admin-config": "workspace:^0.0.0"
   },
   "scripts": {
     "db:generate": "prisma generate",
