@@ -1,7 +1,3 @@
-export const ALGOLIA_APP_ID = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID as string
-export const ALGOLIA_SEARCH_KEY = process.env
-  .NEXT_PUBLIC_ALGOLIA_SEARCH_KEY as string
-export const ALGOLIA_INDEX = process.env.NEXT_PUBLIC_ALGOLIA_INDEX as string
 export const FIREBASE_PUBLIC = process.env.NEXT_PUBLIC_FIREBASE as string
 export const FIREBASE_ADMIN_CREDENTIALS = process.env
   .FIREBASE_ADMIN_CREDENTIALS as string
