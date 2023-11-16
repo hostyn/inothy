@@ -24,6 +24,9 @@
     "lint": {
       "cache": false
     },
+    "lint:tsc": {
+      "cache": false
+    },
     "dev": {
       "cache": false,
       "persistent": true

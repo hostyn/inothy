@@ -6,6 +6,10 @@
   "publishConfig": {
     "access": "public"
   },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:tsc": "tsc --noEmit"
+  },
   "dependencies": {
     "zod": "^3.21.4"
   },

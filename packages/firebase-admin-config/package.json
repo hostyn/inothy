@@ -6,10 +6,16 @@
   "publishConfig": {
     "access": "public"
   },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:tsc": "tsc --noEmit"
+  },
   "dependencies": {
     "@google-cloud/storage": "^6.11.0",
     "firebase-admin": "^11.9.0",
     "tsconfig": "workspace:*",
-    "env": "workspace:*"
+    "env": "workspace:*",
+    "eslint-config-custom": "workspace:*",
+    "typescript": "^4.5.3"
   }
 }

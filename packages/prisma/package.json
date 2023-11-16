@@ -27,6 +27,7 @@
     "db:studio": "prisma studio --browser none",
     "db:seed": "prisma db push --force-reset && prisma db seed",
     "lint": "eslint \"**/*.ts*\"",
+    "lint:tsc": "tsc --noEmit",
     "dev": "pnpm run db:seed && pnpm run db:studio"
   },
   "prisma": {
