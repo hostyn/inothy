@@ -4,9 +4,18 @@ on:
   push:
 
 jobs:
-  ci:
-    runs-on: ubuntu-latest
+  avoid-redundacy:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Cancel previous redundant runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: 'Lint and Type Check'
+          branch: ${{ github.ref }}
 
+  lint:
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - uses: pnpm/action-setup@v2
@@ -21,6 +30,20 @@ jobs:
 
       - name: Run lint
         run: pnpm lint
+
+  type-check:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Run TypeScript lint
         run: pnpm lint:tsc
