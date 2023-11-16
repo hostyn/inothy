@@ -2,9 +2,8 @@ import { initializeApp } from 'firebase/app'
 import { getAnalytics, logEvent as logEventAnalytics } from 'firebase/analytics'
 import { GoogleAuthProvider, getAuth } from 'firebase/auth'
 import { getStorage } from 'firebase/storage'
-import { clientEnv } from 'env'
 
-const firebaseConfig = JSON.parse(clientEnv.NEXT_PUBLIC_FIREBASE)
+const firebaseConfig = JSON.parse(process.env.NEXT_PUBLIC_FIREBASE as string)
 
 export const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app)
