@@ -1,7 +1,7 @@
 {
-  "name": "firebase-admin-config",
+  "name": "env",
   "version": "0.0.0",
-  "main": "index.ts",
+  "private": true,
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -11,11 +11,12 @@
     "lint:tsc": "tsc --noEmit"
   },
   "dependencies": {
-    "@google-cloud/storage": "^6.11.0",
-    "firebase-admin": "^11.9.0",
-    "tsconfig": "workspace:*",
-    "env": "workspace:*",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.12",
     "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "^4.5.3"
   }
 }

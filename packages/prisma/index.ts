@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { serverEnv } from 'env'
 
 export * from '@prisma/client'
 
@@ -9,9 +10,9 @@ export const prisma =
   globalForPrisma.prisma ||
   new PrismaClient({
     log:
-      process.env.NODE_ENV === 'development'
+      serverEnv.NODE_ENV === 'development'
         ? ['query', 'error', 'warn']
         : ['error'],
   })
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+if (serverEnv.NODE_ENV !== 'production') globalForPrisma.prisma = prisma

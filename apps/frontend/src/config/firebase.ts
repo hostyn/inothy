@@ -2,9 +2,9 @@ import { initializeApp } from 'firebase/app'
 import { getAnalytics, logEvent as logEventAnalytics } from 'firebase/analytics'
 import { GoogleAuthProvider, getAuth } from 'firebase/auth'
 import { getStorage } from 'firebase/storage'
-import { FIREBASE_PUBLIC } from '@config/constants'
+import { clientEnv } from 'env'
 
-const firebaseConfig = JSON.parse(FIREBASE_PUBLIC)
+const firebaseConfig = JSON.parse(clientEnv.NEXT_PUBLIC_FIREBASE)
 
 export const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app)
