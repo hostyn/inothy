@@ -39,7 +39,8 @@
     "superjson": "^1.12.3",
     "uuidv4": "^6.2.13",
     "webpack": "^5.75.0",
-    "zod": "^3.21.4"
+    "zod": "^3.21.4",
+    "env": "workspace:*"
   },
   "devDependencies": {
     "@firebase/app-types": "^0.8.1",

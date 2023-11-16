@@ -1,14 +1,10 @@
 import MangoPay from 'mangopay2-nodejs-sdk'
-import {
-  MANGOPAY_API_KEY,
-  MANGOPAY_CLIENT_ID,
-  MANGOPAY_ENDPOINT,
-} from '@config/constants'
+import { serverEnv } from 'env'
 
 const mangopay = new MangoPay({
-  clientId: MANGOPAY_CLIENT_ID,
-  clientApiKey: MANGOPAY_API_KEY,
-  baseUrl: MANGOPAY_ENDPOINT,
+  clientId: serverEnv.MANGOPAY_CLIENT_ID,
+  clientApiKey: serverEnv.MANGOPAY_API_KEY,
+  baseUrl: serverEnv.MANGOPAY_ENDPOINT,
 })
 
 export default mangopay
