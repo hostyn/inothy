@@ -240,6 +240,11 @@ export const authRouter = createTRPCRouter({
           data: {
             canBuy: true,
             canUpload: true,
+            firstName: input.name,
+            lastName: input.lastName,
+            birthDate: new Date(input.birthDate),
+            nationality: input.nationality,
+            countryOfResidency: input.countryOfResidency,
             address: {
               upsert: {
                 create: {
