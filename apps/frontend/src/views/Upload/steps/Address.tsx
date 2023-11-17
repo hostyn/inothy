@@ -31,7 +31,7 @@ export default function Address({
 }: StepProps): JSX.Element {
   const [loading, setLoading] = useState(false)
 
-  const updateMangopayUser = trpc.auth.updateMangopayUserToOwner.useMutation({
+  const upgradeToSeller = trpc.auth.upgradeToSeller.useMutation({
     onError: error => {
       setLoading(false)
 
@@ -118,7 +118,7 @@ export default function Address({
       )
     )
 
-    updateMangopayUser.mutate({
+    upgradeToSeller.mutate({
       ...values,
       ...compatibleData,
       birthDate: birthDateUTC.getTime(),
