@@ -189,7 +189,7 @@ export const authRouter = createTRPCRouter({
         },
       })
 
-      if (userData?.mangopayUser?.mangopayType === 'OWNER') {
+      if (userData?.mangopayUser?.userType === 'OWNER') {
         throw new TRPCError({
           code: 'BAD_REQUEST',
           message: 'already-owner',
@@ -226,12 +226,12 @@ export const authRouter = createTRPCRouter({
               })
 
         const walletId =
-          userData?.mangopayUser?.mangopayWalletId ??
+          userData?.mangopayUser?.walletId ??
           (
             await mangopay.Wallets.create({
               Currency: 'EUR',
               Owners: [createMangopayUserResponse.Id],
-              Description: 'Inothy Wallet',
+              Description: 'Default Wallet',
             })
           ).Id
 
@@ -240,19 +240,39 @@ export const authRouter = createTRPCRouter({
           data: {
             canBuy: true,
             canUpload: true,
+            address: {
+              upsert: {
+                create: {
+                  address1: input.address1,
+                  address2: input.address2,
+                  city: input.city,
+                  region: input.region,
+                  postalCode: input.postalCode,
+                  country: input.country,
+                },
+                update: {
+                  address1: input.address1,
+                  address2: input.address2,
+                  city: input.city,
+                  region: input.region,
+                  postalCode: input.postalCode,
+                  country: input.country,
+                },
+              },
+            },
             mangopayUser: {
               upsert: {
                 create: {
                   mangopayId: createMangopayUserResponse.Id,
                   kycLevel: createMangopayUserResponse.KYCLevel,
-                  mangopayType: 'OWNER',
-                  mangopayWalletId: walletId,
+                  userType: 'OWNER',
+                  walletId,
                 },
                 update: {
                   mangopayId: createMangopayUserResponse.Id,
                   kycLevel: createMangopayUserResponse.KYCLevel,
-                  mangopayType: 'OWNER',
-                  mangopayWalletId: walletId,
+                  userType: 'OWNER',
+                  walletId,
                 },
               },
             },

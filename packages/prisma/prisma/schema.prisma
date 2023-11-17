@@ -44,29 +44,30 @@ model User {
 }
 
 model Address {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  address1 String
-  address2 String
-  city     String
-  zip      String
-  region   String
-  country  String
-  userId   String @unique @db.ObjectId
-  user     User   @relation(fields: [userId], references: [id])
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  address1   String
+  address2   String
+  city       String
+  postalCode String
+  region     String
+  country    String
+  userId     String @unique @db.ObjectId
+  user       User   @relation(fields: [userId], references: [id])
 }
 
 model MangopayUser {
   id                      String  @id @default(auto()) @map("_id") @db.ObjectId
-  mangopayId              String  @unique
-  userId                  String  @unique @db.ObjectId
-  user                    User    @relation(fields: [userId], references: [id])
+  defaultCardId           String?
   kycId                   String? @unique
   kycLevel                String
-  kycStatus               String?
-  kycRefusedReasonType    String?
   kycRefusedReasonMessage String?
-  mangopayType            String
-  mangopayWalletId        String  @unique
+  kycRefusedReasonType    String?
+  kycStatus               String?
+  mangopayId              String  @unique
+  user                    User    @relation(fields: [userId], references: [id])
+  userId                  String  @unique @db.ObjectId
+  userType                String
+  walletId                String  @unique
 }
 
 model University {
