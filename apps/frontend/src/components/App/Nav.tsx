@@ -76,14 +76,13 @@ export default function Nav(): JSX.Element {
               >
                 <Image
                   src={
-                    user.id != null
-                      ? user.photoURL ??
-                        'https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1'
-                      : 'https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1'
+                    userData?.avatarUrl != null
+                      ? userData?.avatarUrl
+                      : '/static/images/default_avatar.png'
                   }
-                  alt="profile picture"
-                  width={32}
-                  height={32}
+                  alt="Foto de perfil"
+                  width={64}
+                  height={64}
                 />
               </DropdownMenu.Trigger>
               <DropdownMenu.Content
