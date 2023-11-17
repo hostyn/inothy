@@ -132,7 +132,7 @@ export const authRouter = createTRPCRouter({
       return { success: true }
     }),
 
-  updateMangopayUserToOwner: protectedProcedure
+  upgradeToSeller: protectedProcedure
     .input(
       z.object({
         name: z.string().min(1, 'name-required'),
