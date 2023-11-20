@@ -1,6 +1,22 @@
+import { trpc } from '@services/trpc'
 import { css } from '@styled-system/css'
 
-const ProfileInfo = (): JSX.Element => {
+interface ProfileInfoProps {
+  profileId: string
+}
+
+const ProfileInfo = ({ profileId }: ProfileInfoProps): JSX.Element => {
+  const { data: profileData } = trpc.profile.getProfile.useQuery({
+    id: profileId,
+  })
+
+  // TODO: Esto no me gusta, hay que cambiarlo
+  if (profileData == null) return <div>Null</div>
+
+  const ratings = profileData?.reviews.map(review => review.rating, 0)
+  const addedRatings = ratings?.reduce((acc, curr) => acc + curr)
+  const averageRating = addedRatings / ratings.length
+
   return (
     <section
       className={css({
@@ -24,7 +40,7 @@ const ProfileInfo = (): JSX.Element => {
             color: 'token(colors.grey.500)',
           })}
         >
-          23 {/* TODO: Sacar del endpoint */}
+          {profileData?.documents.length}
         </p>
         <p
           className={css({
@@ -52,7 +68,7 @@ const ProfileInfo = (): JSX.Element => {
             color: 'token(colors.grey.500)',
           })}
         >
-          4.3{/* TODO: Sacar del endpoint */}
+          {averageRating.toFixed(1)}
         </p>
         <p
           className={css({
@@ -80,7 +96,7 @@ const ProfileInfo = (): JSX.Element => {
             color: 'token(colors.grey.500)',
           })}
         >
-          5 {/* TODO: Sacar del endpoint */}
+          {profileData?.reviews.length}
         </p>
         <p
           className={css({
