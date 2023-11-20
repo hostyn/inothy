@@ -12,6 +12,7 @@ export const profileRouter = createTRPCRouter({
           id: input.id,
         },
         select: {
+          avatarUrl: true,
           documents: true,
           reviews: true,
           username: true,
