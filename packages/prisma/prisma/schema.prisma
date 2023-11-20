@@ -34,18 +34,25 @@ model User {
   reviews             Review[]
   canUpload           Boolean       @default(false)
   canBuy              Boolean       @default(false)
+  website             String?
+  phone               String?
+  email               String?
+  instagram           String?
+  isAcademy           Boolean?      @default(false)
+  isProfessor         Boolean       @default(false)
 }
 
 model Address {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  address1 String
-  address2 String
-  city     String
-  zip      String
-  region   String
-  country  String
-  userId   String @unique @db.ObjectId
-  user     User   @relation(fields: [userId], references: [id])
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  address1          String
+  address2          String
+  city              String
+  zip               String
+  region            String
+  country           String
+  googleMapsAddress String?
+  userId            String  @unique @db.ObjectId
+  user              User    @relation(fields: [userId], references: [id])
 }
 
 model MangopayUser {
