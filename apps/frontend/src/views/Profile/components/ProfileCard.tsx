@@ -2,9 +2,9 @@ import Image from 'next/image'
 import { css } from '@styled-system/css'
 import { Separator } from '@ui/Separator'
 
-import ButtonGroup from './ButtonGroup'
-import ProfileInfo from './ProfileInfo'
-import ProfileBio from './ProfileBio'
+import ButtonGroup from './ProfileCardButtonGroup'
+import ProfileInfo from './ProfileCardInfo'
+import ProfileBio from './ProfileCardBio'
 import { trpc } from '@services/trpc'
 
 interface ProfileCardProps {

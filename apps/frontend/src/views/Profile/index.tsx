@@ -1,7 +1,7 @@
 import App from '@components/App'
 import { PageSpacing } from '@ui/PageSpacing'
 import ProfileCard from './components/ProfileCard'
-import ProfileDocuments from './components/ProfileDocuments'
+import ProfileMainContent from './components/ProfileMainContent'
 import { css } from '@styled-system/css'
 
 interface ProfileViewProps {
@@ -21,7 +21,7 @@ export default function ProfileView({
         })}
       >
         <ProfileCard profileId={profileId} />
-        <ProfileDocuments />
+        <ProfileMainContent profileId={profileId} />
       </PageSpacing>
     </App>
   )
