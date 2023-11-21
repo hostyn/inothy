@@ -1,7 +1,16 @@
+import { trpc } from '@services/trpc'
 import { css } from '@styled-system/css'
 import { MdOutlineVerified } from 'react-icons/md'
 
-const ProfileBio = (): JSX.Element => {
+interface ProfileStatsProps {
+  profileId: string
+}
+
+const ProfileBio = ({ profileId }: ProfileStatsProps): JSX.Element => {
+  const { data: profileData } = trpc.profile.getProfile.useQuery({
+    id: profileId,
+  })
+
   return (
     <section
       className={css({
@@ -14,16 +23,16 @@ const ProfileBio = (): JSX.Element => {
       <div
         className={css({ display: 'flex', alignItems: 'center', gap: 'sm' })}
       >
-        <p
+        <h3
           className={css({
-            color: 'token(colors.primary.500)',
+            color: 'token(colors.h3rimary.500)',
             fontSize: 'xl',
             fontWeight: '800',
             lineHeight: 'xl',
           })}
         >
-          @ USUARIO {/* TODO: Cambiar valor a capón */}
-        </p>
+          {profileData?.username}
+        </h3>
         <span>
           <MdOutlineVerified
             size={24}
@@ -35,11 +44,7 @@ const ProfileBio = (): JSX.Element => {
         </span>
       </div>
       {/* TODO: Cambiar valor a capón */}
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, officia
-        alias. Est hic iure voluptates ab velit numquam accusamus sit? Neque
-        nemo ad aliquid sit ipsa earum!
-      </p>
+      <p>{profileData?.biography}</p>
     </section>
   )
 }

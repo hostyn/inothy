@@ -1,5 +1,4 @@
 import App from '@components/App'
-import { trpc } from '@services/trpc'
 import { PageSpacing } from '@ui/PageSpacing'
 import ProfileCard from './components/ProfileCard'
 import ProfileDocuments from './components/ProfileDocuments'
@@ -12,11 +11,6 @@ interface ProfileViewProps {
 export default function ProfileView({
   profileId,
 }: ProfileViewProps): JSX.Element {
-  const { data: profileData } = trpc.profile.getProfile.useQuery({
-    id: profileId,
-  })
-  console.log('profileData ID', profileData)
-
   return (
     <App>
       <PageSpacing

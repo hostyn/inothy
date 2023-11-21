@@ -3,7 +3,7 @@ import { css } from '@styled-system/css'
 import { Separator } from '@ui/Separator'
 
 import ButtonGroup from './ButtonGroup'
-import ProfileStats from './ProfileInfo'
+import ProfileInfo from './ProfileInfo'
 import ProfileBio from './ProfileBio'
 import { trpc } from '@services/trpc'
 
@@ -45,9 +45,9 @@ const ProfileCard = ({ profileId }: ProfileCardProps): JSX.Element => {
           className={css({ borderRadius: '15px' })} // TODO: Cambiar valor a capón
         />
       </section>
-      <ProfileStats profileId={profileId} />
+      <ProfileInfo profileId={profileId} />
 
-      <ProfileBio />
+      <ProfileBio profileId={profileId} />
 
       <Separator
         className={css({
@@ -55,7 +55,7 @@ const ProfileCard = ({ profileId }: ProfileCardProps): JSX.Element => {
           color: 'token(colors.red.500)',
         })}
       />
-      {/* BOTONES */}
+
       <ButtonGroup />
     </article>
   )

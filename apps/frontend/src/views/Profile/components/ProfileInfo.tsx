@@ -13,8 +13,9 @@ const ProfileInfo = ({ profileId }: ProfileInfoProps): JSX.Element => {
   // TODO: Esto no me gusta, hay que cambiarlo
   if (profileData == null) return <div>Null</div>
 
-  const ratings = profileData?.reviews.map(review => review.rating, 0)
-  const addedRatings = ratings?.reduce((acc, curr) => acc + curr)
+  // TODO: Esto se hará con un endpoint específico
+  const ratings = profileData?.reviews.map(review => review.rating)
+  const addedRatings = ratings?.reduce((acc, curr) => acc + curr, 0)
   const averageRating = addedRatings / ratings.length
 
   return (
