@@ -39,7 +39,7 @@ export const documentRouter = createTRPCRouter({
           calification: true,
           professor: true,
           year: true,
-          previewUrl: true,
+          previewPdfUrl: true,
           subject: {
             select: {
               university: {
