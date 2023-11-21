@@ -7,11 +7,11 @@ import LoadingPreview from './LoadingPreivew'
 pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker.js`
 
 interface PDFPreviewProps {
-  previewUrl: string
+  previewPdfUrl: string
 }
 
 export default function PDFPreview({
-  previewUrl,
+  previewPdfUrl,
 }: PDFPreviewProps): JSX.Element {
   const [numPages, setNumPages] = useState<number | null>(null)
   const [pageNumber, setPageNumber] = useState<number>(1)
@@ -53,7 +53,7 @@ export default function PDFPreview({
       ref={documentRef}
     >
       <Document
-        file={previewUrl}
+        file={previewPdfUrl}
         onLoadSuccess={onDocumentLoadSuccess}
         loading={<LoadingPreview />}
         className={css({
