@@ -87,6 +87,7 @@ export default defineConfig({
 
       radii: {
         md: { value: '5px' },
+        lg: { value: '15px' },
       },
 
       fontSizes: {
