@@ -1,28 +1,34 @@
 import { trpc } from '@services/trpc'
 import { css } from '@styled-system/css'
 
-interface ProfileInfoProps {
-  profileId: string
+interface UserCardInfoProps {
+  userId: string
 }
 
-const ProfileInfo = ({ profileId }: ProfileInfoProps): JSX.Element => {
-  const { data: profileData } = trpc.profile.getProfile.useQuery({
-    id: profileId,
+const UserCardInfo = ({ userId }: UserCardInfoProps): JSX.Element => {
+  const { data: userData } = trpc.user.getUser.useQuery({
+    id: userId,
   })
 
-  // TODO: Esto no me gusta, hay que cambiarlo
-  if (profileData == null) return <div>Null</div>
+  const { data: userReviewsData } = trpc.reviews.getUserReviews.useQuery({
+    userId,
+  })
 
-  // TODO: Esto se hará con un endpoint específico
-  const ratings = profileData?.reviews.map(review => review.rating)
-  const addedRatings = ratings?.reduce((acc, curr) => acc + curr, 0)
-  const averageRating = addedRatings / ratings.length
+  const averageRating =
+    userReviewsData != null &&
+    (
+      userReviewsData
+        ?.map(userReview => userReview.rating)
+        .reduce((tot, val) => tot + val, 0) / userReviewsData?.length
+    ).toFixed(1)
 
   return (
     <section
       className={css({
         display: 'flex',
         justifyContent: 'space-between',
+        alignItems: 'center',
+        alignSelf: 'strech',
         minWidth: '100%',
       })}
     >
@@ -30,25 +36,27 @@ const ProfileInfo = ({ profileId }: ProfileInfoProps): JSX.Element => {
         className={css({
           display: 'flex',
           flexDir: 'column',
+          justifyContent: 'center',
           alignItems: 'center',
         })}
       >
         <p
           className={css({
             fontSize: 'xl',
-            lineHeight: 'xl',
+            lineHeight: '100%',
             fontWeight: '700',
-            color: 'token(colors.grey.500)',
+            color: 'token(colors.text)',
           })}
         >
-          {profileData?.documents.length}
+          {userData?.documents.length ?? ''}
         </p>
         <p
           className={css({
             color: 'token(colors.grey.400)',
             fontSize: 'md',
             fontWeight: '600',
-            lineHeight: 'md',
+            lineHeight: '100%',
+            letterSpacing: '-0.64px',
           })}
         >
           Documentos
@@ -64,19 +72,20 @@ const ProfileInfo = ({ profileId }: ProfileInfoProps): JSX.Element => {
         <p
           className={css({
             fontSize: 'xl',
-            lineHeight: 'xl',
+            lineHeight: '100%',
             fontWeight: '700',
-            color: 'token(colors.grey.500)',
+            color: 'token(colors.text)',
           })}
         >
-          {averageRating.toFixed(1)}
+          {averageRating}
         </p>
         <p
           className={css({
             color: 'token(colors.grey.400)',
             fontSize: 'md',
             fontWeight: '600',
-            lineHeight: 'md',
+            lineHeight: '100%',
+            letterSpacing: '-0.64px',
           })}
         >
           V. Media
@@ -92,19 +101,20 @@ const ProfileInfo = ({ profileId }: ProfileInfoProps): JSX.Element => {
         <p
           className={css({
             fontSize: 'xl',
-            lineHeight: 'xl',
+            lineHeight: '100%',
             fontWeight: '700',
-            color: 'token(colors.grey.500)',
+            color: 'token(colors.text)',
           })}
         >
-          {profileData?.reviews.length}
+          {userData?.reviews.length ?? ''}
         </p>
         <p
           className={css({
             color: 'token(colors.grey.400)',
             fontSize: 'md',
             fontWeight: '600',
-            lineHeight: 'md',
+            lineHeight: '100%',
+            letterSpacing: '-0.64px',
           })}
         >
           Valoraciones
@@ -113,4 +123,4 @@ const ProfileInfo = ({ profileId }: ProfileInfoProps): JSX.Element => {
     </section>
   )
 }
-export default ProfileInfo
+export default UserCardInfo

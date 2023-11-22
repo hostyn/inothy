@@ -1,35 +1,28 @@
+import { trpc } from '@services/trpc'
 import { css } from '@styled-system/css'
 import Image from 'next/image'
 import { MdOutlineStar } from 'react-icons/md'
 
-interface ProfileDocumentCardProps {
-  documentData: {
-    previewImageUrl: string | null
-    price: number
-    title: string
-    rating: number | null
-    subject: {
-      name: string
-      university: {
-        name: string
-      }
-    }
-  }
+interface UserDocumentCardProps {
+  documentId: string
 }
 
-const ProfileDocumentCard = ({
-  documentData,
-}: ProfileDocumentCardProps): JSX.Element => {
-  const textMaxLength = 25
+const UserDocumentCard = ({
+  documentId,
+}: UserDocumentCardProps): JSX.Element => {
+  const { data: documentData } = trpc.document.getDocument.useQuery({
+    id: documentId,
+  })
+
+  const textMaxLength = 25 // TODO: Ver si se quiere capar la longitud de ciertos campos
+
   return (
     <article
       className={css({
         display: 'flex',
         flexDirection: 'column',
         gap: 'sm',
-        width: 'min-content',
-        minWidth: 'lg',
-        maxWidth: 'xl',
+        minW: 'fit-content',
         height: 'xl',
         padding: 'md',
         borderRadius: 'md',
@@ -40,13 +33,11 @@ const ProfileDocumentCard = ({
       <section
         className={css({
           height: 'sm',
-          flexShrink: '0',
-          alignSelf: 'stretch',
           border: '2px solid blue',
           position: 'relative',
         })}
       >
-        {documentData.previewImageUrl != null && (
+        {documentData?.previewImageUrl != null && (
           <Image
             fill
             alt={documentData.title}
@@ -68,7 +59,7 @@ const ProfileDocumentCard = ({
             fontWeight: '800',
           })}
         >
-          {documentData.price.toFixed(2)} €
+          {documentData?.price.toFixed(2) ?? ''} €
         </h2>
         <div
           className={css({
@@ -78,44 +69,50 @@ const ProfileDocumentCard = ({
           })}
         >
           <span className={css({ fontSize: 'sm', fontWeight: '800' })}>
-            {documentData.rating != null && documentData.rating}
+            {documentData?.rating ?? ''}
           </span>
           <MdOutlineStar size={20} />
         </div>
       </section>
       <section
         className={css({
-          fontSize: 'md',
+          fontSize: 'lg',
           fontWeight: '600',
           lineHeight: '120%',
           height: '5xs',
         })}
       >
-        {documentData.title.substring(0, textMaxLength)}
-        {documentData.title.length > textMaxLength && <span>...</span>}
+        {/* TODO: Esto con css  */}
+        {documentData?.title.substring(0, textMaxLength) ?? ''}
+        {documentData?.title.length != null &&
+          documentData?.title.length > textMaxLength && <span>...</span>}
       </section>
       <section
         className={css({
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'start',
-          fontSize: 'xs',
+          fontSize: 'md',
           fontWeight: '400',
-          lineHeight: 'normal',
         })}
       >
         <p className={css({})}>
-          {documentData.subject.name.substring(0, textMaxLength)}
-          {documentData.subject.name.length > textMaxLength && <span>...</span>}
+          {documentData?.subject.name.substring(0, textMaxLength) ?? ''}
+          {documentData?.subject.name.length != null &&
+            documentData?.subject.name.length > textMaxLength && (
+              <span>...</span>
+            )}
         </p>
         <p>
-          {documentData.subject.university.name.substring(0, textMaxLength)}
-          {documentData.subject.university.name.length > textMaxLength && (
-            <span>...</span>
-          )}
+          {documentData?.subject.university.name.substring(0, textMaxLength) ??
+            ''}
+          {documentData?.subject.university.name.length != null &&
+            documentData?.subject.university.name.length > textMaxLength && (
+              <span>...</span>
+            )}
         </p>
       </section>
     </article>
   )
 }
-export default ProfileDocumentCard
+export default UserDocumentCard
