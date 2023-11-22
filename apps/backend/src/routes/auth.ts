@@ -31,6 +31,97 @@ export const authRouter = createTRPCRouter({
     return userData
   }),
 
+  getBillingData: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.user.findUnique({
+      where: { uid: ctx.user.id ?? '' },
+      select: {
+        firstName: true,
+        lastName: true,
+        address: true,
+      },
+    })
+  }),
+
+  updateBillingData: protectedProcedure
+    .input(
+      z.object({
+        firstName: z.string().min(1, 'name-required'),
+        lastName: z.string().min(1, 'last-name-required'),
+        address1: z.string().min(1, 'address1-required'),
+        address2: z.string().optional(),
+        country: z
+          .string()
+          .min(1, 'country-required')
+          .refine(country => COUNTRIES.includes(country as CountryISO), {
+            message: 'invalid-country',
+          }),
+        city: z.string().min(1, 'city-required'),
+        region: z.string().min(1, 'region-required'),
+        postalCode: z.string().min(1, 'postal-code-required'),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const userData = await getUserData(ctx.user)
+
+      if (!userData.canBuy) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'cannot-buy',
+        })
+      }
+
+      if (userData.mangopayUser == null || userData.address == null) {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'unexpected-error',
+        })
+      }
+
+      try {
+        await mangopay.Users.update({
+          Id: userData.mangopayUser?.mangopayId ?? '',
+          PersonType: 'NATURAL',
+          FirstName: input.firstName,
+          LastName: input.lastName,
+          Address: {
+            AddressLine1: input.address1,
+            AddressLine2: input.address2 ?? '',
+            City: input.city,
+            Region: input.region,
+            PostalCode: input.postalCode,
+            Country: input.country as CountryISO,
+          },
+        })
+
+        await ctx.prisma.user.update({
+          where: {
+            uid: userData.uid,
+          },
+          data: {
+            firstName: input.firstName,
+            lastName: input.lastName,
+            address: {
+              update: {
+                address1: input.address1,
+                address2: input.address2,
+                city: input.city,
+                region: input.region,
+                postalCode: input.postalCode,
+                country: input.country,
+              },
+            },
+          },
+        })
+      } catch {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'unexpected-error',
+        })
+      }
+
+      return { success: true }
+    }),
+
   usernameAvailable: protectedProcedure
     .input(
       z.object({
@@ -169,7 +260,7 @@ export const authRouter = createTRPCRouter({
             message: 'invalid-country-of-residency',
           }),
         address1: z.string().min(1, 'address1-required'),
-        address2: z.string(),
+        address2: z.string().optional(),
         country: z
           .string()
           .min(1, 'country-required')
@@ -204,7 +295,7 @@ export const authRouter = createTRPCRouter({
           Email: ctx.user.email ?? '',
           Address: {
             AddressLine1: input.address1,
-            AddressLine2: input.address2,
+            AddressLine2: input.address2 ?? '',
             City: input.city,
             Region: input.region,
             PostalCode: input.postalCode,
@@ -283,7 +374,8 @@ export const authRouter = createTRPCRouter({
             },
           },
         })
-      } catch {
+      } catch (e) {
+        console.log(e)
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: 'unexpected-error',
