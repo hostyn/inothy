@@ -2,13 +2,15 @@ import { universitiesRouter } from './routes/universities'
 import { authRouter } from './routes/auth'
 import { createTRPCRouter } from './trpc'
 import { documentRouter } from './routes/document'
-import { profileRouter } from './routes/profile'
+import { userRouter } from './routes/user'
+import { reviewsRouter } from './routes/reviews'
 
 export const appRouter = createTRPCRouter({
   auth: authRouter,
   universities: universitiesRouter,
   document: documentRouter,
-  profile: profileRouter,
+  user: userRouter,
+  reviews: reviewsRouter,
 })
 
 // export type definition of API
