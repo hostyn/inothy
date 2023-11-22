@@ -3,11 +3,11 @@ import { publicProcedure } from '../procedures'
 import { z } from 'zod'
 import { TRPCError } from '@trpc/server'
 
-export const profileRouter = createTRPCRouter({
-  getProfile: publicProcedure
+export const userRouter = createTRPCRouter({
+  getUser: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
-      const profile = await ctx.prisma.user.findUnique({
+      const user = await ctx.prisma.user.findUnique({
         where: {
           id: input.id,
         },
@@ -17,13 +17,23 @@ export const profileRouter = createTRPCRouter({
           reviews: true,
           username: true,
           biography: true,
+          phone: true,
+          email: true,
+          address: {
+            select: {
+              address1: true,
+              address2: true,
+              googleMapsAddress: true,
+            },
+          },
+          website: true,
         },
       })
-      if (profile == null)
+      if (user == null)
         throw new TRPCError({
           code: 'NOT_FOUND',
-          message: 'profile-not-found',
+          message: 'user-not-found',
         })
-      return profile
+      return user
     }),
 })
