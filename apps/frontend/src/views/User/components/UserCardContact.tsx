@@ -66,7 +66,7 @@ const UserCardContact = ({ userId }: UserCardContactProps): JSX.Element => {
         />
         <p className={css({ color: 'token(colors.grey.600)' })}>
           {/* TODO: Esto como lo mostramos? SERÍA EL PÚBLICO */}
-          {`${userData?.address?.address1 ?? ''}`}
+          {`${userData?.publicAddress ?? ''}`}
         </p>
       </div>
       <div
