@@ -128,13 +128,28 @@ async function main(): Promise<void> {
       price: 2.3,
       calification: 9.6,
       professor: 'Juan Pablo Sarmiento',
+      rating: 4.3,
       year: 2023,
       user: {
         create: {
           uid: user.uid,
           username: 'test',
-          biography: 'Hola soy Edu, feliz Navidad',
-          website: 'www.google.es',
+          biography:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+          website: 'www.paginatest.es',
+          phone: '666555444',
+          email: 'testmail@test.es',
+          address: {
+            create: {
+              address1: 'Calle test 192',
+              address2: '3ºB',
+              city: 'Albacete',
+              country: 'España',
+              region: 'Castilla La Mancha',
+              zip: '34888',
+              googleMapsAddress: 'https://maps.app.goo.gl/E1pWhsdW1no7u6jY9',
+            },
+          },
         },
       },
       subject: {
