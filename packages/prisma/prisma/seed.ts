@@ -139,17 +139,6 @@ async function main(): Promise<void> {
           website: 'www.paginatest.es',
           phone: '666555444',
           email: 'testmail@test.es',
-          address: {
-            create: {
-              address1: 'Calle test 192',
-              address2: '3ºB',
-              city: 'Albacete',
-              country: 'España',
-              region: 'Castilla La Mancha',
-              zip: '34888',
-              googleMapsAddress: 'https://maps.app.goo.gl/E1pWhsdW1no7u6jY9',
-            },
-          },
         },
       },
       subject: {

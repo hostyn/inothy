@@ -19,13 +19,7 @@ export const userRouter = createTRPCRouter({
           biography: true,
           phone: true,
           email: true,
-          address: {
-            select: {
-              address1: true,
-              address2: true,
-              googleMapsAddress: true,
-            },
-          },
+          publicAddress: true,
           website: true,
         },
       })
