@@ -39,11 +39,13 @@ async function main(): Promise<void> {
           filePath,
           previewPdfUrl,
           subjectId:
-            subjectIds[faker.number.int({ min: 0, max: subjectIds.length })],
+            subjectIds[
+              faker.number.int({ min: 0, max: subjectIds.length - 1 })
+            ],
           userId: mainUser.id,
           documentTypeId:
             documentTypes[
-              faker.number.int({ min: 0, max: documentTypes.length })
+              faker.number.int({ min: 0, max: documentTypes.length - 1 })
             ].id,
         })
     )

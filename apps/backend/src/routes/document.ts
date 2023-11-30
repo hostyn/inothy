@@ -52,7 +52,6 @@ export const documentRouter = createTRPCRouter({
               id: true,
             },
           },
-          rating: true,
         },
       })
       if (document == null)

@@ -75,7 +75,7 @@ export const uploadDocument = async (): Promise<{
     })
   } catch {}
 
-  const previewPath = `documents/${documentIdentifier}/document.pdf`
+  const previewPath = `documents/${documentIdentifier}/preview.pdf`
 
   const preivewRef = storageAdmin.file(previewPath)
   const preivewStream = preivewRef.createWriteStream({
