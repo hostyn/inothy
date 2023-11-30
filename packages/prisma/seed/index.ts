@@ -7,10 +7,11 @@ import { faker } from '@faker-js/faker'
 const prisma = new PrismaClient()
 
 const subjectIds = [
-  '649a010b69e22720c1fba506',
+  '649a010b16113af179c66980',
+  '649a010b025acd163d13ef7e',
+  '649a010b07b9a14db76389c3',
   '649a010b69e22720c1fba506',
   '649a010b4a96a7a8407cbcc0',
-  '649a010b002c17c798349649',
   '649a010b002c17c798349649',
   '649a010b002a89e5fbb6c835',
   '649a010b008b531918495e99',
@@ -33,7 +34,7 @@ async function main(): Promise<void> {
   const { filePath, previewPdfUrl } = await uploadDocument()
 
   const documents = await Promise.all(
-    Array.from(Array(10)).map(
+    Array.from(Array(30)).map(
       async () =>
         await createDocument({
           filePath,
