@@ -36,7 +36,7 @@ model User {
   canBuy              Boolean       @default(false)
   website             String?
   phone               String?
-  email               String?
+  publicEmail         String?
   instagram           String?
   isAcademy           Boolean?      @default(false)
   isProfessor         Boolean       @default(false)

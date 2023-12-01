@@ -25,9 +25,12 @@ export default async function createUser({
     data: {
       uid: user.uid,
       username: username ?? faker.internet.userName(),
-      biography: faker.person.bio(),
+      biography: faker.lorem.paragraphs({ max: 5, min: 2 }),
       website: faker.internet.url(),
       phone: faker.phone.number(),
+      publicAddress: faker.location.streetAddress(),
+      publicEmail: faker.internet.email(),
+      instagram: 'https://www.instagram.com/' + (username ?? ''),
     },
   })
 
