@@ -5,39 +5,39 @@ import { trpc } from '@services/trpc'
 import UserView from '@views/User'
 
 interface UserPageProps {
-  userId: string
+  username: string
 }
 
-function UserPage({ userId }: UserPageProps): JSX.Element {
+function UserPage({ username }: UserPageProps): JSX.Element {
   const { data: userData } = trpc.user.getUser.useQuery({
-    id: userId,
+    username,
   })
 
   return (
     <>
       <Head>
-        <title>{userData?.username} - Inothy</title>
+        <title>@{userData?.username} - Inothy</title>
         <meta name="robots" content="index,follow" />
       </Head>
-      <UserView userId={userId} />
+      <UserView username={username} />
     </>
   )
 }
 
 export const getServerSideProps = publicContentSSR(async ctx => {
-  const userId = ctx.params?.userId as string
-  if (userId == null) {
+  const username = ctx.params?.username as string
+  if (username == null) {
     return {
       notFound: true,
     }
   }
   try {
     await ctx.helper.user.getUser.fetch({
-      id: userId,
+      username,
     })
     return {
       props: {
-        userId,
+        username,
       },
     }
   } catch {
