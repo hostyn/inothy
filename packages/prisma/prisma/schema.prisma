@@ -128,6 +128,8 @@ model Document {
   filePath        String
   previewPdfUrl   String?
   previewImageUrl String?
+  ratingSum       Int?
+  ratingCount     Int?
   reviews         Review[]
   documentType    DocumentType @relation(fields: [documentTypeId], references: [id])
   documentTypeId  String       @db.ObjectId

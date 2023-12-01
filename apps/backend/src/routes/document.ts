@@ -61,38 +61,6 @@ export const documentRouter = createTRPCRouter({
         })
       return document
     }),
-  getDocuments: publicProcedure
-    .input(z.object({ id: z.string() }))
-    .query(async ({ ctx, input }) => {
-      const documents = ctx.prisma.document.findMany({
-        where: {
-          userId: input.id,
-        },
-        select: {
-          id: true,
-          previewImageUrl: true,
-          price: true,
-          rating: true,
-          title: true,
-          subject: {
-            select: {
-              name: true,
-              university: {
-                select: {
-                  name: true,
-                },
-              },
-            },
-          },
-        },
-      })
-      if (documents == null)
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: 'documents-not-found',
-        })
-      return await documents
-    }),
 
   upload: protectedProcedure
     .input(

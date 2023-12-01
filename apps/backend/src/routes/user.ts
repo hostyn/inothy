@@ -69,7 +69,6 @@ export const userRouter = createTRPCRouter({
         return acc
       }, {})
 
-      // TODO: add university name
       const universities = await ctx.prisma.university.findMany({
         where: {
           id: {
@@ -92,6 +91,7 @@ export const userRouter = createTRPCRouter({
           code: 'NOT_FOUND',
           message: 'user-not-found',
         })
+
       return {
         ...user,
         reviewsCount: reviews._count,
@@ -99,5 +99,51 @@ export const userRouter = createTRPCRouter({
         documentCount,
         subjectUploaded: universityWithSubjects,
       }
+    }),
+
+  getDocuments: publicProcedure
+    .input(z.object({ username: z.string(), cursor: z.string().optional() }))
+    .query(async ({ ctx, input }) => {
+      const limit = 20
+
+      const documents = await ctx.prisma.document.findMany({
+        cursor: input.cursor != null ? { id: input.cursor } : undefined,
+        take: limit + 1,
+        where: {
+          user: {
+            username: input.username,
+          },
+        },
+
+        orderBy: {
+          createdAt: 'desc',
+        },
+
+        select: {
+          id: true,
+          title: true,
+          price: true,
+          contentType: true,
+          previewImageUrl: true,
+          ratingCount: true,
+          ratingSum: true,
+          subject: {
+            select: {
+              university: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+              name: true,
+              id: true,
+            },
+          },
+        },
+      })
+      const nextCursor =
+        documents.length > limit ? documents.pop()?.id : undefined
+
+      return { documents, nextCursor }
     }),
 })
