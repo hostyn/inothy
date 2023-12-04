@@ -10,7 +10,7 @@ export interface UserPageProps {
 
 interface UserLayoutProps extends UserPageProps {
   children: React.ReactNode
-  selected?: 'documents' | 'ratings'
+  selected?: 'documents' | 'reviews'
 }
 
 export default function UserLayout({
@@ -48,11 +48,11 @@ export default function UserLayout({
             </Link>
             <Link
               className={
-                selected === 'ratings'
+                selected === 'reviews'
                   ? cx(styledNavButton, styledNavButtonSelected)
                   : styledNavButton
               }
-              href={`/user/${username}/ratings`}
+              href={`/user/${username}/reviews`}
             >
               Valoraciones
             </Link>
