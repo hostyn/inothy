@@ -1,12 +1,12 @@
 import { TRPCError } from '@trpc/server'
 import { type AuthUser } from 'next-firebase-auth'
-import { type User, type MangopayUser, prisma, type Address } from 'prisma'
+import { type User, type MangopayUser, prisma, type Billing } from 'prisma'
 
 export const getUserData = async (
   user: AuthUser
 ): Promise<
   User & {
-    address: Address | null
+    billing: Billing | null
     mangopayUser: MangopayUser | null
   }
 > => {
@@ -14,7 +14,7 @@ export const getUserData = async (
     where: { uid: user.id ?? '' },
     include: {
       mangopayUser: true,
-      address: true,
+      billing: true,
     },
   })
 
