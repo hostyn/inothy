@@ -86,6 +86,7 @@ export default function AlertDialog({
               color: 'primary.500',
               fontSize: 'sm',
               lineHeight: 1.5,
+              whiteSpace: 'pre-wrap',
             })}
             asChild={typeof dialogDescription !== 'string'}
           >

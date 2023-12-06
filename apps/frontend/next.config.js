@@ -7,11 +7,7 @@ module.exports = {
   reactStrictMode: true,
   transpilePackages: ['backend'],
   images: {
-    domains: [
-      'storage.googleapis.com',
-      'i0.wp.com',
-      'lh3.googleusercontent.com',
-    ],
+    domains: ['storage.googleapis.com', 'lh3.googleusercontent.com'],
   },
   i18n: {
     locales: ['es'],
