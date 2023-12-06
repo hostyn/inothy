@@ -33,24 +33,23 @@ async function main(): Promise<void> {
 
   const { filePath, previewPdfUrl } = await uploadDocument()
 
-  const documents = await Promise.all(
-    Array.from(Array(30)).map(
-      async () =>
-        await createDocument({
-          filePath,
-          previewPdfUrl,
-          subjectId:
-            subjectIds[
-              faker.number.int({ min: 0, max: subjectIds.length - 1 })
-            ],
-          userId: mainUser.id,
-          documentTypeId:
-            documentTypes[
-              faker.number.int({ min: 0, max: documentTypes.length - 1 })
-            ].id,
-        })
+  const documents = []
+
+  for (let i = 0; i < 30; i++) {
+    documents.push(
+      await createDocument({
+        filePath,
+        previewPdfUrl,
+        subjectId:
+          subjectIds[faker.number.int({ min: 0, max: subjectIds.length - 1 })],
+        userId: mainUser.id,
+        documentTypeId:
+          documentTypes[
+            faker.number.int({ min: 0, max: documentTypes.length - 1 })
+          ].id,
+      })
     )
-  )
+  }
 
   await Promise.all(
     documents.map(async document => {
