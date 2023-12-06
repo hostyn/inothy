@@ -17,4 +17,7 @@ const Page: NextPage = () => {
 }
 
 export default protectedContent(Page)
-export const getServerSideProps = protectedContentSSR()
+export const getServerSideProps = protectedContentSSR(async ({ helper }) => {
+  await helper.auth.getBillingData.prefetch()
+  return { props: {} }
+})
