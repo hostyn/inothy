@@ -361,8 +361,7 @@ export const authRouter = createTRPCRouter({
             },
           },
         })
-      } catch (e) {
-        console.log(e)
+      } catch {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: 'unexpected-error',
