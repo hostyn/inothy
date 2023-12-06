@@ -57,8 +57,6 @@ export default function BillingInfo(): JSX.Element {
     },
   })
 
-  console.log(billingData)
-
   const {
     register,
     handleSubmit,
