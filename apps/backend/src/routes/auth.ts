@@ -32,14 +32,21 @@ export const authRouter = createTRPCRouter({
   }),
 
   getBillingData: protectedProcedure.query(async ({ ctx }) => {
-    return await ctx.prisma.user.findUnique({
+    const user = await ctx.prisma.user.findUnique({
       where: { uid: ctx.user.id ?? '' },
       select: {
-        firstName: true,
-        lastName: true,
-        address: true,
+        billing: true,
       },
     })
+
+    if (user == null) {
+      throw new TRPCError({
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'unexpected-error',
+      })
+    }
+
+    return user?.billing ?? null
   }),
 
   updateBillingData: protectedProcedure
@@ -70,7 +77,7 @@ export const authRouter = createTRPCRouter({
         })
       }
 
-      if (userData.mangopayUser == null || userData.address == null) {
+      if (userData.mangopayUser == null || userData.billing == null) {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: 'unexpected-error',
@@ -78,30 +85,15 @@ export const authRouter = createTRPCRouter({
       }
 
       try {
-        await mangopay.Users.update({
-          Id: userData.mangopayUser?.mangopayId ?? '',
-          PersonType: 'NATURAL',
-          FirstName: input.firstName,
-          LastName: input.lastName,
-          Address: {
-            AddressLine1: input.address1,
-            AddressLine2: input.address2 ?? '',
-            City: input.city,
-            Region: input.region,
-            PostalCode: input.postalCode,
-            Country: input.country as CountryISO,
-          },
-        })
-
         await ctx.prisma.user.update({
           where: {
             uid: userData.uid,
           },
           data: {
-            firstName: input.firstName,
-            lastName: input.lastName,
-            address: {
+            billing: {
               update: {
+                firstName: input.firstName,
+                lastName: input.lastName,
                 address1: input.address1,
                 address2: input.address2,
                 city: input.city,
@@ -336,9 +328,11 @@ export const authRouter = createTRPCRouter({
             birthDate: new Date(input.birthDate),
             nationality: input.nationality,
             countryOfResidency: input.countryOfResidency,
-            address: {
+            billing: {
               upsert: {
                 create: {
+                  firstName: input.name,
+                  lastName: input.lastName,
                   address1: input.address1,
                   address2: input.address2,
                   city: input.city,
@@ -346,14 +340,7 @@ export const authRouter = createTRPCRouter({
                   postalCode: input.postalCode,
                   country: input.country,
                 },
-                update: {
-                  address1: input.address1,
-                  address2: input.address2,
-                  city: input.city,
-                  region: input.region,
-                  postalCode: input.postalCode,
-                  country: input.country,
-                },
+                update: {},
               },
             },
             mangopayUser: {

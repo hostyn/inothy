@@ -15,7 +15,7 @@ model User {
   uid                 String        @unique
   username            String        @unique
   usernameChangedDate DateTime?
-  address             Address?
+  billing             Billing?
   mangopayUser        MangopayUser?
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt
@@ -43,8 +43,10 @@ model User {
   publicAddress       String?
 }
 
-model Address {
+model Billing {
   id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  firstName  String
+  lastName   String
   address1   String
   address2   String?
   city       String
