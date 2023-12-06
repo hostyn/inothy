@@ -37,10 +37,7 @@ export default function UserInfo({ username }: UserPageProps): JSX.Element {
         alt={userData?.username ?? 'Avatar del Usuario'}
         height={128}
         width={128}
-        src={
-          userData?.avatarUrl ??
-          'https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg?ssl=1'
-        }
+        src={userData?.avatarUrl ?? '/static/images/default_avatar.png'}
         className={css({ borderRadius: 'md' })}
       />
 
