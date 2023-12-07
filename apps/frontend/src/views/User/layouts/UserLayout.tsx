@@ -28,7 +28,13 @@ export default function UserLayout({
         })}
       >
         <UserInfo username={username} />
-        <div>
+        <div
+          className={css({
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'md',
+          })}
+        >
           <nav
             className={css({
               display: 'flex',

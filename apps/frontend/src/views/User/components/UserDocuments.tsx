@@ -23,7 +23,8 @@ export default function UserDocuments({
       className={css({
         display: 'grid',
         // TODO: Adjust grid minmax size
-        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+        gap: 'md',
       })}
     >
       {documentData?.pages.map(page =>
