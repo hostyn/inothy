@@ -84,7 +84,7 @@ export default function DocumentCard({
           >
             {ratingSum != null && ratingCount != null
               ? ratingSum / ratingCount
-              : '4.35'}
+              : '-'}
           </span>
           <FaStar size={20} />
         </div>
@@ -110,8 +110,26 @@ export default function DocumentCard({
           fontWeight: '400',
         })}
       >
-        <span>{subjectName}</span>
-        <span>{universityName}</span>
+        <span
+          className={css({
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            width: '100%',
+          })}
+        >
+          {subjectName}
+        </span>
+        <span
+          className={css({
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            width: '100%',
+          })}
+        >
+          {universityName}
+        </span>
       </div>
     </div>
   )

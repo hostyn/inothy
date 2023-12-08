@@ -104,7 +104,7 @@ export const userRouter = createTRPCRouter({
   getDocuments: publicProcedure
     .input(z.object({ username: z.string(), cursor: z.string().optional() }))
     .query(async ({ ctx, input }) => {
-      const limit = 20
+      const limit = 10
 
       const documents = await ctx.prisma.document.findMany({
         cursor: input.cursor != null ? { id: input.cursor } : undefined,
