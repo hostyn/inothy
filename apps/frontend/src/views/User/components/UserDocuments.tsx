@@ -6,11 +6,20 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import Spinner from '@components/Spinner'
 import { BsFilterCircle } from 'react-icons/bs'
 import * as Popover from '@radix-ui/react-popover'
+import { useState } from 'react'
+import { type RouterOutputs } from 'backend'
 
 export default function UserDocuments({
   username,
 }: UserPageProps): JSX.Element {
   const { data: userData } = trpc.user.getUser.useQuery({ username })
+
+  const [filters, setFilters] = useState<
+    Record<
+      string,
+      RouterOutputs['user']['getUser']['universitiesUploaded'][0]['subjects'][0]
+    >
+  >({})
 
   const {
     data: documentData,
@@ -41,7 +50,8 @@ export default function UserDocuments({
             <button
               className={css({
                 color: 'grey.500',
-                bg: 'grey.100',
+                bg:
+                  Object.keys(filters).length > 0 ? 'primary.200' : 'grey.100',
                 paddingX: 'sm',
                 paddingY: 'xs',
                 borderRadius: 'md',
@@ -87,7 +97,7 @@ export default function UserDocuments({
                       fontSize: 'sm',
                     })}
                   >
-                    {university.name}
+                    {university.name} ({university.symbol})
                   </span>
                   <div
                     className={css({
@@ -99,7 +109,7 @@ export default function UserDocuments({
                     {university.subjects.map(subject => (
                       <button
                         key={subject.id}
-                        title={subject.name}
+                        title={`${subject.name} (${subject.code})`}
                         className={css({
                           textAlign: 'left',
                           paddingX: 'sm',
@@ -110,13 +120,26 @@ export default function UserDocuments({
                           textOverflow: 'ellipsis',
                           whiteSpace: 'nowrap',
                           transition: 'background 0.1s ease-in-out',
+                          bg: subject.id in filters ? 'primary.200' : 'none',
 
                           _hover: {
-                            bg: 'grey.200',
+                            bg:
+                              subject.id in filters
+                                ? 'primary.300'
+                                : 'grey.200',
                           },
                         })}
+                        onClick={() => {
+                          if (subject.id in filters)
+                            setFilters(({ [subject.id]: _, ...rest }) => rest)
+                          else
+                            setFilters({
+                              ...filters,
+                              [subject.id]: subject,
+                            })
+                        }}
                       >
-                        {subject.name}
+                        {subject.name} ({subject.code})
                       </button>
                     ))}
                   </div>

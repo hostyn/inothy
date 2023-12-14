@@ -33,6 +33,7 @@ export default function UserLayout({
             display: 'flex',
             flexDirection: 'column',
             gap: 'md',
+            overflow: 'hidden',
           })}
         >
           <nav
