@@ -75,7 +75,7 @@ export default function UserInfo({ username }: UserPageProps): JSX.Element {
             fontSize: 'xl',
             fontWeight: 'bolder',
             lineHeight: '100%',
-            letterSpacing: '-3%',
+            letterSpacing: '-0.02em',
             color: 'text',
           })}
         >

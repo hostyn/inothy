@@ -97,7 +97,7 @@ export const userRouter = createTRPCRouter({
         reviewsCount: reviews._count,
         reviewsAvg: reviews._avg.rating?.toFixed(2),
         documentCount,
-        subjectUploaded: universityWithSubjects,
+        universitiesUploaded: universityWithSubjects,
       }
     }),
 
