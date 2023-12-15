@@ -103,9 +103,27 @@ export const userRouter = createTRPCRouter({
     }),
 
   getDocuments: publicProcedure
-    .input(z.object({ username: z.string(), cursor: z.string().optional() }))
+    .input(
+      z.object({
+        username: z.string(),
+        cursor: z.string().optional(),
+        subjects: z.array(z.string()).optional(),
+      })
+    )
     .query(async ({ ctx, input }) => {
       const limit = 10
+
+      const documentsCount = await ctx.prisma.document.count({
+        where: {
+          user: {
+            username: input.username,
+          },
+          subjectId:
+            input.subjects != null && input.subjects.length > 0
+              ? { in: input.subjects }
+              : undefined,
+        },
+      })
 
       const documents = await ctx.prisma.document.findMany({
         cursor: input.cursor != null ? { id: input.cursor } : undefined,
@@ -114,6 +132,10 @@ export const userRouter = createTRPCRouter({
           user: {
             username: input.username,
           },
+          subjectId:
+            input.subjects != null && input.subjects.length > 0
+              ? { in: input.subjects }
+              : undefined,
         },
 
         orderBy: {
@@ -145,6 +167,6 @@ export const userRouter = createTRPCRouter({
       const nextCursor =
         documents.length > limit ? documents.pop()?.id : undefined
 
-      return { documents, nextCursor }
+      return { documents, nextCursor, documentsCount }
     }),
 })
