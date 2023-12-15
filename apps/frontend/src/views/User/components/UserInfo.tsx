@@ -17,8 +17,6 @@ export default function UserInfo({ username }: UserPageProps): JSX.Element {
     username,
   })
 
-  console.log(userData)
-
   return (
     <div
       className={css({

@@ -31,10 +31,14 @@ export const getServerSideProps = publicContentSSR(async ctx => {
       notFound: true,
     }
   }
+
   try {
-    await ctx.helper.user.getUser.fetch({
+    await ctx.helper.user.getUser.prefetch({
       username,
     })
+
+    await ctx.helper.user.getDocuments.prefetchInfinite({ username })
+
     return {
       props: {
         username,

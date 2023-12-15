@@ -25,9 +25,12 @@ export default function UserDocuments({
     data: documentData,
     fetchNextPage,
     hasNextPage,
+    isLoading: isDocumentLoading,
   } = trpc.user.getDocuments.useInfiniteQuery(
     {
       username,
+      subjects:
+        Object.keys(filters).length > 0 ? Object.keys(filters) : undefined,
     },
     {
       getNextPageParam: lastPage => {
@@ -42,9 +45,11 @@ export default function UserDocuments({
         className={css({
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'space-between',
           gap: 'md',
         })}
       >
+        {/* TODO: Add animations */}
         <Popover.Root>
           <Popover.Trigger asChild>
             <button
@@ -148,6 +153,16 @@ export default function UserDocuments({
             </Popover.Content>
           </Popover.Portal>
         </Popover.Root>
+        <span
+          className={css({
+            color: 'grey.500',
+            fontWeight: 'bold',
+            letterSpacing: '-0.02em',
+          })}
+        >
+          {isDocumentLoading ? '-' : documentData?.pages[0].documentsCount}{' '}
+          documentos
+        </span>
       </div>
       <InfiniteScroll
         dataLength={
@@ -178,20 +193,39 @@ export default function UserDocuments({
         }
         hasChildren
       >
-        <div
-          className={css({
-            display: 'grid',
-            // TODO: Adjust grid minmax size
-            gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-            gap: 'md',
-          })}
-        >
-          {documentData?.pages.map(page =>
-            page.documents.map(document => (
-              <DocumentCard key={document.id} {...document} />
-            ))
-          )}
-        </div>
+        {isDocumentLoading ? (
+          <div
+            className={css({
+              gridColumn: '1 / -1',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 'md',
+            })}
+          >
+            <Spinner
+              className={css({
+                fontSize: 'lg',
+                stroke: 'grey.500',
+              })}
+            />
+          </div>
+        ) : (
+          <div
+            className={css({
+              display: 'grid',
+              // TODO: Adjust grid minmax size
+              gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+              gap: 'md',
+            })}
+          >
+            {documentData?.pages.map(page =>
+              page.documents.map(document => (
+                <DocumentCard key={document.id} {...document} />
+              ))
+            )}
+          </div>
+        )}
       </InfiniteScroll>
     </>
   )
