@@ -169,4 +169,50 @@ export const userRouter = createTRPCRouter({
 
       return { documents, nextCursor, documentsCount }
     }),
+
+  getReviews: publicProcedure
+    .input(z.object({ username: z.string(), cursor: z.string().optional() }))
+    .query(async ({ ctx, input }) => {
+      const limit = 10
+
+      const reviews = await ctx.prisma.review.findMany({
+        cursor: input.cursor != null ? { id: input.cursor } : undefined,
+        take: limit + 1,
+        where: {
+          document: {
+            user: {
+              username: input.username,
+            },
+          },
+        },
+
+        orderBy: {
+          updatedAt: 'desc',
+        },
+
+        include: {
+          document: {
+            select: {
+              id: true,
+              title: true,
+              price: true,
+              contentType: true,
+              previewImageUrl: true,
+            },
+          },
+          user: {
+            select: {
+              avatarUrl: true,
+              username: true,
+              isProfessor: true,
+              isAcademy: true,
+            },
+          },
+        },
+      })
+
+      const nextCursor = reviews.length > limit ? reviews.pop()?.id : undefined
+
+      return { reviews, nextCursor }
+    }),
 })
