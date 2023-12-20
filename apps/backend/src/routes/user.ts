@@ -190,7 +190,12 @@ export const userRouter = createTRPCRouter({
           updatedAt: 'desc',
         },
 
-        include: {
+        select: {
+          comment: true,
+          createdAt: true,
+          rating: true,
+          updatedAt: true,
+          id: true,
           document: {
             select: {
               id: true,

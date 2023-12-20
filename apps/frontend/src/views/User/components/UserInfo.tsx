@@ -84,6 +84,7 @@ export default function UserInfo({ username }: UserPageProps): JSX.Element {
           className={css({
             whiteSpace: 'pre-wrap',
             lineHeight: '110%',
+            color: 'grey.500',
           })}
         >
           {userData?.biography}
