@@ -4,6 +4,7 @@ import { type UserPageProps } from '../layouts/UserLayout'
 import Spinner from '@components/Spinner'
 import { css } from '@styled-system/css'
 import ReviewCard from './ReviewCard'
+import { CiFaceMeh } from 'react-icons/ci'
 
 export default function UserReviews({ username }: UserPageProps): JSX.Element {
   const {
@@ -63,6 +64,29 @@ export default function UserReviews({ username }: UserPageProps): JSX.Element {
               stroke: 'grey.500',
             })}
           />
+        </div>
+      ) : reviews?.pages.reduce((acc, page) => acc + page.reviews.length, 0) ===
+        0 ? (
+        <div
+          className={css({
+            color: 'grey.500',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingY: 'xl',
+          })}
+        >
+          <CiFaceMeh size={64} />
+          <span
+            className={css({
+              fontWeight: 'bold',
+              fontSize: 'lg',
+            })}
+          >
+            No hay valoraciones
+          </span>
+          <p>El material de este usuario no ha sido valorado aún.</p>
         </div>
       ) : (
         <div

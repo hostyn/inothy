@@ -8,6 +8,7 @@ import { BsFilterCircle } from 'react-icons/bs'
 import * as Popover from '@radix-ui/react-popover'
 import { useState } from 'react'
 import { type RouterOutputs } from 'backend'
+import { CiFaceMeh } from 'react-icons/ci'
 
 export default function UserDocuments({
   username,
@@ -39,7 +40,32 @@ export default function UserDocuments({
     }
   )
 
-  return (
+  return documentData?.pages.reduce(
+    (acc, page) => acc + page.documents.length,
+    0
+  ) === 0 ? (
+    <div
+      className={css({
+        color: 'grey.500',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingY: 'xl',
+      })}
+    >
+      <CiFaceMeh size={64} />
+      <span
+        className={css({
+          fontWeight: 'bold',
+          fontSize: 'lg',
+        })}
+      >
+        No hay documentos
+      </span>
+      <p>Este usuario no ha subido ningún documento todavía.</p>
+    </div>
+  ) : (
     <>
       <div
         className={css({
