@@ -4,6 +4,7 @@ import { css, cx } from '@styled-system/css'
 import { currencyFormatter } from '@util/normailize'
 import { type RouterOutputs } from 'backend'
 import Image from 'next/image'
+import Link from 'next/link'
 import { FaStar } from 'react-icons/fa'
 
 export default function DocumentCard({
@@ -13,13 +14,15 @@ export default function DocumentCard({
   price,
   ratingCount,
   ratingSum,
+  id,
   subject: {
     name: subjectName,
     university: { name: universityName },
   },
 }: RouterOutputs['user']['getDocuments']['documents'][0]): JSX.Element {
   return (
-    <div
+    <Link
+      href={`/document/${id}`}
       className={css({
         borderRadius: 'md',
         padding: 'md',
@@ -27,6 +30,14 @@ export default function DocumentCard({
         display: 'flex',
         flexDirection: 'column',
         gap: 'sm',
+
+        '&:hover #img': {
+          scale: '1.10',
+        },
+
+        '&:hover #title': {
+          textDecoration: 'underline',
+        },
       })}
     >
       <div
@@ -39,13 +50,21 @@ export default function DocumentCard({
           justifyContent: 'center',
           bg: 'white',
           borderRadius: 'md',
+          transition: 'all 50ms ease-in-out',
         })}
       >
-        {previewImageUrl != null ? (
-          <Image src={previewImageUrl} alt={title} width={128} height={128} />
-        ) : (
-          <DocumentIcon mimeType={contentType} />
-        )}
+        <div
+          id="img"
+          className={css({
+            transition: 'all 150ms ease-in-out',
+          })}
+        >
+          {previewImageUrl != null ? (
+            <Image src={previewImageUrl} alt={title} width={128} height={128} />
+          ) : (
+            <DocumentIcon mimeType={contentType} />
+          )}
+        </div>
       </div>
       <div
         className={css({
@@ -91,6 +110,7 @@ export default function DocumentCard({
       </div>
 
       <span
+        id="title"
         className={css({
           overflow: 'hidden',
           textOverflow: 'ellipsis',
@@ -99,6 +119,7 @@ export default function DocumentCard({
           fontWeight: '600',
           color: 'primary.500',
         })}
+        title={title}
       >
         {title}
       </span>
@@ -117,6 +138,7 @@ export default function DocumentCard({
             whiteSpace: 'nowrap',
             width: '100%',
           })}
+          title={subjectName}
         >
           {subjectName}
         </span>
@@ -127,10 +149,11 @@ export default function DocumentCard({
             whiteSpace: 'nowrap',
             width: '100%',
           })}
+          title={universityName}
         >
           {universityName}
         </span>
       </div>
-    </div>
+    </Link>
   )
 }
