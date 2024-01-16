@@ -48,15 +48,15 @@ export default function UserInfo({ username }: UserPageProps): JSX.Element {
       >
         <UserStatisticCard
           title="Documentos"
-          value={userData?.documentCount.toString() ?? ''}
+          value={userData?.documentCount.toString() ?? '-'}
         />
         <UserStatisticCard
           title="V. Media"
-          value={userData?.reviewsAvg?.toString() ?? ''}
+          value={userData?.reviewsAvg?.toString() ?? '-'}
         />
         <UserStatisticCard
           title="Valoraciones"
-          value={userData?.reviewsCount.toString() ?? ''}
+          value={userData?.reviewsCount.toString() ?? '-'}
         />
       </div>
 
