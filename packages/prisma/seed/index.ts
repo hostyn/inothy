@@ -60,7 +60,7 @@ async function main(): Promise<void> {
               data: {
                 userId: user.id,
                 comment: faker.lorem.paragraphs({ max: 5, min: 2 }),
-                rating: faker.number.int({ min: 0, max: 5 }),
+                rating: faker.number.int({ min: 1, max: 5 }),
                 documentId: document.id,
               },
             })
