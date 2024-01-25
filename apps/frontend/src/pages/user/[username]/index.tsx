@@ -33,7 +33,7 @@ export const getServerSideProps = publicContentSSR(async ctx => {
   }
 
   try {
-    await ctx.helper.user.getUser.prefetch({
+    await ctx.helper.user.getUser.fetch({
       username,
     })
 
