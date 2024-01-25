@@ -68,6 +68,30 @@ async function main(): Promise<void> {
       )
     })
   )
+
+  await Promise.all(
+    documents.map(async document => {
+      const review = await prisma.review.aggregate({
+        where: {
+          documentId: document.id,
+        },
+        _sum: {
+          rating: true,
+        },
+        _count: true,
+      })
+
+      await prisma.document.update({
+        where: {
+          id: document.id,
+        },
+        data: {
+          ratingSum: review._sum.rating,
+          ratingCount: review._count,
+        },
+      })
+    })
+  )
 }
 
 main()
