@@ -12,6 +12,10 @@ const separatorStyles = cva({
       regular: {
         bg: 'grey.100',
       },
+
+      dark: {
+        bg: 'grey.200',
+      },
     },
 
     size: {

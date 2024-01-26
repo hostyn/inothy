@@ -173,8 +173,8 @@ export default function DocumentView({
               borderRadius: 'md',
             })}
           >
-            {documentData?.previewUrl != null ? (
-              <PDFPreview previewUrl={documentData?.previewUrl} />
+            {documentData?.previewPdfUrl != null ? (
+              <PDFPreview previewPdfUrl={documentData?.previewPdfUrl} />
             ) : (
               <NoPreview mimeType={documentData?.contentType ?? ''} />
             )}

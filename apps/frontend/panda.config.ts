@@ -66,6 +66,9 @@ export default defineConfig({
           800: { value: '#006227' },
           900: { value: '#003314' },
         },
+        rating: {
+          value: '#EA8C00',
+        },
       },
 
       spacing: {
@@ -87,6 +90,7 @@ export default defineConfig({
 
       radii: {
         md: { value: '5px' },
+        lg: { value: '15px' },
       },
 
       fontSizes: {

@@ -26,6 +26,7 @@ import { SummaryIcon } from './icons/Icons'
 import { MdOutlineShare } from 'react-icons/md'
 import { toastSuccess } from '@services/toaster'
 import { useRouter } from 'next/router'
+import { nunitoSans } from '@config/fonts'
 
 const STEPS: Step[] = [
   {
@@ -159,13 +160,15 @@ export default function Upload(): JSX.Element {
           >
             <div>
               <h1
-                className={css({
-                  fontSize: '5xl',
-                  fontFamily: 'var(--nunito-sans)',
-                  lineHeight: '100%',
-                  color: 'text',
-                  width: 'fit-content',
-                })}
+                className={cx(
+                  nunitoSans.className,
+                  css({
+                    fontSize: '5xl',
+                    lineHeight: '100%',
+                    color: 'text',
+                    width: 'fit-content',
+                  })
+                )}
               >
                 Subir tus apuntes <br /> es muy sencillo
               </h1>

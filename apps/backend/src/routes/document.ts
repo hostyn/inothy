@@ -39,7 +39,8 @@ export const documentRouter = createTRPCRouter({
           calification: true,
           professor: true,
           year: true,
-          previewUrl: true,
+          previewPdfUrl: true,
+          previewImageUrl: true,
           subject: {
             select: {
               university: {
@@ -180,7 +181,7 @@ export const documentRouter = createTRPCRouter({
           price: input.price,
           contentType: input.contentType,
           filePath,
-          previewUrl,
+          previewPdfUrl: previewUrl,
 
           documentType: {
             connect: {
