@@ -2,7 +2,7 @@ import { css } from '@styled-system/css'
 import TabContent from '../TabContent'
 import type { StepProps } from '../types'
 import { useState } from 'react'
-import DropZone from '../components/DropZone'
+import DropZone from '@ui/DropZone'
 
 export default function UploadFile({
   prev,
