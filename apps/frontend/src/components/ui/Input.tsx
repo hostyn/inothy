@@ -90,7 +90,7 @@ function Input(
 
             // The label when the input is focused or has value
             '&:focus + label': {
-              transform: 'translateY(-150%)',
+              transform: 'translateY(-80%)',
               fontSize: 'sm',
               px: '2px',
               color: error != null ? 'red.300' : 'primary.300',
@@ -99,7 +99,7 @@ function Input(
             },
 
             '&:not(:placeholder-shown) + label': {
-              transform: 'translateY(-150%)',
+              transform: 'translateY(-80%)',
               fontSize: 'sm',
               px: '2px',
               color: error != null ? 'red.200' : 'grey.200',
@@ -133,7 +133,7 @@ function Input(
           className={css({
             position: 'absolute',
             color: 'grey.400',
-            top: '10px',
+            top: '5px',
             left: 'calc(token(spacing.sm) - 2px)',
             transition: 'all 150ms ease',
             pointerEvents: 'none',
