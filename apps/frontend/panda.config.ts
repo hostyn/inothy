@@ -15,7 +15,12 @@ export default defineConfig({
   // Files to exclude
   exclude: [],
 
-  globalCss: { extend: { 'button, a': { cursor: 'pointer' } } },
+  globalCss: {
+    extend: {
+      'button, a': { cursor: 'pointer' },
+      '*': { fontFamily: 'nunito' },
+    },
+  },
 
   // Useful for theme customization
   theme: {
@@ -147,6 +152,12 @@ export default defineConfig({
     },
 
     extend: {
+      tokens: {
+        fonts: {
+          nunito: { value: 'var(--font-nunito)' },
+          nunitoSans: { value: 'var(--font-nunito-sans), sans-serif' },
+        },
+      },
       keyframes: {
         slideDown: {
           from: {

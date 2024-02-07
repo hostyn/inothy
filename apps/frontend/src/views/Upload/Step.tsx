@@ -1,5 +1,4 @@
-import { nunitoSans } from '@config/fonts'
-import { css, cx } from '@styled-system/css'
+import { css } from '@styled-system/css'
 
 export default function StepCard({
   number,
@@ -14,15 +13,13 @@ export default function StepCard({
 }): JSX.Element {
   return (
     <li
-      className={cx(
-        nunitoSans.className,
-        css({
-          display: 'grid',
-          gridTemplateColumns: '12px 1fr 64px',
-          gap: 'md',
-          color: 'text',
-        })
-      )}
+      className={css({
+        display: 'grid',
+        gridTemplateColumns: '12px 1fr 64px',
+        gap: 'md',
+        color: 'text',
+        fontFamily: 'nunitoSans',
+      })}
     >
       <span
         className={css({
