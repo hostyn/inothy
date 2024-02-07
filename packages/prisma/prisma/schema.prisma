@@ -27,7 +27,7 @@ model User {
   lastName            String?
   nationality         String?
   birthDate           DateTime?
-  countryOfResidency  String?
+  countryOfResidence  String?
   ip                  String?
   referralCode        String?
   documents           Document[]

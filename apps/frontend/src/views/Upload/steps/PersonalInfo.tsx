@@ -32,7 +32,7 @@ const personalInfoSchema = z.object({
     { message: 'Debe ser mayor de edad.' }
   ),
   nationality: z.string().min(1, 'La nacionalidad es obligatoria.'),
-  countryOfResidency: z
+  countryOfResidence: z
     .string()
     .min(1, 'El país de residencia es obligatorio.'),
 })
@@ -62,7 +62,7 @@ export default function PersonalInfo({
       email: user.email ?? '',
       name: '',
       lastName: '',
-      countryOfResidency: 'ES',
+      countryOfResidence: 'ES',
       nationality: 'ES',
       birthDate: new Date().toISOString().split('T')[0],
     },
@@ -331,9 +331,9 @@ export default function PersonalInfo({
             </span>
             <select
               defaultValue="ES"
-              {...register('countryOfResidency', {
+              {...register('countryOfResidence', {
                 onChange: () => {
-                  clearErrors('countryOfResidency')
+                  clearErrors('countryOfResidence')
                 },
               })}
               className={css({
