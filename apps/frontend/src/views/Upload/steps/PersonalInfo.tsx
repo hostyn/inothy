@@ -222,7 +222,7 @@ export default function PersonalInfo({
               Email
             </span>
             <Input
-              nativePlaceholder="juanpa@gmail.com"
+              nativePlaceholder="inothy@inothy.com"
               disabled
               autoComplete="email"
               error={errors.email}

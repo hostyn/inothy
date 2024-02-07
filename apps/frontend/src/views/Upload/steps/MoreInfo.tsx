@@ -159,7 +159,7 @@ export default function MoreInfo({
             </h2>
 
             <Input
-              nativePlaceholder="Alejandro Torregrosa"
+              nativePlaceholder="Rubén Martínez"
               className={css({ width: 'xl' })}
               {...register('professor', {
                 onChange: () => {
