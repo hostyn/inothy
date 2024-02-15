@@ -10,7 +10,8 @@
     "functions:prepare": "bash syncSchema.sh && npm --prefix apps/functions run prisma:generate",
     "prepare": "husky install",
     "mongo:start": "docker-compose up -d",
-    "mongo:stop": "docker-compose down"
+    "mongo:stop": "docker-compose down",
+    "serve:watch": "dotenv -c development -- turbo run serve:watch"
   },
   "devDependencies": {
     "@turbo/gen": "^1.10.7",
