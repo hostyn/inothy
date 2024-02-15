@@ -31,6 +31,35 @@ export const authRouter = createTRPCRouter({
     return userData
   }),
 
+  getUserFullData: protectedProcedure.query(async ({ ctx }) => {
+    if (ctx.user.id == null) {
+      return null
+    }
+
+    const userData = await ctx.prisma.user.findUnique({
+      where: { uid: ctx.user.id },
+      select: {
+        id: true,
+        username: true,
+        avatarUrl: true,
+        biography: true,
+        degreeId: true,
+        uid: true,
+        usernameChangedDate: true,
+        canUpload: true,
+        canBuy: true,
+        firstName: true,
+        lastName: true,
+        birthDate: true,
+        nationality: true,
+        countryOfResidence: true,
+        billing: true,
+      },
+    })
+
+    return userData
+  }),
+
   getBillingData: protectedProcedure.query(async ({ ctx }) => {
     const user = await ctx.prisma.user.findUnique({
       where: { uid: ctx.user.id ?? '' },
@@ -245,7 +274,7 @@ export const authRouter = createTRPCRouter({
           .refine(country => COUNTRIES.includes(country as CountryISO), {
             message: 'invalid-nationality',
           }),
-        countryOfResidency: z
+        countryOfResidence: z
           .string()
           .min(1, 'country-of-residency-required')
           .refine(country => COUNTRIES.includes(country as CountryISO), {
@@ -295,7 +324,7 @@ export const authRouter = createTRPCRouter({
           },
           Birthday: Number((input.birthDate / 1000).toFixed(0)),
           Nationality: input.nationality as CountryISO,
-          CountryOfResidence: input.countryOfResidency as CountryISO,
+          CountryOfResidence: input.countryOfResidence as CountryISO,
           UserCategory: 'OWNER',
           TermsAndConditionsAccepted: true,
         }
@@ -327,7 +356,7 @@ export const authRouter = createTRPCRouter({
             lastName: input.lastName,
             birthDate: new Date(input.birthDate),
             nationality: input.nationality,
-            countryOfResidency: input.countryOfResidency,
+            countryOfResidence: input.countryOfResidence,
             billing: {
               upsert: {
                 create: {
@@ -368,6 +397,199 @@ export const authRouter = createTRPCRouter({
         })
       }
 
+      return { success: true }
+    }),
+
+  getKYCStatus: protectedProcedure.query(async ({ ctx }) => {
+    const user = await getUserData(ctx.user)
+    if (user.mangopayUser == null) {
+      return {
+        userType: null,
+      }
+    }
+
+    return {
+      userType: user.mangopayUser.userType as 'OWNER' | 'PAYER',
+      kycLevel: user.mangopayUser.kycLevel as 'LIGHT' | 'REGULAR',
+      kycStatus: user.mangopayUser.kycStatus as
+        | 'CREATED'
+        | 'VALIDATION_ASKED'
+        | 'VALIDATED'
+        | 'REFUSED'
+        | 'OUT_OF_DATE'
+        | null,
+    }
+  }),
+
+  submitKYC: protectedProcedure
+    .input(
+      z.object({
+        name: z.string().min(1, 'name-required'),
+        lastName: z.string().min(1, 'last-name-required'),
+        birthDate: z.number().refine(
+          birthDate => {
+            const date = new Date(birthDate)
+            const today = new Date()
+
+            const ageThresholdDate = new Date(
+              today.getUTCFullYear() - 18,
+              today.getUTCMonth(),
+              today.getUTCDate(),
+              23,
+              59,
+              59,
+              999
+            )
+
+            return date <= ageThresholdDate
+          },
+          { message: 'underage' }
+        ),
+        nationality: z
+          .string()
+          .min(1, 'nationality-required')
+          .refine(country => COUNTRIES.includes(country as CountryISO), {
+            message: 'invalid-nationality',
+          }),
+        countryOfResidence: z
+          .string()
+          .min(1, 'country-of-residency-required')
+          .refine(country => COUNTRIES.includes(country as CountryISO), {
+            message: 'invalid-country-of-residency',
+          }),
+        address1: z.string().min(1, 'address1-required'),
+        address2: z.string().optional(),
+        country: z
+          .string()
+          .min(1, 'country-required')
+          .refine(country => COUNTRIES.includes(country as CountryISO), {
+            message: 'invalid-country',
+          }),
+        city: z.string().min(1, 'city-required'),
+        region: z.string().min(1, 'region-required'),
+        postalCode: z.string().min(1, 'postal-code-required'),
+        documentType: z.union([z.literal('id'), z.literal('passport')]),
+        files: z.array(
+          z.string({
+            invalid_type_error: 'invalid-file',
+            required_error: 'invalid-file',
+          }),
+          {
+            invalid_type_error: 'invalid-files',
+            required_error: 'files-required',
+          }
+        ),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (
+        input.files.length === 0 ||
+        (input.documentType === 'id' && input.files.length !== 2) ||
+        (input.documentType === 'passport' && input.files.length !== 1)
+      ) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'files-required',
+        })
+      }
+
+      const user = await getUserData(ctx.user)
+
+      if (user.mangopayUser == null || user.mangopayUser.userType === 'PAYER') {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'not-seller',
+        })
+      }
+
+      if (user.mangopayUser.kycLevel === 'REGULAR') {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'already-verified',
+        })
+      }
+
+      if (user.mangopayUser.kycStatus === 'VALIDATION_ASKED') {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'already-asked',
+        })
+      }
+
+      try {
+        await mangopay.Users.update({
+          Id: user.mangopayUser.mangopayId,
+          PersonType: 'NATURAL',
+          FirstName: input.name,
+          LastName: input.lastName,
+          Address: {
+            AddressLine1: input.address1,
+            AddressLine2: input.address2 ?? '',
+            City: input.city,
+            Region: input.region,
+            PostalCode: input.postalCode,
+            Country: input.country as CountryISO,
+          },
+          Birthday: Number((input.birthDate / 1000).toFixed(0)),
+          Nationality: input.nationality as CountryISO,
+          CountryOfResidence: input.countryOfResidence as CountryISO,
+        })
+
+        const createKycResponse = await mangopay.Users.createKycDocument(
+          user.mangopayUser.mangopayId,
+          {
+            Type: 'IDENTITY_PROOF',
+          }
+        )
+
+        await Promise.all(
+          input.files.map(async file => {
+            await mangopay.Users.createKycPage(
+              user.mangopayUser?.mangopayId as string,
+              createKycResponse.Id,
+              {
+                File: file,
+              }
+            )
+          })
+        )
+
+        const kycDocument = await mangopay.Users.updateKycDocument(
+          user.mangopayUser.mangopayId,
+          {
+            Id: createKycResponse.Id,
+            Status: 'VALIDATION_ASKED',
+          }
+        )
+
+        const mangopayUser = await mangopay.Users.get(
+          user.mangopayUser.mangopayId
+        )
+
+        await ctx.prisma.user.update({
+          where: { uid: ctx.user.id ?? '' },
+          data: {
+            firstName: input.name,
+            lastName: input.lastName,
+            birthDate: new Date(input.birthDate),
+            nationality: input.nationality,
+            countryOfResidence: input.countryOfResidence,
+            mangopayUser: {
+              update: {
+                kycId: kycDocument.Id,
+                kycStatus: kycDocument.Status,
+                kycLevel: mangopayUser.KYCLevel,
+                userType: mangopayUser.UserCategory,
+              },
+            },
+          },
+        })
+      } catch {
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'unexpected-error',
+        })
+      }
       return { success: true }
     }),
 })
