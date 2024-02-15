@@ -80,7 +80,11 @@ export default function DocumentType({
   }
 
   return (
-    <TabContent onSubmit={handleSubmit} {...props}>
+    <TabContent
+      onSubmit={handleSubmit}
+      disabled={documentType == null}
+      {...props}
+    >
       <div
         className={css({
           display: 'flex',
