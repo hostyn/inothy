@@ -1,5 +1,6 @@
 import { toastError } from '@services/toaster'
 import { css } from '@styled-system/css'
+import { formatBytes } from '@util/normailize'
 import { useEffect, useState } from 'react'
 import { BsFileEarmarkPlus } from 'react-icons/bs'
 import { LiaExchangeAltSolid } from 'react-icons/lia'
@@ -9,12 +10,16 @@ interface DropZoneProps {
   onFile: (file: File | null) => void
   initialFile?: File
   maxFileSize?: number
+  minFileSize?: number
+  accept?: string
 }
 
 export default function DropZone({
   onFile,
   initialFile,
   maxFileSize,
+  minFileSize,
+  accept,
 }: DropZoneProps): JSX.Element {
   const [file, setFile] = useState<File | null>(initialFile ?? null)
 
@@ -32,7 +37,14 @@ export default function DropZone({
     e => {
       const file = e.dataTransfer.files[0]
       if (maxFileSize != null && file.size > maxFileSize) {
-        toastError('El archivo debe pesar menos de 100MB.')
+        toastError(
+          `El archivo debe pesar menos de ${formatBytes(maxFileSize)}.`
+        )
+        return
+      }
+
+      if (minFileSize != null && file.size < minFileSize) {
+        toastError(`El archivo debe pesar más de ${formatBytes(minFileSize)}.`)
         return
       }
 
@@ -49,9 +61,15 @@ export default function DropZone({
     }
 
     if (maxFileSize != null && file.size > maxFileSize) {
-      toastError('El archivo debe pesar menos de 100MB.')
+      toastError(`El archivo debe pesar menos de ${formatBytes(maxFileSize)}.`)
       return
     }
+
+    if (minFileSize != null && file.size < minFileSize) {
+      toastError(`El archivo debe pesar más de ${formatBytes(minFileSize)}.`)
+      return
+    }
+
     setFile(file)
   }
 
@@ -62,144 +80,139 @@ export default function DropZone({
 
   useEffect(() => {
     onFile(file)
-  }, [file, onFile])
+  }, [file])
 
   return (
-    <>
+    <label
+      className={css({
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 'xl',
+        width: '100%',
+        borderRadius: 'md',
+        border: '2px solid token(colors.grey.100)',
+        borderStyle: 'dashed',
+        gap: 'md',
+        position: 'relative',
+        cursor: 'pointer',
+      })}
+      onDragEnter={preventDefault()}
+      onDragLeave={preventDefault()}
+      onDragOver={preventDefault()}
+      onDrop={handleDrop}
+    >
       <input
         type="file"
-        id="dropzone-fileinput"
         key={file?.name ?? Math.random()}
         multiple={false}
+        accept={accept}
         className={css({
           display: 'none',
         })}
         onChange={handleFileChange}
       />
-      <label
-        htmlFor={file != null ? '' : 'dropzone-fileinput'}
-        className={css({
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: 'xl',
-          width: '4xl',
-          borderRadius: 'md',
-          border: '2px solid token(colors.grey.100)',
-          borderStyle: 'dashed',
-          gap: 'md',
-          position: 'relative',
-        })}
-        onDragEnter={preventDefault()}
-        onDragLeave={preventDefault()}
-        onDragOver={preventDefault()}
-        onDrop={handleDrop}
-      >
-        {file == null ? (
-          <>
-            <label htmlFor="dropzone-fileinput">
-              <BsFileEarmarkPlus
-                size={32}
-                className={css({
-                  fill: 'grey.500',
-                })}
-              />
-            </label>
-            <div
+      {file == null ? (
+        <>
+          <span>
+            <BsFileEarmarkPlus
+              size={32}
               className={css({
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 'xs',
-                userSelect: 'none',
+                fill: 'grey.500',
               })}
-            >
-              <label
-                htmlFor="dropzone-fileinput"
-                className={css({
-                  color: 'grey.500',
-                  fontSize: 'lg',
-                  fontWeight: '600',
-                  lineHeight: '100%',
-                })}
-              >
-                Arrastra tu documento aquí
-              </label>
-              <label
-                htmlFor="dropzone-fileinput"
-                className={css({
-                  color: 'grey.500',
-                  fontSize: 'sm',
-                  lineHeight: '100%',
-                })}
-              >
-                O haz click para seleccionarlo
-              </label>
-            </div>
-          </>
-        ) : (
-          <div className={fileContainerStyles}>
+            />
+          </span>
+          <div
+            className={css({
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 'xs',
+              userSelect: 'none',
+            })}
+          >
             <span
               className={css({
-                color: 'text',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
+                color: 'grey.500',
+                fontSize: 'lg',
+                fontWeight: '600',
+                lineHeight: '100%',
               })}
             >
-              {file.name}
+              Arrastra tu documento aquí
             </span>
-            <label
-              title="Cambiar el documento"
-              htmlFor="dropzone-fileinput"
+            <span
               className={css({
-                cursor: 'pointer',
-                bg: 'grey.100',
-                borderRadius: 'md',
-                padding: 'xs',
-                transition: 'background-color 100ms ease-in-out',
-
-                _hover: {
-                  bg: 'grey.200',
-                },
+                color: 'grey.500',
+                fontSize: 'sm',
+                lineHeight: '100%',
               })}
             >
-              <LiaExchangeAltSolid
-                size={24}
-                className={css({
-                  fill: 'primary.500',
-                })}
-              />
-            </label>
-            <button
-              title="Eliminar documento"
-              type="button"
-              onClick={handleRemoveFile}
-              className={css({
-                cursor: 'pointer',
-                bg: 'red.100',
-                borderRadius: 'md',
-                padding: 'xs',
-                transition: 'background-color 100ms ease-in-out',
-
-                _hover: {
-                  bg: 'red.200',
-                },
-              })}
-            >
-              <MdClose
-                size={24}
-                className={css({
-                  fill: 'red.500',
-                })}
-              />
-            </button>
+              O haz click para seleccionarlo
+            </span>
           </div>
-        )}
-      </label>
-    </>
+        </>
+      ) : (
+        <div className={fileContainerStyles}>
+          <span
+            className={css({
+              color: 'text',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            })}
+          >
+            {file.name}
+          </span>
+          <span
+            title="Cambiar el documento"
+            className={css({
+              cursor: 'pointer',
+              bg: 'grey.100',
+              borderRadius: 'md',
+              padding: 'xs',
+              transition: 'background-color 100ms ease-in-out',
+
+              _hover: {
+                bg: 'grey.200',
+              },
+            })}
+          >
+            <LiaExchangeAltSolid
+              size={24}
+              className={css({
+                fill: 'primary.500',
+              })}
+            />
+          </span>
+          <button
+            title="Eliminar documento"
+            type="button"
+            onClick={handleRemoveFile}
+            className={css({
+              cursor: 'pointer',
+              bg: 'red.100',
+              borderRadius: 'md',
+              padding: 'xs',
+              transition: 'background-color 100ms ease-in-out',
+
+              _hover: {
+                bg: 'red.200',
+              },
+            })}
+          >
+            <MdClose
+              size={24}
+              className={css({
+                fill: 'red.500',
+              })}
+            />
+          </button>
+        </div>
+      )}
+    </label>
   )
 }
 
@@ -208,7 +221,7 @@ const fileContainerStyles = css({
   gridTemplateColumns: '1fr auto auto',
   alignItems: 'center',
   gap: 'sm',
-  width: '3xl',
+  width: 'min(token(sizes.4xl), 90%)',
   padding: 'md',
   borderRadius: 'md',
   border: '1px solid token(colors.grey.100)',
