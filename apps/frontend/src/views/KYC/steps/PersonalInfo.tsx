@@ -1,12 +1,15 @@
-import { COUNTRIES } from '@config/countries'
-import { zodResolver } from '@hookform/resolvers/zod'
-import useAuth from '@hooks/useAuth'
-import { css } from '@styled-system/css'
-import Input from '@ui/Input'
-import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import TabContent from '../TabContent'
-import type { StepProps, UploadData } from '../types'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { COUNTRIES } from '@config/countries'
+import { css } from '@styled-system/css'
+import Input from '@ui/Input'
+import useAuth from '@hooks/useAuth'
+import { trpc } from '@services/trpc'
+import type { KYCData, PersonalInfoStep, StepProps } from '../types'
+import FormElement from '../components/FormElement'
+import FieldSet from '../components/FieldSet'
 
 const personalInfoSchema = z.object({
   name: z.string().min(1, 'El nombre es obligatorio.'),
@@ -39,15 +42,13 @@ const personalInfoSchema = z.object({
 
 type FormValues = z.infer<typeof personalInfoSchema>
 
-export default function PersonalInfo({
-  next,
-  value,
+export default function PersionalInfo({
   setData,
-  prev,
-  title,
+  next,
   ...props
 }: StepProps): JSX.Element {
   const { user } = useAuth()
+  const { data: fullUserData } = trpc.auth.getUserFullData.useQuery()
 
   const {
     register,
@@ -60,31 +61,32 @@ export default function PersonalInfo({
     resolver: zodResolver(personalInfoSchema),
     values: {
       email: user.email ?? '',
-      name: '',
-      lastName: '',
-      countryOfResidence: 'ES',
-      nationality: 'ES',
-      birthDate: new Date().toISOString().split('T')[0],
+      name: fullUserData?.firstName ?? fullUserData?.billing?.firstName ?? '',
+      lastName: fullUserData?.lastName ?? fullUserData?.billing?.lastName ?? '',
+      birthDate:
+        fullUserData?.birthDate?.toISOString().split('T')[0] ??
+        new Date().toISOString().split('T')[0],
+      countryOfResidence:
+        fullUserData?.countryOfResidence ??
+        fullUserData?.billing?.country ??
+        'ES',
+      nationality:
+        fullUserData?.nationality ?? fullUserData?.billing?.country ?? 'ES',
     },
   })
 
   const onSubmit = (formValues: FormValues): void => {
-    setData((data: UploadData) =>
-      data?.step === 'complete-profile'
-        ? { ...data, ...formValues }
-        : { step: 'complete-profile', ...formValues }
+    setData(
+      (data: KYCData): PersonalInfoStep =>
+        data?.step === 'personal-info'
+          ? { ...data, ...formValues }
+          : { step: 'personal-info', ...formValues }
     )
     next()
   }
 
   return (
-    <TabContent
-      value={value}
-      title={title}
-      prev={prev}
-      onSubmit={handleSubmit(onSubmit)}
-      {...props}
-    >
+    <TabContent onSubmit={handleSubmit(onSubmit)} {...props}>
       <div
         className={css({
           width: '100%',
@@ -101,9 +103,10 @@ export default function PersonalInfo({
             lineHeight: '100%',
             textAlign: 'center',
             color: 'text',
+            fontFamily: 'nunitoSans',
           })}
         >
-          Necesitamos más información sobre tí
+          Datos personales
         </h1>
         <p
           className={css({
@@ -115,8 +118,8 @@ export default function PersonalInfo({
             color: 'grey.500',
           })}
         >
-          De acuerdo con la ley de servicios digitales de la UE necesitamos
-          saber quién eres para que puedas vender en nuestra plataforma.
+          Necesitamos tus datos tal y como aparecen en tu documento de
+          identidad.
         </p>
       </div>
 
@@ -124,37 +127,14 @@ export default function PersonalInfo({
         className={css({
           display: 'flex',
           flexDirection: 'column',
-          gap: 'xl',
+          gap: 'md',
         })}
       >
-        <div
-          className={css({
-            display: 'flex',
-            justifyContent: 'space-evenly',
-            width: '100%',
-            gap: 'md',
-          })}
-        >
-          <div
-            className={css({
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'sm',
-              width: '100%',
-            })}
-          >
-            <span
-              className={css({
-                fontSize: 'md',
-                fontWeight: '700',
-                lineHeight: '100%',
-                color: 'text',
-              })}
-            >
-              Nombre
-            </span>
+        <FieldSet>
+          <FormElement label="Nombre">
             <Input
               nativePlaceholder="Juan Pablo"
+              keepErrorSpace
               autoComplete="given-name"
               error={errors.name}
               {...register('name', {
@@ -163,28 +143,12 @@ export default function PersonalInfo({
                 },
               })}
             />
-          </div>
+          </FormElement>
 
-          <div
-            className={css({
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'sm',
-              width: '100%',
-            })}
-          >
-            <span
-              className={css({
-                fontSize: 'md',
-                fontWeight: '700',
-                lineHeight: '100%',
-                color: 'text',
-              })}
-            >
-              Apellidos
-            </span>
+          <FormElement label="Apellidos">
             <Input
               nativePlaceholder="Sarmiento Calderón"
+              keepErrorSpace
               autoComplete="family-name"
               error={errors.lastName}
               {...register('lastName', {
@@ -193,36 +157,13 @@ export default function PersonalInfo({
                 },
               })}
             />
-          </div>
-        </div>
-        <div
-          className={css({
-            display: 'flex',
-            justifyContent: 'space-evenly',
-            width: '100%',
-            gap: 'md',
-          })}
-        >
-          <div
-            className={css({
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'sm',
-              width: '100%',
-            })}
-          >
-            <span
-              className={css({
-                fontSize: 'md',
-                fontWeight: '700',
-                lineHeight: '100%',
-                color: 'text',
-              })}
-            >
-              Email
-            </span>
+          </FormElement>
+        </FieldSet>
+        <FieldSet>
+          <FormElement label="Email">
             <Input
               nativePlaceholder="inothy@inothy.com"
+              keepErrorSpace
               disabled
               autoComplete="email"
               error={errors.email}
@@ -232,27 +173,12 @@ export default function PersonalInfo({
                 },
               })}
             />
-          </div>
-          <div
-            className={css({
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'sm',
-              width: '100%',
-            })}
-          >
-            <span
-              className={css({
-                fontSize: 'md',
-                fontWeight: '700',
-                lineHeight: '100%',
-                color: 'text',
-              })}
-            >
-              Fecha de nacimiento
-            </span>
+          </FormElement>
+
+          <FormElement label="Fecha de nacimiento">
             <Input
               type="date"
+              keepErrorSpace
               autoComplete="bday"
               error={errors.birthDate}
               {...register('birthDate', {
@@ -261,25 +187,10 @@ export default function PersonalInfo({
                 },
               })}
             />
-          </div>
-          <div
-            className={css({
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'sm',
-              width: '100%',
-            })}
-          >
-            <span
-              className={css({
-                fontSize: 'md',
-                fontWeight: '700',
-                lineHeight: '100%',
-                color: 'text',
-              })}
-            >
-              Nacionalidad
-            </span>
+          </FormElement>
+        </FieldSet>
+        <FieldSet>
+          <FormElement label="Nacionalidad">
             <select
               defaultValue="ES"
               {...register('nationality', {
@@ -310,25 +221,9 @@ export default function PersonalInfo({
                 </option>
               ))}
             </select>
-          </div>
-          <div
-            className={css({
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'sm',
-              width: '100%',
-            })}
-          >
-            <span
-              className={css({
-                fontSize: 'md',
-                fontWeight: '700',
-                lineHeight: '100%',
-                color: 'text',
-              })}
-            >
-              País de residencia
-            </span>
+          </FormElement>
+
+          <FormElement label="País de residencia">
             <select
               defaultValue="ES"
               {...register('countryOfResidence', {
@@ -359,8 +254,8 @@ export default function PersonalInfo({
                 </option>
               ))}
             </select>
-          </div>
-        </div>
+          </FormElement>
+        </FieldSet>
       </div>
     </TabContent>
   )

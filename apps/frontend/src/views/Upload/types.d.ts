@@ -7,7 +7,7 @@ interface CompleteProfileData {
   email: string
   birthDate: string
   nationality: string
-  countryOfResidency: string
+  countryOfResidence: string
 }
 
 interface UploadDocumentData {

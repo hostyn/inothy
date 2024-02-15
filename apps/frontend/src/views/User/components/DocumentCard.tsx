@@ -1,6 +1,5 @@
 import DocumentIcon from '@components/DocumentIcons'
-import { nunitoSans } from '@config/fonts'
-import { css, cx } from '@styled-system/css'
+import { css } from '@styled-system/css'
 import { currencyFormatter } from '@util/normailize'
 import { type RouterOutputs } from 'backend'
 import Image from 'next/image'
@@ -74,14 +73,12 @@ export default function DocumentCard({
         })}
       >
         <span
-          className={cx(
-            nunitoSans.className,
-            css({
-              fontWeight: 'bolder',
-              fontSize: 'lg',
-              color: 'primary.500',
-            })
-          )}
+          className={css({
+            fontWeight: 'bolder',
+            fontSize: 'lg',
+            color: 'primary.500',
+            fontFamily: 'nunitoSans',
+          })}
         >
           {currencyFormatter.format(price)}
         </span>

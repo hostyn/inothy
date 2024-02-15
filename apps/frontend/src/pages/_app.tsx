@@ -4,7 +4,7 @@ import { trpc } from '@services/trpc'
 import initAuth from '@config/initAuth'
 import '@styles/global.css'
 import { Toaster } from 'sonner'
-import { nunito } from '@config/fonts'
+import { nunito, nunitoSans } from '@config/fonts'
 
 initAuth()
 
@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div className={nunito.className}>
+      <div className={`${nunito.className} ${nunitoSans.variable}`}>
         <Toaster position="bottom-right" duration={5000} />
         <Component {...pageProps} />
       </div>

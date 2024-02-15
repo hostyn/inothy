@@ -1,3 +1,5 @@
+import type { CountryISO } from 'mangopay2-nodejs-sdk'
+
 export const BADGE_NAMES = {
   ambassador: 'Embajador',
   bronze: 'Bronze',
@@ -37,3 +39,43 @@ export const DOCUMENT_TYPES: Record<string, string> = {
   presentation: 'Presentación',
   other: 'Otro',
 }
+
+export const EEA_COUNTRIES: CountryISO[] = [
+  'AT',
+  'BE',
+  'BG',
+  'HR',
+  'CY',
+  'CZ',
+  'DK',
+  'EE',
+  'FI',
+  'FR',
+  'DE',
+  'GR',
+  'HU',
+  'IS',
+  'IE',
+  'IT',
+  'LV',
+  'LI',
+  'LT',
+  'LU',
+  'MT',
+  'NL',
+  'NO',
+  'PL',
+  'PT',
+  'RO',
+  'SK',
+  'SI',
+  'ES',
+  'SE',
+]
+
+export const NATIONAL_ID_ACCEPTED_COUNTRIES: CountryISO[] = [
+  ...EEA_COUNTRIES,
+  'US',
+  'CA',
+  'AU',
+]
