@@ -24,11 +24,10 @@
   "scripts": {
     "db:generate": "prisma generate",
     "db:push": "prisma db push --skip-generate",
-    "db:studio": "prisma studio --browser none",
-    "db:seed": "prisma db push --force-reset && prisma db seed",
+    "dev": "prisma studio --browser none",
+    "dev:seed": "prisma db push --force-reset && prisma db seed",
     "lint": "eslint \"**/*.ts*\"",
     "lint:tsc": "tsc --noEmit",
-    "dev": "pnpm run db:seed && pnpm run db:studio",
     "prepare": "pnpm run db:generate"
   },
   "prisma": {

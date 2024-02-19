@@ -28,8 +28,14 @@
       "cache": false
     },
     "dev": {
+      "dependsOn": [
+        "prisma#dev:seed"
+      ],
       "cache": false,
       "persistent": true
+    },
+    "dev:seed": {
+      "cache": false
     },
     "db:generate": {
       "cache": false
