@@ -1,56 +1,39 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-import { PrismaClient } from '@prisma/client'
 import * as functions from 'firebase-functions'
-import MangoPay from 'mangopay2-nodejs-sdk'
-
-const mangopay = new MangoPay({
-  clientId: process.env.MANGOPAY_CLIENT_ID as string,
-  clientApiKey: process.env.MANGOPAY_API_KEY as string,
-  baseUrl: process.env.MANGOPAY_ENDPOINT,
-})
-
-const client = new PrismaClient({
-  log: ['info', 'query', 'warn'],
-})
-
-const isUsernameAvailable = async (username: string): Promise<boolean> => {
-  const user = await client.user.findUnique({
-    where: {
-      username,
-    },
-  })
-  return user === null
-}
-
-const generateUsername = async (): Promise<string> => {
-  const allowedCharacter =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  let username = 'user_'
-  for (let i = 0; i < 6; i++) {
-    const caracterAleatorio =
-      allowedCharacter[Math.floor(Math.random() * allowedCharacter.length)]
-    username += caracterAleatorio
-  }
-
-  if (await isUsernameAvailable(username)) return username
-  return await generateUsername()
-}
+import { createOrUpdateContact } from './brevo'
+import { mangopay, prisma } from './services'
+import { generateUsername } from './util'
 
 export const onRegister = functions
+  .runWith({
+    secrets: ['DATABASE_URL', 'BREVO_API_KEY'],
+  })
   .region('europe-west1')
   .auth.user()
   .onCreate(async user => {
     const username = await generateUsername()
 
-    await client.user.create({
+    await prisma.user.create({
       data: {
         uid: user.uid,
         username,
       },
     })
+
+    await createOrUpdateContact(user.email as string, {
+      USERNAME: username,
+      SIGNUP_DATE: new Date().toISOString().split('T')[0],
+    })
   })
 
 export const kycWebhook = functions
+  .runWith({
+    secrets: [
+      'DATABASE_URL',
+      'MANGOPAY_API_KEY',
+      'MANGOPAY_CLIENT_ID',
+      'MANGOPAY_ENDPOINT',
+    ],
+  })
   // req.query =
   // {
   //   RessourceId: mangopayKycDocumentId,
@@ -74,7 +57,7 @@ export const kycWebhook = functions
 
       const user = await mangopay.Users.get(mangopayKycDocument.UserId)
 
-      await client.mangopayUser.update({
+      await prisma.mangopayUser.update({
         where: {
           mangopayId: user.Id,
         },

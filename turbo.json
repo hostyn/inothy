@@ -18,7 +18,8 @@
     "NEXT_PUBLIC_FRONTEND_URL",
     "NEXT_PUBLIC_MIN_PRICE",
     "NODE_ENV",
-    "VERCEL_URL"
+    "VERCEL_URL",
+    "BREVO_API_KEY"
   ],
   "pipeline": {
     "lint": {
