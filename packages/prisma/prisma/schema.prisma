@@ -41,6 +41,7 @@ model User {
   isAcademy           Boolean?      @default(false)
   isProfessor         Boolean       @default(false)
   publicAddress       String?
+  brevoId             String?
 }
 
 model Billing {

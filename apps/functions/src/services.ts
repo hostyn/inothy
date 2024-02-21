@@ -8,5 +8,5 @@ export const mangopay = new MangoPay({
 })
 
 export const prisma = new PrismaClient({
-  log: ['info', 'query', 'warn'],
+  log: ['warn', 'error'],
 })

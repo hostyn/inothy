@@ -1,11 +1,14 @@
 import * as functions from 'firebase-functions'
-import { createOrUpdateContact } from './brevo'
+import { createOrUpdateContact, sendTemplateEmail } from './brevo'
 import { mangopay, prisma } from './services'
 import { generateUsername } from './util'
+import admin from 'firebase-admin'
+
+admin.initializeApp()
 
 export const onRegister = functions
   .runWith({
-    secrets: ['DATABASE_URL', 'BREVO_API_KEY'],
+    secrets: ['DATABASE_URL', 'BREVO_API_KEY', 'NEXT_PUBLIC_FRONTEND_URL'],
   })
   .region('europe-west1')
   .auth.user()
@@ -19,10 +22,41 @@ export const onRegister = functions
       },
     })
 
-    await createOrUpdateContact(user.email as string, {
-      USERNAME: username,
-      SIGNUP_DATE: new Date().toISOString().split('T')[0],
-    })
+    try {
+      const { id } = await createOrUpdateContact(user.email as string, {
+        USERNAME: username,
+        SIGNUP_DATE: new Date().toISOString().split('T')[0],
+      })
+
+      await prisma.user.update({
+        where: {
+          uid: user.uid,
+        },
+        data: {
+          brevoId: String(id),
+        },
+      })
+    } catch (error) {
+      functions.logger.error('Error creating brevo contact --', error)
+    }
+
+    if (!user.emailVerified) {
+      try {
+        const verificationUrl = await admin
+          .auth()
+          .generateEmailVerificationLink(user.email as string, {
+            url: process.env.NEXT_PUBLIC_FRONTEND_URL as string,
+          })
+
+        await sendTemplateEmail(5, user.email as string, {
+          url: verificationUrl,
+        })
+      } catch (error) {
+        functions.logger.error('Error sending verification email --', error)
+      }
+    }
+
+    functions.logger.info('User created:', user.email, user.uid)
   })
 
 export const kycWebhook = functions

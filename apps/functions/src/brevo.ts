@@ -74,3 +74,29 @@ export const createOrUpdateContact = async (
 
   return { id }
 }
+
+export const sendTemplateEmail = async (
+  templateId: number,
+  to: string,
+  params: Record<string, string>
+): Promise<void> => {
+  const res = await constructRequest('/smtp/email', {
+    method: 'POST',
+    body: JSON.stringify({
+      templateId,
+      replyTo: {
+        email: 'contact@inothy.com',
+      },
+      params,
+      to: [
+        {
+          email: to,
+        },
+      ],
+    }),
+  })
+
+  if (!res.ok) {
+    throw new Error('Error sending email')
+  }
+}
