@@ -6,6 +6,8 @@ import { getUserData } from '../util/getUserData'
 import mangopay from '../config/mangopay'
 import { COUNTRIES } from '../config/countries'
 import type { CountryISO, user } from 'mangopay2-nodejs-sdk'
+import { authAdmin } from 'firebase-admin-config'
+import { sendTemplateEmail } from '../util/brevo'
 
 export const authRouter = createTRPCRouter({
   getUserData: publicProcedure.query(async ({ ctx }) => {
@@ -592,4 +594,39 @@ export const authRouter = createTRPCRouter({
       }
       return { success: true }
     }),
+
+  sendVerificationEmail: protectedProcedure.mutation(async ({ ctx }) => {
+    // const user = await ctx.prisma.user.findUnique({
+    //   where: { uid: ctx.user.id ?? '' },
+    // })
+
+    // if (user == null) {
+    //   throw new TRPCError({
+    //     code: 'INTERNAL_SERVER_ERROR',
+    //     message: 'unexpected-error',
+    //   })
+    // }
+
+    if (ctx.user.emailVerified) {
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
+        message: 'already-verified',
+      })
+    }
+
+    try {
+      const verificationUrl = await authAdmin.generateEmailVerificationLink(
+        ctx.user.email as string
+      )
+
+      await sendTemplateEmail(5, ctx.user.email ?? '', {
+        url: verificationUrl,
+      })
+    } catch (e) {
+      throw new TRPCError({
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'unexpected-error',
+      })
+    }
+  }),
 })
