@@ -16,50 +16,58 @@ export const documentRouter = createTRPCRouter({
   getDocument: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
-      const document = await ctx.prisma.document.findUnique({
-        where: {
-          id: input.id,
-        },
-        select: {
-          description: true,
-          title: true,
-          price: true,
-          contentType: true,
-          user: {
-            select: {
-              username: true,
-            },
+      try {
+        const document = await ctx.prisma.document.findUnique({
+          where: {
+            id: input.id,
           },
-          documentType: {
-            select: {
-              name: true,
-            },
-          },
-          byHand: true,
-          calification: true,
-          professor: true,
-          year: true,
-          previewPdfUrl: true,
-          previewImageUrl: true,
-          subject: {
-            select: {
-              university: {
-                select: {
-                  name: true,
-                },
+          select: {
+            description: true,
+            title: true,
+            price: true,
+            contentType: true,
+            user: {
+              select: {
+                username: true,
+                uid: true,
               },
-              name: true,
-              id: true,
+            },
+            documentType: {
+              select: {
+                name: true,
+              },
+            },
+            byHand: true,
+            calification: true,
+            professor: true,
+            year: true,
+            previewPdfUrl: true,
+            previewImageUrl: true,
+            subject: {
+              select: {
+                university: {
+                  select: {
+                    name: true,
+                  },
+                },
+                name: true,
+                id: true,
+              },
             },
           },
-        },
-      })
-      if (document == null)
+        })
+        if (document == null)
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'document-not-found',
+          })
+        return document
+      } catch {
         throw new TRPCError({
           code: 'NOT_FOUND',
           message: 'document-not-found',
         })
-      return document
+      }
     }),
 
   upload: protectedProcedure
