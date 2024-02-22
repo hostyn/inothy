@@ -3,8 +3,12 @@ import { createOrUpdateContact, sendTemplateEmail } from './brevo'
 import { mangopay, prisma } from './services'
 import { generateUsername } from './util'
 import admin from 'firebase-admin'
+import { REFUSE_REASONS } from './constants'
 
 admin.initializeApp()
+
+// Para ejecutar en local, pm serve:watch
+// Para añadir las variables de entorno, crear .secret.local en apps/functions
 
 export const onRegister = functions
   .runWith({
@@ -74,18 +78,19 @@ export const kycWebhook = functions
   //   EventType: KYC_SUCCEEDED | KYC_FAILED | KYC_OUTDATED,
   //   Date: date in seconds -> new Date(date * 1000)
   // }
+
+  // http://localhost:5001/inothy-testing/europe-west1/kycWebhook?RessourceId=kyc_01HQ83SN0W3QXEBJS1RZPAF0GT&EventType=KYC_SUCCEEDED
+  // http://localhost:5001/inothy-testing/europe-west1/kycWebhook?RessourceId=kyc_01HQ83SN0W3QXEBJS1RZPAF0GT&EventType=KYC_FAILED
   .region('europe-west1')
   .https.onRequest(async (req, res) => {
     try {
       const kycDocument = req.query.RessourceId
+      const eventType = req.query.EventType
 
       if (typeof kycDocument !== 'string') {
         res.status(400).send('RessourceId_required')
         return
       }
-
-      // const eventType = req.query.EventType // KYC_SUCCEEDED | KYC_FAILED | KYC_OUTDATED
-      // TODO: send transactional email to user
 
       const mangopayKycDocument = await mangopay.KycDocuments.get(kycDocument)
 
@@ -104,6 +109,17 @@ export const kycWebhook = functions
           userType: user.UserCategory,
         },
       })
+
+      // TODO: eventType === KYC_OUTDATED
+      if (eventType === 'KYC_FAILED') {
+        await sendTemplateEmail(22, user.Email, {
+          error: REFUSE_REASONS[mangopayKycDocument.RefusedReasonType],
+        })
+      }
+
+      if (eventType === 'KYC_SUCCEEDED') {
+        await sendTemplateEmail(21, user.Email)
+      }
 
       res.send('done')
     } catch (error) {

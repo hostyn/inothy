@@ -78,7 +78,7 @@ export const createOrUpdateContact = async (
 export const sendTemplateEmail = async (
   templateId: number,
   to: string,
-  params: Record<string, string>
+  params?: Record<string, string>
 ): Promise<void> => {
   const res = await constructRequest('/smtp/email', {
     method: 'POST',
