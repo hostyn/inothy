@@ -116,7 +116,7 @@ export default function Nav(): JSX.Element {
                 <nav>
                   <DropdownLink
                     name={`${userData?.username ?? ''} - ${user.email ?? ''}`}
-                    href={`/profile/${userData?.username ?? ''}`}
+                    href={`/user/${userData?.username ?? ''}`}
                   />
 
                   <Separator size="sm" className={css({ my: 'xs' })} />
