@@ -13,20 +13,20 @@ export const buttonStyle = cva({
       outline: '3px solid token(colors.primary.300)',
       outlineOffset: '-1px',
     },
-
-    _disabled: {
-      bg: 'grey.500',
-
-      _hover: {
-        bg: 'grey.500',
-      },
-    },
   },
   variants: {
     visual: {
       primary: {
         bg: 'primary.500',
         color: 'white',
+
+        _disabled: {
+          bg: 'grey.500',
+
+          _hover: {
+            bg: 'grey.500',
+          },
+        },
 
         _hover: {
           bg: 'primary.800',
@@ -36,6 +36,15 @@ export const buttonStyle = cva({
       secondary: {
         bg: 'grey.100',
         color: 'primary.500',
+
+        _disabled: {
+          bg: 'grey.200',
+          color: 'grey.400',
+
+          _hover: {
+            bg: 'grey.200',
+          },
+        },
 
         _hover: {
           bg: 'primary.100',
