@@ -47,7 +47,7 @@ export const userRouter = createTRPCRouter({
 
       const subjectsUploaded = await ctx.prisma.subject.findMany({
         where: {
-          Document: {
+          documents: {
             some: {
               user: {
                 username: input.username,

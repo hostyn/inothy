@@ -116,7 +116,7 @@ model Subject {
   universityId     String            @db.ObjectId
   code             String
   subjectsWithYear SubjectWithYear[]
-  Document         Document[]
+  documents        Document[]
 }
 
 model Document {
@@ -158,7 +158,7 @@ model Review {
 }
 
 model DocumentType {
-  id       String     @id @default(auto()) @map("_id") @db.ObjectId
-  name     String     @unique
-  Document Document[]
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String     @unique
+  documents Document[]
 }
