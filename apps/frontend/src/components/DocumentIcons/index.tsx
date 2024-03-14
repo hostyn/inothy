@@ -45,12 +45,13 @@ const mimeTypes: Record<string, FileType | undefined> = {
 }
 
 interface DocumentIconProps {
-  mimeType: string
+  mimeType?: string
 }
 
 export default function DocumentIcon({
   mimeType,
 }: DocumentIconProps): JSX.Element {
+  if (mimeType == null) return <FileIcon />
   const file = mimeTypes[mimeType] ?? 'file'
   if (file === 'png') return <PNGIcon />
   if (file === 'jpg') return <JPGIcon />

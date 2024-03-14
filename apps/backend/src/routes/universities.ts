@@ -1,4 +1,3 @@
-import { z } from 'zod'
 import { publicProcedure } from '../procedures'
 import { createTRPCRouter } from '../trpc'
 
@@ -27,28 +26,4 @@ export const universitiesRouter = createTRPCRouter({
 
     return universities
   }),
-
-  getSubjects: publicProcedure
-    .input(
-      z.object({
-        degree: z.string(),
-      })
-    )
-    .query(async ({ ctx, input }) => {
-      const degrees = await ctx.prisma.subjectWithYear.findMany({
-        where: { degreeId: input.degree },
-        select: {
-          id: true,
-          year: true,
-          subject: {
-            select: {
-              id: true,
-              name: true,
-              code: true,
-            },
-          },
-        },
-      })
-      return degrees
-    }),
 })

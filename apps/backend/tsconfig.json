@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": "src",
     "strict": true,
+    "useUnknownInCatchVariables": false
   },
   "include": ["**/*.ts", "*.d.ts"],
   "exclude": ["node_modules"]

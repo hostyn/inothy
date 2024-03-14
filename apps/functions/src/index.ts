@@ -115,15 +115,56 @@ export const kycWebhook = functions
         await sendTemplateEmail(22, user.Email, {
           error: REFUSE_REASONS[mangopayKycDocument.RefusedReasonType],
         })
+        functions.logger.log('KYC_FAILED', user.Email)
       }
 
       if (eventType === 'KYC_SUCCEEDED') {
         await sendTemplateEmail(21, user.Email)
+        functions.logger.log('KYC_SUCCEEDED', user.Email)
       }
 
       res.send('done')
     } catch (error) {
-      console.error(error)
+      functions.logger.error('Error in kycWebhook --', error)
       res.status(500).send('internal_server_error')
     }
+  })
+
+export const payInWebhook = functions
+  .runWith({
+    secrets: [
+      'DATABASE_URL',
+      'MANGOPAY_API_KEY',
+      'MANGOPAY_CLIENT_ID',
+      'MANGOPAY_ENDPOINT',
+    ],
+  })
+  .region('europe-west1')
+  .https.onRequest(async (req, res) => {
+    // req.query = {
+    //   RessourceId: resourceId,
+    //   EventType: PAYIN_NORMAL_FAILED | PAYIN_NORMAL_SUCCEEDED,
+    //   Date: date in seconds -> new Date(date * 1000)
+    // }
+
+    // http://localhost:5001/inothy-testing/europe-west1/payInWebhook?RessourceId=payin_m_01HR72A3CH9MS867JPS02JY466&EventType=PAYIN_NORMAL_FAILED
+    // http://localhost:5001/inothy-testing/europe-west1/payInWebhook?RessourceId=payin_m_01HR72C525ND8CHV5H1YCVBA1T&EventType=PAYIN_NORMAL_SUCCEEDED
+
+    const payInId = req.query.RessourceId
+    // const eventType = req.query.EventType
+
+    if (typeof payInId !== 'string') {
+      res.status(400).json({ error: 'RessourceId_required' })
+      return
+    }
+
+    try {
+      const payIn = await mangopay.PayIns.get(req.query.RessourceId as string)
+
+      console.log(payIn)
+    } catch (e) {
+      console.log(e)
+    }
+
+    res.json({ ok: true })
   })

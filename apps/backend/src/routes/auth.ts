@@ -5,7 +5,7 @@ import { TRPCError } from '@trpc/server'
 import { getUserData } from '../util/getUserData'
 import mangopay from '../config/mangopay'
 import { COUNTRIES } from '../config/countries'
-import type { CountryISO, user } from 'mangopay2-nodejs-sdk'
+import type { CountryISO, card, user } from 'mangopay2-nodejs-sdk'
 import { authAdmin } from 'firebase-admin-config'
 import { sendTemplateEmail } from '../util/brevo'
 
@@ -80,7 +80,7 @@ export const authRouter = createTRPCRouter({
     return user?.billing ?? null
   }),
 
-  updateBillingData: protectedProcedure
+  updateOrUpgradePayer: protectedProcedure
     .input(
       z.object({
         firstName: z.string().min(1, 'name-required'),
@@ -101,28 +101,68 @@ export const authRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       const userData = await getUserData(ctx.user)
 
-      if (!userData.canBuy) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'cannot-buy',
-        })
-      }
-
-      if (userData.mangopayUser == null || userData.billing == null) {
-        throw new TRPCError({
-          code: 'INTERNAL_SERVER_ERROR',
-          message: 'unexpected-error',
-        })
+      if (userData.canBuy) {
+        try {
+          await ctx.prisma.user.update({
+            where: {
+              uid: userData.uid,
+            },
+            data: {
+              billing: {
+                update: {
+                  firstName: input.firstName,
+                  lastName: input.lastName,
+                  address1: input.address1,
+                  address2: input.address2,
+                  city: input.city,
+                  region: input.region,
+                  postalCode: input.postalCode,
+                  country: input.country,
+                },
+              },
+            },
+          })
+          return { success: true }
+        } catch {
+          throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: 'unexpected-error',
+          })
+        }
       }
 
       try {
+        const mangopayUser = await mangopay.Users.create({
+          PersonType: 'NATURAL',
+          FirstName: input.firstName,
+          LastName: input.lastName,
+          Email: ctx.user.email ?? '',
+          Address: {
+            AddressLine1: input.address1,
+            AddressLine2: input.address2 ?? '',
+            City: input.city,
+            Region: input.region,
+            PostalCode: input.postalCode,
+            Country: input.country as CountryISO,
+          },
+          UserCategory: 'PAYER',
+          TermsAndConditionsAccepted: true,
+        })
+
+        const mangopayWallet = await mangopay.Wallets.create({
+          Currency: 'EUR',
+          Owners: [mangopayUser.Id],
+          Description: 'Default Wallet',
+        })
+
         await ctx.prisma.user.update({
           where: {
             uid: userData.uid,
           },
           data: {
+            canBuy: true,
             billing: {
-              update: {
+              create: {
                 firstName: input.firstName,
                 lastName: input.lastName,
                 address1: input.address1,
@@ -133,16 +173,24 @@ export const authRouter = createTRPCRouter({
                 country: input.country,
               },
             },
+            mangopayUser: {
+              create: {
+                mangopayId: mangopayUser.Id,
+                kycLevel: mangopayUser.KYCLevel,
+                userType: mangopayUser.UserCategory ?? 'PAYER',
+                walletId: mangopayWallet.Id,
+              },
+            },
           },
         })
+
+        return { success: true }
       } catch {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',
           message: 'unexpected-error',
         })
       }
-
-      return { success: true }
     }),
 
   usernameAvailable: protectedProcedure
@@ -335,7 +383,7 @@ export const authRouter = createTRPCRouter({
           userData?.mangopayUser == null
             ? await mangopay.Users.create(mangopayUserData)
             : await mangopay.Users.update({
-                Id: userData.mangopayUser.id,
+                Id: userData.mangopayUser.mangopayId,
                 ...mangopayUserData,
               })
 
@@ -596,17 +644,6 @@ export const authRouter = createTRPCRouter({
     }),
 
   sendVerificationEmail: protectedProcedure.mutation(async ({ ctx }) => {
-    // const user = await ctx.prisma.user.findUnique({
-    //   where: { uid: ctx.user.id ?? '' },
-    // })
-
-    // if (user == null) {
-    //   throw new TRPCError({
-    //     code: 'INTERNAL_SERVER_ERROR',
-    //     message: 'unexpected-error',
-    //   })
-    // }
-
     if (ctx.user.emailVerified) {
       throw new TRPCError({
         code: 'BAD_REQUEST',
@@ -629,4 +666,280 @@ export const authRouter = createTRPCRouter({
       })
     }
   }),
+
+  getUserCards: protectedProcedure.query(async ({ ctx }) => {
+    const user = await getUserData(ctx.user)
+
+    if (user.mangopayUser == null) {
+      return []
+    }
+
+    const cards = await mangopay.Users.getCards(user.mangopayUser.mangopayId, {
+      parameters: {
+        Per_Page: 50,
+        Active: true,
+      },
+    })
+
+    return cards.map(card => ({
+      id: card.Id,
+      alias: card.Alias,
+      expirationDate: card.ExpirationDate,
+      cardProvider: card.CardProvider,
+    }))
+  }),
+
+  removeUserCard: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const user = await getUserData(ctx.user)
+
+      if (user.mangopayUser == null) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'not-seller',
+        })
+      }
+
+      const card = (await mangopay.Cards.get(input.id)) as card.CardData & {
+        // Fix mangopay types
+        UserId: string
+      }
+
+      if (card.UserId !== user.mangopayUser.mangopayId) {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'invalid-card',
+        })
+      }
+
+      await mangopay.Cards.update({
+        Id: input.id,
+        Active: false,
+      })
+
+      return { success: true }
+    }),
+
+  createCardRegistration: protectedProcedure.mutation(async ({ ctx }) => {
+    const user = await getUserData(ctx.user)
+
+    if (user.mangopayUser == null) {
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
+        message: 'not-seller',
+      })
+    }
+
+    const cardRegistration = await mangopay.CardRegistrations.create({
+      UserId: user.mangopayUser.mangopayId,
+      Currency: 'EUR',
+      CardType: 'CB_VISA_MASTERCARD',
+    })
+
+    return {
+      id: cardRegistration.Id,
+      preregistrationData: cardRegistration.PreregistrationData,
+      accessKey: cardRegistration.AccessKey,
+      cardRegistrationURL: cardRegistration.CardRegistrationURL,
+    }
+  }),
+
+  completeCardRegistration: protectedProcedure
+    .input(
+      z.object({
+        id: z.string().min(1, 'id-required'),
+        registrationData: z.string().min(1, 'registration-data-required'),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const cardRegistration = await mangopay.CardRegistrations.update({
+        Id: input.id,
+        RegistrationData: input.registrationData,
+      })
+
+      if (cardRegistration.Status !== 'VALIDATED') {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'invalid-card',
+        })
+      }
+
+      return { id: cardRegistration.CardId }
+    }),
+
+  getUserBalance: protectedProcedure.query(async ({ ctx }) => {
+    const user = await getUserData(ctx.user)
+
+    if (user.mangopayUser == null) {
+      return 0
+    }
+
+    const wallet = await mangopay.Wallets.get(user.mangopayUser.walletId)
+
+    return wallet.Balance.Amount / 100
+  }),
+
+  getBankAccount: protectedProcedure.query(async ({ ctx }) => {
+    const user = await getUserData(ctx.user)
+
+    if (user.mangopayUser == null || user.mangopayUser.userType !== 'OWNER') {
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
+        message: 'not-seller',
+      })
+    }
+
+    const [bankAccount] = await mangopay.Users.getBankAccounts(
+      user.mangopayUser.mangopayId,
+      {
+        parameters: {
+          Active: true,
+        },
+      }
+    )
+
+    if (bankAccount == null || bankAccount.Type !== 'IBAN') {
+      return null
+    }
+
+    return { id: bankAccount.Id, iban: bankAccount.IBAN }
+  }),
+
+  updateBankAccount: protectedProcedure
+    .input(
+      z.object({
+        iban: z.string().min(1, 'iban-required'),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const user = await getUserData(ctx.user)
+
+      if (user.mangopayUser == null || user.mangopayUser.userType !== 'OWNER') {
+        throw new TRPCError({
+          code: 'BAD_REQUEST',
+          message: 'not-seller',
+        })
+      }
+
+      try {
+        const newBankAccount = await mangopay.Users.createBankAccount(
+          user.mangopayUser.mangopayId,
+          {
+            Type: 'IBAN',
+            OwnerName: `${user.firstName ?? ''} ${user.lastName ?? ''}`,
+            IBAN: input.iban.replaceAll(' ', ''),
+            OwnerAddress: {
+              AddressLine1: user.billing?.address1 ?? '',
+              AddressLine2: user.billing?.address2 ?? '',
+              City: user.billing?.city ?? '',
+              Region: user.billing?.region ?? '',
+              PostalCode: user.billing?.postalCode ?? '',
+              Country: user.billing?.country as CountryISO,
+            },
+          }
+        )
+
+        const activeBankAccounts = await mangopay.Users.getBankAccounts(
+          user.mangopayUser.mangopayId,
+          {
+            parameters: {
+              Active: true,
+            },
+          }
+        )
+
+        if (activeBankAccounts.length > 1) {
+          await Promise.all(
+            activeBankAccounts
+              .filter(bankAccount => bankAccount.Id !== newBankAccount.Id)
+              .map(
+                async bankAccount =>
+                  await mangopay.Users.deactivateBankAccount(
+                    user.mangopayUser?.mangopayId as string,
+                    bankAccount.Id
+                  )
+              )
+          )
+        }
+
+        return { success: true }
+      } catch (e) {
+        console.log(e)
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'invalid-iban',
+        })
+      }
+    }),
+
+  requestPayout: protectedProcedure.mutation(async ({ ctx }) => {
+    const user = await getUserData(ctx.user)
+
+    if (user.mangopayUser == null || user.mangopayUser.userType !== 'OWNER') {
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
+        message: 'not-seller',
+      })
+    }
+
+    const wallet = await mangopay.Wallets.get(user.mangopayUser.walletId)
+    const [bankAccount] = await mangopay.Users.getBankAccounts(
+      user.mangopayUser.mangopayId,
+      {
+        parameters: {
+          Active: true,
+        },
+      }
+    )
+
+    if (bankAccount == null || bankAccount.Type !== 'IBAN') {
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
+        message: 'no-bank-account',
+      })
+    }
+
+    const payout = await mangopay.PayOuts.create({
+      AuthorId: user.mangopayUser.mangopayId,
+      DebitedFunds: {
+        Currency: 'EUR',
+        Amount: wallet.Balance.Amount,
+      },
+      Fees: {
+        Currency: 'EUR',
+        Amount: 0,
+      },
+      BankAccountId: bankAccount.Id,
+      DebitedWalletId: wallet.Id,
+      PaymentType: 'BANK_WIRE',
+    })
+
+    return { id: payout.Id }
+  }),
+
+  forgotPassword: publicProcedure
+    .input(
+      z.object({
+        email: z.string().email(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      try {
+        const passwordResetLink = await authAdmin.generatePasswordResetLink(
+          input.email
+        )
+
+        await sendTemplateEmail(24, input.email, {
+          url: passwordResetLink,
+        })
+      } catch (e) {
+        console.log(e.code)
+
+        throw new TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: e.code,
+        })
+      }
+    }),
 })

@@ -1,9 +1,18 @@
+import { css } from '@styled-system/css'
 import App from '@components/App'
+import DownloadDocumentButton from '@components/DownloadDocumentButton'
 import PageLayout from '@ui/PageLayout'
 import { Separator } from '@ui/Separator'
-import { css } from '@styled-system/css'
+import { ButtonLink } from '@ui/Button'
 import { trpc } from '@services/trpc'
-import { Button } from '@ui/Button'
+import { currencyFormatter } from '@util/normailize'
+import { DOCUMENT_TYPES } from '@config/constants'
+import Property from './components/Property'
+import PDFPreview from './components/PDFPreview'
+import NoPreview from './components/NoPreview'
+import { LiaUniversitySolid } from 'react-icons/lia'
+import { BsFileEarmarkText } from 'react-icons/bs'
+import { IoGlassesOutline } from 'react-icons/io5'
 import {
   MdPersonOutline,
   MdOutlineChat,
@@ -13,14 +22,6 @@ import {
   MdOutlineWorkspacePremium,
   MdOutlineCalendarToday,
 } from 'react-icons/md'
-import { IoGlassesOutline } from 'react-icons/io5'
-import { currencyFormatter } from '@util/normailize'
-import Property from './components/Property'
-import PDFPreview from './components/PDFPreview'
-import { BsFileEarmarkText } from 'react-icons/bs'
-import { DOCUMENT_TYPES } from '@config/constants'
-import { LiaUniversitySolid } from 'react-icons/lia'
-import NoPreview from './components/NoPreview'
 
 interface DocumentProps {
   documentId: string
@@ -33,18 +34,30 @@ export default function DocumentView({
     id: documentId,
   })
 
-  const onCallToAction = (): void => {
-    console.log('Botón accionado') // TODO: Cambiar toda la función una vez el botón tenga funcionalidad
-    console.log(documentData)
-  }
+  console.log(documentData)
 
   return (
     <App>
       <PageLayout
         title={documentData?.title ?? ''}
         Icon={BsFileEarmarkText}
-        callToActionText="Comprar"
-        onCallToAction={onCallToAction}
+        rightElement={
+          documentData?.bought ?? false ? (
+            <DownloadDocumentButton
+              documentId={documentData?.id ?? ''}
+              showText
+            />
+          ) : (
+            <ButtonLink
+              href={`/checkout/${documentId}`}
+              className={css({
+                alignSelf: 'center',
+              })}
+            >
+              Comprar
+            </ButtonLink>
+          )
+        }
       >
         <div
           className={css({
@@ -72,6 +85,7 @@ export default function DocumentView({
                   display: 'flex',
                   justifyContent: 'space-between',
                   py: 'md',
+                  alignItems: 'center',
                 })}
               >
                 <p
@@ -83,13 +97,21 @@ export default function DocumentView({
                 >
                   {currencyFormatter.format(documentData?.price ?? 0)}
                 </p>
-                <Button
-                  className={css({
-                    alignSelf: 'center',
-                  })}
-                >
-                  Comprar
-                </Button>
+                {documentData?.bought ?? false ? (
+                  <DownloadDocumentButton
+                    documentId={documentData?.id ?? ''}
+                    showText
+                  />
+                ) : (
+                  <ButtonLink
+                    href={`/checkout/${documentId}`}
+                    className={css({
+                      alignSelf: 'center',
+                    })}
+                  >
+                    Comprar
+                  </ButtonLink>
+                )}
               </section>
 
               <Property

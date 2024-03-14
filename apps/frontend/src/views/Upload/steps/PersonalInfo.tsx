@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import TabContent from '../TabContent'
 import type { StepProps, UploadData } from '../types'
+import { trpc } from '@services/trpc'
 
 const personalInfoSchema = z.object({
   name: z.string().min(1, 'El nombre es obligatorio.'),
@@ -48,6 +49,7 @@ export default function PersonalInfo({
   ...props
 }: StepProps): JSX.Element {
   const { user } = useAuth()
+  const { data: billingData } = trpc.auth.getBillingData.useQuery()
 
   const {
     register,
@@ -60,8 +62,8 @@ export default function PersonalInfo({
     resolver: zodResolver(personalInfoSchema),
     values: {
       email: user.email ?? '',
-      name: '',
-      lastName: '',
+      name: billingData?.firstName ?? '',
+      lastName: billingData?.lastName ?? '',
       countryOfResidence: 'ES',
       nationality: 'ES',
       birthDate: new Date().toISOString().split('T')[0],
@@ -254,6 +256,7 @@ export default function PersonalInfo({
             <Input
               type="date"
               autoComplete="bday"
+              keepErrorSpace
               error={errors.birthDate}
               {...register('birthDate', {
                 onChange: () => {

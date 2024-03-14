@@ -4,6 +4,7 @@ import AccountLayout from './layouts/AccountLayout'
 import { IoCardOutline } from 'react-icons/io5'
 import { css } from '@styled-system/css'
 import { ButtonLink } from '@ui/Button'
+import Cards from './components/Cards'
 
 export default function Payment(): JSX.Element {
   const { userData } = useAuth()
@@ -11,7 +12,10 @@ export default function Payment(): JSX.Element {
   return (
     <AccountLayout selected="payment">
       {userData?.canBuy ?? false ? (
-        <BillingInfo />
+        <>
+          <BillingInfo />
+          <Cards />
+        </>
       ) : (
         <div
           className={css({

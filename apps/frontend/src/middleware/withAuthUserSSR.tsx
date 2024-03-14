@@ -18,7 +18,7 @@ const withAuthUserSSR = <Type,>(firebaseAuthParams?: FirebaseAuthParams) => {
     ) => Promise<GetServerSidePropsResult<Type>>
   ): GetServerSideProps => {
     return withAuthUserTokenSSR(firebaseAuthParams)(async ctx => {
-      const helper = useServerSideHelper(ctx.AuthUser)
+      const helper = useServerSideHelper(ctx.AuthUser, ctx.req.headers)
 
       await helper.auth.getUserData.prefetch()
 

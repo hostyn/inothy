@@ -15,7 +15,7 @@ const createTRPCContext = async ({
   res,
 }: CreateNextContextOptions): Promise<any> => {
   const user = await getUserFromCookies({ req })
-  return createInnerTRPCContext({ user })
+  return createInnerTRPCContext({ user, headers: req.headers })
 }
 
 export default createNextApiHandler({

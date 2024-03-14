@@ -13,6 +13,10 @@ export const buttonStyle = cva({
       outline: '3px solid token(colors.primary.300)',
       outlineOffset: '-1px',
     },
+
+    _disabled: {
+      cursor: 'unset',
+    },
   },
   variants: {
     visual: {

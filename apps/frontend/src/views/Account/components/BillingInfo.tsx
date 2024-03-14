@@ -37,7 +37,7 @@ export default function BillingInfo(): JSX.Element {
 
   const { data: billingData } = trpc.auth.getBillingData.useQuery()
 
-  const updateBillingData = trpc.auth.updateBillingData.useMutation({
+  const updateBillingData = trpc.auth.updateOrUpgradePayer.useMutation({
     onSuccess: async () => {
       await utils.auth.getBillingData.invalidate()
       toastSuccess('Datos de facturación actualizados con éxito.')

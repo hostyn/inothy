@@ -26,12 +26,14 @@ export default async function createDocument({
       contentType: 'application/pdf',
       title: faker.lorem.sentence({ min: 10, max: 30 }),
       description: faker.lorem.paragraphs({ max: 5, min: 2 }),
-      filePath,
+      originalFilePath: filePath,
+      enhancedFilePath: filePath,
       previewPdfUrl,
       price: parseFloat(faker.finance.amount(2, 10.99, 2)),
       calification: parseFloat(faker.finance.amount(0, 10, 1)),
       professor: faker.person.fullName(),
       year: faker.date.past({ years: 5 }).getFullYear(),
+      extension: 'pdf',
       user: {
         connect: {
           id: userId,

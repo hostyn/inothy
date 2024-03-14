@@ -29,12 +29,12 @@ export default function Subject({
       degree: universities?.[0].schools?.[0].degrees?.[0].id ?? '',
     })
 
-  const { data: subjects, isLoading } = trpc.universities.getSubjects.useQuery(
+  const { data: subjects, isLoading } = trpc.degree.getSubjects.useQuery(
     {
       degree: universitySelected.degree,
     },
     {
-      onError: _error => {
+      onError: () => {
         toastError(
           'Ha ocurrido un error inesperado, ¿tienes conexión a internet?'
         )
