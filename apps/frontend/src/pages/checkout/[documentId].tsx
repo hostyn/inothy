@@ -72,7 +72,6 @@ export const getServerSideProps = protectedContentSSR(
         },
       }
     } catch (error) {
-      console.log(error)
       return { notFound: true }
     }
   }

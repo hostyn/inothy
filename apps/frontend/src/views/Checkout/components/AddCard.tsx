@@ -137,7 +137,6 @@ export default function AddCard({
       reset()
       setExpirationDate('')
     } catch (e) {
-      console.log(e.message)
       toastError(
         `No se ha podido registrar la tarjeta. ${ERROR_CODES[e.message] ?? ''}`
       )

@@ -2,63 +2,8 @@ import { css } from '@styled-system/css'
 import TabContent from '../TabContent'
 import type { StepProps, UploadData } from '../types'
 import { trpc } from '@services/trpc'
-import {
-  AssignmentIcon,
-  ExamIcon,
-  ExerciseIcon,
-  NoteIcon,
-  OtherIcon,
-  PracticeIcon,
-  PresentationIcon,
-  SummaryIcon,
-} from '../icons/Icons'
 import { useState } from 'react'
-
-export const DOCUMENT_TYPES: Record<
-  string,
-  { name: string; description: string; icon: () => JSX.Element }
-> = {
-  exam: {
-    name: 'Examen',
-    description: 'Un examen de la asignatura.',
-    icon: ExamIcon,
-  },
-  note: {
-    name: 'Apuntes',
-    description: 'Unos apuntes tomados en clase.',
-    icon: NoteIcon,
-  },
-  practice: {
-    name: 'Práctica',
-    description: 'Una práctica obligatoria o optativa que mandó el profesor.',
-    icon: PracticeIcon,
-  },
-  assignment: {
-    name: 'Trabajo',
-    description: 'Un trabajo que realizaste para esa asignatura.',
-    icon: AssignmentIcon,
-  },
-  exercise: {
-    name: 'Ejercicio',
-    description: 'Unos ejercicios de la asignatura resueltos.',
-    icon: ExerciseIcon,
-  },
-  summary: {
-    name: 'Resumen',
-    description: 'Un resumen de un tema o de la asignatura completa.',
-    icon: SummaryIcon,
-  },
-  presentation: {
-    name: 'Presentación',
-    description: 'Las diapositivas de una presentación.',
-    icon: PresentationIcon,
-  },
-  other: {
-    name: 'Otro',
-    description: '¿Ninguna otra categoría se ajusta a lo que quieres subir?',
-    icon: OtherIcon,
-  },
-}
+import { DOCUMENT_TYPES_WITH_ICON } from '@config/constants'
 
 export default function DocumentType({
   next,
@@ -117,7 +62,7 @@ export default function DocumentType({
           })}
         >
           {documentTypes?.map(docType => {
-            const Icon = DOCUMENT_TYPES[docType.name].icon
+            const Icon = DOCUMENT_TYPES_WITH_ICON[docType.name].icon
             return (
               <button
                 key={docType.id}
@@ -147,7 +92,7 @@ export default function DocumentType({
                       color: 'text',
                     })}
                   >
-                    {DOCUMENT_TYPES[docType.name].name}
+                    {DOCUMENT_TYPES_WITH_ICON[docType.name].name}
                   </span>
                   <span
                     className={css({
@@ -155,7 +100,7 @@ export default function DocumentType({
                       fontSize: 'sm',
                     })}
                   >
-                    {DOCUMENT_TYPES[docType.name].description}
+                    {DOCUMENT_TYPES_WITH_ICON[docType.name].description}
                   </span>
                 </span>
                 <Icon />

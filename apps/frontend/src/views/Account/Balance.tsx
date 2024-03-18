@@ -4,14 +4,18 @@ import IBAN from './components/IBAN'
 import useAuth from '@hooks/useAuth'
 import { IoWalletOutline } from 'react-icons/io5'
 import { css } from '@styled-system/css'
+import KYCNeededBanner from './components/KYCNeededBanner'
 
 export default function Balance(): JSX.Element {
   const { userData } = useAuth()
+
+  console.log(userData?.kycLevel)
 
   return (
     <AccountLayout selected="balance">
       {userData?.canUpload ?? false ? (
         <>
+          {userData?.kycLevel !== 'REGULAR' && <KYCNeededBanner />}
           <BalanceSection />
           <IBAN />
         </>

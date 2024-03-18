@@ -1,3 +1,14 @@
+import {
+  type IconProps,
+  AssignmentIcon,
+  ExamIcon,
+  ExerciseIcon,
+  NoteIcon,
+  OtherIcon,
+  PracticeIcon,
+  PresentationIcon,
+  SummaryIcon,
+} from '@components/icons'
 import type { CountryISO } from 'mangopay2-nodejs-sdk'
 
 export const BADGE_NAMES = {
@@ -38,6 +49,52 @@ export const DOCUMENT_TYPES: Record<string, string> = {
   summary: 'Resumen',
   presentation: 'Presentación',
   other: 'Otro',
+}
+
+export const DOCUMENT_TYPES_WITH_ICON: Record<
+  string,
+  { name: string; description: string; icon: (props: IconProps) => JSX.Element }
+> = {
+  exam: {
+    name: 'Examen',
+    description: 'Un examen de la asignatura.',
+    icon: ExamIcon,
+  },
+  note: {
+    name: 'Apuntes',
+    description: 'Unos apuntes tomados en clase.',
+    icon: NoteIcon,
+  },
+  practice: {
+    name: 'Práctica',
+    description: 'Una práctica obligatoria o optativa que mandó el profesor.',
+    icon: PracticeIcon,
+  },
+  assignment: {
+    name: 'Trabajo',
+    description: 'Un trabajo que realizaste para esa asignatura.',
+    icon: AssignmentIcon,
+  },
+  exercise: {
+    name: 'Ejercicio',
+    description: 'Unos ejercicios de la asignatura resueltos.',
+    icon: ExerciseIcon,
+  },
+  summary: {
+    name: 'Resumen',
+    description: 'Un resumen de un tema o de la asignatura completa.',
+    icon: SummaryIcon,
+  },
+  presentation: {
+    name: 'Presentación',
+    description: 'Las diapositivas de una presentación.',
+    icon: PresentationIcon,
+  },
+  other: {
+    name: 'Otro',
+    description: '¿Ninguna otra categoría se ajusta a lo que quieres subir?',
+    icon: OtherIcon,
+  },
 }
 
 export const EEA_COUNTRIES: CountryISO[] = [

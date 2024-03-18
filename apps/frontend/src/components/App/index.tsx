@@ -12,7 +12,8 @@ export default function App({
       <Nav />
       <main
         className={css({
-          minHeight: 'calc(100vh - token(spacing.6xl))',
+          '--minHeight': 'calc(100vh - token(spacing.6xl))',
+          minHeight: 'var(--minHeight)',
         })}
       >
         {children}

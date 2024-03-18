@@ -25,8 +25,6 @@ export default function Uploaded(): JSX.Element {
     }
   )
 
-  console.log(documentData)
-
   return (
     <AccountLayout selected="uploaded">
       <InfiniteScroll
