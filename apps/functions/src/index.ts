@@ -159,9 +159,44 @@ export const payInWebhook = functions
     }
 
     try {
-      const payIn = await mangopay.PayIns.get(req.query.RessourceId as string)
+      const transaction = await mangopay.PayIns.get(payInId)
 
-      console.log(payIn)
+      if (transaction.Status === 'FAILED') {
+        await prisma.transaction.update({
+          where: {
+            transactionId: payInId,
+          },
+          data: {
+            status: transaction.Status,
+          },
+          include: {
+            user: {
+              select: {
+                uid: true,
+              },
+            },
+          },
+        })
+      }
+
+      if (transaction.Status === 'SUCCEEDED') {
+        await prisma.transaction.update({
+          where: {
+            transactionId: payInId,
+          },
+          data: {
+            status: transaction.Status,
+            documentTransactions: {
+              updateMany: {
+                where: {},
+                data: {
+                  success: true,
+                },
+              },
+            },
+          },
+        })
+      }
     } catch (e) {
       console.log(e)
     }
