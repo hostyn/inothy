@@ -126,7 +126,7 @@ export const kycWebhook = functions
       res.send('done')
     } catch (error) {
       functions.logger.error('Error in kycWebhook --', error)
-      res.status(500).send('internal_server_error')
+      res.status(500).json({ ok: false })
     }
   })
 
@@ -199,6 +199,7 @@ export const payInWebhook = functions
       }
     } catch (e) {
       console.log(e)
+      res.status(500).json({ ok: false })
     }
 
     res.json({ ok: true })

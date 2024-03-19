@@ -59,6 +59,7 @@ const useRegisterCard = (): UseRegisterCard => {
     )
 
     if (!cardRegistration.ok) {
+      setLoading(false)
       throw new Error('unexpected-error')
     }
 
@@ -66,6 +67,7 @@ const useRegisterCard = (): UseRegisterCard => {
 
     if (registrationData.match(/errorCode/) != null) {
       const errorCode = registrationData.split('=')[1] as keyof typeof ERRORS
+      setLoading(false)
       throw new Error(ERRORS[errorCode])
     }
 
