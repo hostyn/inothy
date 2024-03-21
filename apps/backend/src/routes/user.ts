@@ -20,6 +20,8 @@ export const userRouter = createTRPCRouter({
           publicEmail: true,
           publicAddress: true,
           website: true,
+          isProfessor: true,
+          isAcademy: true,
         },
       })
 

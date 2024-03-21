@@ -1,4 +1,5 @@
 import DocumentIcon from '@components/DocumentIcons'
+import { VerifiedBadge } from '@components/VerfifiedBadge'
 import { css } from '@styled-system/css'
 import { Link } from '@ui/Link'
 import { currencyFormatter } from '@util/normailize'
@@ -140,6 +141,12 @@ export default function DocumentCard(
           >
             {document?.user.username}
           </span>
+          {(document?.user.isAcademy ?? false) && (
+            <VerifiedBadge type="academy" />
+          )}
+          {(document?.user.isProfessor ?? false) && (
+            <VerifiedBadge type="professor" />
+          )}
         </Link>
         <span
           title={`${document?.subject.name} ${

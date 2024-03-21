@@ -185,6 +185,8 @@ export const degreeRouter = createTRPCRouter({
               username: true,
               uid: true,
               avatarUrl: true,
+              isAcademy: true,
+              isProfessor: true,
             },
           },
           documentType: {
