@@ -14,6 +14,7 @@ export default function App({
         className={css({
           '--minHeight': 'calc(100vh - token(spacing.6xl))',
           minHeight: 'var(--minHeight)',
+          overflowX: 'hidden',
         })}
       >
         {children}

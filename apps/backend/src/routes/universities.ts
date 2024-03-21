@@ -29,4 +29,23 @@ export const universitiesRouter = createTRPCRouter({
 
     return universities
   }),
+
+  getHomeUniversities: publicProcedure.query(async ({ ctx }) => {
+    const universities = await ctx.prisma.university.findMany({
+      orderBy: {
+        subjects: {
+          _count: 'desc',
+        },
+      },
+      take: 5,
+      select: {
+        id: true,
+        logoUrl: true,
+        name: true,
+        symbol: true,
+      },
+    })
+
+    return universities
+  }),
 })

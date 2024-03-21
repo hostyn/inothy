@@ -70,6 +70,12 @@ export const buttonStyle = cva({
         px: 'sm',
         py: 'xs',
       },
+      lg: {
+        borderRadius: 'md',
+        fontSize: 'xl',
+        px: 'md',
+        py: 'sm',
+      },
     },
   },
   defaultVariants: {
