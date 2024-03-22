@@ -39,7 +39,10 @@ export const getServerSideProps = publicContentSSR(
     }
 
     await Promise.all([
-      helper.degree.getDocuments.prefetch({ degree: degreeId }),
+      helper.degree.getDocuments.prefetchInfinite({
+        degree: degreeId,
+        filters: {},
+      }),
       helper.degree.getDegree.prefetch({ degree: degreeId }),
     ])
 
