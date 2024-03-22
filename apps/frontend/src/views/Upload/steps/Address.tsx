@@ -31,6 +31,7 @@ export default function Address({
 }: StepProps): JSX.Element {
   const [loading, setLoading] = useState(false)
 
+  const { data: billingData } = trpc.auth.getBillingData.useQuery()
   const upgradeToSeller = trpc.auth.upgradeToSeller.useMutation({
     onError: error => {
       setLoading(false)
@@ -91,11 +92,11 @@ export default function Address({
     resolver: zodResolver(personalInfoSchema),
     values: {
       country: 'ES',
-      address1: '',
-      address2: '',
-      city: '',
-      region: '',
-      postalCode: '',
+      address1: billingData?.address1 ?? '',
+      address2: billingData?.address2 ?? '',
+      city: billingData?.city ?? '',
+      region: billingData?.region ?? '',
+      postalCode: billingData?.postalCode ?? '',
     },
   })
 

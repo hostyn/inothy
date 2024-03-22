@@ -11,6 +11,7 @@ import {
   MdOutlineMap,
   MdOutlinePhoneEnabled,
 } from 'react-icons/md'
+import { VerifiedBadge } from '@components/VerfifiedBadge'
 
 export default function UserInfo({ username }: UserPageProps): JSX.Element {
   const { data: userData } = trpc.user.getUser.useQuery({
@@ -69,7 +70,10 @@ export default function UserInfo({ username }: UserPageProps): JSX.Element {
         })}
       >
         <span
+          title={userData?.username}
           className={css({
+            display: 'flex',
+            gap: 'sm',
             fontSize: 'xl',
             fontWeight: 'bolder',
             lineHeight: '100%',
@@ -77,7 +81,11 @@ export default function UserInfo({ username }: UserPageProps): JSX.Element {
             color: 'text',
           })}
         >
-          @{userData?.username}
+          {userData?.username}
+          {(userData?.isAcademy ?? false) && <VerifiedBadge type="academy" />}
+          {(userData?.isProfessor ?? false) && (
+            <VerifiedBadge type="professor" />
+          )}
         </span>
 
         <p

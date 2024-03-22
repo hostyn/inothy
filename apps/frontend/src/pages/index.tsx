@@ -2,21 +2,25 @@ import Head from 'next/head'
 import publicContentSSR from '@middleware/publicContentSSR'
 import publicContent from '@middleware/publicContent'
 import { type NextPage } from 'next'
-import App from '@components/App'
+import Home from '@views/Home'
 
-const Home: NextPage = () => {
+const Page: NextPage = () => {
   return (
     <>
       <Head>
         <title>Inothy: Prepárate para aprobar</title>
         <meta name="robots" content="index,follow" />
       </Head>
-      <App>
-        <h1>home</h1>
-      </App>
+      <Home />
     </>
   )
 }
 
-export default publicContent(Home)
-export const getServerSideProps = publicContentSSR()
+export default publicContent(Page)
+export const getServerSideProps = publicContentSSR(async ({ helper }) => {
+  await helper.universities.getHomeUniversities.prefetch()
+
+  return {
+    props: {},
+  }
+})

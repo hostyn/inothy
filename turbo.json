@@ -18,7 +18,8 @@
     "NEXT_PUBLIC_FRONTEND_URL",
     "NEXT_PUBLIC_MIN_PRICE",
     "NODE_ENV",
-    "VERCEL_URL"
+    "VERCEL_URL",
+    "BREVO_API_KEY"
   ],
   "pipeline": {
     "lint": {
@@ -28,8 +29,14 @@
       "cache": false
     },
     "dev": {
+      "dependsOn": [
+        "prisma#dev:seed"
+      ],
       "cache": false,
       "persistent": true
+    },
+    "dev:seed": {
+      "cache": false
     },
     "db:generate": {
       "cache": false

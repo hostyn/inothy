@@ -15,11 +15,7 @@ export const buttonStyle = cva({
     },
 
     _disabled: {
-      bg: 'grey.500',
-
-      _hover: {
-        bg: 'grey.500',
-      },
+      cursor: 'unset',
     },
   },
   variants: {
@@ -27,6 +23,14 @@ export const buttonStyle = cva({
       primary: {
         bg: 'primary.500',
         color: 'white',
+
+        _disabled: {
+          bg: 'grey.500',
+
+          _hover: {
+            bg: 'grey.500',
+          },
+        },
 
         _hover: {
           bg: 'primary.800',
@@ -36,6 +40,15 @@ export const buttonStyle = cva({
       secondary: {
         bg: 'grey.100',
         color: 'primary.500',
+
+        _disabled: {
+          bg: 'grey.200',
+          color: 'grey.400',
+
+          _hover: {
+            bg: 'grey.200',
+          },
+        },
 
         _hover: {
           bg: 'primary.100',
@@ -56,6 +69,12 @@ export const buttonStyle = cva({
         borderRadius: 'md',
         px: 'sm',
         py: 'xs',
+      },
+      lg: {
+        borderRadius: 'md',
+        fontSize: 'xl',
+        px: 'md',
+        py: 'sm',
       },
     },
   },

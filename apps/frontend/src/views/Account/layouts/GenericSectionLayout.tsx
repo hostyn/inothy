@@ -8,11 +8,13 @@ export interface GenericSectionLayoutProps
   buttonContent?: React.ReactNode
   bottomText: string
   disabled?: boolean
-  onSubmit?: () => void | Promise<void>
+  onSubmit?: React.FormEventHandler<HTMLFormElement>
+  buttonTitle?: string
 }
 
 export default function GenericSectionLayout({
   children,
+  buttonTitle,
   buttonContent,
   bottomText,
   disabled = true,
@@ -48,7 +50,9 @@ export default function GenericSectionLayout({
         </p>
         {buttonContent != null && (
           <AlertDialog dialogTriggerType="submit" {...props}>
-            <Button disabled={disabled}>{buttonContent}</Button>
+            <Button disabled={disabled} title={buttonTitle}>
+              {buttonContent}
+            </Button>
           </AlertDialog>
         )}
       </div>

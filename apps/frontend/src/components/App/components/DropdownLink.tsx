@@ -8,6 +8,7 @@ interface DropdownLinkProps {
   name: string
   href?: string
   onClick?: () => void
+  title?: string
 }
 
 const linkStyles = css({
@@ -52,6 +53,7 @@ export default function DropdownLink({
   href,
   name,
   onClick,
+  title,
 }: DropdownLinkProps): JSX.Element {
   return (
     <DropdownMenuItem
@@ -59,9 +61,23 @@ export default function DropdownLink({
       className={href != null ? linkStyles : logoutStyles}
     >
       {href != null ? (
-        <Link focus="disabled" hover="disabled" href={href} weight="normal">
+        <Link
+          focus="disabled"
+          hover="disabled"
+          href={href}
+          weight="normal"
+          title={title}
+        >
           {Icon != null && <Icon size={16} />}
-          {name}
+          <span
+            className={css({
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            })}
+          >
+            {name}
+          </span>
         </Link>
       ) : (
         <LinkButton

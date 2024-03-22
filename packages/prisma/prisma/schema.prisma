@@ -11,36 +11,39 @@ datasource db {
 }
 
 model User {
-  id                  String        @id @default(auto()) @map("_id") @db.ObjectId
-  uid                 String        @unique
-  username            String        @unique
-  usernameChangedDate DateTime?
-  billing             Billing?
-  mangopayUser        MangopayUser?
-  createdAt           DateTime      @default(now())
-  updatedAt           DateTime      @updatedAt
-  degree              Degree?       @relation(fields: [degreeId], references: [id])
-  degreeId            String?       @db.ObjectId
-  biography           String?
-  avatarUrl           String?
-  firstName           String?
-  lastName            String?
-  nationality         String?
-  birthDate           DateTime?
-  countryOfResidence  String?
-  ip                  String?
-  referralCode        String?
-  documents           Document[]
-  reviews             Review[]
-  canUpload           Boolean       @default(false)
-  canBuy              Boolean       @default(false)
-  website             String?
-  phone               String?
-  publicEmail         String?
-  instagram           String?
-  isAcademy           Boolean?      @default(false)
-  isProfessor         Boolean       @default(false)
-  publicAddress       String?
+  id                   String                @id @default(auto()) @map("_id") @db.ObjectId
+  uid                  String                @unique
+  username             String                @unique
+  usernameChangedDate  DateTime?
+  billing              Billing?
+  mangopayUser         MangopayUser?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  degree               Degree?               @relation(fields: [degreeId], references: [id])
+  degreeId             String?               @db.ObjectId
+  biography            String?
+  avatarUrl            String?
+  firstName            String?
+  lastName             String?
+  nationality          String?
+  birthDate            DateTime?
+  countryOfResidence   String?
+  ip                   String?
+  referralCode         String?
+  documents            Document[]
+  reviews              Review[]
+  canUpload            Boolean               @default(false)
+  canBuy               Boolean               @default(false)
+  website              String?
+  phone                String?
+  publicEmail          String?
+  instagram            String?
+  isAcademy            Boolean?              @default(false)
+  isProfessor          Boolean               @default(false)
+  publicAddress        String?
+  brevoId              String?
+  transactions         Transaction[]
+  documentTransactions DocumentTransaction[]
 }
 
 model Billing {
@@ -59,8 +62,7 @@ model Billing {
 
 model MangopayUser {
   id                      String  @id @default(auto()) @map("_id") @db.ObjectId
-  defaultCardId           String?
-  kycId                   String? @unique
+  kycId                   String?
   kycLevel                String
   kycRefusedReasonMessage String?
   kycRefusedReasonType    String?
@@ -115,33 +117,36 @@ model Subject {
   universityId     String            @db.ObjectId
   code             String
   subjectsWithYear SubjectWithYear[]
-  Document         Document[]
+  documents        Document[]
 }
 
 model Document {
-  id              String       @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
-  userId          String       @db.ObjectId
-  user            User         @relation(fields: [userId], references: [id])
-  title           String
-  description     String
-  price           Float
-  contentType     String
-  filePath        String
-  previewPdfUrl   String?
-  previewImageUrl String?
-  ratingSum       Int?
-  ratingCount     Int?
-  reviews         Review[]
-  documentType    DocumentType @relation(fields: [documentTypeId], references: [id])
-  documentTypeId  String       @db.ObjectId
-  year            Int?
-  calification    Float?
-  professor       String?
-  byHand          Boolean
-  subject         Subject      @relation(fields: [subjectId], references: [id])
-  subjectId       String       @db.ObjectId
+  id                   String                @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  userId               String                @db.ObjectId
+  user                 User                  @relation(fields: [userId], references: [id])
+  title                String
+  description          String
+  price                Float
+  contentType          String
+  originalFilePath     String
+  enhancedFilePath     String?
+  previewPdfUrl        String?
+  previewImageUrl      String?
+  ratingSum            Int?
+  ratingCount          Int?
+  reviews              Review[]
+  documentType         DocumentType          @relation(fields: [documentTypeId], references: [id])
+  documentTypeId       String                @db.ObjectId
+  year                 Int?
+  calification         Float?
+  professor            String?
+  byHand               Boolean
+  subject              Subject               @relation(fields: [subjectId], references: [id])
+  subjectId            String                @db.ObjectId
+  documentTransactions DocumentTransaction[]
+  extension            String
 }
 
 model Review {
@@ -157,7 +162,32 @@ model Review {
 }
 
 model DocumentType {
-  id       String     @id @default(auto()) @map("_id") @db.ObjectId
-  name     String     @unique
-  Document Document[]
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String     @unique
+  documents Document[]
+}
+
+model DocumentTransaction {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  document      Document    @relation(fields: [documentId], references: [id])
+  documentId    String      @db.ObjectId
+  user          User        @relation(fields: [userId], references: [id])
+  userId        String      @db.ObjectId
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
+  transactionId String      @db.ObjectId
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  price         Float
+  success       Boolean
+}
+
+model Transaction {
+  id                   String                @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  userId               String                @db.ObjectId
+  user                 User                  @relation(fields: [userId], references: [id])
+  transactionId        String                @unique
+  status               String
+  documentTransactions DocumentTransaction[]
 }

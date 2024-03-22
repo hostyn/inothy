@@ -7,8 +7,8 @@ import { z } from 'zod'
 import TabContent from '../TabContent'
 import type { AddressStep, KYCData, StepProps } from '../types'
 import { trpc } from '@services/trpc'
-import FormElement from '../components/FormElement'
-import FieldSet from '../components/FieldSet'
+import FieldSet from '@ui/FieldSet'
+import FormElement from '@ui/FormElement'
 
 const personalInfoSchema = z.object({
   address1: z.string().min(1, 'La linea 1 es obligatoria.'),

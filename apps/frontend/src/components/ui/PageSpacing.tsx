@@ -1,11 +1,17 @@
 import { css, cx } from '@styled-system/css'
 import type React from 'react'
 
-export const pageSpacingStyles = css({
-  width: '5xl',
+export const pageWidthStyles = css({
+  width: '6xl',
   margin: 'auto',
-  minHeight: 'inherit',
 })
+
+export const pageSpacingStyles = cx(
+  pageWidthStyles,
+  css({
+    minHeight: 'inherit',
+  })
+)
 
 interface Props {
   children: React.ReactNode

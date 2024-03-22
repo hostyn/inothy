@@ -6,7 +6,7 @@ import PageLayout from '@ui/PageLayout'
 export default function UniversitiesView(): JSX.Element {
   return (
     <App>
-      <PageLayout title="Universidades" Icon={LiaUniversitySolid} searchBar>
+      <PageLayout title="Universidades" Icon={LiaUniversitySolid}>
         <UniversitiesAccordion />
       </PageLayout>
     </App>

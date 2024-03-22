@@ -1,10 +1,12 @@
-import { z } from 'zod'
 import { publicProcedure } from '../procedures'
 import { createTRPCRouter } from '../trpc'
 
 export const universitiesRouter = createTRPCRouter({
   getUniversities: publicProcedure.query(async ({ ctx }) => {
     const universities = await ctx.prisma.university.findMany({
+      orderBy: {
+        name: 'desc',
+      },
       select: {
         id: true,
         logoUrl: true,
@@ -28,27 +30,22 @@ export const universitiesRouter = createTRPCRouter({
     return universities
   }),
 
-  getSubjects: publicProcedure
-    .input(
-      z.object({
-        degree: z.string(),
-      })
-    )
-    .query(async ({ ctx, input }) => {
-      const degrees = await ctx.prisma.subjectWithYear.findMany({
-        where: { degreeId: input.degree },
-        select: {
-          id: true,
-          year: true,
-          subject: {
-            select: {
-              id: true,
-              name: true,
-              code: true,
-            },
-          },
+  getHomeUniversities: publicProcedure.query(async ({ ctx }) => {
+    const universities = await ctx.prisma.university.findMany({
+      orderBy: {
+        subjects: {
+          _count: 'desc',
         },
-      })
-      return degrees
-    }),
+      },
+      take: 5,
+      select: {
+        id: true,
+        logoUrl: true,
+        name: true,
+        symbol: true,
+      },
+    })
+
+    return universities
+  }),
 })

@@ -16,50 +16,77 @@ export const documentRouter = createTRPCRouter({
   getDocument: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
-      const document = await ctx.prisma.document.findUnique({
-        where: {
-          id: input.id,
-        },
-        select: {
-          description: true,
-          title: true,
-          price: true,
-          contentType: true,
-          user: {
-            select: {
-              username: true,
-            },
+      try {
+        const prismaDocument = await ctx.prisma.document.findUnique({
+          where: {
+            id: input.id,
           },
-          documentType: {
-            select: {
-              name: true,
-            },
-          },
-          byHand: true,
-          calification: true,
-          professor: true,
-          year: true,
-          previewPdfUrl: true,
-          previewImageUrl: true,
-          subject: {
-            select: {
-              university: {
-                select: {
-                  name: true,
-                },
+          select: {
+            id: true,
+            description: true,
+            title: true,
+            price: true,
+            contentType: true,
+            user: {
+              select: {
+                username: true,
+                uid: true,
               },
-              name: true,
-              id: true,
+            },
+            documentType: {
+              select: {
+                name: true,
+              },
+            },
+            byHand: true,
+            ratingSum: true,
+            ratingCount: true,
+            calification: true,
+            professor: true,
+            year: true,
+            previewPdfUrl: true,
+            previewImageUrl: true,
+            subject: {
+              select: {
+                university: {
+                  select: {
+                    name: true,
+                  },
+                },
+                code: true,
+                name: true,
+                id: true,
+              },
+            },
+            documentTransactions: {
+              where: {
+                user: {
+                  uid: ctx.user.id ?? '',
+                },
+                success: true,
+              },
             },
           },
-        },
-      })
-      if (document == null)
+        })
+        if (prismaDocument == null) {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'document-not-found',
+          })
+        }
+
+        const { documentTransactions, ...document } = prismaDocument
+
+        return {
+          ...document,
+          bought: documentTransactions.length !== 0,
+        }
+      } catch {
         throw new TRPCError({
           code: 'NOT_FOUND',
           message: 'document-not-found',
         })
-      return document
+      }
     }),
 
   upload: protectedProcedure
@@ -115,10 +142,10 @@ export const documentRouter = createTRPCRouter({
       }
 
       const documentIdentifier = uuidv4()
-      const filePath = `documents/${documentIdentifier}/document.${input.extension}`
+      const originalFilePath = `documents/${documentIdentifier}/original.${input.extension}`
 
-      const fileRef = storageAdmin.file(filePath)
-      const fileStream = fileRef.createWriteStream({
+      const originalFileRef = storageAdmin.file(originalFilePath)
+      const fileStream = originalFileRef.createWriteStream({
         metadata: {
           contentType: input.contentType,
         },
@@ -180,8 +207,10 @@ export const documentRouter = createTRPCRouter({
           professor: input.professor,
           price: input.price,
           contentType: input.contentType,
-          filePath,
+          originalFilePath,
+          // filePath,
           previewPdfUrl: previewUrl,
+          extension: input.extension,
 
           documentType: {
             connect: {
@@ -208,32 +237,263 @@ export const documentRouter = createTRPCRouter({
         },
       })
 
-      // Improve PDF
-      if (input.contentType === 'application/pdf') {
-        const improvedPdf = await makePdfDocument({
-          base64pdf: input.file,
-          title: input.title,
-          author: userData.username,
-          subject: subject.name,
-          university: subject.university.name,
-          url: `https://inothy.com/document/${document.id}`,
-        })
-
-        const improvedPDFStream = fileRef.createWriteStream({
-          metadata: {
-            contentType: input.contentType,
-          },
-        })
-
-        try {
-          await new Promise((resolve, reject) => {
-            improvedPDFStream.on('finish', resolve)
-            improvedPDFStream.on('error', reject)
-            improvedPDFStream.end(Buffer.from(improvedPdf))
-          })
-        } catch {}
+      if (input.contentType !== 'application/pdf') {
+        return document
       }
 
-      return document
+      // Improve PDF
+      const enhancedPdf = await makePdfDocument({
+        base64pdf: input.file,
+        title: input.title,
+        author: userData.username,
+        subject: subject.name,
+        university: subject.university.name,
+        url: `https://inothy.com/document/${document.id}`,
+      })
+
+      const enhancedFilePath = `documents/${documentIdentifier}/document.${input.extension}`
+
+      const enhancedFileRef = storageAdmin.file(enhancedFilePath)
+
+      const enhancedPDFStream = enhancedFileRef.createWriteStream({
+        metadata: {
+          contentType: input.contentType,
+        },
+      })
+
+      try {
+        await new Promise((resolve, reject) => {
+          enhancedPDFStream.on('finish', resolve)
+          enhancedPDFStream.on('error', reject)
+          enhancedPDFStream.end(Buffer.from(enhancedPdf))
+        })
+      } catch {}
+
+      const enhancedDocument = await ctx.prisma.document.update({
+        where: {
+          id: document.id,
+        },
+        data: {
+          enhancedFilePath,
+        },
+        include: {
+          subject: {
+            include: {
+              university: true,
+            },
+          },
+        },
+      })
+
+      return enhancedDocument
+    }),
+
+  getDownloadUrl: protectedProcedure
+    .input(z.object({ documentId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const document = await ctx.prisma.document.findUnique({
+        where: {
+          id: input.documentId,
+        },
+        include: {
+          documentTransactions: {
+            where: {
+              user: {
+                uid: ctx.user.id ?? '',
+              },
+              success: true,
+            },
+          },
+          user: true,
+        },
+      })
+
+      if (document == null) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'document-not-found',
+        })
+      }
+
+      if (
+        document.user.uid !== ctx.user.id &&
+        document.documentTransactions.length === 0
+      ) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: 'document-not-bought',
+        })
+      }
+
+      const file = storageAdmin.file(
+        document.enhancedFilePath ?? document.originalFilePath
+      )
+      const [url] = await file.getSignedUrl({
+        action: 'read',
+        expires: Date.now() + 1000 * 60 * 60,
+      })
+
+      return {
+        url,
+        documentName: `${document.title} - ${document.user.username} - Inothy.${document.extension}`,
+      }
+    }),
+
+  getPurchasedDocuments: protectedProcedure
+    .input(
+      z.object({
+        cursor: z.string().optional(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const limit = 10
+
+      const documentsCount = await ctx.prisma.document.count({
+        where: {
+          documentTransactions: {
+            some: {
+              user: {
+                uid: ctx.user.id ?? '',
+              },
+              success: true,
+            },
+          },
+        },
+      })
+
+      const documents = await ctx.prisma.document.findMany({
+        cursor: input.cursor != null ? { id: input.cursor } : undefined,
+        take: limit + 1,
+        where: {
+          documentTransactions: {
+            some: {
+              user: {
+                uid: ctx.user.id ?? '',
+              },
+              success: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+        select: {
+          id: true,
+          description: true,
+          title: true,
+          price: true,
+          contentType: true,
+          user: {
+            select: {
+              username: true,
+              uid: true,
+            },
+          },
+          documentType: {
+            select: {
+              name: true,
+            },
+          },
+          byHand: true,
+          ratingSum: true,
+          ratingCount: true,
+          calification: true,
+          professor: true,
+          year: true,
+          previewPdfUrl: true,
+          previewImageUrl: true,
+          subject: {
+            select: {
+              university: {
+                select: {
+                  name: true,
+                },
+              },
+              code: true,
+              name: true,
+              id: true,
+            },
+          },
+        },
+      })
+
+      const nextCursor =
+        documents.length > limit ? documents.pop()?.id : undefined
+
+      return { documents, nextCursor, documentsCount }
+    }),
+
+  getUploadedDocuments: protectedProcedure
+    .input(
+      z.object({
+        cursor: z.string().optional(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const limit = 10
+
+      const documentsCount = await ctx.prisma.document.count({
+        where: {
+          user: {
+            uid: ctx.user.id ?? '',
+          },
+        },
+      })
+
+      const documents = await ctx.prisma.document.findMany({
+        cursor: input.cursor != null ? { id: input.cursor } : undefined,
+        take: limit + 1,
+        where: {
+          user: {
+            uid: ctx.user.id ?? '',
+          },
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+        select: {
+          id: true,
+          description: true,
+          title: true,
+          price: true,
+          contentType: true,
+          user: {
+            select: {
+              username: true,
+              uid: true,
+            },
+          },
+          documentType: {
+            select: {
+              name: true,
+            },
+          },
+          byHand: true,
+          ratingSum: true,
+          ratingCount: true,
+          calification: true,
+          professor: true,
+          year: true,
+          previewPdfUrl: true,
+          previewImageUrl: true,
+          subject: {
+            select: {
+              university: {
+                select: {
+                  name: true,
+                },
+              },
+              code: true,
+              name: true,
+              id: true,
+            },
+          },
+        },
+      })
+
+      const nextCursor =
+        documents.length > limit ? documents.pop()?.id : undefined
+
+      return { documents, nextCursor, documentsCount }
     }),
 })

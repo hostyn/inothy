@@ -8,8 +8,8 @@ import Input from '@ui/Input'
 import useAuth from '@hooks/useAuth'
 import { trpc } from '@services/trpc'
 import type { KYCData, PersonalInfoStep, StepProps } from '../types'
-import FormElement from '../components/FormElement'
-import FieldSet from '../components/FieldSet'
+import FieldSet from '@ui/FieldSet'
+import FormElement from '@ui/FormElement'
 
 const personalInfoSchema = z.object({
   name: z.string().min(1, 'El nombre es obligatorio.'),

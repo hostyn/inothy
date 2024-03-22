@@ -12,6 +12,8 @@ import {
 } from 'react-icons/ai'
 import { MdLockOutline } from 'react-icons/md'
 import { IoCardOutline, IoWalletOutline } from 'react-icons/io5'
+import useAuth from '@hooks/useAuth'
+import EmailVerification from '../components/EmailVerification'
 
 interface AccountLayoutProps {
   children: React.ReactNode
@@ -28,6 +30,8 @@ export default function AccountLayout({
   children,
   selected,
 }: AccountLayoutProps): JSX.Element {
+  const { user } = useAuth()
+
   return (
     <App>
       <PageLayout title="Ajustes de la cuenta" Icon={FiSettings}>
@@ -102,6 +106,7 @@ export default function AccountLayout({
               gap: 'md',
             })}
           >
+            {!user.emailVerified && <EmailVerification />}
             {children}
           </div>
         </div>

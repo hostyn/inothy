@@ -22,10 +22,10 @@ import TitleAndDescription from './steps/TitleAndDescription'
 import MoreInfo from './steps/MoreInfo'
 import Price from './steps/Price'
 import { Link } from '@ui/Link'
-import { SummaryIcon } from './icons/Icons'
 import { MdOutlineShare } from 'react-icons/md'
 import { toastSuccess } from '@services/toaster'
 import { useRouter } from 'next/router'
+import { SummaryIcon } from '@components/icons'
 
 const STEPS: Step[] = [
   {

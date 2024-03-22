@@ -18,6 +18,9 @@ function Page(): JSX.Element {
 export default protectedContent(Page)
 
 export const getServerSideProps = protectedContentSSR(async ({ helper }) => {
-  await helper.universities.getUniversities.prefetch()
+  await Promise.all([
+    helper.universities.getUniversities.prefetch(),
+    helper.auth.getBillingData.prefetch(),
+  ])
   return { props: {} }
 })

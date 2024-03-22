@@ -1,6 +1,6 @@
 import Imagotipo from '@components/Imagotipo'
 import useAuth from '@hooks/useAuth'
-import { css } from '@styled-system/css'
+import { css, cx } from '@styled-system/css'
 import { ButtonLink } from '@ui/Button'
 import { Link } from '@ui/Link'
 import SearchBar from '@ui/SearchBar'
@@ -16,6 +16,7 @@ import { HiOutlineLibrary } from 'react-icons/hi'
 import { MdLockOutline, MdOutlineLogout } from 'react-icons/md'
 import { IoCardOutline, IoWalletOutline } from 'react-icons/io5'
 import DropdownLink from './components/DropdownLink'
+import { pageWidthStyles } from '@ui/PageSpacing'
 
 const divStyles = css({ display: 'flex', gap: 'md', alignItems: 'center' })
 
@@ -23,14 +24,15 @@ export default function Nav(): JSX.Element {
   const { user, userData } = useAuth()
   return (
     <header
-      className={css({
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        height: 'token(spacing.6xl)',
-        width: '5xl',
-        margin: 'auto',
-      })}
+      className={cx(
+        pageWidthStyles,
+        css({
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          height: 'token(spacing.6xl)',
+        })
+      )}
     >
       <div className={divStyles}>
         <Link href="/" aria-label="Volver a la página principal">
@@ -116,7 +118,8 @@ export default function Nav(): JSX.Element {
                 <nav>
                   <DropdownLink
                     name={`${userData?.username ?? ''} - ${user.email ?? ''}`}
-                    href={`/profile/${userData?.username ?? ''}`}
+                    title={`${userData?.username ?? ''} - ${user.email ?? ''}`}
+                    href={`/user/${userData?.username ?? ''}`}
                   />
 
                   <Separator size="sm" className={css({ my: 'xs' })} />

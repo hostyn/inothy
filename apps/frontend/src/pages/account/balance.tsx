@@ -17,4 +17,10 @@ const Page: NextPage = () => {
 }
 
 export default protectedContent(Page)
-export const getServerSideProps = protectedContentSSR()
+export const getServerSideProps = protectedContentSSR(async ({ helper }) => {
+  await Promise.all([
+    helper.auth.getUserBalance.prefetch(),
+    helper.auth.getBankAccount.prefetch(),
+  ])
+  return { props: {} }
+})

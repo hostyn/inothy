@@ -1,6 +1,7 @@
 import Imagotipo from '@components/Imagotipo'
-import { css } from '@styled-system/css'
+import { css, cx } from '@styled-system/css'
 import { Link } from '@ui/Link'
+import { pageWidthStyles } from '@ui/PageSpacing'
 import { AiOutlineInstagram, AiOutlineYoutube } from 'react-icons/ai'
 import { RiTiktokFill } from 'react-icons/ri'
 
@@ -22,14 +23,17 @@ const rrssStyle = css({
 export default function Footer(): JSX.Element {
   return (
     <footer
-      className={css({
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        height: 'token(spacing.6xl)',
-        width: '5xl',
-        margin: 'auto',
-      })}
+      className={cx(
+        pageWidthStyles,
+        css({
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          height: 'token(spacing.6xl)',
+          width: '6xl',
+          margin: 'auto',
+        })
+      )}
     >
       <Imagotipo footer />
       <Link visual="footer" href="/legal">

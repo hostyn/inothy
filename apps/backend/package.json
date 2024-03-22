@@ -8,6 +8,7 @@
     "lint:tsc": "tsc --noEmit"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.2",
     "@types/qrcode-svg": "^1.1.2",
     "eslint": "^7.32.0",
     "eslint-config-custom": "workspace:*",
@@ -17,7 +18,6 @@
   "dependencies": {
     "@trpc/client": "^10.29.1",
     "@trpc/server": "^10.29.1",
-    "@types/uuid": "^9.0.2",
     "firebase-admin-config": "workspace:*",
     "mangopay2-nodejs-sdk": "1.34.0",
     "next-firebase-auth": "1.0.0-canary.22",
