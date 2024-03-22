@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "inothy-testing"
+    "default": "inothy-testing",
+    "prod": "inothy-firebase"
   }
 }
