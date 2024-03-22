@@ -62,7 +62,6 @@ model Billing {
 
 model MangopayUser {
   id                      String  @id @default(auto()) @map("_id") @db.ObjectId
-  defaultCardId           String?
   kycId                   String?
   kycLevel                String
   kycRefusedReasonMessage String?
