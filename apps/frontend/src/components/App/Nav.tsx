@@ -3,7 +3,7 @@ import useAuth from '@hooks/useAuth'
 import { css, cx } from '@styled-system/css'
 import { ButtonLink } from '@ui/Button'
 import { Link } from '@ui/Link'
-import SearchBar from '@ui/SearchBar'
+// import SearchBar from '@ui/SearchBar'
 import Image from 'next/image'
 import {
   AiOutlineCloudUpload,
@@ -38,7 +38,7 @@ export default function Nav(): JSX.Element {
         <Link href="/" aria-label="Volver a la página principal">
           <Imagotipo />
         </Link>
-        <SearchBar />
+        {/* <SearchBar /> */}
       </div>
 
       <div className={divStyles}>

@@ -4,7 +4,6 @@ import { css } from '@styled-system/css'
 import { ButtonLink } from '@ui/Button'
 import { H2 } from '@ui/Title'
 import Image from 'next/image'
-import Link from 'next/link'
 
 export default function BestPlace(): JSX.Element {
   const { data: universities } =
@@ -74,18 +73,17 @@ export default function BestPlace(): JSX.Element {
         })}
       >
         {universities?.map(university => (
-          <Link key={university.id} href={`/universities/${university.id}`}>
-            <Image
-              src={university.logoUrl}
-              width={96}
-              height={96}
-              alt={university.name}
-              title={university.name}
-              className={css({
-                borderRadius: 'md',
-              })}
-            />
-          </Link>
+          <Image
+            key={university.id}
+            src={university.logoUrl}
+            width={96}
+            height={96}
+            alt={university.name}
+            title={university.name}
+            className={css({
+              borderRadius: 'md',
+            })}
+          />
         ))}
       </div>
     </section>
