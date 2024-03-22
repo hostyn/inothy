@@ -1,0 +1,23 @@
+{
+  "extends": "tsconfig/nextjs.json",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "strict": true,
+    "paths": {
+      "@ui/*": ["components/ui/*"],
+      "@components/*": ["components/*"],
+      "@config/*": ["config/*"],
+      "@context/*": ["context/*"],
+      "@hooks/*": ["hooks/*"],
+      "@middleware/*": ["middleware/*"],
+      "@util/*": ["util/*"],
+      "@views/*": ["views/*"],
+      "@services/*": ["services/*"],
+      "@styles/*": ["styles/*"],
+      "@styled-system/*": ["styled-system/*"]
+    },
+    "useUnknownInCatchVariables": false
+  },
+  "include": ["src", "*.d.ts", "**/*.ts"],
+  "exclude": ["node_modules"]
+}

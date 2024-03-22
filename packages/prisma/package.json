@@ -1,0 +1,36 @@
+{
+  "name": "prisma",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.3.1",
+    "@types/node": "^17.0.12",
+    "eslint-config-custom": "workspace:*",
+    "prisma": "^4.14.1",
+    "ts-node": "^10.9.1",
+    "tsconfig": "workspace:*",
+    "typescript": "^4.5.3"
+  },
+  "dependencies": {
+    "@prisma/client": "4.14.1",
+    "firebase-admin-config": "workspace:^0.0.0"
+  },
+  "scripts": {
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push --skip-generate",
+    "dev": "prisma studio --browser none",
+    "dev:seed": "prisma db push --force-reset && prisma db seed",
+    "lint": "eslint \"**/*.ts*\"",
+    "lint:tsc": "tsc --noEmit",
+    "prepare": "pnpm run db:generate"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} seed/index.ts"
+  }
+}

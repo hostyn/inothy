@@ -1,0 +1,13 @@
+{
+  "exclude": [],
+  "compilerOptions": {
+    "sourceMap": true,
+    "target": "ES2015",
+    "module": "commonjs",
+    "outDir": "lib",
+    "strict": true,
+    "lib": ["esnext", "dom"],
+    "esModuleInterop": true
+  },
+  "include": ["./**/*.ts"]
+}

@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "chakra-ui.panda-css-vscode",
+    "vivaxy.vscode-conventional-commits",
+    "esbenp.prettier-vscode",
+    "prisma.prisma"
+  ]
+}

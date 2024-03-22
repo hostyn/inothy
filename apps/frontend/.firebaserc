@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "dev": "inothy-testing",
+    "prod": "inothy-firebase"
+  },
+  "targets": {},
+  "etags": {}
+}

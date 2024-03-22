@@ -1,0 +1,55 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "./.env.development.local",
+    "./.env.development",
+    "./.env.production.local",
+    "./.env.production"
+  ],
+  "globalEnv": [
+    "COOKIE_SECRET_CURRENT",
+    "COOKIE_SECRET_PREVIOUS",
+    "DATABASE_URL",
+    "FIREBASE_ADMIN_CREDENTIALS",
+    "MANGOPAY_API_KEY",
+    "MANGOPAY_CLIENT_ID",
+    "MANGOPAY_ENDPOINT",
+    "NEXT_PUBLIC_FIREBASE",
+    "NEXT_PUBLIC_FRONTEND_URL",
+    "NODE_ENV",
+    "VERCEL_URL",
+    "BREVO_API_KEY",
+    "FIREBASE_BUCKET"
+  ],
+  "pipeline": {
+    "lint": {
+      "cache": false
+    },
+    "lint:tsc": {
+      "cache": false
+    },
+    "dev": {
+      "dependsOn": [
+        "prisma#dev:seed"
+      ],
+      "cache": false,
+      "persistent": true
+    },
+    "dev:seed": {
+      "cache": false
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "build": {
+      "dependsOn": [
+        "db:generate"
+      ],
+      "cache": false,
+      "persistent": true
+    },
+    "serve:watch": {
+      "cache": false
+    }
+  }
+}
