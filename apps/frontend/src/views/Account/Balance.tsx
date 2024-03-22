@@ -9,8 +9,6 @@ import KYCNeededBanner from './components/KYCNeededBanner'
 export default function Balance(): JSX.Element {
   const { userData } = useAuth()
 
-  console.log(userData?.kycLevel)
-
   return (
     <AccountLayout selected="balance">
       {userData?.canUpload ?? false ? (
