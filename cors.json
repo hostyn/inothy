@@ -1,7 +1,8 @@
 [
   {
     "origin": [
-      "*"
+      "https://www.inothy.com",
+      "https://inothy.com"
     ],
     "method": [
       "GET"
