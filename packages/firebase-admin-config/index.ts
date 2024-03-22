@@ -15,6 +15,6 @@ export const authAdmin = admin.auth()
 export const firestoreAdmin = admin.firestore()
 export const storageAdmin: Bucket = admin
   .storage()
-  .bucket(JSON.parse(process.env.NEXT_PUBLIC_FIREBASE as string).storageBucket)
+  .bucket(process.env.FIREBASE_BUCKET as string)
 
 export default admin
