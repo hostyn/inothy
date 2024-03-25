@@ -130,8 +130,7 @@ export default defineConfig({
         '3xl': { value: '32rem' },
         '4xl': { value: '48rem' },
         '5xl': { value: '64rem' },
-
-        '6xl': { value: '80rem' },
+        '6xl': { value: '70rem' },
         '7xl': { value: '96rem' },
         '8xl': { value: '112rem' },
         '9xl': { value: '128rem' },
