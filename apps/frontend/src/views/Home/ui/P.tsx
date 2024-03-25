@@ -1,13 +1,15 @@
 import { cva } from '@styled-system/css'
 import { styled } from '@styled-system/jsx'
 
-export const titleStyle = cva({
+export const pStyle = cva({
   base: {
-    fontSize: '6xl',
-    fontWeight: '900',
+    fontSize: 'xl',
+    md: {
+      fontSize: '2xl',
+    },
     fontFamily: 'nunitoSans',
-    letterSpacing: '-0.04em',
-    lineHeight: '1',
+    lineHeight: '1.3',
+    color: 'text',
     maxW: '30ch',
   },
 
@@ -23,22 +25,11 @@ export const titleStyle = cva({
         textAlign: 'right',
       },
     },
-
-    visual: {
-      text: {
-        color: 'text',
-      },
-      white: {
-        color: 'white',
-      },
-    },
   },
 
   defaultVariants: {
     textAlign: 'center',
-    visual: 'text',
   },
 })
 
-export const H1 = styled('h1', titleStyle)
-export const H2 = styled('h2', titleStyle)
+export const P = styled('p', pStyle)

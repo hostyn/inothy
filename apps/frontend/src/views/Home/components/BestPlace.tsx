@@ -2,8 +2,9 @@
 import { trpc } from '@services/trpc'
 import { css } from '@styled-system/css'
 import { ButtonLink } from '@ui/Button'
-import { H2 } from '@ui/Title'
+import { H2 } from '../ui/Title'
 import Image from 'next/image'
+import { P } from '../ui/P'
 
 export default function BestPlace(): JSX.Element {
   const { data: universities } =
@@ -20,12 +21,17 @@ export default function BestPlace(): JSX.Element {
     >
       <div
         className={css({
-          display: 'grid',
-          gridTemplateColumns: '1fr auto',
+          display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
           position: 'relative',
           gap: '2xl',
+
+          lg: {
+            display: 'grid',
+            gridTemplateColumns: '1fr auto',
+          },
         })}
       >
         <div
@@ -37,18 +43,10 @@ export default function BestPlace(): JSX.Element {
           })}
         >
           <H2 textAlign="left">EL LUGAR IDEAL PARA LOS ESTUDIANTES</H2>
-          <p
-            className={css({
-              fontSize: '2xl',
-              fontFamily: 'nunitoSans',
-              lineHeight: '1.3',
-              color: 'text',
-              width: '40ch',
-            })}
-          >
+          <P textAlign="left">
             Inothy es tu sitio perfecto si quieres ganar dinero vendiendo tus
             apuntes y aprobar comprando el mejor material.
-          </p>
+          </P>
           <ButtonLink href="/register" visual="action" size="lg">
             Empezar
           </ButtonLink>
@@ -82,6 +80,13 @@ export default function BestPlace(): JSX.Element {
             title={university.name}
             className={css({
               borderRadius: 'md',
+              height: '48px',
+              width: '48px',
+
+              md: {
+                height: 'auto',
+                width: 'auto',
+              },
             })}
           />
         ))}

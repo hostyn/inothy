@@ -1,17 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
 import { css } from '@styled-system/css'
 import { ButtonLink } from '@ui/Button'
-import { H2 } from '@ui/Title'
+import { H2 } from '../ui/Title'
+import { P } from '../ui/P'
 
 export default function MakeMoney(): JSX.Element {
   return (
     <section
       className={css({
         display: 'flex',
-        justifyContent: 'space-between',
         alignItems: 'center',
-        position: 'relative',
-        gap: '6xl',
+        flexDirection: 'column-reverse',
+        gap: '4xl',
+
+        lg: {
+          display: 'grid',
+          gridTemplateColumns: '2fr 3fr',
+          gap: '0',
+        },
       })}
     >
       <div
@@ -23,41 +29,58 @@ export default function MakeMoney(): JSX.Element {
         })}
       >
         <H2 textAlign="left">GANA DINERO DE VERDAD</H2>
-        <p
-          className={css({
-            fontSize: '2xl',
-            fontFamily: 'nunitoSans',
-            lineHeight: '1.3',
-            color: 'text',
-            width: '30ch',
-          })}
-        >
+        <P textAlign="left">
           Sube tus apuntes al precio que quieras y empieza a generar ingresos
           vendiendo con bajas comisiones.
-        </p>
+        </P>
         <ButtonLink href="/register" visual="action" size="lg">
           Registrarse
         </ButtonLink>
       </div>
-      <img
-        src="/static/home/make-money-mockup.webp"
-        alt="Gana dinero"
+      <div
         className={css({
-          position: 'absolute',
-          height: '350px',
-          bottom: '0',
-          right: '10%',
-          borderRadius: 'md',
+          position: 'relative',
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'left',
+
+          lg: {
+            justifyContent: 'right',
+          },
         })}
-      />
-      <img
-        src="/static/home/make-money-stock.webp"
-        alt="Gana dinero"
-        className={css({
-          height: '100%',
-          borderRadius: 'md',
-        })}
-      />
+      >
+        <img
+          src="/static/home/make-money-mockup.webp"
+          alt="Gana dinero"
+          className={css({
+            position: 'absolute',
+            borderRadius: 'md',
+            width: '80%',
+            bottom: '0',
+            right: '0',
+
+            lg: {
+              width: '100%',
+              bottom: '0',
+              top: 'unset',
+              left: '0',
+            },
+          })}
+        />
+        <img
+          src="/static/home/make-money-stock.webp"
+          alt="Gana dinero"
+          className={css({
+            height: '100%',
+            maxH: '50rem',
+            borderRadius: 'md',
+
+            lg: {
+              width: '80%',
+            },
+          })}
+        />
+      </div>
     </section>
   )
 }

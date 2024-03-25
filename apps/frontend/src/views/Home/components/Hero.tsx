@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { css } from '@styled-system/css'
 import { ButtonLink } from '@ui/Button'
-import { H1 } from '@ui/Title'
+import { H1 } from '../ui/Title'
+import { P } from '../ui/P'
 
 export default function Hero(): JSX.Element {
   return (
@@ -26,16 +27,7 @@ export default function Hero(): JSX.Element {
         })}
       >
         <H1>APRUEBA Y GANA DINERO EN UN CLIC</H1>
-        <p
-          className={css({
-            fontSize: '2xl',
-            fontFamily: 'nunitoSans',
-            lineHeight: '1.3',
-            color: 'text',
-          })}
-        >
-          Obtén dinero con tus apuntes y aprueba con el mejor material.
-        </p>
+        <P>Obtén dinero con tus apuntes y aprueba con el mejor material.</P>
       </div>
       <ButtonLink href="/register" visual="action" size="lg">
         Registrarse

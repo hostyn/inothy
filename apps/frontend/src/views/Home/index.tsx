@@ -17,7 +17,11 @@ export default function Home(): JSX.Element {
         className={css({
           display: 'flex',
           flexDir: 'column',
-          gap: '256px',
+          gap: '128px',
+
+          lg: {
+            gap: '256px',
+          },
         })}
       >
         <Hero />
