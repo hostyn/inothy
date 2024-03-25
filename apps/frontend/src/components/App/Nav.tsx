@@ -36,7 +36,22 @@ export default function Nav(): JSX.Element {
     >
       <div className={divStyles}>
         <Link href="/" aria-label="Volver a la página principal">
-          <Imagotipo />
+          <Imagotipo
+            className={css({
+              display: 'none',
+              md: {
+                display: 'block',
+              },
+            })}
+          />
+          <Imagotipo
+            onlyLogo
+            className={css({
+              md: {
+                display: 'none',
+              },
+            })}
+          />
         </Link>
         {/* <SearchBar /> */}
       </div>
@@ -46,7 +61,17 @@ export default function Nav(): JSX.Element {
 
         {user.id == null ? (
           <>
-            <Link href="/login">Iniciar sesión</Link>
+            <Link
+              href="/login"
+              className={css({
+                display: 'none',
+                md: {
+                  display: 'block',
+                },
+              })}
+            >
+              Iniciar sesión
+            </Link>
 
             <ButtonLink href="/register">Registrarse</ButtonLink>
           </>

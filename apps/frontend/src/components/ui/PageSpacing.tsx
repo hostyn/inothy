@@ -2,8 +2,21 @@ import { css, cx } from '@styled-system/css'
 import type React from 'react'
 
 export const pageWidthStyles = css({
-  width: '6xl',
-  margin: 'auto',
+  margin: '0 1.5rem',
+  width: 'full',
+
+  md: {
+    margin: '0 2rem',
+  },
+
+  xl: {
+    width: '6xl',
+    margin: 'auto',
+  },
+
+  '2xl': {
+    width: '7xl',
+  },
 })
 
 export const pageSpacingStyles = cx(
