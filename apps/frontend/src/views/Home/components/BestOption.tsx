@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { css } from '@styled-system/css'
-import { H2 } from '@ui/Title'
+import { H2 } from '../ui/Title'
 import { MdOutlineCheck } from 'react-icons/md'
 
 export default function BestOption(): JSX.Element {
@@ -32,8 +32,12 @@ export default function BestOption(): JSX.Element {
       <div
         className={css({
           display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
+          gridTemplateColumns: '1fr',
           gap: 'xl',
+
+          md: {
+            gridTemplateColumns: 'repeat(2, 1fr)',
+          },
         })}
       >
         <Card
@@ -70,20 +74,28 @@ const Card = ({ title, facts, image, bg }: CardProps): JSX.Element => (
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'space-between',
       borderRadius: '10px',
       bg,
       color: 'white',
-      gap: 'lg',
-      px: '5xl',
+      gap: 'md',
+      px: 'xl',
       py: 'xl',
+
+      lg: {
+        gap: 'lg',
+        px: '5xl',
+      },
     })}
   >
     <img
       src={image}
       alt={title}
       className={css({
-        height: '200px',
+        height: '150px',
+
+        lg: {
+          height: '200px',
+        },
       })}
     />
     <h3
@@ -108,11 +120,11 @@ const Card = ({ title, facts, image, bg }: CardProps): JSX.Element => (
         <p
           key={fact}
           className={css({
-            textAlign: 'center',
             fontSize: 'xl',
             display: 'flex',
             alignItems: 'center',
             gap: 'md',
+            textWrap: 'wrap',
           })}
         >
           <MdOutlineCheck />

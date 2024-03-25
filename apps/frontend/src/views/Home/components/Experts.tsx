@@ -2,18 +2,23 @@
 import { VerifiedBadge } from '@components/VerfifiedBadge'
 import { css } from '@styled-system/css'
 import { ButtonLink } from '@ui/Button'
-import { H2 } from '@ui/Title'
+import { H2 } from '../ui/Title'
+import { P } from '../ui/P'
 
 export default function Experts(): JSX.Element {
   return (
     <section
       className={css({
         display: 'flex',
+        flexDirection: 'column-reverse',
         justifyContent: 'space-between',
         alignItems: 'center',
         position: 'relative',
-        h: '700px',
         gap: '6xl',
+
+        lg: {
+          flexDir: 'row',
+        },
       })}
     >
       <div
@@ -26,26 +31,27 @@ export default function Experts(): JSX.Element {
         })}
       >
         <H2 textAlign="left">APUNTES HECHOS POR EXPERTOS</H2>
-        <p
-          className={css({
-            fontSize: '2xl',
-            fontFamily: 'nunitoSans',
-            lineHeight: '1.3',
-            color: 'text',
-            width: '40ch',
-          })}
-        >
+        <P textAlign="left">
           Consigue los mejores apuntes de la mano de profesionales.
-        </p>
+        </P>
         <ButtonLink href="/register" visual="action" size="lg">
           Comprar apuntes
         </ButtonLink>
         <div
           className={css({
             display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
+            gridTemplateColumns: '1fr',
             width: '100%',
-            gap: '5xl',
+            gap: 'lg',
+
+            md: {
+              gap: '2xl',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+            },
+
+            lg: {
+              gap: '5xl',
+            },
           })}
         >
           <div
@@ -64,29 +70,25 @@ export default function Experts(): JSX.Element {
             >
               <h3
                 className={css({
-                  fontSize: '4xl',
+                  fontSize: '2xl',
                   fontFamily: 'nunitoSans',
                   fontWeight: 'bold',
                   letterSpacing: '-0.015em',
                   color: 'text',
+
+                  md: {
+                    fontSize: '4xl',
+                  },
                 })}
               >
                 Academias
               </h3>
               <VerifiedBadge type="academy" size="lg" />
             </div>
-            <p
-              className={css({
-                fontSize: '2xl',
-                fontFamily: 'nunitoSans',
-                color: 'grey.500',
-                letterSpacing: '-0.015em',
-                lineHeight: '1.2',
-              })}
-            >
+            <P textAlign="left">
               Centros académicos verificados, expertos en la educación
               universitaria.
-            </p>
+            </P>
           </div>
           <div
             className={css({
@@ -104,29 +106,25 @@ export default function Experts(): JSX.Element {
             >
               <h3
                 className={css({
-                  fontSize: '4xl',
+                  fontSize: '2xl',
                   fontFamily: 'nunitoSans',
                   fontWeight: 'bold',
                   letterSpacing: '-0.015em',
                   color: 'text',
+
+                  md: {
+                    fontSize: '4xl',
+                  },
                 })}
               >
                 Profesores
               </h3>
               <VerifiedBadge type="professor" size="lg" />
             </div>
-            <p
-              className={css({
-                fontSize: '2xl',
-                fontFamily: 'nunitoSans',
-                color: 'grey.500',
-                letterSpacing: '-0.015em',
-                lineHeight: '1.2',
-              })}
-            >
+            <P textAlign="left">
               Profesores particulares especializados en la carrera y asignatura
               que necesites.
-            </p>
+            </P>
           </div>
         </div>
       </div>
@@ -135,8 +133,16 @@ export default function Experts(): JSX.Element {
         src="/static/home/experts.webp"
         alt="Gana dinero"
         className={css({
-          height: '100%',
+          height: '250px',
           borderRadius: 'md',
+
+          md: {
+            height: '400px',
+          },
+
+          lg: {
+            height: '100%',
+          },
         })}
       />
     </section>

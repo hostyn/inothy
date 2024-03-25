@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { css } from '@styled-system/css'
-import { H2 } from '@ui/Title'
+import { H2 } from '../ui/Title'
 
 export default function YourBuddy(): JSX.Element {
   return (
@@ -12,12 +12,25 @@ export default function YourBuddy(): JSX.Element {
         gap: '6xl',
       })}
     >
-      <H2>TU MEJOR COMPAÑERO EN LA CARRERA</H2>
+      <H2
+        className={css({
+          textAlign: 'left',
+          lg: {
+            textAlign: 'center',
+          },
+        })}
+      >
+        TU MEJOR COMPAÑERO EN LA CARRERA
+      </H2>
       <div
         className={css({
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateColumns: '1fr',
           gap: 'xl',
+
+          lg: {
+            gridTemplateColumns: 'repeat(3, 1fr)',
+          },
         })}
       >
         <Card
@@ -54,22 +67,35 @@ const Card = ({ title, description, image, bg }: CardProps): JSX.Element => (
   <div
     className={css({
       display: 'flex',
-      flexDirection: 'column',
+      flexDirection: 'column-reverse',
       alignItems: 'center',
       justifyContent: 'space-between',
       borderRadius: '10px',
       bg,
       color: 'white',
-      px: 'md',
+      px: 'xl',
       py: 'xl',
+      gap: 'md',
+
+      md: {
+        flexDir: 'row',
+        gap: '0',
+      },
+
+      lg: {
+        flexDir: 'column',
+      },
     })}
   >
     <div
       className={css({
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-        gap: 'md',
+
+        lg: {
+          gap: 'md',
+          alignItems: 'center',
+        },
       })}
     >
       <h3
@@ -83,13 +109,26 @@ const Card = ({ title, description, image, bg }: CardProps): JSX.Element => (
       </h3>
       <p
         className={css({
-          textAlign: 'center',
           fontSize: 'xl',
+
+          lg: {
+            textAlign: 'center',
+          },
         })}
       >
         {description}
       </p>
     </div>
-    <img src={image} alt={title} />
+    <img
+      src={image}
+      alt={title}
+      className={css({
+        height: '100px',
+
+        lg: {
+          height: 'auto',
+        },
+      })}
+    />
   </div>
 )
