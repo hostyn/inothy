@@ -213,7 +213,14 @@ const Register: NextPage = () => {
 
             <OAuthProviders />
 
-            <p className={css({ fontSize: 'sm', color: 'grey.400' })}>
+            <p
+              className={css({
+                fontSize: 'sm',
+                color: 'grey.400',
+                textAlign: 'center',
+                maxW: '40ch',
+              })}
+            >
               Al registrarte aceptas nuestros{' '}
               <NextLink href="/legal" className={termsStyles}>
                 Términos y Condiciones
