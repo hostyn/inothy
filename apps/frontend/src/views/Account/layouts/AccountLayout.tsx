@@ -37,16 +37,24 @@ export default function AccountLayout({
       <PageLayout title="Ajustes de la cuenta" Icon={FiSettings}>
         <div
           className={css({
-            display: 'grid',
-            gridTemplateColumns: 'token(sizes.lg) 1fr',
+            display: 'flex',
             gap: 'sm',
+
+            md: {
+              display: 'grid',
+              gridTemplateColumns: 'token(sizes.lg) 1fr',
+            },
           })}
         >
           <nav
             className={css({
-              display: 'flex',
+              display: 'none',
               flexDir: 'column',
               gap: 'xs',
+
+              md: {
+                display: 'flex',
+              },
             })}
           >
             <Link
@@ -80,7 +88,7 @@ export default function AccountLayout({
               state={selected === 'balance' ? 'active' : 'inactive'}
             >
               <IoWalletOutline size={16} />
-              Saldo
+              Balance
             </Link>
 
             <Link
@@ -104,6 +112,8 @@ export default function AccountLayout({
               display: 'flex',
               flexDirection: 'column',
               gap: 'md',
+              width: '100%',
+              overflow: 'hidden',
             })}
           >
             {!user.emailVerified && <EmailVerification />}

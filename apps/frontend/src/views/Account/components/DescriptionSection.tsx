@@ -98,7 +98,7 @@ export default function DescriptionSection(): JSX.Element {
       <Textarea
         placeholder="Descripción"
         rows={6}
-        className={css({ width: '2xl', mt: '6px' })}
+        className={css({ width: 'min(100%, token(sizes.2xl))', mt: '6px' })}
         error={errors.biography}
         {...register('biography', {
           onChange: () => {

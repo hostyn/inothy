@@ -157,7 +157,7 @@ export default function EmailSection(): JSX.Element {
             clearErrors('email')
           },
         })}
-        className={css({ width: '2xl', mt: '6px' })}
+        className={css({ width: 'min(100%, token(sizes.2xl))', mt: '6px' })}
       />
     </SectionLayout>
   )

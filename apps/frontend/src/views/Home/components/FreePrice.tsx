@@ -21,9 +21,9 @@ export default function FreePrice(): JSX.Element {
           content: '""',
           zIndex: -1,
           bottom: '0',
-          left: '-1.5rem',
+          left: '-calc(1.5rem - 0.375rem)',
           bg: 'grey.100',
-          width: '100vw',
+          width: 'calc(100vw - 0.75rem)',
           height: '90%',
           borderRadius: '15px',
 

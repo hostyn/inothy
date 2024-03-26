@@ -161,7 +161,7 @@ export default function UsernameSection(): JSX.Element {
             clearErrors('username')
           },
         })}
-        className={css({ width: '2xl', mt: '6px' })}
+        className={css({ width: 'min(100%, token(sizes.2xl))', mt: '6px' })}
       />
     </SectionLayout>
   )

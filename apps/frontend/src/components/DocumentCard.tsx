@@ -23,8 +23,8 @@ export default function DocumentCard(
         className={css({
           fontSize: '2xl',
           bg: 'grey.100',
-          padding: 'xl',
           borderRadius: 'md',
+          padding: 'xl',
         })}
       >
         <DocumentIcon mimeType={document.contentType} />
