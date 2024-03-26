@@ -37,9 +37,16 @@ export default function SchoolsAccordion({
           <SchoolTrigger>
             <div
               className={css({
-                display: 'flex',
+                display: 'grid',
+                gridTemplateColumns: '18px 1fr',
                 alignItems: 'center',
                 gap: 'sm',
+                width: '100%',
+                height: '40px',
+
+                md: {
+                  height: '24px',
+                },
               })}
             >
               <LiaAngleDownSolid
@@ -50,19 +57,63 @@ export default function SchoolsAccordion({
                 })}
                 size={18}
               />
-              <h3 className={css({ color: 'primary.500', fontWeight: '600' })}>
+              <h3
+                title={school.name}
+                className={css({
+                  color: 'primary.500',
+                  fontWeight: '600',
+                  textAlign: 'left',
+                  lineHeight: '1.1',
+
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+
+                  mdDown: {
+                    lineClamp: 2,
+                  },
+
+                  md: {
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    width: '100%',
+                  },
+                })}
+              >
                 {school.name}
               </h3>
             </div>
           </SchoolTrigger>
           <SchoolContent>
             {school.degrees.map(degree => (
-              <div key={degree.id}>
+              <div
+                key={degree.id}
+                className={css({
+                  display: 'flex',
+                })}
+              >
                 <Link
+                  title={degree.name}
                   href={`/degree/${degree.id}`}
                   className={css({
                     color: 'primary.500',
                     borderRadius: 'md',
+
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+
+                    lineHeight: '1.3',
+
+                    mdDown: {
+                      lineClamp: 2,
+                    },
+
+                    md: {
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      width: '100%',
+                    },
 
                     _hover: {
                       textDecoration: 'underline',
@@ -137,8 +188,11 @@ const SchoolContent = React.forwardRef(
       {...props}
       ref={forwardedRef}
       className={css({
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'sm',
+
         paddingLeft: 'xl',
-        gap: 'xl',
 
         '&[data-state="open"]': {
           animation: 'slideDown 300ms cubic-bezier(0.87, 0, 0.13, 1);',
@@ -149,7 +203,7 @@ const SchoolContent = React.forwardRef(
         },
       })}
     >
-      <div className="AccordionContentText">{children}</div>
+      {children}
     </Accordion.Content>
   )
 )

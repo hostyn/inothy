@@ -35,39 +35,48 @@ export default function UniversitiesAccordion(): JSX.Element {
           key={university.id}
         >
           <UniversityTrigger>
-            <>
-              <div
+            <div
+              className={css({
+                display: 'grid',
+                gridTemplateColumns: '32px 1fr 18px',
+                gap: 'sm',
+                alignItems: 'center',
+                width: '100%',
+              })}
+            >
+              <Image
+                src={university.logoUrl}
+                alt={`Logo de la ${university.name}`}
+                width={32}
+                height={32}
+                className={css({ borderRadius: 'md' })}
+              />
+              <h2
+                title={university.name}
                 className={css({
-                  display: 'flex',
-                  gap: 'sm',
-                  alignItems: 'center',
+                  fontSize: 'lg',
+                  fontWeight: '600',
+                  color: 'primary.500',
+                  textAlign: 'left',
+                  lineHeight: '1.1',
+
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  lineClamp: 2,
+                  width: '100%',
                 })}
               >
-                <Image
-                  src={university.logoUrl}
-                  alt={`Logo de la ${university.name}`}
-                  width={32}
-                  height={32}
-                  className={css({ borderRadius: 'md' })}
-                />
-                <h2
-                  className={css({
-                    fontSize: 'lg',
-                    fontWeight: '600',
-                    color: 'primary.500',
-                  })}
-                >
-                  {university.name}
-                </h2>
-              </div>
+                {university.name}
+              </h2>
               <LiaAngleDownSolid
                 className={css({
                   fill: 'primary.500',
                   transition: 'transform 300ms cubic-bezier(0.87, 0, 0.13, 1)',
+                  width: '18px',
+                  height: '18px',
                 })}
-                size={18}
               />
-            </>
+            </div>
           </UniversityTrigger>
 
           <UniversityContent>
