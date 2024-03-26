@@ -28,7 +28,7 @@ export default function DocumentOwner(): JSX.Element {
         <p
           className={css({
             color: 'text',
-            width: '50ch',
+            maxWidth: '50ch',
             textAlign: 'center',
           })}
         >

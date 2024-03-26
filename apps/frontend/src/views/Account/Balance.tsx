@@ -38,7 +38,7 @@ export default function Balance(): JSX.Element {
           </h2>
           <p
             className={css({
-              width: '50ch',
+              maxW: '50ch',
               textAlign: 'center',
             })}
           >

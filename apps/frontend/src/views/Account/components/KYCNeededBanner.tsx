@@ -25,7 +25,7 @@ export default function KYCNeededBanner(): JSX.Element {
         </h2>
         <p
           className={css({
-            width: '50ch',
+            maxWidth: '50ch',
           })}
         >
           Para poder retirar tu dinero, necesitamos verificar tu identidad.

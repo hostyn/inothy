@@ -7,7 +7,6 @@ interface PageLayoutProps {
   children: React.ReactNode
   title: string
   Icon: IconType
-  searchBar?: boolean
   rightElement?: React.ReactNode
 }
 
@@ -15,7 +14,6 @@ export default function PageLayout({
   children,
   title,
   Icon,
-  searchBar = false,
   rightElement,
 }: PageLayoutProps): JSX.Element {
   return (
@@ -27,11 +25,11 @@ export default function PageLayout({
     >
       <header
         className={css({
-          py: 'md',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: 'md',
+          py: 'md',
         })}
       >
         <div
@@ -42,11 +40,22 @@ export default function PageLayout({
             gap: 'sm',
           })}
         >
-          <Icon size={32} className={css({ color: 'primary.500' })} />
+          <Icon
+            className={css({
+              color: 'primary.500',
+              width: '24px',
+              height: '24px',
+
+              md: {
+                height: '32px',
+                width: '32px',
+              },
+            })}
+          />
           <h1
             title={title}
             className={css({
-              fontSize: 'xl',
+              fontSize: 'lg',
               color: 'primary.500',
               fontWeight: '600',
               lineHeight: '110%',
@@ -55,6 +64,10 @@ export default function PageLayout({
               textOverflow: 'ellipsis',
               lineClamp: 2,
               width: '100%',
+
+              md: {
+                fontSize: 'xl',
+              },
             })}
           >
             {title}

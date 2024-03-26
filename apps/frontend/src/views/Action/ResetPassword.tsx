@@ -100,7 +100,7 @@ export default function ResetPassword({
             <p
               className={css({
                 color: 'text',
-                width: '50ch',
+                maxWidth: '50ch',
                 textAlign: 'center',
               })}
             >

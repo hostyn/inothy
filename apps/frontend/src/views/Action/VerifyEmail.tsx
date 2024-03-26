@@ -32,8 +32,7 @@ export default function VerifyEmail({
         </h1>
         <p
           className={css({
-            width: '50ch',
-            maxWidth: '100%',
+            maxWidth: '50ch',
             textAlign: 'center',
           })}
         >
