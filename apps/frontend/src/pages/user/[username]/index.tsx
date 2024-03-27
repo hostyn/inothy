@@ -33,11 +33,12 @@ export const getServerSideProps = publicContentSSR(async ctx => {
   }
 
   try {
-    await ctx.helper.user.getUser.fetch({
-      username,
-    })
-
-    await ctx.helper.user.getDocuments.prefetchInfinite({ username })
+    await Promise.all([
+      ctx.helper.user.getUser.fetch({
+        username,
+      }),
+      ctx.helper.user.getDocuments.prefetchInfinite({ username }),
+    ])
 
     return {
       props: {
