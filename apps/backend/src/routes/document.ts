@@ -68,6 +68,7 @@ export const documentRouter = createTRPCRouter({
             },
           },
         })
+
         if (prismaDocument == null) {
           throw new TRPCError({
             code: 'NOT_FOUND',
@@ -348,7 +349,7 @@ export const documentRouter = createTRPCRouter({
     .query(async ({ input, ctx }) => {
       const limit = 10
 
-      const documentsCount = await ctx.prisma.document.count({
+      const documentsCountPromise = ctx.prisma.document.count({
         where: {
           documentTransactions: {
             some: {
@@ -419,6 +420,8 @@ export const documentRouter = createTRPCRouter({
 
       const nextCursor =
         documents.length > limit ? documents.pop()?.id : undefined
+
+      const documentsCount = await documentsCountPromise
 
       return { documents, nextCursor, documentsCount }
     }),
@@ -432,7 +435,7 @@ export const documentRouter = createTRPCRouter({
     .query(async ({ input, ctx }) => {
       const limit = 10
 
-      const documentsCount = await ctx.prisma.document.count({
+      const documentsCountPromise = ctx.prisma.document.count({
         where: {
           user: {
             uid: ctx.user.id ?? '',
@@ -493,6 +496,8 @@ export const documentRouter = createTRPCRouter({
 
       const nextCursor =
         documents.length > limit ? documents.pop()?.id : undefined
+
+      const documentsCount = await documentsCountPromise
 
       return { documents, nextCursor, documentsCount }
     }),

@@ -10,7 +10,7 @@ export const degreeRouter = createTRPCRouter({
       })
     )
     .query(async ({ ctx, input }) => {
-      const subjectsWithDocuments = await ctx.prisma.document.groupBy({
+      const subjectsWithDocumentsPromise = ctx.prisma.document.groupBy({
         by: ['subjectId'],
         where: {
           subject: {
@@ -25,13 +25,7 @@ export const degreeRouter = createTRPCRouter({
         _count: true,
       })
 
-      const indexedSubjectsWithDocuments: Record<string, number> = {}
-
-      subjectsWithDocuments.forEach(subject => {
-        indexedSubjectsWithDocuments[subject.subjectId] = subject._count
-      })
-
-      const degree = await ctx.prisma.degree.findUnique({
+      const degreePromise = ctx.prisma.degree.findUnique({
         where: {
           id: input.degree,
         },
@@ -70,6 +64,15 @@ export const degreeRouter = createTRPCRouter({
         },
       })
 
+      const indexedSubjectsWithDocuments: Record<string, number> = {}
+      const subjectsWithDocuments = await subjectsWithDocumentsPromise
+
+      subjectsWithDocuments.forEach(subject => {
+        indexedSubjectsWithDocuments[subject.subjectId] = subject._count
+      })
+
+      const degree = await degreePromise
+
       return {
         ...degree,
         subjects: degree?.subjects
@@ -105,6 +108,7 @@ export const degreeRouter = createTRPCRouter({
           },
         },
       })
+
       return degrees
     }),
 
@@ -125,7 +129,7 @@ export const degreeRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const limit = 20
 
-      const documentsCount = await ctx.prisma.document.count({
+      const documentsCountPromise = ctx.prisma.document.count({
         where: {
           byHand: input.filters?.byHand,
           documentType: {
@@ -236,6 +240,8 @@ export const degreeRouter = createTRPCRouter({
           bought: documentTransactions.length > 0,
         }
       })
+
+      const documentsCount = await documentsCountPromise
 
       return { documents: parsedDocuments, documentsCount, nextCursor }
     }),
