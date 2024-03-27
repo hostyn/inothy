@@ -66,7 +66,7 @@ export const VerifiedBadge: typeof StyledVerifiedBadgeSvg = ({
       type === 'academy'
         ? 'Academia verificada'
         : type === 'professor'
-        ? 'Prefesor verificado'
+        ? 'Profesor verificado'
         : undefined
     }
   >
