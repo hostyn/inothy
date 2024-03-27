@@ -20,9 +20,10 @@ const withAuthUserSSR = <Type,>(firebaseAuthParams?: FirebaseAuthParams) => {
     return withAuthUserTokenSSR(firebaseAuthParams)(async ctx => {
       const helper = useServerSideHelper(ctx.AuthUser, ctx.req.headers)
 
-      await helper.auth.getUserData.prefetch()
+      const getUserDataPrefetch = helper.auth.getUserData.prefetch()
 
       if (getServerSideProps == null) {
+        await getUserDataPrefetch
         return {
           props: {
             trpcState: helper.dehydrate(),
@@ -31,6 +32,7 @@ const withAuthUserSSR = <Type,>(firebaseAuthParams?: FirebaseAuthParams) => {
       }
 
       const res = await getServerSideProps({ ...ctx, helper })
+      await getUserDataPrefetch
 
       if ('props' in res) {
         return {
