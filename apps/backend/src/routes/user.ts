@@ -8,56 +8,59 @@ export const userRouter = createTRPCRouter({
   getUser: publicProcedure
     .input(z.object({ username: z.string() }))
     .query(async ({ ctx, input }) => {
-      const user = await ctx.prisma.user.findUnique({
-        where: {
-          username: input.username,
-        },
-        select: {
-          avatarUrl: true,
-          username: true,
-          biography: true,
-          phone: true,
-          publicEmail: true,
-          publicAddress: true,
-          website: true,
-          isProfessor: true,
-          isAcademy: true,
-        },
-      })
-
-      const reviews = await ctx.prisma.review.aggregate({
-        where: {
-          document: {
-            user: {
+      const [user, reviews, documentCount, subjectsUploaded] =
+        await Promise.all([
+          ctx.prisma.user.findUnique({
+            where: {
               username: input.username,
             },
-          },
-        },
-        _count: true,
-        _avg: {
-          rating: true,
-        },
-      })
+            select: {
+              avatarUrl: true,
+              username: true,
+              biography: true,
+              phone: true,
+              publicEmail: true,
+              publicAddress: true,
+              website: true,
+              isProfessor: true,
+              isAcademy: true,
+            },
+          }),
 
-      const documentCount = await ctx.prisma.document.count({
-        where: {
-          user: {
-            username: input.username,
-          },
-        },
-      })
+          ctx.prisma.review.aggregate({
+            where: {
+              document: {
+                user: {
+                  username: input.username,
+                },
+              },
+            },
+            _count: true,
+            _avg: {
+              rating: true,
+            },
+          }),
 
-      const subjectsUploaded = await ctx.prisma.subject.findMany({
-        where: {
-          documents: {
-            some: {
+          ctx.prisma.document.count({
+            where: {
               user: {
                 username: input.username,
               },
             },
-          },
-        },
-      })
+          }),
+
+          ctx.prisma.subject.findMany({
+            where: {
+              documents: {
+                some: {
+                  user: {
+                    username: input.username,
+                  },
+                },
+              },
+            },
+          }),
+        ])
 
       const subjectsUploadedByUniversity = subjectsUploaded.reduce<
         Record<string, Subject[]>
@@ -115,7 +118,7 @@ export const userRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const limit = 10
 
-      const documentsCount = await ctx.prisma.document.count({
+      const documentsCountPromise = ctx.prisma.document.count({
         where: {
           user: {
             username: input.username,
@@ -168,6 +171,8 @@ export const userRouter = createTRPCRouter({
       })
       const nextCursor =
         documents.length > limit ? documents.pop()?.id : undefined
+
+      const documentsCount = await documentsCountPromise
 
       return { documents, nextCursor, documentsCount }
     }),
