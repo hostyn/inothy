@@ -96,6 +96,9 @@ export const degreeRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const degrees = await ctx.prisma.subjectWithYear.findMany({
         where: { degreeId: input.degree },
+        orderBy: {
+          year: 'asc',
+        },
         select: {
           id: true,
           year: true,
