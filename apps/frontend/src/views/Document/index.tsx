@@ -60,14 +60,29 @@ export default function DocumentView({
         <div
           className={css({
             display: 'flex',
+            flexDirection: 'column-reverse',
+
             width: 'inherit',
             gap: 'xl',
+            mb: 'md',
+
+            md: {
+              display: 'grid',
+              gridTemplateColumns: '1fr 23rem',
+            },
+
+            lg: {
+              gridTemplateColumns: '1fr 33rem',
+            },
+
+            '2xl': {
+              gridTemplateColumns: '1fr 45rem',
+            },
           })}
         >
           <div
             className={css({
-              width: '2xl',
-              minWidth: '2xl',
+              width: '100%',
             })}
           >
             <div
@@ -183,10 +198,17 @@ export default function DocumentView({
           </div>
           <div
             className={css({
+              width: '100%',
+              height: 'calc((100vw - 3rem) * 1.414)',
+
+              md: {
+                width: '100%',
+                height: 'auto',
+              },
+
               position: 'relative',
               aspectRatio: '1/1.414',
-              width: '100%',
-              height: '100%',
+              mx: 'auto',
               display: 'flex',
               overflow: 'hidden',
               outline: '1px solid token(colors.grey.100)',
