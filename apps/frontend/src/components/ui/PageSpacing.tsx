@@ -3,7 +3,6 @@ import type React from 'react'
 
 export const pageWidthStyles = css({
   margin: '0 1.5rem',
-  width: 'full',
 
   md: {
     margin: '0 2rem',
