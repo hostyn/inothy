@@ -100,7 +100,17 @@ export default function PasswordSectionWithPasswordSet(): JSX.Element {
         loading ? (
           <Spinner className={css({ my: 'xs', mx: 'auto' })} />
         ) : (
-          'Cambiar contraseña'
+          <>
+            Cambiar{' '}
+            <span
+              className={css({
+                display: 'none',
+                md: { display: 'inline' },
+              })}
+            >
+              contraseña
+            </span>
+          </>
         )
       }
       disabled={false}
@@ -131,7 +141,7 @@ export default function PasswordSectionWithPasswordSet(): JSX.Element {
             },
           })}
           className={css({
-            width: '2xl',
+            width: 'min(100%, token(sizes.2xl))',
             mt: '6px',
             mb: errors.password != null ? '0' : '20px',
           })}
@@ -149,7 +159,7 @@ export default function PasswordSectionWithPasswordSet(): JSX.Element {
             },
           })}
           className={css({
-            width: '2xl',
+            width: 'min(100%, token(sizes.2xl))',
             mt: '6px',
             mb: errors.newPassword != null ? '0' : '20px',
           })}
@@ -167,7 +177,7 @@ export default function PasswordSectionWithPasswordSet(): JSX.Element {
             },
           })}
           className={css({
-            width: '2xl',
+            width: 'min(100%, token(sizes.2xl))',
             mt: '6px',
             mb: errors.repeatPassword != null ? '0' : '20px',
           })}

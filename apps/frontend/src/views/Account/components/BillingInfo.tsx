@@ -182,7 +182,7 @@ ${values.city}, ${values.region}, ${values.postalCode}, ${
           },
         })}
         className={css({
-          width: '3xl',
+          width: '100%',
           mt: '6px',
           mb: errors.address1 != null ? '0' : '20px',
         })}
@@ -198,7 +198,7 @@ ${values.city}, ${values.region}, ${values.postalCode}, ${
           },
         })}
         className={css({
-          width: '3xl',
+          width: '100%',
           mt: '6px',
           mb: errors.address2 != null ? '0' : '20px',
         })}

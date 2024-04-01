@@ -117,7 +117,17 @@ export default function EmailSection(): JSX.Element {
         loading ? (
           <Spinner className={css({ my: 'xs', mx: 'auto' })} />
         ) : (
-          'Cambiar email'
+          <>
+            Cambiar{' '}
+            <span
+              className={css({
+                display: 'none',
+                md: { display: 'inline' },
+              })}
+            >
+              email
+            </span>
+          </>
         )
       }
       disabled={!userAbleToChangeEmail || user?.email === watch('email')}

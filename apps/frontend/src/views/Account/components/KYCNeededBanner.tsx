@@ -31,7 +31,22 @@ export default function KYCNeededBanner(): JSX.Element {
           Para poder retirar tu dinero, necesitamos verificar tu identidad.
         </p>
       </div>
-      <ButtonLink href="/kyc">Verificar identidad</ButtonLink>
+      <ButtonLink
+        className={css({
+          textWrap: 'nowrap',
+        })}
+        href="/kyc"
+      >
+        Verificar{' '}
+        <span
+          className={css({
+            display: 'none',
+            md: { display: 'inline' },
+          })}
+        >
+          identidad
+        </span>
+      </ButtonLink>
     </section>
   )
 }
