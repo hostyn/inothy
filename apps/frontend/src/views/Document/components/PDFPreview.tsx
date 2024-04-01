@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
 import { Document, Page, pdfjs } from 'react-pdf'
 import LoadingPreview from './LoadingPreivew'
+import { GoLinkExternal } from 'react-icons/go'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker.js`
 
@@ -77,7 +78,7 @@ export default function PDFPreview({
               padding: 'sm',
               gap: 'sm',
               fontSize: 'sm',
-              bottom: '3rem',
+              bottom: '3%',
               left: '50%',
               transform: 'translate(-50%, 0)',
             })}
@@ -163,6 +164,27 @@ export default function PDFPreview({
             </button>
           </div>
         )}
+        <a
+          href={previewPdfUrl}
+          target="_blank"
+          rel="noreferrer"
+          className={css({
+            position: 'absolute',
+            backgroundColor: 'token(colors.grey.100)',
+            rounded: 'md',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 'sm',
+            gap: 'sm',
+            fontSize: 'sm',
+            top: '3%',
+            right: '3%',
+            transform: 'translate(-50%, 0)',
+          })}
+        >
+          <GoLinkExternal />
+        </a>
       </Document>
     </div>
   )
