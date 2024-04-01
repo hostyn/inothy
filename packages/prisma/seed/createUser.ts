@@ -31,6 +31,7 @@ export default async function createUser({
       publicAddress: faker.location.streetAddress(),
       publicEmail: faker.internet.email(),
       instagram: 'https://www.instagram.com/' + (username ?? ''),
+      avatarUrl: 'https://avatars.githubusercontent.com/u/65368562?v=4',
     },
   })
 

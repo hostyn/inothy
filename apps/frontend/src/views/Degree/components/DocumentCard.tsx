@@ -130,6 +130,9 @@ export default function DocumentCard(
                   : '/static/images/default_avatar.png'
               }
               alt={`Foto de perfil de ${document?.user.username}`}
+              className={css({
+                borderRadius: '3px',
+              })}
               width={16}
               height={16}
             />
