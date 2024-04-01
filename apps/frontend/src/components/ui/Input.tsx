@@ -162,6 +162,7 @@ function Input(
       {(keepErrorSpace || error != null) && (
         <div
           className={css({
+            position: 'relative',
             width: '100%',
             height: '8xs',
             display: 'flex',
@@ -178,10 +179,17 @@ function Input(
                 })}
               />
               <p
+                title={error?.message?.toString()}
                 className={css({
+                  position: 'absolute',
                   fontSize: 'sm',
                   fontWeight: '500',
                   color: 'error',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  left: '18px',
+                  width: 'calc(100% - 18px)',
+                  textOverflow: 'ellipsis',
                 })}
               >
                 {error?.message?.toString()}
