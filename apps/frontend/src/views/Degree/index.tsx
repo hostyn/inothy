@@ -145,15 +145,23 @@ export default function Degree({ degreeId }: Props): JSX.Element {
           <div
             className={css({
               display: 'grid',
-              gridTemplateColumns: 'token(sizes.xl) 1fr',
               gap: 'md',
+
+              md: {
+                gridTemplateColumns: 'token(sizes.xl) 1fr',
+              },
             })}
           >
+            {/* TODO: Filter section in mobile */}
             <section
               className={css({
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'md',
+                display: 'none',
+
+                md: {
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'md',
+                },
               })}
             >
               <FilterSection title="Asignatura">
