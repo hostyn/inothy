@@ -146,6 +146,7 @@ export default function Address({
       >
         <h1
           className={css({
+            fontFamily: 'nunitoSans',
             fontSize: '2xl',
             fontWeight: '700',
             lineHeight: '100%',
@@ -173,15 +174,21 @@ export default function Address({
         className={css({
           display: 'flex',
           flexDirection: 'column',
-          gap: 'xl',
+          gap: 'sm',
+          width: '100%',
         })}
       >
         <div
           className={css({
             display: 'flex',
+            flexDir: 'column',
             justifyContent: 'space-evenly',
             width: '100%',
-            gap: 'md',
+
+            md: {
+              flexDir: 'row',
+              gap: 'md',
+            },
           })}
         >
           <div
@@ -206,6 +213,7 @@ export default function Address({
               nativePlaceholder="Avenida Calcuta 34, Planta 2 Izquierda"
               autoComplete="address-line1"
               error={errors.address1}
+              keepErrorSpace
               {...register('address1', {
                 onChange: () => {
                   clearErrors('address1')
@@ -235,6 +243,7 @@ export default function Address({
             <Input
               nativePlaceholder="Calle General del Rosario 24, Escalera 2"
               autoComplete="address-line2"
+              keepErrorSpace
               error={errors.address2}
               {...register('address2', {
                 onChange: () => {
@@ -246,10 +255,15 @@ export default function Address({
         </div>
         <div
           className={css({
-            display: 'flex',
-            justifyContent: 'space-evenly',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
             width: '100%',
-            gap: 'md',
+            columnGap: 'md',
+            rowGap: 'sm',
+
+            md: {
+              gridTemplateColumns: 'repeat(4, 1fr)',
+            },
           })}
         >
           <div
@@ -321,6 +335,7 @@ export default function Address({
             </span>
             <Input
               nativePlaceholder="Madrid"
+              keepErrorSpace
               error={errors.city}
               {...register('city', {
                 onChange: () => {
@@ -349,6 +364,7 @@ export default function Address({
             </span>
             <Input
               nativePlaceholder="Madrid"
+              keepErrorSpace
               error={errors.region}
               {...register('region', {
                 onChange: () => {
@@ -377,6 +393,7 @@ export default function Address({
             </span>
             <Input
               nativePlaceholder="28001"
+              keepErrorSpace
               error={errors.postalCode}
               {...register('postalCode', {
                 onChange: () => {

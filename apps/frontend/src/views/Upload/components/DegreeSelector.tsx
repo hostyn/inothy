@@ -76,11 +76,16 @@ export default function DegreeSelector({
   return (
     <div
       className={css({
+        display: 'flex',
+        flexDir: 'column',
+        justifyContent: 'space-evenly',
         width: '100%',
         maxWidth: '100%',
-        display: 'flex',
-        justifyContent: 'space-evenly',
         gap: 'md',
+
+        md: {
+          flexDir: 'row',
+        },
       })}
     >
       <select

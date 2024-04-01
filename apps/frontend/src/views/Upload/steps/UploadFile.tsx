@@ -52,6 +52,7 @@ export default function UploadFile({
         >
           <h1
             className={css({
+              fontFamily: 'nunitoSans',
               fontSize: '2xl',
               color: 'text',
               fontWeight: '700',

@@ -55,15 +55,22 @@ export default function TitleAndDescription({
         className={css({
           display: 'flex',
           flexDir: 'column',
-          alignItems: 'center',
-          gap: '3xl',
+          maxW: '100%',
+          gap: 'lg',
+
+          md: {
+            gap: '3xl',
+            alignItems: 'center',
+          },
         })}
       >
         <h1
           className={css({
+            fontFamily: 'nunitoSans',
             fontSize: '2xl',
             color: 'text',
             fontWeight: '700',
+            lineHeight: '1.2',
           })}
         >
           Describe tu documento
@@ -75,6 +82,7 @@ export default function TitleAndDescription({
             gap: 'md',
             flexDir: 'column',
             width: '4xl',
+            maxWidth: '100%',
           })}
         >
           <div className={containerStyles}>
@@ -127,6 +135,7 @@ const containerStyles = css({
 })
 
 const subtitleStyles = css({
+  fontFamily: 'nunitoSans',
   fontSize: 'xl',
   fontWeight: '700',
   color: 'text',

@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 const moreInfoSchema = z.object({
-  byHand: z.string({ invalid_type_error: 'Debe seleccionar uno.' }),
+  byHand: z.string({ invalid_type_error: 'Tienes seleccionar uno.' }),
   year: z.coerce.number({
     invalid_type_error: 'Debe ser un número.',
   }),
@@ -61,17 +61,25 @@ export default function MoreInfo({
           display: 'flex',
           flexDir: 'column',
           alignItems: 'center',
-          gap: '3xl',
+          maxW: '100%',
+          gap: 'lg',
+          py: 'md',
+
+          md: {
+            gap: '3xl',
+          },
         })}
       >
         <h1
           className={css({
+            fontFamily: 'nunitoSans',
             fontSize: '2xl',
             color: 'text',
             fontWeight: '700',
+            lineHeight: '1.2',
           })}
         >
-          Solo un poco mas de información
+          Solo un poco más de información
         </h1>
 
         <div
@@ -79,8 +87,12 @@ export default function MoreInfo({
             display: 'flex',
             gap: 'md',
             flexDir: 'column',
-            alignItems: 'center',
             width: '4xl',
+            maxW: '100%',
+
+            md: {
+              alignItems: 'center',
+            },
           })}
         >
           <div className={containerStyles}>
@@ -90,28 +102,62 @@ export default function MoreInfo({
             <div
               className={css({
                 display: 'flex',
-                gap: 'md',
+                gap: 'sm',
+                flexDir: 'column',
+
+                md: {
+                  gap: 'md',
+                  flexDir: 'row',
+                },
               })}
             >
               <label className={radioLabelStyles}>
                 <input
                   type="radio"
                   value="1"
-                  {...register('byHand')}
+                  {...register('byHand', {
+                    onChange: () => {
+                      clearErrors('byHand')
+                    },
+                  })}
                   className={radioStyles}
                 />
-                <span>A ordenador</span>
+                <span
+                  data-invalid={errors.byHand != null ? true : undefined}
+                  className={css({
+                    _invalid: {
+                      border: '1px solid token(colors.red.100)',
+                      color: 'red.500',
+                    },
+                  })}
+                >
+                  A ordenador
+                </span>
               </label>
               <label className={radioLabelStyles}>
                 <input
                   type="radio"
                   value="0"
-                  {...register('byHand')}
+                  {...register('byHand', {
+                    onChange: () => {
+                      clearErrors('byHand')
+                    },
+                  })}
                   className={radioStyles}
                 />
-                <span>A mano</span>
+                <span
+                  data-invalid={errors.byHand != null ? true : undefined}
+                  className={css({
+                    _invalid: {
+                      border: '1px solid token(colors.red.100)',
+                      color: 'red.500',
+                    },
+                  })}
+                >
+                  A mano
+                </span>
               </label>
-              {errors.byHand?.message}
+              {/* {errors.byHand?.message} */}
             </div>
           </div>
           <div className={containerStyles}>
@@ -123,7 +169,7 @@ export default function MoreInfo({
             <Input
               type="number"
               nativePlaceholder={String(new Date().getFullYear())}
-              className={css({ width: 'xl' })}
+              className={css({ width: '100%', md: { width: 'xl' } })}
               {...register('year', {
                 onChange: () => {
                   clearErrors('year')
@@ -142,7 +188,7 @@ export default function MoreInfo({
             <Input
               type="number"
               nativePlaceholder="9.3"
-              className={css({ width: 'xl' })}
+              className={css({ width: '100%', md: { width: 'xl' } })}
               {...register('calification', {
                 onChange: () => {
                   clearErrors('calification')
@@ -160,7 +206,7 @@ export default function MoreInfo({
 
             <Input
               nativePlaceholder="Rubén Martínez"
-              className={css({ width: 'xl' })}
+              className={css({ width: '100%', md: { width: 'xl' } })}
               {...register('professor', {
                 onChange: () => {
                   clearErrors('professor')
@@ -192,8 +238,12 @@ const radioLabelStyles = css({
     borderRadius: 'md',
     color: 'grey.500',
     fontWeight: '600',
-    width: 'xl',
     cursor: 'pointer',
+    width: '100%',
+    transition: 'border-color 50ms ease-in-out, color 50ms ease-in-out',
+    md: {
+      width: 'xl',
+    },
   },
 
   '& input:checked + span': {
@@ -205,11 +255,15 @@ const radioLabelStyles = css({
 const containerStyles = css({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
   gap: 'md',
+
+  md: {
+    alignItems: 'center',
+  },
 })
 
 const subtitleStyles = css({
+  fontFamily: 'nunitoSans',
   fontSize: 'lg',
   fontWeight: '700',
   color: 'text',

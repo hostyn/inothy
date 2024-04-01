@@ -114,12 +114,22 @@ export default function Upload(): JSX.Element {
 
   const share = async ({
     url,
-    ...props
+    title,
+    text,
   }: {
     url: string
     title: string
     text: string
   }): Promise<void> => {
+    if (navigator.share != null) {
+      await navigator.share({
+        url,
+        title,
+        text,
+      })
+      return
+    }
+
     await navigator.clipboard.writeText(url)
     toastSuccess('Enlace copiado al portapapeles')
   }
@@ -153,21 +163,31 @@ export default function Upload(): JSX.Element {
           <div
             className={css({
               display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
               alignItems: 'center',
+              gap: '4xl',
+
+              lg: {
+                gap: '0',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+              },
             })}
           >
             <div>
               <h1
                 className={css({
-                  fontSize: '5xl',
+                  fontSize: '3xl',
                   lineHeight: '100%',
                   color: 'text',
                   width: 'fit-content',
                   fontFamily: 'nunitoSans',
+                  textWrap: 'balance',
+
+                  md: {
+                    fontSize: '5xl',
+                  },
                 })}
               >
-                Subir tus apuntes <br /> es muy sencillo
+                Subir tus apuntes es muy sencillo
               </h1>
             </div>
 
@@ -175,7 +195,15 @@ export default function Upload(): JSX.Element {
               className={css({
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'xl',
+                gap: 'md',
+
+                md: {
+                  gap: 'lg',
+                },
+
+                lg: {
+                  gap: 'xl',
+                },
               })}
             >
               {!(userData?.canUpload ?? false) && (
@@ -186,7 +214,7 @@ export default function Upload(): JSX.Element {
                     description="Necesitamos un poco de información sobre tí."
                     Icon={ListIcon}
                   />
-                  <Separator />{' '}
+                  <Separator />
                 </>
               )}
               <StepCard
@@ -230,6 +258,7 @@ export default function Upload(): JSX.Element {
                 flexDir: 'column',
                 alignItems: 'center',
                 gap: '5xl',
+                maxW: '100%',
               })}
             >
               <div
@@ -239,6 +268,7 @@ export default function Upload(): JSX.Element {
                   alignItems: 'center',
                   gap: '5xl',
                   lineHeight: '100%',
+                  maxW: '100%',
                 })}
               >
                 <div
@@ -247,7 +277,9 @@ export default function Upload(): JSX.Element {
                     flexDir: 'column',
                     alignItems: 'center',
                     gap: 'md',
-                    lineHeight: '100%',
+                    lineHeight: '1',
+                    maxW: '100%',
+                    textAlign: 'center',
                   })}
                 >
                   <h1
@@ -255,6 +287,7 @@ export default function Upload(): JSX.Element {
                       fontSize: '2xl',
                       color: 'text',
                       fontWeight: '700',
+                      fontFamily: 'nunitoSans',
                     })}
                   >
                     ¡Documento subido!
@@ -277,6 +310,7 @@ export default function Upload(): JSX.Element {
                     width: '4xl',
                     gap: 'md',
                     alignItems: 'center',
+                    maxW: '100%',
                   })}
                 >
                   <SummaryIcon />
@@ -307,11 +341,12 @@ export default function Upload(): JSX.Element {
                     </span>
                   </div>
                   <button
+                    type="button"
                     onClick={async () => {
                       await share({
-                        url: `https://inothy.com/document/${data.id}`,
                         title: data.title,
                         text: data.description,
+                        url: `https://inothy.com/document/${data.id}`,
                       })
                     }}
                   >

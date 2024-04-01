@@ -62,15 +62,22 @@ export default function Subject({
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: 'xl',
+          gap: 'md',
           width: '100%',
+          maxH: 'inherit',
+
+          md: {
+            gap: 'xl',
+          },
         })}
       >
         <h1
           className={css({
+            fontFamily: 'nunitoSans',
             fontSize: '2xl',
             color: 'text',
             fontWeight: '700',
+            lineHeight: '1.2',
           })}
         >
           ¿De qué asignatura son?
@@ -87,7 +94,7 @@ export default function Subject({
 
         <div
           className={css({
-            height: '3xl',
+            height: '100%',
             width: '100%',
             overflowY: 'scroll',
             display: 'flex',
@@ -96,6 +103,7 @@ export default function Subject({
             justifyContent: isLoading ? 'center' : 'flex-start',
             gap: 'sm',
             padding: '3px',
+            mb: 'sm',
           })}
         >
           {isLoading ? (
@@ -111,10 +119,18 @@ export default function Subject({
                 curr.subject.name > prev.subject.name ? -1 : 1
               )
               .sort((curr, prev) => (curr.year > prev.year ? 1 : -1))
+              .sort((curr, prev) =>
+                curr.subject.code > prev.subject.code ? 1 : -1
+              )
               .map(subject => (
                 <button
                   key={subject.id}
                   value={subject.subject.id}
+                  title={`${subject.subject.name} ${
+                    subject.subject.code != null
+                      ? ` (${subject.subject.code})`
+                      : ''
+                  }`}
                   className={`${subjectCardStyles} ${
                     subject.subject.id === universitySelected.subject
                       ? subjectCardSelectedStyles
@@ -168,6 +184,7 @@ const subjectCardStyles = css({
   gridTemplateColumns: 'auto 1fr',
   color: 'text',
   width: '3xl',
+  maxW: '100%',
   border: '1px solid token(colors.grey.100)',
   borderRadius: 'md',
   alignItems: 'center',
