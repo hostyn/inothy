@@ -37,6 +37,7 @@ export default function TabContent({
           display: 'flex',
           flexDirection: 'column',
           minHeight: 'inherit',
+          maxHeight: 'inherit',
           width: '100%',
         })}
       >
@@ -48,7 +49,16 @@ export default function TabContent({
             flexDir: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '5xl',
+            gap: '2xl',
+            maxHeight: 'inherit',
+            overflowY: 'auto',
+            overflowX: 'visible',
+            px: '3px',
+            // py: 'xl',
+
+            md: {
+              gap: '5xl',
+            },
           })}
         >
           {children}
@@ -120,6 +130,7 @@ export default function TabContent({
               alignItems: 'center',
               justifyContent: 'center',
               my: 'md',
+              gap: 'sm',
             })}
           >
             {prev != null ? (
@@ -131,9 +142,21 @@ export default function TabContent({
             )}
             {title != null ? (
               <span
+                title={title}
                 className={css({
                   color: 'grey.500',
                   textAlign: 'center',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  lineClamp: 2,
+                  width: '100%',
+                  lineHeight: '100%',
+                  textWrap: 'balance',
+                  fontSize: 'sm',
+
+                  md: {
+                    fontSize: 'md',
+                  },
                 })}
               >
                 {title}
@@ -165,6 +188,7 @@ const tabsContentStyles = css({
   justifyContent: 'center',
   width: '100%',
   minHeight: 'inherit',
+  maxHeight: 'calc(var(--minHeight) - 68px)',
   display: 'none',
 
   _focus: {

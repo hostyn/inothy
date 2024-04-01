@@ -35,15 +35,22 @@ export default function DocumentType({
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: 'xl',
+          gap: 'md',
           width: '100%',
+          maxHeight: 'inherit',
+
+          md: {
+            gap: 'xl',
+          },
         })}
       >
         <h1
           className={css({
+            fontFamily: 'nunitoSans',
             fontSize: '2xl',
             color: 'text',
             fontWeight: '700',
+            lineHeight: '1.2',
           })}
         >
           ¿Qué tipo de documento es?
@@ -55,10 +62,16 @@ export default function DocumentType({
             flexDirection: 'column',
             alignItems: 'center',
             gap: 'md',
-            height: '3xl',
+            height: '100%',
             width: '100%',
             overflowY: 'scroll',
             padding: '3px',
+            mb: 'sm',
+
+            lg: {
+              height: '3xl',
+              mb: 0,
+            },
           })}
         >
           {documentTypes?.map(docType => {
@@ -124,6 +137,7 @@ const documentTypeCardStyles = css({
   alignItems: 'center',
   border: '1px solid token(colors.grey.100)',
   width: '3xl',
+  maxW: '100%',
   py: 'md',
   px: 'lg',
   borderRadius: 'md',

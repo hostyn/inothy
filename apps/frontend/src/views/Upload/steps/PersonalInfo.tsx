@@ -98,6 +98,7 @@ export default function PersonalInfo({
       >
         <h1
           className={css({
+            fontFamily: 'nunitoSans',
             fontSize: '2xl',
             fontWeight: '700',
             lineHeight: '100%',
@@ -126,15 +127,21 @@ export default function PersonalInfo({
         className={css({
           display: 'flex',
           flexDirection: 'column',
-          gap: 'xl',
+          gap: 'sm',
+          width: '100%',
         })}
       >
         <div
           className={css({
             display: 'flex',
+            flexDir: 'column',
             justifyContent: 'space-evenly',
             width: '100%',
-            gap: 'md',
+
+            md: {
+              flexDir: 'row',
+              gap: 'md',
+            },
           })}
         >
           <div
@@ -158,6 +165,7 @@ export default function PersonalInfo({
             <Input
               nativePlaceholder="Juan Pablo"
               autoComplete="given-name"
+              keepErrorSpace
               error={errors.name}
               {...register('name', {
                 onChange: () => {
@@ -188,6 +196,7 @@ export default function PersonalInfo({
             <Input
               nativePlaceholder="Sarmiento Calderón"
               autoComplete="family-name"
+              keepErrorSpace
               error={errors.lastName}
               {...register('lastName', {
                 onChange: () => {
@@ -199,10 +208,15 @@ export default function PersonalInfo({
         </div>
         <div
           className={css({
-            display: 'flex',
-            justifyContent: 'space-evenly',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
             width: '100%',
-            gap: 'md',
+            columnGap: 'md',
+            rowGap: 'sm',
+
+            md: {
+              gridTemplateColumns: 'repeat(4, 1fr)',
+            },
           })}
         >
           <div

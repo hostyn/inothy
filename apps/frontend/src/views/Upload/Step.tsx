@@ -15,10 +15,14 @@ export default function StepCard({
     <li
       className={css({
         display: 'grid',
-        gridTemplateColumns: '12px 1fr 64px',
+        gridTemplateColumns: '12px 1fr 32px',
         gap: 'md',
         color: 'text',
         fontFamily: 'nunitoSans',
+
+        lg: {
+          gridTemplateColumns: '12px 1fr 64px',
+        },
       })}
     >
       <span
@@ -57,10 +61,15 @@ export default function StepCard({
       </div>
       <div
         className={css({
-          height: '64px',
-          width: '64px',
+          height: '32px',
+          width: '32px',
           display: 'flex',
           justifyContent: 'center',
+
+          lg: {
+            height: '64px',
+            width: '64px',
+          },
         })}
       >
         <Icon />

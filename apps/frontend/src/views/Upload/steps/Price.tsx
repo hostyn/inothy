@@ -1,7 +1,6 @@
 import { css } from '@styled-system/css'
 import TabContent from '../TabContent'
 import type { StepProps } from '../types'
-import { Link } from '@ui/Link'
 import { useState } from 'react'
 import { getSellerAmount } from '@util/priceCalculator'
 import { trpc } from '@services/trpc'
@@ -111,6 +110,7 @@ export default function Price({
           flexDir: 'column',
           alignItems: 'center',
           gap: '5xl',
+          maxW: '100%',
         })}
       >
         <div
@@ -120,6 +120,7 @@ export default function Price({
             alignItems: 'center',
             gap: 'xl',
             lineHeight: '100%',
+            maxW: '100%',
           })}
         >
           <div
@@ -129,6 +130,7 @@ export default function Price({
               alignItems: 'center',
               gap: 'md',
               lineHeight: '100%',
+              maxW: '100%',
             })}
           >
             <h1
@@ -136,6 +138,7 @@ export default function Price({
                 fontSize: '2xl',
                 color: 'text',
                 fontWeight: '700',
+                fontFamily: 'nunitoSans',
               })}
             >
               ¡Toca fijar el precio!
@@ -156,6 +159,7 @@ export default function Price({
               alignItems: 'center',
               gap: 'md',
               lineHeight: '100%',
+              maxW: '100%',
             })}
           >
             <label className={labelInputStyles}>
@@ -181,9 +185,9 @@ export default function Price({
           </div>
         </div>
         {/* // TODO: Add link to pricing info */}
-        <Link href="/info" weight="normal" visual="grey">
+        {/* <Link href="/info" weight="normal" visual="grey">
           Más información sobre los precios.
-        </Link>
+        </Link> */}
       </div>
     </TabContent>
   )
@@ -194,6 +198,7 @@ const labelInputStyles = css({
   alignItems: 'center',
   justifyContent: 'center',
   width: '2xl',
+  maxW: '100%',
   gap: 'sm',
   padding: 'md',
 
