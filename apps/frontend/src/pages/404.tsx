@@ -14,6 +14,7 @@ function NotFound(): JSX.Element {
         <div
           className={css({
             width: '5xl',
+            maxW: '100%',
             margin: 'auto',
             display: 'flex',
             flexDir: 'column',
@@ -34,6 +35,7 @@ function NotFound(): JSX.Element {
             <h1
               className={css({
                 fontSize: '4xl',
+                fontFamily: 'nunitoSans',
                 fontWeight: 'bold',
                 color: 'primary.500',
                 lineHeight: '1',
