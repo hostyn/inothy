@@ -28,7 +28,7 @@ export default function UserInfo({ username }: UserPageProps): JSX.Element {
         padding: 'xl',
         backgroundColor: 'token(colors.primary.100)',
         height: 'fit-content',
-        w: '2xl',
+        w: '100%',
         borderRadius: 'lg',
       })}
     >

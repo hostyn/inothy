@@ -23,8 +23,11 @@ export default function UserLayout({
       <PageSpacing
         className={css({
           display: 'grid',
-          gridTemplateColumns: 'token(sizes.2xl) 1fr',
           gap: 'xl',
+
+          lg: {
+            gridTemplateColumns: 'token(sizes.2xl) 1fr',
+          },
         })}
       >
         <UserInfo username={username} />
