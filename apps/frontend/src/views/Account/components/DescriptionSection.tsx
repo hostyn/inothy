@@ -79,7 +79,17 @@ export default function DescriptionSection(): JSX.Element {
         changeBiography.isLoading ? (
           <Spinner className={css({ my: 'xs', mx: 'auto' })} />
         ) : (
-          'Cambiar descripción'
+          <>
+            Cambiar{' '}
+            <span
+              className={css({
+                display: 'none',
+                md: { display: 'inline' },
+              })}
+            >
+              descripción
+            </span>
+          </>
         )
       }
       disabled={

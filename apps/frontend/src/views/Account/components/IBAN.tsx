@@ -72,9 +72,29 @@ export default function IBAN(): JSX.Element {
         updateBankAccount.isLoading ? (
           <Spinner className={css({ my: 'xs', mx: 'auto' })} />
         ) : bankAccount != null ? (
-          'Cambiar IBAN'
+          <>
+            Cambiar{' '}
+            <span
+              className={css({
+                display: 'none',
+                md: { display: 'inline' },
+              })}
+            >
+              IBAN
+            </span>
+          </>
         ) : (
-          'Añadir IBAN'
+          <>
+            Añadir{' '}
+            <span
+              className={css({
+                display: 'none',
+                md: { display: 'inline' },
+              })}
+            >
+              IBAN
+            </span>
+          </>
         )
       }
       disabled={

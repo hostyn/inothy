@@ -134,7 +134,17 @@ export default function UsernameSection(): JSX.Element {
         changeUsername.isLoading ? (
           <Spinner className={css({ my: 'xs', mx: 'auto' })} />
         ) : (
-          'Cambiar nombre'
+          <>
+            Cambiar{' '}
+            <span
+              className={css({
+                display: 'none',
+                md: { display: 'inline' },
+              })}
+            >
+              nombre
+            </span>
+          </>
         )
       }
       disabled={

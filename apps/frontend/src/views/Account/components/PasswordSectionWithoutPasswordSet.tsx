@@ -91,7 +91,17 @@ export default function PasswordSectionWithoutPasswordSet(): JSX.Element {
         loading ? (
           <Spinner className={css({ my: 'xs', mx: 'auto' })} />
         ) : (
-          'Cambiar contraseña'
+          <>
+            Cambiar{' '}
+            <span
+              className={css({
+                display: 'none',
+                md: { display: 'inline' },
+              })}
+            >
+              contraseña
+            </span>
+          </>
         )
       }
       disabled={false}
@@ -123,7 +133,7 @@ export default function PasswordSectionWithoutPasswordSet(): JSX.Element {
             },
           })}
           className={css({
-            width: '2xl',
+            width: 'min(100%, token(sizes.2xl))',
             mt: '6px',
             mb: errors.newPassword != null ? '0' : '20px',
           })}
@@ -141,7 +151,7 @@ export default function PasswordSectionWithoutPasswordSet(): JSX.Element {
             },
           })}
           className={css({
-            width: '2xl',
+            width: 'min(100%, token(sizes.2xl))',
             mt: '6px',
             mb: errors.repeatPassword != null ? '0' : '20px',
           })}

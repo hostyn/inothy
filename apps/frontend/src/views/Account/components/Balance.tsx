@@ -37,7 +37,17 @@ export default function Balance(): JSX.Element {
         requestPayout.isLoading ? (
           <Spinner className={css({ my: 'xs', mx: 'auto' })} />
         ) : (
-          'Retirar dinero'
+          <>
+            Retirar{' '}
+            <span
+              className={css({
+                display: 'none',
+                md: { display: 'inline' },
+              })}
+            >
+              dinero
+            </span>
+          </>
         )
       }
       dialogTitle="¿Retirar dinero?"

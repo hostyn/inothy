@@ -39,11 +39,17 @@ export default function GenericSectionLayout({
           bg: 'grey.100',
           px: 'md',
           py: 'sm',
+          gap: 'sm',
         })}
       >
         <p
           className={css({
             color: 'text',
+            fontSize: 'sm',
+
+            md: {
+              fontSize: 'md',
+            },
           })}
         >
           {bottomText}
