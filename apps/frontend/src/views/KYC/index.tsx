@@ -9,6 +9,7 @@ import { ButtonLink } from '@ui/Button'
 export default function KYC(): JSX.Element {
   const { data: kycStatus } = trpc.auth.getKYCStatus.useQuery()
 
+  // TODO: KYC ERROR
   return (
     <App>
       {kycStatus?.userType !== 'OWNER' ? (

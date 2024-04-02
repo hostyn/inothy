@@ -30,6 +30,7 @@ export const authRouter = createTRPCRouter({
         mangopayUser: {
           select: {
             kycLevel: true,
+            kycStatus: true,
           },
         },
       },
@@ -41,7 +42,11 @@ export const authRouter = createTRPCRouter({
 
     const { mangopayUser, ...user } = userData
 
-    return { ...user, kycLevel: mangopayUser?.kycLevel }
+    return {
+      ...user,
+      kycLevel: mangopayUser?.kycLevel,
+      kycStatus: mangopayUser?.kycStatus,
+    }
   }),
 
   getUserFullData: protectedProcedure.query(async ({ ctx }) => {

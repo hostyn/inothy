@@ -8,8 +8,8 @@ import Input from '@ui/Input'
 import useAuth from '@hooks/useAuth'
 import { trpc } from '@services/trpc'
 import type { KYCData, PersonalInfoStep, StepProps } from '../types'
-import FieldSet from '@ui/FieldSet'
 import FormElement from '@ui/FormElement'
+import FieldSet from '@ui/FieldSet'
 
 const personalInfoSchema = z.object({
   name: z.string().min(1, 'El nombre es obligatorio.'),
@@ -130,7 +130,7 @@ export default function PersionalInfo({
           gap: 'md',
         })}
       >
-        <FieldSet>
+        <FieldSet flexDir="column">
           <FormElement label="Nombre">
             <Input
               nativePlaceholder="Juan Pablo"

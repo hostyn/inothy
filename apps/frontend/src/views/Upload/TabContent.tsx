@@ -53,8 +53,8 @@ export default function TabContent({
             maxHeight: 'inherit',
             overflowY: 'auto',
             overflowX: 'visible',
+            overscrollBehavior: 'contain',
             px: '3px',
-            // py: 'xl',
 
             md: {
               gap: '5xl',

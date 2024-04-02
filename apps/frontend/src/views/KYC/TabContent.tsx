@@ -34,24 +34,42 @@ export default function TabContent({
         onSubmit={onSubmit}
         className={css({
           position: 'absolute',
-          display: 'flex',
+          display: 'grid',
+          gridTemplateRows: '1fr auto',
           flexDirection: 'column',
           minHeight: 'inherit',
+          maxHeight: 'inherit',
           width: '100%',
         })}
       >
         <div
           id="content"
           className={css({
-            flex: 1,
-            display: 'flex',
-            flexDir: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '5xl',
+            maxHeight: '100%',
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            overscrollBehavior: 'contain',
+            px: '3px',
+            py: 'sm',
+
+            md: {
+              gap: '5xl',
+            },
           })}
         >
-          {children}
+          <div
+            className={css({
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '2xl',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              minH: '100%',
+            })}
+          >
+            {children}
+          </div>
         </div>
 
         <div id="progress">
@@ -120,6 +138,7 @@ export default function TabContent({
               alignItems: 'center',
               justifyContent: 'center',
               my: 'md',
+              gap: 'sm',
             })}
           >
             {prev != null ? (
@@ -131,9 +150,21 @@ export default function TabContent({
             )}
             {title != null ? (
               <span
+                title={title}
                 className={css({
                   color: 'grey.500',
                   textAlign: 'center',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  lineClamp: 2,
+                  width: '100%',
+                  lineHeight: '100%',
+                  textWrap: 'balance',
+                  fontSize: 'sm',
+
+                  md: {
+                    fontSize: 'md',
+                  },
                 })}
               >
                 {title}
@@ -165,6 +196,7 @@ const tabsContentStyles = css({
   justifyContent: 'center',
   width: '100%',
   minHeight: 'inherit',
+  maxHeight: 'calc(var(--minHeight) - 68px)',
   display: 'none',
 
   _focus: {

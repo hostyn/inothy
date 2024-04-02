@@ -73,8 +73,12 @@ export default function AllowedDocuments({
         <div
           className={css({
             display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
             gap: 'md',
+            gridTemplateColumns: '1fr',
+
+            md: {
+              gridTemplateColumns: 'repeat(2, 1fr)',
+            },
           })}
         >
           <Allowed text="Consistente con la información proporcionada en los pasos anteriores." />
@@ -98,7 +102,13 @@ const Allowed = ({ text }: { text: string }): JSX.Element => {
         position: 'relative',
         border: '1px solid token(colors.grey.100)',
         borderRadius: 'md',
-        padding: 'md',
+        px: 'md',
+        py: 'sm',
+        mr: '6px',
+
+        md: {
+          py: 'md',
+        },
       })}
     >
       <p
