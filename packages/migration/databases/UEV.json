@@ -1,0 +1,2970 @@
+{
+  "filename": "Base_Datos_UEV.xlsx",
+  "name": "Universidad Europea de Valencia",
+  "symbol": "UEV",
+  "url": "https://universidadeuropea.com/conocenos/valencia/",
+  "schools": {
+    "Ciencias Sociales": {
+      "Administraci\u00f3n y Direcci\u00f3n de Empresas": {
+        "Pensamiento Econ\u00f3mico y Social": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Fundamentos de la Empresa": { "code": "", "year": 1.0, "price": 3.0 },
+        "Introducci\u00f3n a la Econom\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Comportamiento del Consumidor y de la Empresa": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Finanzas I": { "code": "", "year": 1.0, "price": 3.0 },
+        "Contabilidad Financiera I": { "code": "", "year": 1.0, "price": 3.0 },
+        "Matem\u00e1ticas Empresariales": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Marketing": { "code": "", "year": 1.0, "price": 3.0 },
+        "Derecho de la Empresa": { "code": "", "year": 1.0, "price": 3.0 },
+        "Tecnolog\u00edas de Gesti\u00f3n": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Eficacia Personal y Profesional": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Teor\u00eda de Juegos": { "code": "", "year": 2.0, "price": 3.0 },
+        "Macroeconom\u00eda": { "code": "", "year": 2.0, "price": 3.0 },
+        "Sistemas Impositivos": { "code": "", "year": 2.0, "price": 3.0 },
+        "Finanzas II": { "code": "", "year": 2.0, "price": 3.0 },
+        "Estad\u00edstica": { "code": "", "year": 2.0, "price": 3.0 },
+        "Contabilidad Financiera II": { "code": "", "year": 2.0, "price": 3.0 },
+        "Direcci\u00f3n Estrat\u00e9gica I": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Administraci\u00f3n de la Empresa": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Idioma": { "code": "", "year": 2.0, "price": 3.0 },
+        "Influencia e Impacto Personal": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Direcci\u00f3n Estrat\u00e9gica II": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Producci\u00f3n y Operaciones": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Fiscalidad": { "code": "", "year": 3.0, "price": 3.0 },
+        "Planificaci\u00f3n y Decisi\u00f3n Empresarial": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Contabilidad de Costes": { "code": "", "year": 3.0, "price": 3.0 },
+        "Gesti\u00f3n Financiera": { "code": "", "year": 3.0, "price": 3.0 },
+        "Direcci\u00f3n Comercial": { "code": "", "year": 3.0, "price": 3.0 },
+        "Gesti\u00f3n de Recursos Humanos": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Creatividad e Innovaci\u00f3n": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Liderazgo Emprendedor": { "code": "", "year": 3.0, "price": 3.0 }
+      },
+      "Administraci\u00f3n y Direcci\u00f3n de Empresas + Marketing": {
+        "Pensamiento Econ\u00f3mico y Social": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Fundamentos de la Empresa": { "code": "", "year": 1.0, "price": 3.0 },
+        "Introducci\u00f3n a la Econom\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Comportamiento del Consumidor y de la Empresa": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Finanzas I": { "code": "", "year": 1.0, "price": 3.0 },
+        "Contabilidad Financiera I": { "code": "", "year": 1.0, "price": 3.0 },
+        "Matem\u00e1ticas Empresariales": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Marketing": { "code": "", "year": 1.0, "price": 3.0 },
+        "Derecho de la Empresa": { "code": "", "year": 1.0, "price": 3.0 },
+        "Tecnolog\u00edas de Gesti\u00f3n": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Eficacia Personal y Profesional": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Teor\u00eda de Juegos": { "code": "", "year": 2.0, "price": 3.0 },
+        "Macroeconom\u00eda": { "code": "", "year": 2.0, "price": 3.0 },
+        "Sistemas Impositivos": { "code": "", "year": 2.0, "price": 3.0 },
+        "Finanzas II": { "code": "", "year": 2.0, "price": 3.0 },
+        "Estad\u00edstica": { "code": "", "year": 2.0, "price": 3.0 },
+        "Contabilidad Financiera II": { "code": "", "year": 2.0, "price": 3.0 },
+        "Direcci\u00f3n Estrat\u00e9gica I": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Administraci\u00f3n de la Empresa": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Idioma": { "code": "", "year": 2.0, "price": 3.0 },
+        "Influencia e Impacto Personal": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Direcci\u00f3n Estrat\u00e9gica II": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Producci\u00f3n y Operaciones": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Fiscalidad": { "code": "", "year": 3.0, "price": 3.0 },
+        "Planificaci\u00f3n y Decisi\u00f3n Empresarial": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Contabilidad de Costes": { "code": "", "year": 3.0, "price": 3.0 },
+        "Gesti\u00f3n Financiera": { "code": "", "year": 3.0, "price": 3.0 },
+        "Direcci\u00f3n Comercial": { "code": "", "year": 3.0, "price": 3.0 },
+        "Gesti\u00f3n de Recursos Humanos": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Creatividad e Innovaci\u00f3n": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Liderazgo Emprendedor": { "code": "", "year": 3.0, "price": 3.0 },
+        "Estrategia de Marketing": { "code": "", "year": 4.0, "price": 3.0 },
+        "Simulaci\u00f3n Comercial": { "code": "", "year": 4.0, "price": 3.0 },
+        "Marketing Digital": { "code": "", "year": 4.0, "price": 3.0 },
+        "Gesti\u00f3n de Marca": { "code": "", "year": 4.0, "price": 3.0 },
+        "Taller de Marketing": { "code": "", "year": 4.0, "price": 3.0 },
+        "Operaciones Societarias": { "code": "", "year": 4.0, "price": 3.0 },
+        "Distribuci\u00f3n Comercial": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "T\u00e9cnicas de Venta": { "code": "", "year": 5.0, "price": 3.0 },
+        "Marketing de Precios": { "code": "", "year": 5.0, "price": 3.0 },
+        "Comunicaci\u00f3n Comercial": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "Investigaci\u00f3n y T\u00e9cnicas de Mercado I": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "Direcci\u00f3n de Ventas": { "code": "", "year": 5.0, "price": 3.0 },
+        "Investigaci\u00f3n y T\u00e9cnicas de Mercado II": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "Gesti\u00f3n de la Innovaci\u00f3n": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "Calidad y Atenci\u00f3n al Cliente": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        }
+      },
+      "Criminolog\u00eda": {
+        "Habilidades Comunicativas": { "code": "", "year": 1.0, "price": 2.0 },
+        "Introducci\u00f3n al Derecho": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a la Psicolog\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a la Sociolog\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "T\u00e9cnicas de Investigaci\u00f3n Cuantitativa y Cualitativa": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "\u00c9tica y Deontolog\u00eda Profesional": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Derechos Fundamentales y Libertades P\u00fablicas": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Biolog\u00eda": { "code": "", "year": 1.0, "price": 2.0 },
+        "Introducci\u00f3n a la Criminolog\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Antropolog\u00eda": { "code": "", "year": 1.0, "price": 2.0 },
+        "Sociolog\u00eda de la Desviaci\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Ingl\u00e9s": { "code": "", "year": 2.0, "price": 2.0 },
+        "Fenomenolog\u00eda Criminal y Criminolog\u00eda Comparada": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Metodolog\u00eda de la Investigaci\u00f3n Cient\u00edfica": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Pol\u00edticas de Seguridad P\u00fablica y Privada": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Pol\u00edtica Criminal": { "code": "", "year": 2.0, "price": 2.0 },
+        "Psicolog\u00eda Criminal": { "code": "", "year": 2.0, "price": 2.0 },
+        "\u00c1reas y Forma Espec\u00edficas de Criminalidad": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Principios Generales del Delito y de las Penas": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Medicina Legal y Forense": { "code": "", "year": 2.0, "price": 2.0 },
+        "Psiquiatr\u00eda Forense": { "code": "", "year": 3.0, "price": 2.0 },
+        "Prevenci\u00f3n y Tratamiento de la Delincuencia": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Delincuencia y Control Social": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Conductas Criminales Tipificadas": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Taller Criminal\u00edstica I": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Taller Criminal\u00edstica II": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Victimolog\u00eda": { "code": "", "year": 3.0, "price": 2.0 },
+        "Habilidades para la Intervenci\u00f3n Social y Educativa en el Delincuente": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Procesos y Procedimientos Penales": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Penolog\u00eda y Derecho Penitenciario": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Habilidades Directivas y de Negociaci\u00f3n": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Criminolog\u00eda Cl\u00ednica": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Criminolog\u00eda y Perspectivas Psicosociales": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Violencia Dom\u00e9stica y Violencia de G\u00e9nero": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Psicolog\u00eda del Testimonio": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Delincuencia Juvenil": { "code": "", "year": 4.0, "price": 2.0 },
+        "Toxicolog\u00eda": { "code": "", "year": 4.0, "price": 2.0 },
+        "Mediaci\u00f3n y Resoluci\u00f3n de Conflictos": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Direcci\u00f3n de Personas y Gesti\u00f3n de Recursos Humanos": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Direcci\u00f3n y Gesti\u00f3n de Servicios de Seguridad": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Gesti\u00f3n de Riesgos Tecnol\u00f3gicos": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Gesti\u00f3n de Crisis, Emergencias y Protecci\u00f3n": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Derecho Administrativo": { "code": "", "year": 4.0, "price": 2.0 },
+        "Derecho Mercantil": { "code": "", "year": 4.0, "price": 2.0 },
+        "Derecho Laboral": { "code": "", "year": 4.0, "price": 2.0 },
+        "Derecho Civil": { "code": "", "year": 4.0, "price": 2.0 },
+        "Derecho Procesal Civil": { "code": "", "year": 4.0, "price": 2.0 },
+        "Pr\u00e1ctica de Investigaci\u00f3n Privada": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        }
+      },
+      "Criminolog\u00eda + Derecho": {
+        "Habilidades Comunicativas": { "code": "", "year": 1.0, "price": 2.0 },
+        "Introducci\u00f3n al Derecho": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a la Psicolog\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a la Sociolog\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "T\u00e9cnicas de Investigaci\u00f3n Cuantitativa y Cualitativa": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "\u00c9tica y Deontolog\u00eda Profesional": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Derechos Fundamentales y Libertades P\u00fablicas": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Biolog\u00eda": { "code": "", "year": 1.0, "price": 2.0 },
+        "Introducci\u00f3n a la Criminolog\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Antropolog\u00eda": { "code": "", "year": 1.0, "price": 2.0 },
+        "Sistemas Jur\u00eddicos Comparados": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a la Econom\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Derecho Civil I": { "code": "", "year": 1.0, "price": 2.0 },
+        "Sociolog\u00eda de la Desviaci\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Ingl\u00e9s": { "code": "", "year": 2.0, "price": 2.0 },
+        "Fenomenolog\u00eda Criminal y Criminolog\u00eda Comparada": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Metodolog\u00eda de la Investigaci\u00f3n Cient\u00edfica": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Pol\u00edticas de Seguridad P\u00fablica y Privada": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Pol\u00edtica Criminal": { "code": "", "year": 2.0, "price": 2.0 },
+        "Psicolog\u00eda Criminal": { "code": "", "year": 2.0, "price": 2.0 },
+        "\u00c1reas y Forma Espec\u00edficas de Criminalidad": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Principios Generales del Delito y de las Penas": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Medicina Legal y Forense": { "code": "", "year": 2.0, "price": 2.0 },
+        "Introducci\u00f3n a las Finanzas": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Derecho Administrativo I": { "code": "", "year": 2.0, "price": 2.0 },
+        "Derecho Civil II: Contrataci\u00f3n Civil": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Prevenci\u00f3n y Tratamiento de la Delincuencia": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Delincuencia y Control Social": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Conductas Criminales Tipificadas": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Taller de Criminal\u00edstica I": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Procesos y Procedimientos Penales": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Derecho Civil III: Derechos Reales": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        }
+      },
+      "Criminolog\u00eda + Psicolog\u00eda": {
+        "Habilidades Comunicativas": { "code": "", "year": 1.0, "price": 3.0 },
+        "Introducci\u00f3n al Derecho": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Introducci\u00f3n a la Psicolog\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Introducci\u00f3n a la Sociolog\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "T\u00e9cnicas de Investigaci\u00f3n Cuantitativa y Cualitativa": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "\u00c9tica y Deontolog\u00eda Profesional": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Derechos Fundamentales y Libertades P\u00fablicas": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Biolog\u00eda": { "code": "", "year": 1.0, "price": 3.0 },
+        "Introducci\u00f3n a la Criminolog\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Antropolog\u00eda": { "code": "", "year": 1.0, "price": 3.0 },
+        "Sensaci\u00f3n, Percepci\u00f3n y Atenci\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Psicolog\u00eda de la Personalidad e Inteligencia": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Sociolog\u00eda de la Desviaci\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Ingl\u00e9s": { "code": "", "year": 2.0, "price": 3.0 },
+        "Fenomenolog\u00eda Criminal y Criminolog\u00eda Comparada": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Metodolog\u00eda de la Investigaci\u00f3n Cient\u00edfica": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Pol\u00edticas de Seguridad P\u00fablica y Privada": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Psicolog\u00eda Criminal": { "code": "", "year": 2.0, "price": 3.0 },
+        "Pol\u00edtica Criminal": { "code": "", "year": 2.0, "price": 3.0 },
+        "\u00c1reas y Forma Espec\u00edficas de Criminalidad": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Principios Generales del Delito y de las Penas": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Medicina Legal y Forense": { "code": "", "year": 2.0, "price": 3.0 },
+        "Psicolog\u00eda Social": { "code": "", "year": 3.0, "price": 3.0 },
+        "Psicolog\u00eda Social II": { "code": "", "year": 3.0, "price": 3.0 },
+        "Psiquiatr\u00eda Forense": { "code": "", "year": 3.0, "price": 3.0 },
+        "Prevenci\u00f3n y Tratamiento de la Delincuencia": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Delincuencia y Control Social": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Conductas Criminales Tipificadas": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Taller Criminal\u00edstica I": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Taller Criminal\u00edstica II": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Victimolog\u00eda": { "code": "", "year": 3.0, "price": 3.0 },
+        "Habilidades para la Intervenci\u00f3n Social y Educativa en el Delincuente": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Procesos y Procedimientos Penales": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Penolog\u00eda y Derecho Penitenciario": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Anatom\u00eda del Sistema Nervioso": {
+          "code": "",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Psicolog\u00eda del Desarrollo": {
+          "code": "",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Fisiolog\u00eda": { "code": "", "year": 4.0, "price": 3.0 },
+        "Habilidades Directivas y de Negociaci\u00f3n": {
+          "code": "",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Criminolog\u00eda Cl\u00ednica": {
+          "code": "",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Psicolog\u00eda del Testimonio": {
+          "code": "",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Delincuencia Juvenil": { "code": "", "year": 4.0, "price": 3.0 },
+        "Toxicolog\u00eda": { "code": "", "year": 4.0, "price": 3.0 },
+        "Mediaci\u00f3n y Resoluci\u00f3n de Conflictos": {
+          "code": "",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Psicolog\u00eda del Ciclo Vital": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "Motivaci\u00f3n y Emoci\u00f3n": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "Memoria y Procesos de Aprendizaje": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "Psicometr\u00eda": { "code": "", "year": 5.0, "price": 3.0 },
+        "Psicolog\u00eda de la Educaci\u00f3n": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "Pensamiento y Lenguaje": { "code": "", "year": 5.0, "price": 3.0 },
+        "Evaluaci\u00f3n Psicol\u00f3gica": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "Psicodiagn\u00f3stico": { "code": "", "year": 5.0, "price": 3.0 },
+        "Trastornos del Desarrollo y Dificultades de Aprendizaje": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "Psicolog\u00eda del Trabajo y de las Organizaciones": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "T\u00e9cnicas de Intervenci\u00f3n en Psicolog\u00eda": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "Neuropsicolog\u00eda": { "code": "", "year": 6.0, "price": 3.0 },
+        "Psicofarmacolog\u00eda": { "code": "", "year": 6.0, "price": 3.0 },
+        "Tratamiento Psicol\u00f3gico en la Infancia y Adolescencia": {
+          "code": "",
+          "year": 6.0,
+          "price": 3.0
+        },
+        "Tratamiento Psicol\u00f3gico en el Adulto": {
+          "code": "",
+          "year": 6.0,
+          "price": 3.0
+        }
+      },
+      "Derecho": {
+        "Habilidades Comunicativas": { "code": "", "year": 1.0, "price": 2.0 },
+        "Sistemas Jur\u00eddicos Comparados": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Teor\u00eda General del Derecho": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Derecho Constitucional y Libertades Fundamentales": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Derecho Internacional P\u00fablico": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a la Econom\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Derecho Civil I": { "code": "", "year": 1.0, "price": 2.0 },
+        "Legal English": { "code": "", "year": 1.0, "price": 2.0 },
+        "Introducci\u00f3n a las Finanzas": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Derecho Administrativo I": { "code": "", "year": 1.0, "price": 2.0 },
+        "Derecho Penal: Parte General": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Derecho de la Uni\u00f3n Europea": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Derecho Penal: Parte Especial": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Derecho Civil II: Contrataci\u00f3n Civil": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Fundamentos de Derecho Mercantil": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n Derecho Procesal": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Derecho Administrativo II": { "code": "", "year": 2.0, "price": 2.0 },
+        "Derecho Procesal Civil": { "code": "", "year": 2.0, "price": 2.0 },
+        "Derecho del Trabajo I": { "code": "", "year": 2.0, "price": 2.0 },
+        "Contrataci\u00f3n Mercantil": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Taller Pr\u00e1ctica Jur\u00eddica I": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Derecho Civil III: Derechos Reales": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Derecho Financiero y Tributario I": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Derecho Administrativo III": { "code": "", "year": 3.0, "price": 2.0 },
+        "Derecho Procesal Penal": { "code": "", "year": 3.0, "price": 2.0 },
+        "Derecho del Trabajo II": { "code": "", "year": 3.0, "price": 2.0 },
+        "Derecho Civil IV: Derecho de Familia": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Derecho de Sociedades": { "code": "", "year": 3.0, "price": 2.0 },
+        "Derecho Procesal Laboral y Contencioso Administrativo": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Derecho Financiero y Tributario II": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Taller Pr\u00e1ctica Jur\u00eddica II": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Derecho Internacional Privado": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Derecho Civil V: Derecho de Sucesiones": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Comercio Exterior/International Trade Law": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Derecho Concursal": { "code": "", "year": 4.0, "price": 2.0 },
+        "Derecho Bancario y Burs\u00e1til": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Derecho de la Competencia": { "code": "", "year": 4.0, "price": 2.0 },
+        "Resoluci\u00f3n Extrajudicial de Conflictos": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Derecho de las Nuevas Tecnolog\u00edas de la Informaci\u00f3n y Comunicaci\u00f3n": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Fiscalidad Comunitaria e Internacional": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Finanzas Corporativas": { "code": "", "year": 4.0, "price": 2.0 },
+        "Derecho de Da\u00f1os": { "code": "", "year": 4.0, "price": 2.0 },
+        "Derecho del Medio Ambiente": { "code": "", "year": 4.0, "price": 2.0 },
+        "Direcci\u00f3n de Personas": { "code": "", "year": 4.0, "price": 2.0 },
+        "Relaciones y Conflictos Laborales": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Resoluci\u00f3n Judicial y Extrajudicial de Conflictos Colectivos de Trabajo": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Evaluaci\u00f3n y Gesti\u00f3n del Impacto Ambiental": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Fiscalidad Ambiental": { "code": "", "year": 4.0, "price": 2.0 },
+        "Derecho Penal Econ\u00f3mico": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Derecho y Emprendimiento": { "code": "", "year": 4.0, "price": 2.0 }
+      },
+      "Derecho + Relaciones Internacionales": {
+        "Habilidades Comunicativas": { "code": "", "year": 1.0, "price": 2.0 },
+        "Sistemas Jur\u00eddicos Comparados": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Teor\u00eda General del Derecho": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Derecho Constitucional y Libertades Fundamentales": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Derecho Internacional P\u00fablico": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a la Econom\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a las Finanzas": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Derecho Civil I": { "code": "", "year": 1.0, "price": 2.0 },
+        "Legal English": { "code": "", "year": 1.0, "price": 2.0 },
+        "Derecho Administrativo I": { "code": "", "year": 1.0, "price": 2.0 },
+        "Derecho Penal: Parte General": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Historia y Teor\u00eda de las Relaciones Internacionales": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Observatorio de la Actualidad": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Idioma C": { "code": "", "year": 1.0, "price": 2.0 },
+        "Derecho de la Uni\u00f3n Europea": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Derecho Penal: Parte Especial": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Derecho Civil II: Contrataci\u00f3n Civil": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Fundamentos de Derecho Mercantil": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n Derecho Procesal": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Derecho Administrativo II": { "code": "", "year": 2.0, "price": 2.0 },
+        "Derecho Procesal Civil": { "code": "", "year": 2.0, "price": 2.0 },
+        "Derecho del Trabajo I": { "code": "", "year": 2.0, "price": 2.0 },
+        "Contrataci\u00f3n Mercantil": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Taller Pr\u00e1ctica Jur\u00eddica I": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Concepto de Relaciones Internacionales Actores y Factores": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "T\u00e9cnicas de Investigaci\u00f3n Sociol\u00f3gica": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Fuentes Documentales": { "code": "", "year": 2.0, "price": 2.0 },
+        "Derecho Civil III: Derechos Reales": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Derecho Financiero y Tributario I": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Derecho Administrativo III": { "code": "", "year": 3.0, "price": 2.0 },
+        "Derecho Procesal Penal": { "code": "", "year": 3.0, "price": 2.0 },
+        "Derecho del Trabajo II": { "code": "", "year": 3.0, "price": 2.0 },
+        "Derecho Civil IV: Derecho de Familia": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Derecho de Sociedades": { "code": "", "year": 3.0, "price": 2.0 },
+        "Derecho Procesal Laboral y Contencioso Administrativo": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Derecho Financiero y Tributario II": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Taller Pr\u00e1ctica Jur\u00eddica II": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Geograf\u00eda Humana, Econ\u00f3mica y Pol\u00edtica": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Pol\u00edtica Exterior y Diplomacia": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Idioma C II": { "code": "", "year": 3.0, "price": 2.0 },
+        "Derecho Internacional Privado": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Derecho Civil V: Derecho de Sucesiones": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "International Trade Law": { "code": "", "year": 4.0, "price": 2.0 },
+        "Finanzas Corporativas": { "code": "", "year": 4.0, "price": 2.0 },
+        "Derecho del Medio Ambiente": { "code": "", "year": 4.0, "price": 2.0 },
+        "Evaluaci\u00f3n y Gesti\u00f3n del Impacto Ambiental": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Direcci\u00f3n de Personas": { "code": "", "year": 4.0, "price": 2.0 },
+        "Diferencias Culturales e Interculturalidad": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "La Organizaci\u00f3n de las Naciones Unidas": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Teor\u00eda y An\u00e1lisis de los Conflictos Internacionales": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Pol\u00edtica Exterior de Espa\u00f1a": {
+          "code": "",
+          "year": 5.0,
+          "price": 2.0
+        },
+        "Alianzas de Seguridad y Defensa": {
+          "code": "",
+          "year": 5.0,
+          "price": 2.0
+        },
+        "Opini\u00f3n P\u00fablica Internacional": {
+          "code": "",
+          "year": 5.0,
+          "price": 2.0
+        },
+        "Imagen Exterior y Diplomacia P\u00fablica": {
+          "code": "",
+          "year": 5.0,
+          "price": 2.0
+        },
+        "Derecho Diplom\u00e1tico y Consular": {
+          "code": "",
+          "year": 5.0,
+          "price": 2.0
+        },
+        "Grupos de Presi\u00f3n": { "code": "", "year": 5.0, "price": 2.0 },
+        "Dise\u00f1o y Gesti\u00f3n de Proyectos Internacionales": {
+          "code": "",
+          "year": 5.0,
+          "price": 2.0
+        },
+        "Terrorismo Internacional y Crimen Organizado": {
+          "code": "",
+          "year": 5.0,
+          "price": 2.0
+        },
+        "\u00c9tica Profesional en las Relaciones Internacionales": {
+          "code": "",
+          "year": 5.0,
+          "price": 2.0
+        },
+        "Riesgos Medio Ambientales y Cambio Clim\u00e1tico": {
+          "code": "",
+          "year": 5.0,
+          "price": 2.0
+        }
+      },
+      "Marketing": {
+        "Fundamentos del Marketing": { "code": "", "year": 1.0, "price": 2.0 },
+        "Social Media": { "code": "", "year": 1.0, "price": 2.0 },
+        "\u00c9tica y Eficacia Profesional": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Tecnolog\u00edas de Gesti\u00f3n": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Finanzas Corporativas": { "code": "", "year": 1.0, "price": 2.0 },
+        "Estad\u00edstica y Big Data I": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Comportamiento del Consumidor": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Investigaci\u00f3n de Mercados I": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a la Econom\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Negocios Globales/Global Business": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Pol\u00edtica de Producto y Marca": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Investigaci\u00f3n de Mercados II": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Influencia e Impacto Relacional": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Direcci\u00f3n de Personas": { "code": "", "year": 2.0, "price": 2.0 },
+        "Creatividad e Innovaci\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Inteligencia de Mercado (Business Intelligence)": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Planificaci\u00f3n Comercial y Posicionamiento": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Marketing Digital I: SEO y SEM": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Estad\u00edstica y Big Data II": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Elaboraci\u00f3n de Contenidos Web": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Ingles": { "code": "", "year": 2.0, "price": 2.0 },
+        "Marketing Digital II: Captaci\u00f3n y Anal\u00edtica": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Contabilidad y An\u00e1lisis de Estados Contables": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Gesti\u00f3n de Reputaci\u00f3n Online/Online Reputation Management": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Anal\u00edtica de Negocio/Business Analytics": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Liderazgo Emprendedor": { "code": "", "year": 3.0, "price": 2.0 },
+        "Gesti\u00f3n Log\u00edstica y Operaciones": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Contabilidad de Costes": { "code": "", "year": 3.0, "price": 2.0 },
+        "Publicidad y Medios Multimedia": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Direcci\u00f3n en T\u00e9cnicas de Ventas": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Distribuci\u00f3n y Promoci\u00f3n Comercial": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Anal\u00edtica Web y An\u00e1lisis de Audiencia": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Dise\u00f1o de Eventos y Relaciones P\u00fablicas": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Marketing Estrat\u00e9gico": { "code": "", "year": 4.0, "price": 2.0 },
+        "Planificaci\u00f3n de Marketing": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Simulaci\u00f3n Comercial": { "code": "", "year": 4.0, "price": 2.0 },
+        "Gesti\u00f3n de Comunidades Virtuales + Gesti\u00f3n de Crisis Online Community Management + Gesti\u00f3n de Crisis": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Derecho Publicitario y Comunicaci\u00f3n": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Marketing Gran Consumo": { "code": "", "year": 4.0, "price": 2.0 },
+        "Marketing de Servicios": { "code": "", "year": 4.0, "price": 2.0 },
+        "Marketing Experiencial": { "code": "", "year": 4.0, "price": 2.0 },
+        "Dise\u00f1o, Desarrollo y Aplicacione M\u00f3viles": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Creaci\u00f3n de Tiendas Online: Prestashop y Wordpress": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Marketing M\u00f3vil y Geolocalizaci\u00f3n/Mobile Marketing y Geolocalizaci\u00f3n": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Taller Digital": { "code": "", "year": 4.0, "price": 2.0 },
+        "Planificaci\u00f3n de Medios": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Gesti\u00f3n de la Innovaci\u00f3n": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Gesti\u00f3n de Proyectos": { "code": "", "year": 4.0, "price": 2.0 },
+        "Derecho de las Nuevas Tecnolog\u00edas": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Planificaci\u00f3n y Decisi\u00f3n Empresarial": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        }
+      },
+      "Traducci\u00f3n e Interpretaci\u00f3n Intercultural": {
+        "Lengua y Cultura A": { "code": "", "year": 1.0, "price": 2.0 },
+        "Lengua B": { "code": "", "year": 1.0, "price": 2.0 },
+        "Lengua C (Franc\u00e9s)": { "code": "", "year": 1.0, "price": 2.0 },
+        "Lengua C (Alem\u00e1n)": { "code": "", "year": 1.0, "price": 2.0 },
+        "Comprensi\u00f3n y Producci\u00f3n en Lengua A": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Lengua B2": { "code": "", "year": 1.0, "price": 2.0 },
+        "Lengua C2 (Franc\u00e9s)": { "code": "", "year": 1.0, "price": 2.0 },
+        "Lengua C2 (Alem\u00e1n)": { "code": "", "year": 1.0, "price": 2.0 },
+        "Comunicaci\u00f3n Profesional Intercultural": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Iniciaci\u00f3n a la Traducci\u00f3n": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "An\u00e1lisis Intercultural de la Actualidad Lengua B": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Perspectivas Socio-Culturales Lengua C (Franc\u00e9s)": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Perspectivas Socio-Culturales Lengua C (Alem\u00e1n)": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Lengua B3": { "code": "", "year": 2.0, "price": 2.0 },
+        "Lengua C4 (Franc\u00e9s)": { "code": "", "year": 2.0, "price": 2.0 },
+        "Lengua C4 (Alem\u00e1n)": { "code": "", "year": 2.0, "price": 2.0 },
+        "Traducci\u00f3n Directa I Lengua B": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Lengua C3 (Franc\u00e9s)": { "code": "", "year": 2.0, "price": 2.0 },
+        "Lengua C3 (Alem\u00e1n)": { "code": "", "year": 2.0, "price": 2.0 },
+        "Traducci\u00f3n Inversa I Lengua B": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Traducci\u00f3n Asistida por Ordenador": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Traducci\u00f3n Directa II Lengua B": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Traducci\u00f3n Directa I Lengua C (Franc\u00e9s-Espa\u00f1ol)": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Traducci\u00f3n Directa I Lengua C (Alem\u00e1n-Espa\u00f1ol)": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Gesti\u00f3n de la Terminolog\u00eda": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Interpretaci\u00f3n Consecutiva y de Enlace": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Traducci\u00f3n Directa II Lengua C (Franc\u00e9s-Espa\u00f1ol)": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Traducci\u00f3n Directa II Lengua C (Alem\u00e1n-Espa\u00f1ol)": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Traducci\u00f3n Inversa II Lengua B": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Traducci\u00f3n Inversa Lengua C (Espa\u00f1ol-Franc\u00e9s)": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Traducci\u00f3n Inversa Lengua C (Espa\u00f1ol-Alem\u00e1n)": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Traducci\u00f3n Especializada Lengua B": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Traducci\u00f3n en el Entorno Digital": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Traducci\u00f3n Econ\u00f3mica y Jur\u00eddica Lengua B": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Interpretaci\u00f3n Simult\u00e1nea": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Doblaje y Subtitulaci\u00f3n": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "\u00c9tica Empresarial y Gesti\u00f3n de Servicios de Traducci\u00f3n": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Laboratorio de Traducci\u00f3n Avanzada y Localizaci\u00f3n de Software": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Interpretaci\u00f3n Simult\u00e1nea Avanzada": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Mediaci\u00f3n Cultural": { "code": "", "year": 4.0, "price": 2.0 },
+        "Interpretaci\u00f3n Consecutiva y de Enlace Avanzada": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Traducci\u00f3n Jurada": { "code": "", "year": 4.0, "price": 2.0 },
+        "Introducci\u00f3n a la Interpretaci\u00f3n en Lengua C (Franc\u00e9s)": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a la Interpretaci\u00f3n en Lengua C (Alem\u00e1n)": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Edici\u00f3n Profesional": { "code": "", "year": 4.0, "price": 2.0 },
+        "Did\u00e1ctica de Lengua B": { "code": "", "year": 4.0, "price": 2.0 },
+        "Iniciaci\u00f3n al Lenguaje de Signos Espa\u00f1ol": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        }
+      }
+    },
+    "Ciencias de la Salud": {
+      "Biotecnolog\u00eda": {
+        "Matem\u00e1ticas": { "code": "", "year": 1.0, "price": 2.0 },
+        "Qu\u00edmica General": { "code": "", "year": 1.0, "price": 2.0 },
+        "Anatom\u00eda Humana": { "code": "", "year": 1.0, "price": 2.0 },
+        "Biolog\u00eda": { "code": "", "year": 1.0, "price": 2.0 },
+        "Fundamentos F\u00edsicos de la Biotecnolog\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Inform\u00e1tica": { "code": "", "year": 1.0, "price": 2.0 },
+        "Gen\u00e9tica General": { "code": "", "year": 1.0, "price": 2.0 },
+        "Laboratorio de T\u00e9cnicas Instrumentales I": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Fisiolog\u00eda (Animal y Vegetal)": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Bioqu\u00edmica": { "code": "", "year": 1.0, "price": 2.0 },
+        "Fisiolog\u00eda de Sistemas": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Microbiolog\u00eda General": { "code": "", "year": 2.0, "price": 2.0 },
+        "Qu\u00edmica Org\u00e1nica": { "code": "", "year": 2.0, "price": 2.0 },
+        "Gen\u00e9tica Molecular": { "code": "", "year": 2.0, "price": 2.0 },
+        "Termodin\u00e1mica y Cin\u00e9tica Qu\u00edmica": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Microbiolog\u00eda Industrial": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Idioma Moderno": { "code": "", "year": 2.0, "price": 2.0 },
+        "Bioestad\u00edstica": { "code": "", "year": 2.0, "price": 2.0 },
+        "Laboratorio de T\u00e9cnicas Instrumentales II": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "\u00c9tica": { "code": "", "year": 2.0, "price": 2.0 },
+        "Organizaci\u00f3n y Gesti\u00f3n de Empresas Biotecnol\u00f3gicas": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "An\u00e1lisis Masivo de Datos Biol\u00f3gicos": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Ingenier\u00eda Gen\u00e9tica Molecular": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Semiolog\u00eda y Fisiopatolog\u00eda General": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Inmunolog\u00eda": { "code": "", "year": 3.0, "price": 2.0 },
+        "Farmacolog\u00eda": { "code": "", "year": 3.0, "price": 2.0 },
+        "Gen\u00f3mica Funcional y Transcript\u00f3mica": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Ingenier\u00eda Celular, Tisular y Cultivos": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Virolog\u00eda": { "code": "", "year": 3.0, "price": 2.0 },
+        "Laboratorio de T\u00e9cnicas Instrumentales III": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Procesos y Productos Biotecnol\u00f3gicos": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Biorreactores": { "code": "", "year": 4.0, "price": 2.0 },
+        "Biotecnolog\u00eda Farmac\u00e9utica": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Prote\u00f3mica y Metabol\u00f3mica": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Biotecnolog\u00eda Alimentaria": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Biotecnolog\u00eda Ambiental": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Nanotecnolog\u00eda": { "code": "", "year": 4.0, "price": 2.0 },
+        "Patolog\u00eda Molecular": { "code": "", "year": 4.0, "price": 2.0 }
+      },
+      "Enfermer\u00eda": {
+        "Anatom\u00eda Humana": { "code": "", "year": 1.0, "price": 5.0 },
+        "Bioqu\u00edmica, Nutrici\u00f3n y Diet\u00e9tica": {
+          "code": "",
+          "year": 1.0,
+          "price": 5.0
+        },
+        "Historia y Fundamentos de Enfermer\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 5.0
+        },
+        "Salud P\u00fablica": { "code": "", "year": 1.0, "price": 5.0 },
+        "Atenci\u00f3n Psicosocial": { "code": "", "year": 1.0, "price": 5.0 },
+        "Procesos y Cuidados B\u00e1sicos": {
+          "code": "",
+          "year": 1.0,
+          "price": 5.0
+        },
+        "Fisiolog\u00eda": { "code": "", "year": 1.0, "price": 5.0 },
+        "Legislaci\u00f3n, \u00c9tica Profesional y Gesti\u00f3n Sanitaria": {
+          "code": "",
+          "year": 1.0,
+          "price": 5.0
+        },
+        "Pr\u00e1cticum I": { "code": "", "year": 1.0, "price": 5.0 },
+        "Antropolog\u00eda Cultural y de la Salud": {
+          "code": "",
+          "year": 1.0,
+          "price": 5.0
+        },
+        "Fisiopatolog\u00eda General": {
+          "code": "",
+          "year": 2.0,
+          "price": 5.0
+        },
+        "Farmacolog\u00eda": { "code": "", "year": 2.0, "price": 5.0 },
+        "Habilidades Directivas y Direcci\u00f3n de Grupos": {
+          "code": "",
+          "year": 2.0,
+          "price": 5.0
+        },
+        "Cuidados en Salud Mental": { "code": "", "year": 2.0, "price": 5.0 },
+        "Ingl\u00e9s": { "code": "", "year": 2.0, "price": 5.0 },
+        "Cuidados de Enfermer\u00eda en las Alteraciones de Salud I": {
+          "code": "",
+          "year": 2.0,
+          "price": 5.0
+        },
+        "Metodolog\u00eda de la Investigaci\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 5.0
+        },
+        "Pr\u00e1cticum II": { "code": "", "year": 2.0, "price": 5.0 },
+        "Cuidados de Enfermer\u00eda en Alteraciones de Salud II": {
+          "code": "",
+          "year": 3.0,
+          "price": 5.0
+        },
+        "Cuidados a la Mujer": { "code": "", "year": 3.0, "price": 5.0 },
+        "Habilidades para Comunicar y Educar en Salud": {
+          "code": "",
+          "year": 3.0,
+          "price": 5.0
+        },
+        "Cuidados al Anciano": { "code": "", "year": 3.0, "price": 5.0 },
+        "Cuidados en la Infancia y en la Adolescencia": {
+          "code": "",
+          "year": 3.0,
+          "price": 5.0
+        },
+        "Cuidados de Enfermer\u00eda en Anteraciones de Salud III": {
+          "code": "",
+          "year": 3.0,
+          "price": 5.0
+        },
+        "Cuidados en Situaciones Cr\u00edticas": {
+          "code": "",
+          "year": 3.0,
+          "price": 5.0
+        },
+        "Pr\u00e1cticum III": { "code": "", "year": 3.0, "price": 5.0 },
+        "Atenci\u00f3n a la Salud de la Comunidad": {
+          "code": "",
+          "year": 3.0,
+          "price": 5.0
+        },
+        "Pr\u00e1cticum IV": { "code": "", "year": 4.0, "price": 5.0 },
+        "Pr\u00e1cticum V": { "code": "", "year": 4.0, "price": 5.0 }
+      },
+      "Fisioterapia": {
+        "Biolog\u00eda Celular y Tisular": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Biof\u00edsica": { "code": "", "year": 1.0, "price": 2.0 },
+        "Ciencias Psicosociales Aplicadas y Habilidades de Comunicaci\u00f3n": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Salud P\u00fablica: \u00c9tica y Deontolog\u00eda Profesional": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Terapia F\u00edsica B\u00e1sica": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Terapia Manual B\u00e1sica": { "code": "", "year": 1.0, "price": 2.0 },
+        "Anatom\u00eda: Aparato Locomotor y Sistema Nervioso": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Estructura y Funci\u00f3n del Cuerpo Humano I": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Estructura y Funci\u00f3n del Cuerpo Humano II": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Biomec\u00e1nica": { "code": "", "year": 2.0, "price": 2.0 },
+        "Metodolog\u00eda de la Investigaci\u00f3n y Documentaci\u00f3n Cl\u00ednica": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Legislaci\u00f3n Sanitaria y Habilidades de Gesti\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "English": { "code": "", "year": 2.0, "price": 2.0 },
+        "T\u00e9cnicas Especiales en Fisioterapia I": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "T\u00e9cnicas Especiales en Fisioterapia II": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Patolog\u00eda M\u00e9dica y Farmacolog\u00eda I": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Patolog\u00eda M\u00e9dica y Farmacolog\u00eda II": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Estancias Cl\u00ednicas I": { "code": "", "year": 2.0, "price": 2.0 },
+        "Terapia Manual Ortop\u00e9dica I: Razonamiento Cl\u00ednico": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Orthopedic Manual Therapy I: Clinical Reasoning": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Fisioterapia Deportiva I": { "code": "", "year": 2.0, "price": 2.0 },
+        "Sports Physiotherapy I": { "code": "", "year": 2.0, "price": 2.0 },
+        "Estancias Cl\u00ednicas II": { "code": "", "year": 3.0, "price": 2.0 },
+        "Patolog\u00eda Quir\u00fargica y Radiolog\u00eda I": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Patolog\u00eda Quir\u00fargica y Radiolog\u00eda II": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Fisioterapia Osteop\u00e1tica I": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Fisioterapia Osteop\u00e1tica II y Cadenas Musculares": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Fisioterapia Neurol\u00f3gica": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Fisioterapia en el Aparato Locomotor": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Fisioterapia del Sistema Cardiorespiratorio": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Terapia Manual Ortop\u00e9dica II: Aplicaci\u00f3n y Efectos Neurofisiol\u00f3gicos de la Terapia Manual": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Orthopedic Manual Therapy II: Application and Neurophysiological Effects of Manual Therapy": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Fisioterapia Deportiva II": { "code": "", "year": 3.0, "price": 2.0 },
+        "Sports Physiotherapy II": { "code": "", "year": 3.0, "price": 2.0 },
+        "Pr\u00e1cticum": { "code": "", "year": 4.0, "price": 2.0 },
+        "\u00d3rtesis y Pr\u00f3tesis": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Fisioterapia: Drenaje Linf\u00e1tico Manual": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Fisioterapia Obst\u00e9trica y Uroginecol\u00f3gica": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Terapia Manual Ortop\u00e9dica III: Diagn\u00f3stico, Exploraci\u00f3n y Tratamiento de Columna y Extremidades": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Orthopedic Manual Therapy III: Diagnosis, Exploration and Treatment of the Spine and Extremities": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Fisioterapia Deportiva III": { "code": "", "year": 4.0, "price": 2.0 },
+        "Sports Physiotherapy III": { "code": "", "year": 4.0, "price": 2.0 }
+      },
+      "Odontolog\u00eda": {
+        "Anatom\u00eda y Fisiolog\u00eda del Cuerpo Humano I": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Biolog\u00eda Celular y Gen\u00e9tica Humana": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Epidemiolog\u00eda, Salud P\u00fablica y Bioestad\u00edstica Aplicada": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Antropolog\u00eda e Historia de la Odontolog\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Documentaci\u00f3n e Introducci\u00f3n a la Metodolog\u00eda de la Investigaci\u00f3n en Odontolog\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Idioma Moderno": { "code": "", "year": 1.0, "price": 2.0 },
+        "Anatom\u00eda y Fisiolog\u00eda del Cuerpo Humano II": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Bioqu\u00edmica": { "code": "", "year": 1.0, "price": 2.0 },
+        "Microbiolog\u00eda General e Inmunolog\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a la Cl\u00ednica Odontol\u00f3gica": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Psicolog\u00eda y Habilidades de Comunicaci\u00f3n": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Biomateriales e Instrumentaci\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Anatom\u00eda de Cabeza y Cuello": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Patolog\u00eda M\u00e9dico Quir\u00fargica Aplicada I": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Semiolog\u00eda y Fisiopatolog\u00eda General I": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Periodoncia B\u00e1sica": { "code": "", "year": 2.0, "price": 2.0 },
+        "Farmacolog\u00eda General: Nutrici\u00f3n Humana: Anestesia y Reanimaci\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Fisiolog\u00eda del Sistema Estomatogn\u00e1tico": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Patolog\u00eda M\u00e9dico Quir\u00fargica Aplicada II": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Semiolog\u00eda y Fisiopatolog\u00eda General II": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Diagn\u00f3stico en Odontolog\u00eda": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Oclusi\u00f3n Normal y Patol\u00f3gica": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Odontopediatr\u00eda I": { "code": "", "year": 3.0, "price": 2.0 },
+        "Ortodoncia I": { "code": "", "year": 3.0, "price": 2.0 },
+        "Patolog\u00eda M\u00e9dico Quir\u00fargica Bucal I": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Odontolog\u00eda Restauradora I": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Pr\u00f3tesis Estomatol\u00f3gica I": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Odontopediatr\u00eda II": { "code": "", "year": 3.0, "price": 2.0 },
+        "Ortodoncia II": { "code": "", "year": 3.0, "price": 2.0 },
+        "Patolog\u00eda M\u00e9dico Quir\u00fargica Bucal II": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Odontolog\u00eda Restauradora II": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Pr\u00f3tesis Estomatol\u00f3gica II": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Periodoncia Avanzada": { "code": "", "year": 4.0, "price": 2.0 },
+        "Patolog\u00eda M\u00e9dico Quir\u00fargica Bucal III": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Odontolog\u00eda Restauradora III": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Iniciaci\u00f3n a la Pr\u00e1ctica Cl\u00ednica de Adultos I": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Odontopediatr\u00eda III": { "code": "", "year": 4.0, "price": 2.0 },
+        "Ortodoncia III": { "code": "", "year": 4.0, "price": 2.0 },
+        "Iniciaci\u00f3n a la Pr\u00e1ctica Cl\u00ednica Infantil I": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Pr\u00f3tesis Estomatol\u00f3gica III": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Odontolog\u00eda Preventiva": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Patolog\u00eda M\u00e9dico Quir\u00fargica Bucal IV": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Odontolog\u00eda Restauradora IV": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Ortodoncia IV": { "code": "", "year": 4.0, "price": 2.0 },
+        "Odontopediatr\u00eda IV": { "code": "", "year": 4.0, "price": 2.0 },
+        "Pr\u00f3tesis Estomatol\u00f3gica IV": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Iniciaci\u00f3n a la Pr\u00e1ctica Cl\u00ednica de Adultos II": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Iniciaci\u00f3n a la Pr\u00e1ctica Cl\u00ednica Infantil II": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Pr\u00e1cticum I": { "code": "", "year": 5.0, "price": 2.0 },
+        "Odontolog\u00eda Comunitaria, Salud P\u00fablica Oral y Gerodontolog\u00eda": {
+          "code": "",
+          "year": 5.0,
+          "price": 2.0
+        },
+        "Pacientes Especiales": { "code": "", "year": 5.0, "price": 2.0 },
+        "Pr\u00e1cticum II": { "code": "", "year": 5.0, "price": 2.0 },
+        "Profesionalidad": { "code": "", "year": 5.0, "price": 2.0 },
+        "Radioprotecci\u00f3n": { "code": "", "year": 5.0, "price": 2.0 },
+        "Emergencias en la Consulta": { "code": "", "year": 5.0, "price": 2.0 },
+        "Riesgos Profesionales en Odontolog\u00eda": {
+          "code": "",
+          "year": 5.0,
+          "price": 2.0
+        },
+        "Implantolog\u00eda Avanzada": {
+          "code": "",
+          "year": 5.0,
+          "price": 2.0
+        },
+        "Est\u00e9tica Dental": { "code": "", "year": 5.0, "price": 2.0 },
+        "Ergonom\u00eda y Organizaci\u00f3n de la Consulta Dental": {
+          "code": "",
+          "year": 5.0,
+          "price": 2.0
+        }
+      },
+      "Psicolog\u00eda": {
+        "Historia de la Psicolog\u00eda y \u00c1mbitos de Actuaci\u00f3n": {
+          "code": "9870001101",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Sensaci\u00f3n, Percepci\u00f3n y Atenci\u00f3n": {
+          "code": "9870001102",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Anatom\u00eda del Sistema Nervioso": {
+          "code": "9870001103",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Biolog\u00eda del Comportamiento": {
+          "code": "9870001104",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Psicolog\u00eda Social": {
+          "code": "9870001105",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Psicolog\u00eda del Desarrollo": {
+          "code": "9870001106",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Estad\u00edstica Aplicada a la Psicolog\u00eda": {
+          "code": "9870001107",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Psicolog\u00eda del Ciclo Vital": {
+          "code": "9870001108",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Psicolog\u00eda del a Personalidad e Inteligencia": {
+          "code": "9870001109",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Psicolog\u00eda Social II": {
+          "code": "9870001110",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Motivaci\u00f3n y Emoci\u00f3n": {
+          "code": "9870001201",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Memorias y Procesos de Aprendizaje": {
+          "code": "9870001202",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Psicometr\u00eda": { "code": "9870001203", "year": 2.0, "price": 3.0 },
+        "Psicopatolog\u00eda": {
+          "code": "9870001204",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Psicolog\u00eda de la Educaci\u00f3n": {
+          "code": "9870001205",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Pensamiento y Lenguaje": {
+          "code": "9870001206",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Evaluaci\u00f3n Psicol\u00f3gica": {
+          "code": "9870001207",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Psicodiagn\u00f3stico": {
+          "code": "9870001208",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Ingl\u00e9s": { "code": "9870001209", "year": 2.0, "price": 3.0 },
+        "Fisiolog\u00eda": { "code": "9870001210", "year": 2.0, "price": 3.0 },
+        "M\u00e9todos de Investigaci\u00f3n en Psicolog\u00eda": {
+          "code": "9870001301",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Trastornos del Desarrollo y Dificultades de Aprendizaje": {
+          "code": "9870001302",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Psicolog\u00eda del Trabajo y de las Organizaciones": {
+          "code": "9870001303",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Valores \u00c9ticos": {
+          "code": "9870001304",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Pr\u00e1cticum I": { "code": "9870001305", "year": 3.0, "price": 3.0 },
+        "T\u00e9cnicas de Intervenci\u00f3n en Psicolog\u00eda": {
+          "code": "9870001306",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Psicopatolog\u00eda II": {
+          "code": "9870001801",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Neuropsicolog\u00eda": {
+          "code": "9870001802",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Psicolog\u00eda de la Salud": {
+          "code": "9870001803",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Habilidades del Terapeuta": {
+          "code": "9870001804",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Habilidades Comunicativas": {
+          "code": "9870001402",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Habilidades Directivas": {
+          "code": "9870001403",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Pr\u00e1cticum II": {
+          "code": "9870001405",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Psicofarmacolog\u00eda": {
+          "code": "9870001805",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Psicogeriatr\u00eda": {
+          "code": "9870001806",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Tratamiento Psicol\u00f3gico en la Infancia y Adolescencia": {
+          "code": "9870001807",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Tratamiento Psicol\u00f3gico en el Adulto": {
+          "code": "9870001808",
+          "year": 4.0,
+          "price": 3.0
+        }
+      }
+    },
+    "Escuela de Arquitectura y Polit\u00e9cnica": {
+      "Ciencia de Datos": {
+        "An\u00e1lisis Matem\u00e1tico": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Fundamentos de Estad\u00edstica": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "\u00c1lgebra Lineal": { "code": "", "year": 1.0, "price": 2.0 },
+        "Fundamentos de la Programaci\u00f3n": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Programaci\u00f3n Orientada a Objetos": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a la Ciencia de Datos": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Organizaci\u00f3n y Gesti\u00f3n de Empresas": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Desarrollo e Impacto Personal": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Liderazgo y Gesti\u00f3n de Equipos": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Proyecto: Sistema de Informaci\u00f3n": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Matem\u00e1ticas Discreta": { "code": "", "year": 2.0, "price": 2.0 },
+        "Estad\u00edstica Computacional": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "An\u00e1lisis Explotario de Datos": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Bases de Datos": { "code": "", "year": 2.0, "price": 2.0 },
+        "Estructura de Datos y Algoritmos": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Gesti\u00f3n de Proyectos en Ciencia de Datos": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n en la Inteligencia Artificial": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Econom\u00eda Digital": { "code": "", "year": 2.0, "price": 2.0 },
+        "Gesti\u00f3n de la Innovaci\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Proyecto: Open Data I": { "code": "", "year": 2.0, "price": 2.0 },
+        "Proyecto: Open Data II": { "code": "", "year": 2.0, "price": 2.0 },
+        "Modelos para la Toma de Decisiones": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Infraestructura y Computaci\u00f3n en la Nube": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Fundamentos de Big Data": { "code": "", "year": 3.0, "price": 2.0 },
+        "Aprendizaje Autom\u00e1tico": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Visualizaci\u00f3n de Datos": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Aplicaciones y Tendencias en Ciencia de Datos": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Proyecto: Big Data I": { "code": "", "year": 3.0, "price": 2.0 },
+        "Proyecto: Big Data II": { "code": "", "year": 3.0, "price": 2.0 },
+        "Seguridad de Datos": { "code": "", "year": 4.0, "price": 2.0 },
+        "Legislaci\u00f3n y Protecci\u00f3n de Datos": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Creaci\u00f3n y Gesti\u00f3n de Start-Ups": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Responsabilidad Social y \u00c9tica": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "La Industria 4.0": { "code": "", "year": 4.0, "price": 2.0 }
+      },
+      "F\u00edsica": {
+        "Fundamentos de F\u00edsica I": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Fundamentos de F\u00edsica II": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "T\u00e9cnicas Experimentales B\u00e1sicas": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "An\u00e1lisis Matem\u00e1tico": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "\u00c1lgebra Lineal y Geometr\u00eda Anal\u00edtica": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Variable Compleja": { "code": "", "year": 1.0, "price": 2.0 },
+        "Computaci\u00f3n Cient\u00edfica I": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Estad\u00edstica y An\u00e1lisis de Datos Cient\u00edficos": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Qu\u00edmica": { "code": "", "year": 1.0, "price": 2.0 },
+        "Desarrollo e Impacto Personal": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Mec\u00e1nica y Ondas I": { "code": "", "year": 2.0, "price": 2.0 },
+        "Mec\u00e1nica y Ondas II": { "code": "", "year": 2.0, "price": 2.0 },
+        "Electromagnetismo I": { "code": "", "year": 2.0, "price": 2.0 },
+        "Electromagnetismo II": { "code": "", "year": 2.0, "price": 2.0 },
+        "\u00d3ptica": { "code": "", "year": 2.0, "price": 2.0 },
+        "Proyecto Experimental I": { "code": "", "year": 2.0, "price": 2.0 },
+        "Ecuaciones Diferenciales en la F\u00edsica": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Termodin\u00e1mica": { "code": "", "year": 2.0, "price": 2.0 },
+        "Liderazgo y Gesti\u00f3n de Equipos": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Computaci\u00f3n Cient\u00edfica II": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "F\u00edsica Cu\u00e1ntica I": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "F\u00edsica Cu\u00e1ntica II": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "F\u00edsica del Estado S\u00f3lido": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Electr\u00f3nica F\u00edsica": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "F\u00edsica Estad\u00edstica": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Proyecto Experimental II": { "code": "", "year": 3.0, "price": 2.0 },
+        "Gesti\u00f3n de la Innovaci\u00f3n": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "F\u00edsica Nuclear y de Part\u00edculas": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Ingl\u00e9s": { "code": "", "year": 3.0, "price": 2.0 },
+        "F\u00edsica de Materiales": { "code": "", "year": 3.0, "price": 2.0 },
+        "T\u00e9cnicas de Caracterizaci\u00f3n": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a la Nanotecnolog\u00eda": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "electr\u00f3nica Anal\u00f3gica y Digital": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Sistemas Din\u00e1micos y Realimentaci\u00f3n": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "An\u00e1lisis Exploratorio de Datos": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a la Inteligencia Artificial": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Proyecto Experimental III": { "code": "", "year": 4.0, "price": 2.0 },
+        "F\u00edsica de Materiales Avanzados": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Biomateriales y F\u00edsica de Tejidos": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Materiales para el Almacenamiento y Transformaci\u00f3n de la Energ\u00eda": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Procesamiento de la Se\u00f1al y de la Imagen": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Fot\u00f3nica": { "code": "", "year": 4.0, "price": 2.0 },
+        "Tecnolog\u00edas Cu\u00e1nticas": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Instrumentaci\u00f3n Electr\u00f3nica": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Electr\u00f3nica de Comunicaciones": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a la Relatividad y la Cosmolog\u00eda": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Fundamentos de Big Data": { "code": "", "year": 4.0, "price": 2.0 },
+        "Aprendizaje Autom\u00e1tico/Machine Learning": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        }
+      },
+      "Ingenier\u00eda de Organizaci\u00f3n Industrial": {
+        "An\u00e1lisis Matem\u00e1tico": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Estad\u00edstica": { "code": "", "year": 1.0, "price": 2.0 },
+        "\u00c1lgebra Lineal": { "code": "", "year": 1.0, "price": 2.0 },
+        "Fundamentos de Programaci\u00f3n y Computaci\u00f3n": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Proyecto: An\u00e1lisis de Datos": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Introducci\u00f3n a la Ingenier\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Organizaci\u00f3n y Gesti\u00f3n de Empresas": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Desarrollo e Impacto Personal": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "Liderazgo y Gesti\u00f3n de Equipos": {
+          "code": "",
+          "year": 1.0,
+          "price": 2.0
+        },
+        "F\u00edsica I": { "code": "", "year": 1.0, "price": 2.0 },
+        "F\u00edsica II": { "code": "", "year": 2.0, "price": 2.0 },
+        "Expresi\u00f3n Gr\u00e1fica": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Ingenier\u00eda Mec\u00e1nica": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Ciencia de Materiales": { "code": "", "year": 2.0, "price": 2.0 },
+        "Sistemas de Producci\u00f3n y Fabricaci\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Ingenier\u00eda El\u00e9ctrica y Electr\u00f3nica": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Sistemas de Automatizaci\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Gesti\u00f3n de la Innovaci\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Proyecto: Rob\u00f3tica, Automatizaci\u00f3n y Sistemas Inteligentes I": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Proyecto: Rob\u00f3tica, Automatizaci\u00f3n y Sistemas Inteligentes II": {
+          "code": "",
+          "year": 2.0,
+          "price": 2.0
+        },
+        "Qu\u00edmica": { "code": "", "year": 2.0, "price": 2.0 },
+        "Termodin\u00e1mica y Fluidomec\u00e1nica": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Gesti\u00f3n de Producci\u00f3n y Operaciones": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Ingenier\u00eda Log\u00edstica": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Industria Inteligente y Conectada": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Investigaci\u00f3n de Operaciones": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Gesti\u00f3n Medio Ambiental y Calidad": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Gesti\u00f3n de Proyectos": { "code": "", "year": 3.0, "price": 2.0 },
+        "Proyecto: Organizaci\u00f3n en la Industria Inteligente I": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Proyecto: Organizaci\u00f3n en la Industria Inteligente II": {
+          "code": "",
+          "year": 3.0,
+          "price": 2.0
+        },
+        "Creaci\u00f3n y Gesti\u00f3n de Start-Ups": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Finanzas y Control de Gesti\u00f3n": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Responsabilidad Social y \u00c9tica": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Sistemas de Informaci\u00f3n para la Gesti\u00f3n": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Fundamentos de Big Data": { "code": "", "year": 4.0, "price": 2.0 },
+        "Ampliaci\u00f3n de Programaci\u00f3n": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Infraestructuras de la Informaci\u00f3n": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Ampliaci\u00f3n de Elasticidad y Resistencia de Materiales": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Ampliaci\u00f3n de Ingenier\u00eda El\u00e9ctrica": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Ergonom\u00eda y Prevenci\u00f3n de Riesgos Laborales": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Estudio del Trabajo": { "code": "", "year": 4.0, "price": 2.0 },
+        "Gesti\u00f3n de Recursos Humanos": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Emprendimiento Social": { "code": "", "year": 4.0, "price": 2.0 },
+        "Econom\u00eda Digital": { "code": "", "year": 4.0, "price": 2.0 },
+        "Marketing": { "code": "", "year": 4.0, "price": 2.0 },
+        "An\u00e1lisis de Datos para la Planificaci\u00f3n y Decisi\u00f3n": {
+          "code": "",
+          "year": 4.0,
+          "price": 2.0
+        },
+        "Econom\u00eda Industrial": { "code": "", "year": 4.0, "price": 2.0 },
+        "Ingl\u00e9s": { "code": "", "year": 4.0, "price": 2.0 }
+      },
+      "Ingenier\u00eda de Organizaci\u00f3n Industrial + Administraci\u00f3n y Direcci\u00f3n de Empresas": {
+        "An\u00e1lisis Matem\u00e1tico": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "\u00c1lgebra Lineal": { "code": "", "year": 1.0, "price": 3.0 },
+        "Estad\u00edstica": { "code": "", "year": 1.0, "price": 3.0 },
+        "Fundamentos de Programaci\u00f3n y Computaci\u00f3n": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Qu\u00edmica I": { "code": "", "year": 1.0, "price": 3.0 },
+        "Introducci\u00f3n a Ingenier\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Organizaci\u00f3n y Gesti\u00f3n de Empresas": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Desarrollo e Impacto Personal": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Liderazgo y Gesti\u00f3n de Equipos": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Proyecto: An\u00e1lisis de Datos": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Introducci\u00f3n a la Econom\u00eda": {
+          "code": "",
+          "year": 1.0,
+          "price": 3.0
+        },
+        "Marketing": { "code": "", "year": 1.0, "price": 3.0 },
+        "F\u00edsica I": { "code": "", "year": 2.0, "price": 3.0 },
+        "F\u00edsica II": { "code": "", "year": 2.0, "price": 3.0 },
+        "Expresi\u00f3n Gr\u00e1fica": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Ingenier\u00eda Mec\u00e1nica": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Ciencia de Materiales": { "code": "", "year": 2.0, "price": 3.0 },
+        "Sistemas de Producci\u00f3n y Fabricaci\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Ingenier\u00eda El\u00e9ctrica y Electr\u00f3nica": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Sistemas de Automatizaci\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Gesti\u00f3n de la Innovaci\u00f3n": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Proyecto: Rob\u00f3tica, Automatizaci\u00f3n y Sistemas Inteligentes I": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Proyecto: Rob\u00f3tica, Automatizaci\u00f3n y Sistemas Inteligentes II": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Finanzas I": { "code": "", "year": 2.0, "price": 3.0 },
+        "Direcci\u00f3n Estrat\u00e9gica I": {
+          "code": "",
+          "year": 2.0,
+          "price": 3.0
+        },
+        "Termodin\u00e1mica y Fluidomec\u00e1nica": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Gesti\u00f3n de Producci\u00f3n y Operaciones": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Ingenier\u00eda Log\u00edstica": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "La Industria 4.0": { "code": "", "year": 3.0, "price": 3.0 },
+        "Investigaci\u00f3n de Operaciones": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Gesti\u00f3n Medio Ambiental y Calidad": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Gesti\u00f3n de Proyectos": { "code": "", "year": 3.0, "price": 3.0 },
+        "Proyecto: Organizaci\u00f3n en la Industria Inteligente I": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Proyecto: Organizaci\u00f3n en la Industria Inteligente II": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Pensamiento Econ\u00f3mico y Social": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Comportamiento del Consumidor y de la Empresa": {
+          "code": "",
+          "year": 3.0,
+          "price": 3.0
+        },
+        "Contabilidad Financiera I": { "code": "", "year": 3.0, "price": 3.0 },
+        "Creaci\u00f3n y Gesti\u00f3n de Start-Ups": {
+          "code": "",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Responsabilidad Social y \u00c9tica": {
+          "code": "",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Sistemas de Informaci\u00f3n para la Gesti\u00f3n": {
+          "code": "",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Idioma": { "code": "", "year": 4.0, "price": 3.0 },
+        "Administraci\u00f3n de la Empresa": {
+          "code": "",
+          "year": 4.0,
+          "price": 3.0
+        },
+        "Finanzas II": { "code": "", "year": 4.0, "price": 3.0 },
+        "Contabilidad Financiera II": { "code": "", "year": 4.0, "price": 3.0 },
+        "Derecho de la Empresa": { "code": "", "year": 4.0, "price": 3.0 },
+        "An\u00e1lisis de Datos de Internet": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "Macroeconom\u00eda": { "code": "", "year": 5.0, "price": 3.0 },
+        "Sistemas Impositivos": { "code": "", "year": 5.0, "price": 3.0 },
+        "Gesti\u00f3n de Recursos Humanos": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "Direcci\u00f3n Estrat\u00e9gica II": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "Econometr\u00eda: Planificaci\u00f3n y Decisi\u00f3n Empresarial": {
+          "code": "",
+          "year": 5.0,
+          "price": 3.0
+        },
+        "Direcci\u00f3n Comercial": { "code": "", "year": 5.0, "price": 3.0 },
+        "Fiscalidad": { "code": "", "year": 5.0, "price": 3.0 },
+        "Contabilidad de Costes": { "code": "", "year": 5.0, "price": 3.0 },
+        "Gesti\u00f3n Financiera": { "code": "", "year": 5.0, "price": 3.0 }
+      }
+    }
+  }
+}
