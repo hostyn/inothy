@@ -16,6 +16,8 @@ export default function VerifyEmail({
           justifyContent: 'center',
           alignItems: 'center',
           flexDirection: 'column',
+          textAlign: 'center',
+          gap: 'sm',
         })}
       >
         <h1
@@ -24,6 +26,7 @@ export default function VerifyEmail({
             fontWeight: 'bold',
             fontFamily: 'nunitoSans',
             color: 'text',
+            lineHeight: '1.1',
           })}
         >
           {verified

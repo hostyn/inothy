@@ -68,7 +68,6 @@ export default function ResetPassword({
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: '100vh',
         })}
       >
         <form
