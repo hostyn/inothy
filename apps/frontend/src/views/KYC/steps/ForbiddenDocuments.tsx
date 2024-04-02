@@ -79,8 +79,16 @@ export default function ForbiddenDocuments({
         <div
           className={css({
             display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
             gap: 'md',
+            gridTemplateColumns: '1fr',
+
+            sm: {
+              gridTemplateColumns: 'repeat(2, 1fr)',
+            },
+
+            md: {
+              gridTemplateColumns: 'repeat(3, 1fr)',
+            },
           })}
         >
           <Forbidden Icon={DocumentNotVisible} text="Documento no visible." />
@@ -121,6 +129,7 @@ const Forbidden = ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        mr: '6px',
       })}
     >
       <Icon />

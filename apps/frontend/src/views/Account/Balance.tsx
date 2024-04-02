@@ -5,15 +5,28 @@ import useAuth from '@hooks/useAuth'
 import { IoWalletOutline } from 'react-icons/io5'
 import { css } from '@styled-system/css'
 import KYCNeededBanner from './components/KYCNeededBanner'
+import KYCPendingBanner from './components/KYCPendingBanner'
 
 export default function Balance(): JSX.Element {
   const { userData } = useAuth()
+
+  console.log(userData)
 
   return (
     <AccountLayout selected="balance">
       {userData?.canUpload ?? false ? (
         <>
-          {userData?.kycLevel !== 'REGULAR' && <KYCNeededBanner />}
+          {/* TODO: KYC ERROR */}
+          {userData?.kycLevel !== 'REGULAR' ? (
+            userData?.kycStatus === 'VALIDATION_ASKED' ? (
+              <KYCPendingBanner />
+            ) : (
+              <KYCNeededBanner />
+            )
+          ) : (
+            <KYCNeededBanner />
+          )}
+
           <BalanceSection />
           <IBAN />
         </>

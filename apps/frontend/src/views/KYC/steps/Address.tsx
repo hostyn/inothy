@@ -117,7 +117,15 @@ export default function Address({
           gap: 'md',
         })}
       >
-        <FieldSet>
+        <FieldSet
+          className={css({
+            flexDir: 'column',
+
+            md: {
+              flexDir: 'row',
+            },
+          })}
+        >
           <FormElement label="Linea 1">
             <Input
               nativePlaceholder="Avenida Calcuta 34, Planta 2 Izquierda"
@@ -147,7 +155,16 @@ export default function Address({
           </FormElement>
         </FieldSet>
 
-        <FieldSet>
+        <FieldSet
+          className={css({
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+
+            md: {
+              display: 'flex',
+            },
+          })}
+        >
           <FormElement label="País">
             <select
               defaultValue="ES"

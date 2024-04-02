@@ -129,19 +129,28 @@ export default function KYCForm(): JSX.Element {
         <div
           className={css({
             display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
             alignItems: 'center',
-            gap: 'xl',
+            gap: '4xl',
+
+            lg: {
+              gap: '0',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+            },
           })}
         >
           <div>
             <h1
               className={css({
-                fontSize: '4xl',
+                fontSize: '3xl',
                 lineHeight: '100%',
                 color: 'text',
                 width: 'fit-content',
                 fontFamily: 'nunitoSans',
+                textWrap: 'balance',
+
+                md: {
+                  fontSize: '5xl',
+                },
               })}
             >
               Completa tu perfil para retirar tu dinero
@@ -152,7 +161,15 @@ export default function KYCForm(): JSX.Element {
             className={css({
               display: 'flex',
               flexDirection: 'column',
-              gap: 'xl',
+              gap: 'md',
+
+              md: {
+                gap: 'lg',
+              },
+
+              lg: {
+                gap: 'xl',
+              },
             })}
           >
             {STEPS.map((step, index) => (

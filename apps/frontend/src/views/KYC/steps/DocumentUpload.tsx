@@ -53,13 +53,13 @@ export default function DocumentUpload({
       )
     )
 
-    submitKYC.mutate({
+    await submitKYC.mutateAsync({
       ...kycData,
       files: files.filter(f => f != null) as string[],
       birthDate: birthDateUTC.getTime(),
     })
 
-    // next()
+    next()
   }
 
   return data?.step === 'document-type' ? (
@@ -69,6 +69,7 @@ export default function DocumentUpload({
         void onSubmit()
       }}
       nextText="Finalizar"
+      loading={submitKYC.isLoading}
       disabled={
         data.step === 'document-type' &&
         ((data.documentType === 'id' && documents.some(d => d == null)) ||
@@ -125,50 +126,74 @@ export default function DocumentUpload({
           <div
             className={css({
               display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
               alignItems: 'center',
               justifyItems: 'center',
               rowGap: 'sm',
               columnGap: 'xl',
               width: '100%',
+              gridTemplateColumns: '1fr',
+
+              md: {
+                gridTemplateColumns: 'repeat(2, 1fr)',
+              },
             })}
           >
-            <h2
+            <div
               className={css({
-                fontSize: 'lg',
-                color: 'grey.500',
-                fontWeight: 'bold',
-                fontFamily: 'nunitoSans',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'sm',
+                alignItems: 'center',
+                width: '100%',
               })}
             >
-              Cara frontal
-            </h2>
-            <h2
+              <h2
+                className={css({
+                  fontSize: 'lg',
+                  color: 'grey.500',
+                  fontWeight: 'bold',
+                  fontFamily: 'nunitoSans',
+                })}
+              >
+                Cara frontal
+              </h2>
+              <DropZone
+                onFile={file => {
+                  setDocuments(documents => [file, documents[1]])
+                }}
+                minFileSize={32768}
+                maxFileSize={7000000}
+                accept="application/pdf, image/png, image/jpeg"
+              />
+            </div>
+            <div
               className={css({
-                fontSize: 'lg',
-                color: 'grey.500',
-                fontWeight: 'bold',
-                fontFamily: 'nunitoSans',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'sm',
+                alignItems: 'center',
+                width: '100%',
               })}
             >
-              Cara trasera
-            </h2>
-            <DropZone
-              onFile={file => {
-                setDocuments(documents => [file, documents[1]])
-              }}
-              minFileSize={32768}
-              maxFileSize={7000000}
-              accept="application/pdf, image/png, image/jpeg"
-            />
-            <DropZone
-              onFile={file => {
-                setDocuments(documents => [documents[0], file])
-              }}
-              minFileSize={32768}
-              maxFileSize={7000000}
-              accept="application/pdf, image/png, image/jpeg"
-            />
+              <h2
+                className={css({
+                  fontSize: 'lg',
+                  color: 'grey.500',
+                  fontWeight: 'bold',
+                  fontFamily: 'nunitoSans',
+                })}
+              >
+                Cara trasera
+              </h2>
+              <DropZone
+                onFile={file => {
+                  setDocuments(documents => [documents[0], file])
+                }}
+                minFileSize={32768}
+                maxFileSize={7000000}
+                accept="application/pdf, image/png, image/jpeg"
+              />
+            </div>
           </div>
         ) : (
           <DropZone
