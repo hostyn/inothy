@@ -20,7 +20,7 @@ import OAuthProviders from '@components/OAuthProviders'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@config/firebase'
 import { toastError } from '@services/toaster'
-import posthog from 'posthog-js'
+import { usePostHog } from 'posthog-js/react'
 
 const loginSchema = z
   .object({
@@ -54,6 +54,7 @@ const termsStyles = css({
 const Register: NextPage = () => {
   const [loading, setLoading] = useState(false)
 
+  const posthog = usePostHog()
   const { push } = useRouter()
   const {
     register,

@@ -17,12 +17,14 @@ import { MdLockOutline, MdOutlineLogout } from 'react-icons/md'
 import { IoCardOutline, IoWalletOutline } from 'react-icons/io5'
 import DropdownLink from './components/DropdownLink'
 import { pageWidthStyles } from '@ui/PageSpacing'
-import posthog from 'posthog-js'
+import { usePostHog } from 'posthog-js/react'
 
 const divStyles = css({ display: 'flex', gap: 'md', alignItems: 'center' })
 
 export default function Nav(): JSX.Element {
+  const posthog = usePostHog()
   const { user, userData } = useAuth()
+
   return (
     <header
       className={cx(

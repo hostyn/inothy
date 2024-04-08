@@ -3,13 +3,14 @@ import Footer from './Footer'
 import Nav from './Nav'
 import { useEffect } from 'react'
 import useAuth from '@hooks/useAuth'
-import posthog from 'posthog-js'
+import { usePostHog } from 'posthog-js/react'
 
 export default function App({
   children,
 }: {
   children: JSX.Element | JSX.Element[]
 }): JSX.Element {
+  const posthog = usePostHog()
   const { user, userData } = useAuth()
 
   useEffect(() => {
