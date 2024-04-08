@@ -14,7 +14,7 @@ import { useCheckoutDocument } from '@hooks/useCheckoutDocument'
 import Billing from './components/Billing'
 import Card from './components/Card'
 import DocumentCard from '@components/DocumentCard'
-import posthog from 'posthog-js'
+import { usePostHog } from 'posthog-js/react'
 
 interface CheckoutDocumentProps {
   documentId: string
@@ -25,6 +25,7 @@ export default function Checkout({
   documentId,
   accept,
 }: CheckoutDocumentProps): JSX.Element {
+  const posthog = usePostHog()
   const { push } = useRouter()
 
   const { data: document } = trpc.document.getDocument.useQuery({
