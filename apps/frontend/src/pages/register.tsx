@@ -20,6 +20,7 @@ import OAuthProviders from '@components/OAuthProviders'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@config/firebase'
 import { toastError } from '@services/toaster'
+import posthog from 'posthog-js'
 
 const loginSchema = z
   .object({
@@ -74,6 +75,9 @@ const Register: NextPage = () => {
       setLoading(true)
       await createUserWithEmailAndPassword(auth, email, password)
       await push('/')
+      posthog.capture('user_signed_up', {
+        email,
+      })
     } catch (e) {
       if (e.code === 'auth/email-already-in-use') {
         setError('email', {

@@ -22,8 +22,6 @@ export default function Receipt({
           height: '100%',
           flexDirection: 'column',
           gap: 'xl',
-          w: '4xl',
-          maxW: '100%',
         })}
       >
         {receipt?.status === 'SUCCEEDED' && (
@@ -62,6 +60,8 @@ export default function Receipt({
               className={css({
                 display: 'flex',
                 flexDirection: 'column',
+
+                alignItems: 'center',
                 gap: 'lg',
                 width: '100%',
                 maxWidth: '100%',

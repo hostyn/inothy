@@ -17,6 +17,7 @@ import { MdLockOutline, MdOutlineLogout } from 'react-icons/md'
 import { IoCardOutline, IoWalletOutline } from 'react-icons/io5'
 import DropdownLink from './components/DropdownLink'
 import { pageWidthStyles } from '@ui/PageSpacing'
+import posthog from 'posthog-js'
 
 const divStyles = css({ display: 'flex', gap: 'md', alignItems: 'center' })
 
@@ -202,6 +203,7 @@ export default function Nav(): JSX.Element {
                     name="Cerrar sesión"
                     onClick={async () => {
                       await user.signOut()
+                      posthog.reset()
                     }}
                   />
                 </nav>

@@ -242,6 +242,7 @@ export const checkoutRouter = createTRPCRouter({
                     select: {
                       university: {
                         select: {
+                          id: true,
                           name: true,
                         },
                       },
