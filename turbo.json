@@ -19,7 +19,9 @@
     "NODE_ENV",
     "VERCEL_URL",
     "BREVO_API_KEY",
-    "FIREBASE_BUCKET"
+    "FIREBASE_BUCKET",
+    "NEXT_PUBLIC_POSTHOG_KEY",
+    "NEXT_PUBLIC_POSTHOG_HOST"
   ],
   "pipeline": {
     "lint": {

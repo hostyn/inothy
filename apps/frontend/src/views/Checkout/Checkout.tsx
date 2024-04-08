@@ -14,6 +14,7 @@ import { useCheckoutDocument } from '@hooks/useCheckoutDocument'
 import Billing from './components/Billing'
 import Card from './components/Card'
 import DocumentCard from '@components/DocumentCard'
+import posthog from 'posthog-js'
 
 interface CheckoutDocumentProps {
   documentId: string
@@ -55,10 +56,42 @@ export default function Checkout({
 
       if (response.state === 'success') {
         await push('/receipt/' + response.id)
+        posthog.capture('document_bought', {
+          documentId,
+          frictionLess: true,
+          documentTitle: document?.title,
+          documentPrice: document?.price,
+          documentType: document?.documentType,
+          contentType: document?.contentType,
+          subjectId: document?.subject.id,
+          subjectName: document?.subject.name,
+          universityId: document?.subject.university.id,
+          universityName: document?.subject.university.name,
+          documentRating:
+            document?.ratingSum != null && document?.ratingCount != null
+              ? document.ratingSum / document.ratingCount
+              : null,
+        })
       }
 
       if (response.state === 'created') {
         await push(response.redirectUrl ?? '')
+        posthog.capture('document_bought', {
+          documentId,
+          frictionLess: false,
+          documentTitle: document?.title,
+          documentPrice: document?.price,
+          documentType: document?.documentType.name,
+          contentType: document?.contentType,
+          subjectId: document?.subject.id,
+          subjectName: document?.subject.name,
+          universityId: document?.subject.university.id,
+          universityName: document?.subject.university.name,
+          documentRating:
+            document?.ratingSum != null && document?.ratingCount != null
+              ? document.ratingSum / document.ratingCount
+              : null,
+        })
       }
     } catch (e) {
       setLoading(false)

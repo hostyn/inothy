@@ -50,6 +50,7 @@ export const documentRouter = createTRPCRouter({
               select: {
                 university: {
                   select: {
+                    id: true,
                     name: true,
                   },
                 },
@@ -407,6 +408,7 @@ export const documentRouter = createTRPCRouter({
             select: {
               university: {
                 select: {
+                  id: true,
                   name: true,
                 },
               },
@@ -483,6 +485,7 @@ export const documentRouter = createTRPCRouter({
             select: {
               university: {
                 select: {
+                  id: true,
                   name: true,
                 },
               },

@@ -20,6 +20,7 @@ import Spinner from '@components/Spinner'
 import authContent from '@middleware/authContent'
 import { useRouter } from 'next/router'
 import OAuthProviders from '@components/OAuthProviders'
+import posthog from 'posthog-js'
 
 const loginSchema = z.object({
   email: z.string().email('Email inválido.'),
@@ -65,6 +66,9 @@ const Login: NextPage = () => {
       setLoading(true)
       await signInWithEmailAndPassword(auth, email, password)
       await push('/')
+      posthog.capture('user_logged_in', {
+        email,
+      })
     } catch (e) {
       if (e.code === 'auth/wrong-password') {
         setError('password', {

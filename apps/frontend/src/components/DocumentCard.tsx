@@ -17,6 +17,7 @@ export default function DocumentCard(
         alignItems: 'center',
         gap: 'md',
         width: '100%',
+        maxW: '4xl',
       })}
     >
       <i
