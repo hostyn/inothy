@@ -37,6 +37,11 @@ module.exports = {
         destination: createUTM('tiktok', 'bio', 'none'),
         permanent: false,
       },
+      {
+        source: '/yt',
+        destination: createUTM('youtube', 'bio', 'none'),
+        permanent: false,
+      },
     ]
   },
 }
