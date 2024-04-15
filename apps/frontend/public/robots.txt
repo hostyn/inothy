@@ -1,1 +1,9 @@
+User-Agent: *
+Disallow: /account/
+Disallow: /receipt/
+Disallow: /checkout/
+Disallow: /api/
+Disallow: /action/
+Disallow: /kyc/
+Disallow: /upload/
 Allow: /api/og/*
