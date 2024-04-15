@@ -24,4 +24,23 @@ module.exports = {
 
     return config
   },
+
+  redirects: async () => {
+    return [
+      {
+        source: '/ig',
+        destination: createUTM('instagram', 'bio', 'none'),
+        permanent: false,
+      },
+      {
+        source: '/tt',
+        destination: createUTM('tiktok', 'bio', 'none'),
+        permanent: false,
+      },
+    ]
+  },
+}
+
+function createUTM(source, medium, campaign) {
+  return `${process.env.NEXT_PUBLIC_FRONTEND_URL}?utm_source=${source}&utm_medium=${medium}&utm_campaign=${campaign}`
 }
