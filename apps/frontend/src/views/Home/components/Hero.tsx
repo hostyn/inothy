@@ -33,6 +33,7 @@ export default function Hero(): JSX.Element {
         Registrarse
       </ButtonLink>
       <img
+        alt="Vista aérea de un escritorio blanco con una laptop abierta, una mano tecleando, y otra mano escribiendo en un cuaderno de notas, acompañado de lápices y decoración de oficina"
         src="/static/home/hero.webp"
         className={css({
           width: '100%',

@@ -48,7 +48,7 @@ export default function BestPlace(): JSX.Element {
             apuntes y aprobar comprando el mejor material.
           </P>
           <ButtonLink href="/register" visual="action" size="lg">
-            Empezar
+            Registrarse
           </ButtonLink>
         </div>
 
