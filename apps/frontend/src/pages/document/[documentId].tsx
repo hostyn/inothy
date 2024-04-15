@@ -13,11 +13,20 @@ function Document({ documentId }: DocumentProps): JSX.Element {
     id: documentId,
   })
 
+  const og = `${process.env.NEXT_PUBLIC_FRONTEND_URL as string}/api/og?title=${
+    documentData?.title as string
+  }&university=${documentData?.subject.university.name as string}&subject=${
+    documentData?.subject.name as string
+  }&user=${documentData?.user.username as string}`
+
   return (
     <>
       <Head>
         <title>{documentData?.title} - Inothy</title>
         <meta name="robots" content="index,follow" />
+
+        <meta key="og:image" property="og:image" content={og}></meta>
+        <meta key="twitter:image" name="twitter:image" content={og}></meta>
       </Head>
       <DocumentView documentId={documentId} />
     </>

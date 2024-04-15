@@ -24,7 +24,7 @@ function Actions({
     <>
       <Head>
         <title>Inothy</title>
-        <meta name="robots" content="index,follow" />
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       {mode === 'verifyEmail' && <VerifyEmail verified={verified} />}
       {mode === 'resetPassword' && (
