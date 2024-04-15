@@ -141,7 +141,11 @@ export default function Experts(): JSX.Element {
           },
 
           lg: {
-            height: '100%',
+            height: '35vw',
+          },
+
+          xl: {
+            height: '600px',
           },
         })}
       />
