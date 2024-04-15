@@ -152,7 +152,6 @@ export default function DocumentView({
                 title="Asignatura"
                 icon={MdOutlineBook}
                 content={documentData?.subject.name ?? ''}
-                link={`/subject/${documentData?.subject.id ?? ''}`}
               />
 
               <Property
