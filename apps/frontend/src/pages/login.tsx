@@ -204,6 +204,7 @@ const Login: NextPage = () => {
                 flexDir: 'column',
                 alignItems: 'center',
                 width: 'xl',
+                gap: 'sm',
               })}
             >
               <Link weight="normal" href="/register">
