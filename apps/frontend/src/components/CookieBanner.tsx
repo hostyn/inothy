@@ -48,6 +48,7 @@ export default function CookieBanner(): JSX.Element {
         gap: 'sm',
         color: 'grey.600',
         maxW: 'calc(100vw - 2rem)',
+        zIndex: 1000,
       })}
     >
       <span
