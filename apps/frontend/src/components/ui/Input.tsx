@@ -132,7 +132,7 @@ function Input(
         <label
           className={css({
             position: 'absolute',
-            color: 'grey.400',
+            color: 'grey.500',
             top: '5px',
             left: 'calc(token(spacing.sm) - 2px)',
             transition: 'all 150ms ease',
@@ -147,7 +147,7 @@ function Input(
           <label
             className={css({
               position: 'absolute',
-              color: 'grey.400',
+              color: 'grey.500',
               top: 'sm',
               right: 'sm',
               transition: 'all 150ms ease',
