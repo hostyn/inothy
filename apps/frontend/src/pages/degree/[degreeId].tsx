@@ -38,13 +38,20 @@ export const getServerSideProps = publicContentSSR(
       }
     }
 
-    await Promise.all([
-      helper.degree.getDocuments.prefetchInfinite({
-        degree: degreeId,
-        filters: {},
-      }),
-      helper.degree.getDegree.prefetch({ degree: degreeId }),
-    ])
+    const getDocumentsPromise = helper.degree.getDocuments.prefetchInfinite({
+      degree: degreeId,
+      filters: {},
+    })
+
+    const degree = await helper.degree.getDegree.fetch({ degree: degreeId })
+
+    if (degree == null) {
+      return {
+        notFound: true,
+      }
+    }
+
+    await getDocumentsPromise
 
     return {
       props: { degreeId },
