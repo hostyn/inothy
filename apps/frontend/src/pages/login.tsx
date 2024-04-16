@@ -18,7 +18,6 @@ import { toastError } from '@services/toaster'
 import { useState } from 'react'
 import Spinner from '@components/Spinner'
 import authContent from '@middleware/authContent'
-import { useRouter } from 'next/router'
 import OAuthProviders from '@components/OAuthProviders'
 import { usePostHog } from 'posthog-js/react'
 
@@ -46,7 +45,6 @@ const Login: NextPage = () => {
   const [loading, setLoading] = useState(false)
 
   const posthog = usePostHog()
-  const { push } = useRouter()
   const {
     register,
     handleSubmit,
@@ -66,7 +64,6 @@ const Login: NextPage = () => {
     try {
       setLoading(true)
       await signInWithEmailAndPassword(auth, email, password)
-      await push('/')
       posthog.capture('user_logged_in', {
         email,
       })

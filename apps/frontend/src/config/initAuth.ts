@@ -19,8 +19,21 @@ const FIREBASE_ADMIN_CREDENTIALS = JSON.parse(
 
 const initAuth = (): void => {
   init({
-    authPageURL: '/login',
-    appPageURL: '/',
+    authPageURL: ({ ctx }) => {
+      const url =
+        typeof window === 'undefined'
+          ? new URL(ctx.resolvedUrl, process.env.NEXT_PUBLIC_FRONTEND_URL)
+          : new URL(window.location.href)
+      return `/login?destination=${encodeURIComponent(url.pathname)}`
+    },
+    appPageURL: ({ ctx }) => {
+      const url =
+        typeof window === 'undefined'
+          ? new URL(ctx.resolvedUrl, process.env.NEXT_PUBLIC_FRONTEND_URL)
+          : new URL(window.location.href)
+
+      return url.searchParams.get('destination') ?? '/'
+    },
     loginAPIEndpoint: '/api/login',
     logoutAPIEndpoint: '/api/logout',
     firebaseAdminInitConfig: {

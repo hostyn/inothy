@@ -15,7 +15,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import Spinner from '@components/Spinner'
 import authContent from '@middleware/authContent'
-import { useRouter } from 'next/router'
 import OAuthProviders from '@components/OAuthProviders'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@config/firebase'
@@ -55,7 +54,6 @@ const Register: NextPage = () => {
   const [loading, setLoading] = useState(false)
 
   const posthog = usePostHog()
-  const { push } = useRouter()
   const {
     register,
     handleSubmit,
@@ -75,7 +73,6 @@ const Register: NextPage = () => {
     try {
       setLoading(true)
       await createUserWithEmailAndPassword(auth, email, password)
-      await push('/')
       posthog.capture('user_signed_up', {
         email,
       })
