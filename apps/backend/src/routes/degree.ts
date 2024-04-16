@@ -10,80 +10,85 @@ export const degreeRouter = createTRPCRouter({
       })
     )
     .query(async ({ ctx, input }) => {
-      const subjectsWithDocumentsPromise = ctx.prisma.document.groupBy({
-        by: ['subjectId'],
-        where: {
-          subject: {
-            subjectsWithYear: {
-              some: {
-                degreeId: input.degree,
-              },
-            },
-          },
-        },
-
-        _count: true,
-      })
-
-      const degreePromise = ctx.prisma.degree.findUnique({
-        where: {
-          id: input.degree,
-        },
-
-        select: {
-          id: true,
-          name: true,
-          school: {
-            select: {
-              name: true,
-              university: {
-                select: {
-                  name: true,
-                  logoUrl: true,
+      try {
+        const subjectsWithDocumentsPromise = ctx.prisma.document.groupBy({
+          by: ['subjectId'],
+          where: {
+            subject: {
+              subjectsWithYear: {
+                some: {
+                  degreeId: input.degree,
                 },
               },
             },
           },
-          subjects: {
-            orderBy: {
-              subject: {
-                code: 'asc',
+
+          _count: true,
+        })
+
+        const degreePromise = ctx.prisma.degree.findUnique({
+          where: {
+            id: input.degree,
+          },
+
+          select: {
+            id: true,
+            name: true,
+            school: {
+              select: {
+                name: true,
+                university: {
+                  select: {
+                    name: true,
+                    logoUrl: true,
+                  },
+                },
               },
             },
-            select: {
-              year: true,
-              subject: {
-                select: {
-                  id: true,
-                  name: true,
-                  code: true,
+            subjects: {
+              orderBy: {
+                subject: {
+                  code: 'asc',
+                },
+              },
+              select: {
+                year: true,
+                subject: {
+                  select: {
+                    id: true,
+                    name: true,
+                    code: true,
+                  },
                 },
               },
             },
           },
-        },
-      })
+        })
 
-      const indexedSubjectsWithDocuments: Record<string, number> = {}
-      const subjectsWithDocuments = await subjectsWithDocumentsPromise
+        const indexedSubjectsWithDocuments: Record<string, number> = {}
+        const subjectsWithDocuments = await subjectsWithDocumentsPromise
 
-      subjectsWithDocuments.forEach(subject => {
-        indexedSubjectsWithDocuments[subject.subjectId] = subject._count
-      })
+        subjectsWithDocuments.forEach(subject => {
+          indexedSubjectsWithDocuments[subject.subjectId] = subject._count
+        })
 
-      const degree = await degreePromise
+        const degree = await degreePromise
 
-      return {
-        ...degree,
-        subjects: degree?.subjects
-          .filter(
-            subject => indexedSubjectsWithDocuments[subject.subject.id] != null
-          )
-          .map(subject => ({
-            ...subject.subject,
-            year: subject.year,
-            documentsCount: indexedSubjectsWithDocuments[subject.subject.id],
-          })),
+        return {
+          ...degree,
+          subjects: degree?.subjects
+            .filter(
+              subject =>
+                indexedSubjectsWithDocuments[subject.subject.id] != null
+            )
+            .map(subject => ({
+              ...subject.subject,
+              year: subject.year,
+              documentsCount: indexedSubjectsWithDocuments[subject.subject.id],
+            })),
+        }
+      } catch {
+        return null
       }
     }),
 
@@ -130,122 +135,126 @@ export const degreeRouter = createTRPCRouter({
       })
     )
     .query(async ({ ctx, input }) => {
-      const limit = 20
+      try {
+        const limit = 20
 
-      const documentsCountPromise = ctx.prisma.document.count({
-        where: {
-          byHand: input.filters?.byHand,
-          documentType: {
-            name: {
-              in: input.filters?.documentTypes,
-            },
-          },
-          subject: {
-            id: {
-              in: input.filters?.subjects,
-            },
-
-            subjectsWithYear: {
-              some: {
-                degreeId: input.degree,
+        const documentsCountPromise = ctx.prisma.document.count({
+          where: {
+            byHand: input.filters?.byHand,
+            documentType: {
+              name: {
+                in: input.filters?.documentTypes,
               },
             },
-          },
-        },
-      })
-
-      const documents = await ctx.prisma.document.findMany({
-        cursor: input.cursor != null ? { id: input.cursor } : undefined,
-        take: limit + 1,
-        where: {
-          byHand: input.filters?.byHand,
-          documentType: {
-            name: {
-              in: input.filters?.documentTypes,
-            },
-          },
-          subject: {
-            id: {
-              in: input.filters?.subjects,
-            },
-
-            subjectsWithYear: {
-              some: {
-                degreeId: input.degree,
+            subject: {
+              id: {
+                in: input.filters?.subjects,
               },
-            },
-          },
-        },
 
-        orderBy: {
-          ratingCount: 'desc',
-        },
-
-        select: {
-          id: true,
-          description: true,
-          title: true,
-          price: true,
-          contentType: true,
-          user: {
-            select: {
-              username: true,
-              uid: true,
-              avatarUrl: true,
-              isAcademy: true,
-              isProfessor: true,
-            },
-          },
-          documentType: {
-            select: {
-              name: true,
-            },
-          },
-          byHand: true,
-          ratingSum: true,
-          ratingCount: true,
-          calification: true,
-          professor: true,
-          year: true,
-          previewPdfUrl: true,
-          previewImageUrl: true,
-          subject: {
-            select: {
-              university: {
-                select: {
-                  name: true,
+              subjectsWithYear: {
+                some: {
+                  degreeId: input.degree,
                 },
               },
-              code: true,
-              name: true,
-              id: true,
             },
           },
-          documentTransactions: {
-            where: {
-              user: {
-                uid: ctx.user.id ?? '',
+        })
+
+        const documents = await ctx.prisma.document.findMany({
+          cursor: input.cursor != null ? { id: input.cursor } : undefined,
+          take: limit + 1,
+          where: {
+            byHand: input.filters?.byHand,
+            documentType: {
+              name: {
+                in: input.filters?.documentTypes,
               },
-              success: true,
+            },
+            subject: {
+              id: {
+                in: input.filters?.subjects,
+              },
+
+              subjectsWithYear: {
+                some: {
+                  degreeId: input.degree,
+                },
+              },
             },
           },
-        },
-      })
 
-      const nextCursor =
-        documents.length > limit ? documents.pop()?.id : undefined
+          orderBy: {
+            ratingCount: 'desc',
+          },
 
-      const parsedDocuments = documents.map(document => {
-        const { documentTransactions, ...rest } = document
+          select: {
+            id: true,
+            description: true,
+            title: true,
+            price: true,
+            contentType: true,
+            user: {
+              select: {
+                username: true,
+                uid: true,
+                avatarUrl: true,
+                isAcademy: true,
+                isProfessor: true,
+              },
+            },
+            documentType: {
+              select: {
+                name: true,
+              },
+            },
+            byHand: true,
+            ratingSum: true,
+            ratingCount: true,
+            calification: true,
+            professor: true,
+            year: true,
+            previewPdfUrl: true,
+            previewImageUrl: true,
+            subject: {
+              select: {
+                university: {
+                  select: {
+                    name: true,
+                  },
+                },
+                code: true,
+                name: true,
+                id: true,
+              },
+            },
+            documentTransactions: {
+              where: {
+                user: {
+                  uid: ctx.user.id ?? '',
+                },
+                success: true,
+              },
+            },
+          },
+        })
 
-        return {
-          ...rest,
-          bought: documentTransactions.length > 0,
-        }
-      })
+        const nextCursor =
+          documents.length > limit ? documents.pop()?.id : undefined
 
-      const documentsCount = await documentsCountPromise
+        const parsedDocuments = documents.map(document => {
+          const { documentTransactions, ...rest } = document
 
-      return { documents: parsedDocuments, documentsCount, nextCursor }
+          return {
+            ...rest,
+            bought: documentTransactions.length > 0,
+          }
+        })
+
+        const documentsCount = await documentsCountPromise
+
+        return { documents: parsedDocuments, documentsCount, nextCursor }
+      } catch {
+        return { documents: [], documentsCount: 0, nextCursor: null }
+      }
     }),
 })
