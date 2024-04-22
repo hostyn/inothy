@@ -39,8 +39,14 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
           content={`${process.env.NEXT_PUBLIC_FRONTEND_URL as string}/og.png`}
         ></meta>
 
-        <meta name="twitter:card" content="summary_large_image"></meta>
-        <meta property="twitter:domain" content="vercel.com"></meta>
+        <meta
+          name="twitter:card"
+          content={`${process.env.NEXT_PUBLIC_FRONTEND_URL as string}/og.png`}
+        ></meta>
+        <meta
+          property="twitter:domain"
+          content={process.env.NEXT_PUBLIC_FRONTEND_URL}
+        ></meta>
         <meta
           property="twitter:url"
           content={process.env.NEXT_PUBLIC_FRONTEND_URL}
