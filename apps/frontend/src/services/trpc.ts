@@ -4,11 +4,10 @@ import { createTRPCNext } from '@trpc/next'
 import superjson from 'superjson'
 
 const getBaseUrl = (): string => {
-  if (typeof window !== 'undefined') return '' // browser should use relative url
-  // eslint-disable-next-line turbo/no-undeclared-env-vars
-  if (process.env.VERCEL_URL != null) return `https://${process.env.VERCEL_URL}` // SSR should use vercel url
-
-  return `http://localhost:3000` // dev SSR should use localhost
+  if (typeof window !== 'undefined') return ''
+  if (process.env.NEXT_PUBLIC_FRONTEND_URL != null)
+    return process.env.NEXT_PUBLIC_FRONTEND_URL
+  return `http://localhost:3000`
 }
 
 export const trpc = createTRPCNext<AppRouter>({
