@@ -42,6 +42,16 @@ module.exports = {
         destination: createUTM('youtube', 'bio', 'none'),
         permanent: false,
       },
+      {
+        source: '/li',
+        destination: createUTM('linkedin', 'direct_messsage', 'get_sellers'),
+        permanent: false,
+      },
+      {
+        source: '/rl',
+        destination: createUTM('linkedin', 'post', 'ruben_linkedin_post'),
+        permanent: false,
+      },
     ]
   },
 }
