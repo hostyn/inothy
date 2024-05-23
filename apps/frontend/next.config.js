@@ -52,6 +52,11 @@ module.exports = {
         destination: createUTM('linkedin', 'post', 'ruben_linkedin_post'),
         permanent: false,
       },
+      {
+        source: '/ij',
+        destination: createUTM('instagram', 'direct_messsage', 'get_sellers'),
+        permanent: false,
+      },
     ]
   },
 }
